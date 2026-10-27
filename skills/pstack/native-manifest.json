@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "adapterVersion": "plugin-1.2.7",
+  "adapterVersion": "plugin-1.2.8",
   "files": [
     {
       "path": "ADAPTATION.md",

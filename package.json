@@ -1,6 +1,6 @@
 {
   "name": "@fuller-stack-dev/openclaw-pstack",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "description": "Exact-session workflow mode, role routing, and source-attributed pstack guidance for OpenClaw",
   "license": "MIT",
   "files": [

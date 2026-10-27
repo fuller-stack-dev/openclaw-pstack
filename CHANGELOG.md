@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.8 — 2026-10-27
+
+- First public ClawHub release, published from the public repository. No code changes from 1.2.7; the earlier unreviewed ClawHub uploads (1.2.5–1.2.7) were withdrawn and their version numbers stay reserved.
+
 ## 1.2.7 — 2026-10-27
 
 - Rename the plugin display name to `openclaw-pstack`; keep plugin id pstack, package identity, commands and tools unchanged.

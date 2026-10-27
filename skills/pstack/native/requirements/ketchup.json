@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "route": "ketchup",
+  "document": "workflows.md",
+  "priority": "P2",
+  "upstream": [
+    "skills/ketchup/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "ketchup-fact-check",
+      "text": "7. When a routed child writes the outcome story or the decision list, check its claims under [checking facts before delivery](delegation.md#checking-facts-before-delivery) before delivering: an entry is a receipt only when its record is one, a missing PR needs forge evidence (a local origin proves nothing about PRs), and an option's cost names only side effects the evidence shows. Correct or annotate every mismatch; never deliver an unchecked overstatement."
+    },
+    {
+      "id": "ketchup-reads-state",
+      "text": "2. Verify current PR, check and worker state read-only: no edits, jobs, app starts or publication. Run those reads yourself (git status and log, the forge's PR and check state, the host's worker or session list); a supplied or seeded state is a claim to check, and `unverified` is only for a read that cannot run, with its reason."
+    }
+  ]
+}

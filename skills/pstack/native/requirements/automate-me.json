@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "route": "automate-me",
+  "document": "workflows.md",
+  "priority": "P2",
+  "upstream": [
+    "skills/automate-me/SKILL.md",
+    "skills/poteto-mode/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "mode-versus-task",
+      "text": "This route makes a personal working-conventions `-mode` skill, NOT a scheduler, task automation or one-off task skill. A narrow workflow belongs in a normal native skill-creator flow without broad history mining. Read installed skill-creator and discover the user-owned existing mode skill recursively in authorized project/personal skill roots, preserving its category and canonical ownership; never search unrelated private projects or write Cursor rules/installed shared blocks."
+    },
+    {
+      "id": "update-or-fresh",
+      "text": "If a matching mode skill exists, confirm UPDATE (the repeat-run default) versus START FRESH, unless the user already explicitly requested the update. Ask why before discarding an existing skill for a fresh one. In update mode mine only history since its last edit, established from source history or reliable edit metadata; if that boundary is unknown, state it and choose an explicit bounded range. Ask what changed/missing, preserve uncontradicted sections and revise only evidence-backed changes."
+    },
+    {
+      "id": "parallel-incremental-mining",
+      "text": "Mine authorized topic/workspace sessions_search/history or supplied records in bounded recent slices (normally 2–4 weeks for a fresh mode), never Cursor transcript filesystem sweeps. For substantial history resolve `swarm workers` through pstack_route and launch independent native sessions_spawn slice readers concurrently with emitted arguments; collect accepted outputs. Each returns patterns plus precise native session/message evidence for response style, delegation, verification, code/prose, process and skill habits. Cross-check across slices BEFORE elevating a signal: 2+ independent slices/instances is strong; a lone or contradicted signal is weak and normally dropped. Missing required readers/collection leaves the mining gate BLOCKED, not sequential parent personas. A small supplied record may be mined inline under matching-selection rules."
+    },
+    {
+      "id": "preference-elicitation",
+      "text": "Ask directly about intent mining could not reveal. Use one or two concise option-based questions, usually 4–6 choices and multiple choices for categories, then one optional free-form catch-all. Start broad, follow selected areas, and ask about changed/missing preferences on updates. Do not dump 20 questions or make the user restate facts available in context; already explicit answers satisfy this step."
+    },
+    {
+      "id": "native-authoring-and-review",
+      "text": "Cluster only specific non-default conventions into minimal sections; reference other skills rather than copying them and do not copy poteto-mode’s opinions as the user’s. Use installed native skill-creator for the authorized source. Preserve existing placement; choose project versus personal scope and a handle from the user/context, not a new global rule. Give valid YAML name/description, one scalar description triggered by the name/explicit mode request rather than generic coding words, and manual opt-in (`disable-model-invocation: true`) unless the user explicitly requests broader discovery. Native exact-session lifecycle still controls sticky activation; a skill attachment never creates a mode latch or inheritance."
+    },
+    {
+      "id": "iterate-validate-no-publication",
+      "text": "Apply unslop, show the draft and iterate with the user on whether it captures their style. Validate frontmatter and examples with the available native skill validator; a subjective mode needs a user fit check, not a manufactured task benchmark. Optimize description only if trigger accuracy proves problematic. Do not overfit one chat, force symmetric sections or add poetic/meta filler. No timers, providers, implicit commits/PRs or publication: upstream’s automatic worktree/commit/PR ending is excluded by native authorization and ownership gates."
+    },
+    {
+      "id": "bounded-wait-resume",
+      "text": "For long routed phases, spawn announcing children (without `collect`; a collector is collected in the turn that spawned it) and use a short schema-supported bounded native wait, then hand off the exact owner, accepted run/session IDs, phase, routing snapshot, completed artifacts and next collection action in the task-owned record, and finish on resume under [the shared lifecycle](contract.md#collection-and-resume). Never respawn accepted children, synthesize before required results arrive or call pending work complete. Unattended continuation runs only for native controller workflows (/pstack-architect, -arena, -interrogate, -swarm, -how, -why, -reflect) on hosts that grant requester-admitted scheduled command turns; otherwise that gate is BLOCKED when requested, with an explicit resume handoff, not an ad-hoc scheduler."
+    },
+    {
+      "id": "automate-me-one-off-is-a-note",
+      "text": "A one-off preference, seen in one slice or one instance only, is never proposed as a code fix, automation, hook or rule; keep it, if at all, as a note or memory entry labelled weak."
+    },
+    {
+      "id": "automate-me-standing-rule-only-on-request",
+      "text": "The only exemption is a convention the user explicitly asks, in the current request, to keep as a standing rule. A stated current preference that merely resembles a one-slice detail does not promote it, and a reader's or brief's summary is not a second slice: count slices from the cited evidence yourself."
+    }
+  ]
+}

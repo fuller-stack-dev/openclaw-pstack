@@ -1,0 +1,70 @@
+{
+  "id": "pstack",
+  "name": "openclaw-pstack",
+  "version": "1.2.7",
+  "description": "Pstack owns workflow; OpenClaw owns secure execution.",
+  "categories": [
+    "developer-tools"
+  ],
+  "skills": [
+    "./skills/pstack",
+    "./skills/poteto-mode",
+    "./skills/routes"
+  ],
+  "activation": {
+    "onStartup": true
+  },
+  "cliCommands": [
+    {
+      "name": "pstack",
+      "description": "Integrity and one-time legacy state import",
+      "hasSubcommands": true
+    }
+  ],
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "bareRouteAliases": {
+        "type": "boolean",
+        "default": false,
+        "description": "Explicitly opt in to the 55 bare route names; native host collision/reserved-name checks remain authoritative. Never enables loop or other native extensions."
+      },
+      "nativeWaitSeconds": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 30,
+        "default": 20,
+        "description": "Bounded wait, in seconds, a native controller command spends collecting pending children before it hands off to /pstack resume or a scheduled continuation."
+      },
+      "trailInRestrictedSessions": {
+        "type": "boolean",
+        "default": false,
+        "description": "Let the optional pstack_trail append in sessions whose filesystem policy is workspaceOnly or unknown. The host does not tell plugin tools about read-only permission mode, so enable this only when no read-only session can call pstack_trail."
+      }
+    }
+  },
+  "contracts": {
+    "commandRuntimeCapabilities": ["subagents", "scheduledTurns"],
+    "sessionScheduledTurns": ["requester-command"],
+    "subagentProfiles": ["comment-sicko", "poteto-agent", "panel-reviewer", "panel-judge"],
+    "tools": [
+      "pstack_route",
+      "pstack_workflow",
+      "pstack_plan_check",
+      "pstack_brief",
+      "pstack_trail",
+      "pstack_worktree_audit"
+    ]
+  },
+  "toolMetadata": {
+    "pstack_trail": {
+      "optional": true,
+      "sideEffecting": true
+    },
+    "pstack_worktree_audit": {
+      "optional": true,
+      "replaySafe": true
+    }
+  }
+}

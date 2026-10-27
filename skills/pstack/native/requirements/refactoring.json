@@ -1,0 +1,133 @@
+{
+  "schema": 1,
+  "route": "refactoring",
+  "document": "playbooks.md",
+  "priority": "P1",
+  "upstream": [
+    "skills/poteto-mode/SKILL.md",
+    "skills/poteto-mode/playbooks/refactoring.md",
+    "skills/architect/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "refactoring-01",
+      "text": "Own the behavior contract."
+    },
+    {
+      "id": "refactoring-02",
+      "text": "Structural change must not add behavior."
+    },
+    {
+      "id": "refactoring-03",
+      "text": "Split a newly found bug or feature out; call a redesign a feature."
+    },
+    {
+      "id": "refactoring-04",
+      "text": "Large cross-cutting work uses [figure-it-out](workflows.md#figure-it-out)."
+    },
+    {
+      "id": "refactoring-05",
+      "text": "Run [how](workflows.md#how)."
+    },
+    {
+      "id": "refactoring-06",
+      "text": "Before any structural edit, write and run a passing characterization test, snapshot, or old-versus-new equivalence harness that pins current behavior."
+    },
+    {
+      "id": "refactoring-07",
+      "text": "Uncovered code needs the pin first."
+    },
+    {
+      "id": "refactoring-08",
+      "text": "Typecheck and lint are not a behavioral pin."
+    },
+    {
+      "id": "refactoring-09",
+      "text": "Without a passing pin, the structural-edit gate is BLOCKED."
+    },
+    {
+      "id": "refactoring-10",
+      "text": "Name the missing structure and target module layout, types, and call graph."
+    },
+    {
+      "id": "refactoring-11",
+      "text": "A reshape must remove branches, invalid states, or reader work rather than add indirection."
+    },
+    {
+      "id": "refactoring-12",
+      "text": "Keep boring code whose shape is already clear."
+    },
+    {
+      "id": "refactoring-13",
+      "text": "If the target crosses a function boundary, complete [architect](workflows.md#architect) before the move."
+    },
+    {
+      "id": "refactoring-14",
+      "text": "Subtract dead code, one-caller wrappers, redundant validation, and orphan references before adding shape."
+    },
+    {
+      "id": "refactoring-15",
+      "text": "Resolve `feature, refactoring` through `pstack_route`; use emitted native `sessions_spawn` arguments for scoped mechanical edits naming paths, moved symbols, and the behavior held."
+    },
+    {
+      "id": "refactoring-16",
+      "text": "Required delegation or design that cannot run is BLOCKED, never a parent-only substitute."
+    },
+    {
+      "id": "refactoring-17",
+      "text": "Move in small green steps."
+    },
+    {
+      "id": "refactoring-18",
+      "text": "Migrate every actual caller and delete the old API in the same wave; do not retain parallel old and new paths or compatibility shims."
+    },
+    {
+      "id": "refactoring-19",
+      "text": "Check renames in strings, docs, and back-references against actual files."
+    },
+    {
+      "id": "refactoring-20",
+      "text": "Revert speculative cleanup."
+    },
+    {
+      "id": "refactoring-21",
+      "text": "Run the pin after each step and prove unchanged behavior on the real artifact."
+    },
+    {
+      "id": "refactoring-22",
+      "text": "Larger reshapes also need output equivalence, recorded-baseline replay, or a matching-surface smoke check."
+    },
+    {
+      "id": "refactoring-23",
+      "text": "Audit every touched full file and consumer."
+    },
+    {
+      "id": "refactoring-24",
+      "text": "Keep the change only if it lowers reader load somewhere; otherwise revert it even if tests pass."
+    },
+    {
+      "id": "refactoring-25",
+      "text": "With authority, arrange small ordered green commits for subtraction, reshape, and follow-on cleanup."
+    },
+    {
+      "id": "refactoring-26",
+      "text": "Publication is separate under [opening-a-pr](#opening-a-pr)."
+    },
+    {
+      "id": "refactoring-27",
+      "text": "**Reply.** Changed structure, behavioral pin and its green result, equivalence proof, concrete reader-load reduction, and what was retained or reverted."
+    },
+    {
+      "id": "refactoring-28",
+      "text": "No new behavior."
+    },
+    {
+      "id": "refactoring-commits",
+      "text": "7. When the user has granted local commit authority, the small ordered green commits are REQUIRED before the reply: subtraction, reshape and follow-on cleanup each in its own commit, with the pin green at each, listed by hash and subject in the reply. Verified steps left uncommitted under commit authority fail this gate. Without commit authority, say so."
+    },
+    {
+      "id": "refactoring-distinct-shapes",
+      "text": "8. Design alternatives must differ in shape: in module boundaries, data shape or call graph, not only in names or placement. If two packages choose the same shape, reframe before any move: name the assumption they share, drop or invert it, and rerun the design once. Record the reframe and both shapes in the reply."
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "route": "benchmark-checklist",
+  "document": "workflows.md",
+  "priority": "P2",
+  "upstream": [
+    "skills/benchmark-checklist/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "claim-and-timing-boundary",
+      "text": "Before running, write the exact claim you expect to ship, units, workload/data size/concurrency, build/config/versions, timed boundary and expected result. Read the measurement script for what it times/counts/ignores, and inspect host load/core count with platform-appropriate tools. If load cannot be controlled, interleave equivalent sides and disclose the noise. A choice between options is NEVER a one-run ballpark."
+    },
+    {
+      "id": "limiter-and-fair-tuning",
+      "text": "Name the actual limiter and map it to source using a SEPARATE untimed profiling/instrumentation run; watch the load generator too. Tune EVERY side as production would: release build, flags, batching/transactions, pools, caches, versions and equivalent data. A setting-bound side is untuned; tune and rerun before picking a winner, or mark the comparison INCONCLUSIVE. Narrowing a claim to today’s defaults does not justify an adoption recommendation from an unfair comparison."
+    },
+    {
+      "id": "errors-work-and-limits",
+      "text": "Count failures, non-success responses, retries and timeouts and verify output correctness. Prove the expected work ACTUALLY completed INSIDE the timed region: awaited/consumed results, real requests/rows/bytes and no hidden cache/no-op. Check bandwidth, core-time/operation cost and the maximum saving allowed by the changed component’s measured share. An impossible result signals the wrong work, cache or bug, not a speedup."
+    },
+    {
+      "id": "repeatability",
+      "text": "Run at least FIVE equivalent runs PER SIDE, alternating A/B so warmup, lazy initialization, caches and drift favor neither; report median and range. A gap within run-to-run variation is no measurable difference; use appropriate harness statistics/rank comparison when close. Only an explicitly requested quick ballpark may use ONE run labeled as such, still checking errors/output correctness and that work actually happened; do the fuller checks if it looks wrong."
+    },
+    {
+      "id": "end-to-end-share",
+      "text": "Alongside EVERY micro result, MEASURE the end-to-end path the user waits on with realistic data sizes and concurrency, and report the micro component’s MEASURED SHARE of that whole. An assumed share or a micro speedup alone does not prove user impact. If end-to-end measurement is unavailable or omitted under the explicit ballpark exception, label end-to-end relevance UNVERIFIED with the missing measurement and do not claim a user-visible speedup; keep any valid micro observation separate."
+    },
+    {
+      "id": "measurement-verdict",
+      "text": "Lead with faster, slower, no measurable difference or INCONCLUSIVE, giving units, run count, median/range and limiter with resolving evidence. A claimed difference without a named limiter, an untuned side, or unchecked errors/work MUST be inconclusive. Keep broader relevance gaps explicit. Use this checklist before accepting a perf baseline/hillclimb harness and every measured delta. A PR body gets one primary number with full runs/profiles/error counts linked in an authorized artifact, not dumped in prose; no implicit publication."
+    }
+  ]
+}

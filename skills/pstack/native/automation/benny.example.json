@@ -1,0 +1,19 @@
+{
+  "phase": "triage",
+  "ownerSessionKey": "REQUIRED_EXISTING_NON_MAIN_OWNER",
+  "sourceChannelId": "REQUIRED_SOURCE_CHANNEL",
+  "triageIdentity": "REQUIRED_AUTHENTICATED_TRIAGE_AUTHOR",
+  "repository": "REQUIRED_REPOSITORY",
+  "defaultBranch": "REQUIRED_BRANCH",
+  "configPath": "REQUIRED_USER_OWNED_CONFIG_PATH",
+  "featureMapPath": "REQUIRED_COMPLETED_FEATURE_MAP",
+  "controlSkill": "REQUIRED_CONTROL_SKILL",
+  "transport": {"kind": "poll", "server": "REQUIRED_VERIFIED_MCP_SERVER", "tool": "REQUIRED_NORMALIZED_READ_ONLY_EVENT_TOOL", "interval": "1m"},
+  "actions": {"threadRead": "REQUIRED", "threadReply": "REQUIRED", "attachmentRead": "REQUIRED", "trackerSearch": "REQUIRED", "trackerRead": "REQUIRED", "trackerCreate": "REQUIRED", "trackerUpdate": "REQUIRED", "trackerCompensate": "REQUIRED", "repositoryRead": "REQUIRED", "control": "REQUIRED", "draftPullRequest": "REQUIRED"},
+  "toolsAllow": [],
+  "permissions": {"threadReplies": false, "trackerWrites": false, "codeEdits": false, "draftPullRequests": false},
+  "budgets": {"triageMinutes": 30, "reproMinutes": 60, "fixMinutes": 90, "verdictMinutes": 45, "rejectionMinutes": 10, "followupMinutes": 10},
+  "safeEnvironment": "REQUIRED_NON_PRODUCTION_TARGET",
+  "artifactDirectory": "REQUIRED_OUTSIDE_REPOSITORY",
+  "artifactRetentionHours": 24
+}

@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "route": "correct",
+  "document": "workflows.md",
+  "priority": "P1",
+  "upstream": [
+    "skills/correct/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "twice-observed",
+      "text": "Read recent commits, reverts, review comments, agent instruction files and workaround comments; group concrete mistakes into classes with evidence. A class qualifies after it has happened AT LEAST TWICE. If the operator repeats an existing unenforced rule, that is a repeat requiring structural remediation in this change. An isolated incident is not silently relabeled a repeated class."
+    },
+    {
+      "id": "enforcement-ladder",
+      "text": "Fix the most frequent qualified classes at the highest effective level: eliminate the mistake architecturally (one state owner, one supported way, inaccessible internals, derived lists, delete dead legacy examples), then types, then an actionable lint/CI diagnostic naming the right file/type/function, then behavioral tests, and docs only for judgment no mechanism can enforce. For an already-widespread pattern, a ratchet may reject new instances without blocking on all historical cleanup. Explain why any higher level cannot work."
+    },
+    {
+      "id": "proof-ci",
+      "text": "Prove EVERY new check fails on a real past mistake and accepts correct behavior in isolated fixtures. Run the SAME check command locally and in CI; if CI wiring/execution is unavailable, report that gate BLOCKED rather than claiming enforcement. Audit touched tests in full; replace/delete tests that pass when behavior breaks or fail on internal-only changes, retaining required behavioral coverage."
+    },
+    {
+      "id": "exceptions",
+      "text": "Exceptions live on the offending line with a reason, expiry date and HUMAN approval; no self-approved waiver. Separate each class into a reviewable unit (one commit per class only when commits are authorized). Fix assigned scope without bypassing independent review, holds, deployment or publication gates."
+    },
+    {
+      "id": "rule-enforcer-table",
+      "text": "Maintain a MANDATORY rule → enforcer table in the repository’s AGENTS.md (or its authoritative agent instruction file), linking each rule to the actual architecture/type/check/test that enforces it. Every operator correction fixes the mistake and updates that table; an already-present but unenforced rule triggers the higher-level fix in the SAME change. Drop a redundant rule once the mistake is structurally impossible. If instruction-file edits are outside authority, report that table gate BLOCKED, never optional."
+    },
+    {
+      "id": "report",
+      "text": "Return each qualified class with its two-or-more evidence points, chosen enforcement level, why higher levels did not work, historical fail/correct-pass proof, exact local/CI command/results, rule-table path and remaining blockers. Do not present prose-only instructions as mechanical enforcement."
+    }
+  ]
+}

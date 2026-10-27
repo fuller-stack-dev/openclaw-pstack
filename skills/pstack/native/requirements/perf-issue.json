@@ -1,0 +1,102 @@
+{
+  "schema": 1,
+  "route": "perf-issue",
+  "document": "playbooks.md",
+  "priority": "P1",
+  "upstream": [
+    "skills/poteto-mode/SKILL.md",
+    "skills/poteto-mode/playbooks/perf-issue.md",
+    "skills/benchmark-checklist/SKILL.md",
+    "skills/architect/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "perf-issue-01",
+      "text": "Own the measurement story."
+    },
+    {
+      "id": "perf-issue-02",
+      "text": "A sustained metric-improvement loop uses [hillclimb](#hillclimb), not this one-off fix."
+    },
+    {
+      "id": "perf-issue-03",
+      "text": "Capture a baseline trace on the matching authorized control surface."
+    },
+    {
+      "id": "perf-issue-04",
+      "text": "Vet the baseline and every reported number with [benchmark-checklist](workflows.md#benchmark-checklist)."
+    },
+    {
+      "id": "perf-issue-05",
+      "text": "Profile outside reported measurement runs."
+    },
+    {
+      "id": "perf-issue-06",
+      "text": "Pin workload, versions, tuning, error counts, and completed work."
+    },
+    {
+      "id": "perf-issue-07",
+      "text": "Run [how](workflows.md#how) to ground mechanism-specific hypotheses."
+    },
+    {
+      "id": "perf-issue-08",
+      "text": "Try the performance mantras in order, cheapest first: stop unused work; do it without repeating it; do it less; do it later; do it when the user is not waiting; do it concurrently; do it cheaper."
+    },
+    {
+      "id": "perf-issue-09",
+      "text": "Stop when an earlier mantra meets the target."
+    },
+    {
+      "id": "perf-issue-10",
+      "text": "Do not claim a ceiling without running the workload."
+    },
+    {
+      "id": "perf-issue-11",
+      "text": "Plan from the trace."
+    },
+    {
+      "id": "perf-issue-12",
+      "text": "A change crossing a function boundary completes [architect](workflows.md#architect) first."
+    },
+    {
+      "id": "perf-issue-13",
+      "text": "Resolve `perf-issue` with `pstack_route` and give a scoped owner the emitted native `sessions_spawn` arguments."
+    },
+    {
+      "id": "perf-issue-14",
+      "text": "Review its diff yourself."
+    },
+    {
+      "id": "perf-issue-15",
+      "text": "Required independent phases that cannot run are BLOCKED, not sequential parent substitutes."
+    },
+    {
+      "id": "perf-issue-16",
+      "text": "Verify each attempt before the next."
+    },
+    {
+      "id": "perf-issue-17",
+      "text": "Capture a post-fix trace under the same conditions, parse both artifacts into queryable measurements, and compare them."
+    },
+    {
+      "id": "perf-issue-18",
+      "text": "Re-run correctness gates and equivalent interleaved samples, including the end-to-end path and the changed component's share."
+    },
+    {
+      "id": "perf-issue-19",
+      "text": "No measured delta is established by code inspection, a missing artifact, an inconclusive result, or the wrong surface."
+    },
+    {
+      "id": "perf-issue-20",
+      "text": "Cite the measurement and linked artifacts in the PR only when publication is authorized under [opening-a-pr](#opening-a-pr)."
+    },
+    {
+      "id": "perf-issue-21",
+      "text": "**Reply.** Baseline, post-fix value, units, delta, run count and spread, limiter, and both trace or comparison artifact paths."
+    },
+    {
+      "id": "perf-issue-22",
+      "text": "State inconclusive and its cause when the number is not supported."
+    }
+  ]
+}

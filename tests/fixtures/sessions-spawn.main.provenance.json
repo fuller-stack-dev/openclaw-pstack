@@ -1,0 +1,49 @@
+{
+  "repository": "openclaw/openclaw",
+  "ref": "main",
+  "commit": "74cb12dd2c7597f0d9a388b94bb2b776cac6db25",
+  "method": "Construct createSessionsSpawnTool(options) and createAgentsWaitTool(options), then finalizeAgentToolAvailability([spawnTool, waitTool]); JSON.parse(JSON.stringify(spawnTool.parameters)) from immutable pinned source using the host source resolver; neither tool.execute is called",
+  "options": {
+    "config": {
+      "acp": {
+        "enabled": false
+      },
+      "tools": {
+        "swarm": {
+          "enabled": true
+        }
+      }
+    }
+  },
+  "schemaSha256": "9e27799ca9ce5f4135385257d6dff520ec9b40b1d42a1b6140dd5a180ea9bcd6",
+  "sourceFiles": [
+    {
+      "path": "src/agents/tools/sessions-spawn-tool.ts",
+      "sha256": "e5fd7df4fbd1b4f1337918c8a2aec899ade26fa347d39b4d98fb88d60c2dfde4"
+    },
+    {
+      "path": "src/agents/tools/sessions-spawn-visible.schema.ts",
+      "sha256": "68c03337600574a48f0033375bf2ea892c922f5e7ab708aed9fc6989aea5dfff"
+    },
+    {
+      "path": "src/agents/schema/typebox.ts",
+      "sha256": "5c1f5261a086af9856f9a5c2a5ce36cc48c14e2a1f068cadf2b2ef62b5e89492"
+    },
+    {
+      "path": "src/agents/subagents/swarm/swarm-config.ts",
+      "sha256": "2185c19a21ef7a3a6d8283308137b9578d283f475bd198bd2431f32a104c29e0"
+    },
+    {
+      "path": "src/agents/subagents/swarm/swarm-collector-capability.ts",
+      "sha256": "91476b280730c5f1e9458bb16fbaff8aedafd7ed10068e455f614a239a7ed9f7"
+    },
+    {
+      "path": "src/agents/agent-tool-availability.ts",
+      "sha256": "930a871d87b588c0eed50c27793481d1195d0f18a2cb15e274fe3aaa35041b04"
+    },
+    {
+      "path": "src/agents/tools/agents-wait-tool.ts",
+      "sha256": "c54fc63d2b2eeafc7817c41abf680cb76669782b142ece3ea54ba7a89266fd83"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "route": "how",
+  "document": "workflows.md",
+  "priority": "P2",
+  "upstream": [
+    "skills/how/SKILL.md",
+    "skills/how/references/explorer-prompt.md",
+    "skills/how/references/explainer-prompt.md"
+  ],
+  "gates": [
+    {
+      "id": "complexity-branch",
+      "text": "Assess the question before dispatch. State a reasonable interpretation if scope is ambiguous. A single module, utility or narrow function question is SIMPLE: skip explorers and require ONE independent explainer that explores and explains in one pass. A multi-file/service subsystem, cross-cutting feature or full architectural overview is COMPLEX: require 2–4 distinct explorer slices, then ONE explainer. When in doubt, take the simple path; do not impose explorers on a small question."
+    },
+    {
+      "id": "explorer-wave",
+      "text": "For the complex path, resolve `how explorer` with pstack_route and launch the 2–4 independent read-only explorers concurrently through native sessions_spawn with emitted arguments and disjoint angles. Adapt the pinned source-only [explorer brief](../upstream/skills/how/references/explorer-prompt.md): original question, assigned angle, Components Found (types/services, paths and purpose), Flow (calls and data), Files Read, Boundaries, Non-Obvious Things and Open Questions. Trace real entry points, owners, callers and failure paths within the slice; do not edit code or hide gaps. Collect EVERY required explorer through its accepted native completion path before explanation."
+    },
+    {
+      "id": "independent-explainer",
+      "text": "Resolve `how explainer` with pstack_route and spawn ONE independent read-only native sessions_spawn explainer with emitted arguments on BOTH paths. Adapt the [explainer brief](../upstream/skills/how/references/explainer-prompt.md) with the original question and all collected explorer findings for complex work, or omit explorer findings for simple work. The explainer checks source to reconcile overlaps/contradictions and fill bounded gaps, not re-explore everything. Missing planning, a required explorer, the explainer or accepted collection leaves the named explanation gate BLOCKED; sequential parent exploration/prose never substitutes."
+    },
+    {
+      "id": "explanation-output",
+      "text": "Present the collected explainer output with only light clarity/context edits, not a substantial parent rewrite. Use applicable Overview, Key Concepts, How It Works, Where Things Live and Gotchas sections. Explain runtime flow in prose with exact file/symbol pointers, concrete data and decision points, a useful diagram when it clarifies multiple components, and explicit open questions. Keep it a working architectural mental model, not annotated source. No implementation; distinguish source reasoning from an observed runtime probe."
+    },
+    {
+      "id": "bounded-wait-resume",
+      "text": "For long routed phases, spawn announcing children (without `collect`; a collector is collected in the turn that spawned it) and use a short schema-supported bounded native wait, then hand off the exact owner, accepted run/session IDs, phase, routing snapshot, completed artifacts and next collection action in the task-owned record, and finish on resume under [the shared lifecycle](contract.md#collection-and-resume). Never respawn accepted children, synthesize before required results arrive or call pending work complete. Unattended continuation runs only for native controller workflows (/pstack-architect, -arena, -interrogate, -swarm, -how, -why, -reflect) on hosts that grant requester-admitted scheduled command turns; otherwise that gate is BLOCKED when requested, with an explicit resume handoff, not an ad-hoc scheduler."
+    }
+  ]
+}

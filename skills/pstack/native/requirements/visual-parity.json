@@ -1,0 +1,100 @@
+{
+  "schema": 1,
+  "route": "visual-parity",
+  "document": "playbooks.md",
+  "priority": "P1",
+  "upstream": [
+    "skills/poteto-mode/SKILL.md",
+    "skills/poteto-mode/playbooks/visual-parity.md"
+  ],
+  "gates": [
+    {
+      "id": "visual-parity-01",
+      "text": "The frozen baseline is the specification."
+    },
+    {
+      "id": "visual-parity-02",
+      "text": "Establish a visual-regression harness before migration, capturing current components across states and the target when matching implementations."
+    },
+    {
+      "id": "visual-parity-03",
+      "text": "Pin viewport, scale, fonts, data, and state."
+    },
+    {
+      "id": "visual-parity-04",
+      "text": "No baseline means the parity gate is BLOCKED, not a follow-up."
+    },
+    {
+      "id": "visual-parity-05",
+      "text": "Do not modify the harness, tamper with or regenerate the baseline, or restructure a component merely to make the diff pass."
+    },
+    {
+      "id": "visual-parity-06",
+      "text": "If the baseline is wrong, stop and ask the operator rather than edit it."
+    },
+    {
+      "id": "visual-parity-07",
+      "text": "Migrate shared primitives first as a blocking phase."
+    },
+    {
+      "id": "visual-parity-08",
+      "text": "Then migrate one component at a time, with separate writable worktrees and one owner per component for parallel work."
+    },
+    {
+      "text": "Resolve each implementation owner as `feature, refactoring` through `pstack_route` and use emitted native `sessions_spawn` arguments.",
+      "id": "visual-parity-09"
+    },
+    {
+      "text": "Required independent migration that cannot run is BLOCKED, never a silent sequential parent fallback.",
+      "id": "visual-parity-10"
+    },
+    {
+      "id": "visual-parity-11",
+      "text": "Capture the actual matching authorized surface through native browser or computer tools and its installed control skill."
+    },
+    {
+      "id": "visual-parity-12",
+      "text": "Compare images under the frozen conditions after every component change."
+    },
+    {
+      "id": "visual-parity-13",
+      "text": "Any nonzero pixel diff is FAIL; investigate and iterate until zero."
+    },
+    {
+      "id": "visual-parity-14",
+      "text": "Disclosing a residual difference does not turn it into a pass."
+    },
+    {
+      "id": "visual-parity-15",
+      "text": "If baseline capture, target capture, or image diff is unavailable, mark BLOCKED and name the missing capability."
+    },
+    {
+      "id": "visual-parity-16",
+      "text": "Eye checks and source similarity are not parity evidence."
+    },
+    {
+      "id": "visual-parity-17",
+      "text": "Verify interactions and accessibility as additional gates."
+    },
+    {
+      "id": "visual-parity-18",
+      "text": "Use [opening-a-pr](#opening-a-pr) per safe component or batch only with publication authority."
+    },
+    {
+      "id": "visual-parity-19",
+      "text": "A scheduler is not implied by iteration."
+    },
+    {
+      "id": "visual-parity-20",
+      "text": "**Reply.** Components migrated, numeric diff result per component, baseline harness and capture paths, what remains, and exact failed or blocked gates."
+    },
+    {
+      "id": "visual-parity-planner",
+      "text": "5. Plan each required phase under the [planner call](delegation.md#planner-call): every component migration owner as `feature, refactoring`, and `judgment and prose` for the parity report when its selection differs from or cannot be verified against the parent. Spawn each with its returned arguments once its blocking phase has passed. When baseline or target capture is BLOCKED, never leave planned owners silently unspawned: name each unspawned migration phase BLOCKED with the capture blocker as its reason. Try every capture tool the session lists, the native browser and then computer tools, before declaring capture unavailable."
+    },
+    {
+      "id": "visual-parity-rediff-all-states",
+      "text": "6. After every change, to a shared primitive or to a component, re-capture and re-diff every pinned state of every affected component (each viewport and each focus, hover, expanded or other baseline state), not only the default state. A pinned state not re-diffed after a change is unverified, and the next change waits until it passes."
+    }
+  ]
+}

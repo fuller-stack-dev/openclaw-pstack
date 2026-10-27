@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "route": "maintain-verification-skill",
+  "document": "workflows.md",
+  "priority": "P1",
+  "upstream": [
+    "skills/maintain-verification-skill/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "target-index",
+      "text": "Locate and fully read the requested project-owned verification skill, its launch/drive model, feature-map README and EVERY sibling feature file. If several targets are genuinely ambiguous, ask which; if none exists, stop and point to create-verification-skill. Reconcile missing, extra, duplicate and dead index entries without a generated inventory. Edit only the skill’s own directory/docs/map/owned harness, never product code."
+    },
+    {
+      "id": "source-wave",
+      "text": "Launch ONE independent read-only source reader per feature file in a concurrent wave within native resource limits. Resolve `swarm workers` with pstack_route and launch native sessions_spawn with emitted arguments. Each returns feature summary / cited source entry points / likely drift or none / one concise live-verification recipe. Readers never drive the app or edit files. Every feature needs a collected summary; missing readers leave coverage BLOCKED, not a sequential coordinator substitute."
+    },
+    {
+      "id": "reconcile-churn",
+      "text": "Reconcile all returned summaries, merge overlapping recipes into the fewest practical app states and spot-check cited drift without re-proving every clean claim. Sweep recent source churn for unmapped user-facing surfaces; require a concrete source path before declaring a missing feature."
+    },
+    {
+      "id": "live-coverage",
+      "text": "A live pass is REQUIRED even if source appears clean. The coordinator alone drives every feature at least once, following the maintained skill’s Launch model: one long-lived serially driven instance for servers/UIs, or fresh isolated sessions per short-lived CLI drive. A feature is verified-unreachable only with the concrete prerequisite (auth, entitlement, OS or external state) and attempted route; an omitted prerequisite is map drift, not a silent skip."
+    },
+    {
+      "id": "doctor-reset-retry",
+      "text": "Doctor before the first drive and on EVERY fresh session; doctor again after EACH failed/surprising drive before further driving. If doctor cannot see the failure (such as wedged UI state), reset to a known state or relaunch. When doctor fails because of skill drift, fix only the skill-owned drift, restart only what that fix invalidates and retry ONCE before declaring the pass blocked. Never keep driving an unchecked surprising instance."
+    },
+    {
+      "id": "evidence-cleanup",
+      "text": "After every failed attempt, clean all drive-owned residue even if the process is stuck, exited or shared; clean residue rather than destroying a still-useful shared instance. Evidence already captured must survive EVERY cleanup, verified at its named location. Nothing started by a drive may outlive its usefulness; final teardown follows the last drive INCLUDING harness re-proofs, leaving evidence intact."
+    },
+    {
+      "id": "triage-redrive",
+      "text": "Triage wrong/missing user-POV descriptions as doc drift, working behavior the harness cannot drive as harness gaps, and actually broken behavior as product gaps to report without changing product code or hiding the regression in docs. Keep helper scripts executable and their invocation documented in the skill body. EVERY harness/helper fix must be re-driven live before it is considered proven; re-read every changed file."
+    },
+    {
+      "id": "outcome",
+      "text": "Report clean / changed / blocked with exact source/live feature coverage, unreachable prerequisites, confirmed drift, product findings and blockers; keep concise run notes uncommitted. Clean requires all features covered and nothing worth shipping. Changed means proven authorized skill-owned corrections, at most one PR only with separate publication authority. Missing coverage or unsafe-to-ship corrections is blocked, not clean; no automatic PR or recurring job."
+    },
+    {
+      "id": "bounded-wait-resume",
+      "text": "For long routed phases, spawn announcing children (without `collect`; a collector is collected in the turn that spawned it) and use a short bounded native wait, then hand off pending run IDs and finish on resume under [the shared lifecycle](contract.md#collection-and-resume); never respawn accepted children or claim pending work complete."
+    },
+    {
+      "id": "maintain-verification-skill-handoff",
+      "text": "9. Spawn the reader wave as announcing children (without `collect`) and collect it under the [bounded-wait handoff](contract.md#bounded-wait-handoff): every `subagents` wait has a timeout of at most 60 seconds, and once a wait returns with any reader pending, hand off with the six [visible handoff](contract.md#visible-handoff) lines, one `Pending:` line per pending reader and the collected summaries under `Done so far:`, and end the turn with `sessions_yield`; the readers' completion events resume this session. A reader spawned as a collector is collected in this turn with `agents_wait` and `awaitResults: true`, never handed off. The live pass starts only after every reader summary is collected."
+    },
+    {
+      "id": "maintain-verification-skill-collect-in-turn",
+      "text": "A reader spawned as a collector is collected in this turn with `agents_wait` and `awaitResults: true`, never handed off."
+    }
+  ]
+}

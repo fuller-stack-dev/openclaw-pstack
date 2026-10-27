@@ -1,0 +1,145 @@
+{
+  "schema": 1,
+  "route": "eval",
+  "document": "playbooks.md",
+  "priority": "P1",
+  "upstream": [
+    "skills/poteto-mode/SKILL.md",
+    "skills/poteto-mode/playbooks/eval.md",
+    "skills/arena/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "eval-01",
+      "text": "Own the experiment design."
+    },
+    {
+      "id": "eval-02",
+      "text": "Define the variant, success behavior, bounded task count and cost, and a judge-only rubric of three to six concrete criteria before trials."
+    },
+    {
+      "id": "eval-03",
+      "text": "Prepare isolated per-trial environments containing the variant and only the project context an organic task would expose."
+    },
+    {
+      "id": "eval-04",
+      "text": "Sanitize directory, file, and slug names."
+    },
+    {
+      "id": "eval-05",
+      "text": "Candidate-visible names and prompts must not contain `eval`, `test`, `judge`, `experiment`, `rubric`, `score`, `compare`, `benchmark`, `candidate`, or `arena`."
+    },
+    {
+      "id": "eval-06",
+      "text": "Give every trial the same organic user request, state the goal rather than the measurement, reveal no competing agents, and do not elicit chains or lists of applied skills."
+    },
+    {
+      "id": "eval-07",
+      "text": "Ask for ordinary design notes if useful."
+    },
+    {
+      "id": "eval-08",
+      "text": "Resolve [arena](workflows.md#arena)'s runner roles with `pstack_route` and spawn independent parallel trials using emitted native `sessions_spawn` arguments on the selected different models."
+    },
+    {
+      "id": "eval-09",
+      "text": "The routing snapshot added to native briefs can reveal the model and phase; inspect the entire effective candidate-visible context and enforce separation of the hidden rubric and variant mapping."
+    },
+    {
+      "id": "eval-10",
+      "text": "If required routing metadata cannot be kept out of that context without altering emitted arguments, report the blinding gate BLOCKED rather than silently remove custody metadata or claim an organic blind trial."
+    },
+    {
+      "id": "eval-11",
+      "text": "Keep outputs in their sanitized locations."
+    },
+    {
+      "id": "eval-12",
+      "text": "Collect terminal results, not queued receipts."
+    },
+    {
+      "id": "eval-13",
+      "text": "Selection metadata and the hidden rubric stay outside candidate-visible files and prompts."
+    },
+    {
+      "id": "eval-14",
+      "text": "After trials finish, resolve one `arena cross-judge pool` seat and spawn one blind read-only judge on a verified different model family."
+    },
+    {
+      "id": "eval-15",
+      "text": "It sees sanitized output labels and the rubric, never model identities. Its task carries only those labels or output paths and the rubric: never the parent's own measurements, re-runs, corroboration or notes, which the parent compares with the judge's afterwards."
+    },
+    {
+      "id": "eval-16",
+      "text": "For two variants, that one judge scores both sets in one pass on the same scale."
+    },
+    {
+      "id": "eval-17",
+      "text": "If trials, model diversity, or the independent judge cannot run, the corresponding gate is BLOCKED; never replace it with sequential self-grading or infer family from a model name."
+    },
+    {
+      "id": "eval-18",
+      "text": "Check actual opened files and code shape against authorized native `sessions_history` or `sessions_search` records scoped to the trial sessions and workspace."
+    },
+    {
+      "id": "eval-19",
+      "text": "Never sweep unrelated transcripts."
+    },
+    {
+      "id": "eval-20",
+      "text": "Grade the chain from observed reads and artifacts, not the trial agent's self-report."
+    },
+    {
+      "id": "eval-21",
+      "text": "If read evidence is unavailable, the transcript-chain gate is BLOCKED."
+    },
+    {
+      "id": "eval-22",
+      "text": "5. Read every output end to end yourself before comparing criterion-level judgments with the judge. Read artifacts separately from transcript/schema dumps. A truncated tool result is not a complete read, even if the underlying command succeeded: reread each affected artifact alone, in bounded line or byte ranges through EOF, and record its path and covered ranges. If any part remains unread, mark the output-read gate BLOCKED and withhold the comparison and promotion recommendation that depend on it; a judge's summary or sampled history cannot fill the gap. Resolve disagreement as possible bias or rubric ambiguity, not a vote. Preserve sample counts, dropouts, uncertainty, and limitations. Do not promote automatically or change models, providers, or credentials."
+    },
+    {
+      "id": "eval-23",
+      "text": "Resolve disagreement as possible bias or rubric ambiguity, not a vote."
+    },
+    {
+      "id": "eval-24",
+      "text": "Preserve sample counts, dropouts, uncertainty, and limitations."
+    },
+    {
+      "id": "eval-25",
+      "text": "Do not promote automatically or change models, providers, or credentials."
+    },
+    {
+      "id": "eval-26",
+      "text": "**Reply.** Variant, rubric, per-trial notes, blind judge verdict, transcript-chain evidence, lead synthesis, and promotion recommendation with uncertainty."
+    },
+    {
+      "id": "bounded-wait-resume",
+      "text": "For long routed phases, spawn announcing children (without `collect`; a collector is collected in the turn that spawned it) and use a short bounded native wait, then hand off pending run IDs and finish on resume under [the shared lifecycle](contract.md#collection-and-resume); never respawn accepted children or claim pending work complete."
+    },
+    {
+      "id": "eval-blind-trials",
+      "text": "6. Plan the candidate-visible trials with `pstack_route` role `arena runners` and `blind: true`, passing the organic task, `spawnSchema` and `trialArgs` with each trial's own sanitized environment, such as its `cwd`. Blind mode returns the tasks without the routing snapshot, model IDs, role or workspace, and refuses a task or argument that names a selected model or the workspace. Record the returned `custody` in the parent's run record and spawn each returned entry unchanged. Pass the judge-only rubric and any expected results or oracle as `withheld`, one criterion or expected value per item; blind mode refuses a trial task or argument that contains one of them as whole words, or that frames the trial as measured: a rubric, grader, oracle or expected output, scoring each case, telling the trial it is judged or compared, or naming competing models. The check matches text, not meaning, so a paraphrase of a withheld item passes it: read the whole trial task yourself before spawning. Where the host offers native blind children, the returned arguments also carry `blind: true` and `context: \"isolated\"`, so the trial's own prompt omits its model and workspace. When the result's `hostBlind.status` is `unavailable`, the host cannot hide its model/workspace context: mark the native blinding gate BLOCKED for both trials and judge, even when the planner sanitized their task text. Any continued run is explicitly non-blind diagnostic evidence, not a successful blind evaluation; never remove custody metadata, invent host support or change the host to clear this gate. The blinding gate is BLOCKED when native blind mode is unavailable or refuses a task you cannot sanitize."
+    },
+    {
+      "id": "eval-planner",
+      "text": "7. Plan the judge seat with `pstack_route` role `arena cross-judge pool` and `blind: true`, with the sanitized labels and the rubric, passing the parent's own results as `withheld`, and spawn it after the trials finish. Plan every required phase (both trials, the judge and any synthesis child) under the [planner call](delegation.md#planner-call) and spawn it with its returned arguments, or name it BLOCKED with its reason; planned arguments that were never spawned leave that phase unrouted."
+    },
+    {
+      "id": "eval-trial-goal-only",
+      "text": "The trial task never states the success criteria, expected outputs, oracle or scoring policy, and never requires a measuring harness or results file; the parent measures afterwards."
+    },
+    {
+      "id": "eval-judge-inputs",
+      "text": "Its task carries only those labels or output paths and the rubric: never the parent's own measurements, re-runs, corroboration or notes, which the parent compares with the judge's afterwards."
+    },
+    {
+      "id": "eval-withheld-and-host-blind",
+      "text": "Pass the judge-only rubric and any expected results or oracle as `withheld`, one criterion or expected value per item; blind mode refuses a trial task or argument that contains one of them as whole words, or that frames the trial as measured: a rubric, grader, oracle or expected output, scoring each case, telling the trial it is judged or compared, or naming competing models. The check matches text, not meaning, so a paraphrase of a withheld item passes it: read the whole trial task yourself before spawning. Where the host offers native blind children, the returned arguments also carry `blind: true` and `context: \"isolated\"`, so the trial's own prompt omits its model and workspace. When the result's `hostBlind.status` is `unavailable`, the host cannot hide its model/workspace context: mark the native blinding gate BLOCKED for both trials and judge, even when the planner sanitized their task text. Any continued run is explicitly non-blind diagnostic evidence, not a successful blind evaluation; never remove custody metadata, invent host support or change the host to clear this gate. The blinding gate is BLOCKED when native blind mode is unavailable or refuses a task you cannot sanitize."
+    },
+    {
+      "id": "eval-subject-words-allowed",
+      "text": "That ban is on measurement framing, not on the request's own subject: a test the organic request asks for, an expression evaluator or a score calculator stays in the task."
+    }
+  ]
+}

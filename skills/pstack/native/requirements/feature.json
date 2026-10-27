@@ -1,0 +1,114 @@
+{
+  "schema": 1,
+  "route": "feature",
+  "document": "playbooks.md",
+  "priority": "P1",
+  "upstream": [
+    "skills/poteto-mode/SKILL.md",
+    "skills/poteto-mode/playbooks/feature.md",
+    "skills/architect/SKILL.md",
+    "skills/arena/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "feature-01",
+      "text": "Own the design, review, and verification."
+    },
+    {
+      "id": "feature-02",
+      "text": "Delegate implementation and stay in the lead."
+    },
+    {
+      "id": "feature-03",
+      "text": "Run [how](workflows.md#how) over the affected subsystem, then [architect](workflows.md#architect) for parallel design exploration."
+    },
+    {
+      "id": "feature-04",
+      "text": "Define the user outcome, compatibility, named data shape, organizing structure, and acceptance criteria before logic."
+    },
+    {
+      "id": "feature-05",
+      "text": "Write the throughput checkpoint as four checklist items: blocking first steps; independent workstreams; shared mutable state; smallest safe decomposition."
+    },
+    {
+      "id": "feature-06",
+      "text": "Keep an inapplicable item with `n/a: <reason>`."
+    },
+    {
+      "id": "feature-07",
+      "text": "Run blocking gates before fan-out, split shared writes where possible, and state why one owner is best when it is."
+    },
+    {
+      "id": "feature-08",
+      "text": "Rewrite the checkpoint at phase boundaries."
+    },
+    {
+      "id": "feature-09",
+      "text": "Resolve `feature, refactoring` through `pstack_route` and use its emitted native `sessions_spawn` arguments for the scoped implementation owner."
+    },
+    {
+      "id": "feature-10",
+      "text": "Code-coupled work has one owner that fans out internally after blocking steps; parent fan-out is for independent artifacts."
+    },
+    {
+      "id": "feature-11",
+      "text": "When multiple valid implementation shapes exist, run [arena](workflows.md#arena), including its independent cross-judge, rather than silently picking one."
+    },
+    {
+      "id": "feature-12",
+      "text": "This review separation is mandatory, even for a small diff."
+    },
+    {
+      "id": "feature-13",
+      "text": "If a required independent phase cannot run, mark it BLOCKED, never a sequential parent pass."
+    },
+    {
+      "id": "feature-14",
+      "text": "An assigned implementation child executes its own phase without recursively redispatching it."
+    },
+    {
+      "id": "feature-15",
+      "text": "Re-ground upstream-derived edits against their source."
+    },
+    {
+      "id": "feature-16",
+      "text": "Port shared changes to all actual consumers and verify each."
+    },
+    {
+      "id": "feature-17",
+      "text": "Build, verify, and checkpoint the smallest coherent unit before the next."
+    },
+    {
+      "id": "feature-18",
+      "text": "Make scoped ordered commits only with authority."
+    },
+    {
+      "id": "feature-19",
+      "text": "Verify on the matching authorized surface and affected integration and failure paths."
+    },
+    {
+      "id": "feature-20",
+      "text": "Inconclusive, wrong-surface, or compile-only evidence does not pass."
+    },
+    {
+      "id": "feature-21",
+      "text": "Review the actual diff and full touched files."
+    },
+    {
+      "id": "feature-22",
+      "text": "Contested design completes [interrogate](workflows.md#interrogate) before shipping."
+    },
+    {
+      "id": "feature-23",
+      "text": "Publication separately follows [opening-a-pr](#opening-a-pr)."
+    },
+    {
+      "id": "feature-24",
+      "text": "**Reply.** What was built, alternatives and tradeoffs in a table, the choice and why, the four-item throughput checkpoint, demonstrated behavior, and open decisions, including an explicit none when there are none."
+    },
+    {
+      "id": "feature-commits",
+      "text": "6. When the user has granted local commit authority, the ordered commits are REQUIRED before the reply: commit each verified coherent unit as its own scoped commit in dependency order, and list each commit's hash and subject in the reply. Verified edits left uncommitted under commit authority fail this gate. Without commit authority, say so and leave the edits uncommitted."
+    }
+  ]
+}

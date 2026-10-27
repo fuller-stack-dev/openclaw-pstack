@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "route": "architect",
+  "document": "workflows.md",
+  "priority": "P1",
+  "upstream": [
+    "skills/architect/SKILL.md",
+    "skills/architect/references/runner-prompt.md",
+    "skills/architect/references/rationale-template.md",
+    "skills/architect/references/design-red-flags.md",
+    "skills/arena/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "ground",
+      "text": "Open a Ground / Sketch / Agree / Implement / Scrap checklist. Run native how over every affected subsystem and retain its architectural explanation; naming files is not grounding. Run why too when ownership or layering changes, turning evidenced rationale into constraints. Skip grounding only for genuinely greenfield work with no surrounding integration."
+    },
+    {
+      "id": "independent-designs",
+      "text": "Run native arena for the sketch, substituting the `architect runners` role for `arena runners`. Resolve it with pstack_route, launch both independent runners through native sessions_spawn with emitted arguments, and collect their packages. Require at least two structurally distinct whole-shape alternatives before synthesis, every time; point fixes or two descriptions of one shape do not qualify. Reframe and rerun if necessary. An unavailable runner or missing alternative leaves the design gate BLOCKED, never a sequential parent substitute."
+    },
+    {
+      "id": "caller-first-packages",
+      "text": "Give runners the task, grounding paths, isolated writable output paths and this native brief. Each writes a design package to its artifact path: README-style caller usage and two or three real call sites FIRST, then types/signatures derived from that usage, a module map for larger work, `not implemented` bodies and pseudocode. Trace dominant access patterns through the data structures now, not a promised later index/cache. Keep transport types private, validate at boundaries, use pure business logic, one source per invariant, per-actor state plus read-boundary merge where possible, and idempotent crash/retry transitions. Prefer type-enforced invariants and short call chains. Do not execute or pass through upstream runtime prompts."
+    },
+    {
+      "id": "rationale",
+      "text": "Each package includes a one-page rationale with Problem, Usage (caller’s view), Shape, Synthesis decision, Tradeoffs accepted, Alternatives considered, Open questions and risks, and Next implementation step. Alternatives considered names a concrete alternative shape and why it lost, including interface depth, not just implementation ease. The final rationale records the arena base, grafts and rejections in Synthesis decision."
+    },
+    {
+      "id": "red-flags",
+      "text": "Screen EVERY candidate before synthesis for shallow modules, information leakage, temporal decomposition, pass-through methods, split ownership, duplicate ways to do one task, importable internals and hand-synced lists. Revise or reject red-flagged shapes. Prefer more capability hidden behind a smaller public surface; optimize for a future agent copying the nearest local example safely. Complete arena’s mandatory post-candidate cross-judge and lead comparison before selecting the design."
+    },
+    {
+      "id": "agreement",
+      "text": "Design-only requests stop at the synthesized sketch. An explicitly requested checkpoint pauses for user sign-off; otherwise proceed only with already-authorized implementation. Human pushback is new grounding evidence: re-ground and rerun Sketch before more code. No implicit commit or expansion of scope."
+    },
+    {
+      "id": "implementation-scrap",
+      "text": "Implement against the chosen sketch and surface deviations. Repeated workaround shapes, unrelated special cases, type escape hatches, unexpected shared-state locks, callers knowing internals, or two independent same-shape deviations trigger a design reassessment. If the architecture is wrong, rerun how, redesign with the new constraints as day-one assumptions, subtract before adding, and return to Sketch/arena instead of layering symptom guards. Verify the resulting behavior. Return package paths, rationale, comparison, verification and any blocked phase."
+    },
+    {
+      "id": "bounded-wait-resume",
+      "text": "For long routed phases, spawn announcing children (without `collect`; a collector is collected in the turn that spawned it) and use a short bounded native wait, then hand off pending run IDs and finish on resume under [the shared lifecycle](contract.md#collection-and-resume); never respawn accepted children or claim pending work complete."
+    },
+    {
+      "id": "output-contract",
+      "text": "8. Each runner returns the `architect-runner` [output contract](agent-briefs.md#panel-output-contracts) and the judge returns `cross-judge`; with the workflow ledger, collection rejects a missing or invalid output, and the ledger derives each design’s shape digest from its reported shape, so runners never compute one."
+    },
+    {
+      "id": "architect-lead-first",
+      "text": "The lead's own scores of both designs are recorded before the judge's are visible: the native controller's `lead` checkpoint comes before it spawns the judge."
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  portable:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - run: npm ci --ignore-scripts --legacy-peer-deps
+      - run: npm run build
+      - name: Require the committed runtime to match the build
+        run: git diff --exit-code -- dist/index.js
+      - run: node scripts/sync-routes.mjs --check
+      - run: npm run test:routes
+      - run: node scripts/sync-overlay.mjs --check
+      - run: npm run test:overlay
+      - run: npm run doctor
+      - run: npm run test:routing
+      - run: npm run test:automation
+      - run: npm run test:watch-pr
+      - run: npm run test:contracts
+      - run: npm run test:python
+      - run: npm run test:plan
+      - run: npm run test:workflow
+      - run: npm run test:pack
+        env:
+          # Never publish the private identity vocabulary in source or logs.
+          # Missing secrets fail closed (fork PRs need a trusted maintainer run).
+          PSTACK_PRIVACY_TERMS: ${{ secrets.PSTACK_PRIVACY_TERMS }}
+          PSTACK_REQUIRE_PRIVACY_TERMS: "1"
+  pinned-host:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # The tagged release pin, and openclaw main with the native-controller capabilities.
+          - pin: openclaw-host.json
+            node: "24.20.0"
+            pnpm: "12.9.0"
+          - pin: openclaw-host-main.json
+            node: "24.22.1"
+            pnpm: "12.15.0"
+    name: pinned-host (${{ matrix.pin }})
+    env:
+      PSTACK_HOST_PIN: ${{ matrix.pin }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read immutable host pin
+        id: host
+        run: |
+          node --input-type=module <<'JS'
+          import { readFileSync, appendFileSync } from 'node:fs';
+          const pin = JSON.parse(readFileSync('tests/fixtures/' + process.env.PSTACK_HOST_PIN, 'utf8'));
+          appendFileSync(process.env.GITHUB_OUTPUT, 'repository=' + pin.repository + '\nref=' + (pin.tag ?? pin.commit) + '\n');
+          JS
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ steps.host.outputs.repository }}
+          ref: ${{ steps.host.outputs.ref }}
+          path: .host
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - name: Verify host tag and commit before installing dependencies
+        env:
+          OPENCLAW_SOURCE: ${{ github.workspace }}/.host
+        run: node --input-type=module -e 'import { qualifiedHost, hostPin } from "./scripts/host-fixture.mjs"; qualifiedHost(); console.log(hostPin.tag ?? hostPin.ref, hostPin.commit);'
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ matrix.pnpm }}
+          run_install: false
+      - run: npm ci --ignore-scripts --legacy-peer-deps
+      - name: Install frozen pinned host dependencies
+        working-directory: .host
+        # GitHub CI uses pnpm's normal CI graph; local installs do not simulate CI.
+        run: pnpm install --frozen-lockfile --ignore-scripts --package-import-method auto
+      - name: Strict plugin SDK typecheck
+        env:
+          OPENCLAW_SOURCE: ${{ github.workspace }}/.host
+        run: npm run typecheck
+      - name: All host-integrated Vitest tests
+        env:
+          OPENCLAW_SOURCE: ${{ github.workspace }}/.host
+        run: node scripts/test-host.mjs

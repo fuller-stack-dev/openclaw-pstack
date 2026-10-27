@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "route": "unslop",
+  "document": "workflows.md",
+  "priority": "P2",
+  "upstream": [
+    "skills/unslop/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "unslop-01",
+      "text": "1. Remove filler, invented jargon, vague attribution, needless intensifiers and repetitive structure."
+    },
+    {
+      "id": "unslop-02",
+      "text": "2. Use concrete active statements and natural sentence lengths. Preserve quotations, code, confidence and user style."
+    },
+    {
+      "id": "unslop-03",
+      "text": "3. Do not force cosmetic rules that reduce clarity or treat executable content as ordinary prose."
+    },
+    {
+      "id": "unslop-file-edit-delivery",
+      "text": "4. When a routed child does the rewrite and its deliverable is a file edit, deliver under [delivering a routed result](delegation.md#delivering-a-routed-result): quote the child's own report verbatim as the child's text, and show the edited file or its diff separately, labelled with its path as the file. Never put the edited file under the child's attribution; its unchanged sentences are still the original author's words."
+    }
+  ]
+}

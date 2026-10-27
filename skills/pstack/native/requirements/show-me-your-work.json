@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "route": "show-me-your-work",
+  "document": "workflows.md",
+  "priority": "P1",
+  "upstream": [
+    "skills/show-me-your-work/SKILL.md",
+    "skills/show-me-your-work/references/decision-log-template.tsv"
+  ],
+  "gates": [
+    {
+      "id": "canonical-format",
+      "text": "Keep ONE canonical task-owned TSV (normally decisions.tsv or .audit/<task>.tsv), local/uncommitted by default. Append with native file tools or, when the operator has allowlisted it, the optional append-only [pstack_trail](trail-adapter.md) adapter; never run upstream log.sh. Its header is `ts`, `phase`, `decision`, `why`, `evidence`, `result`; timestamps are ISO8601, cells single-line, evidence a resolving path/link/SHA/file:line rather than a paragraph. Strip tabs/newlines and prefix cells starting with =, +, - or @ with a single quote, not only when exporting. Write plain teammate language."
+    },
+    {
+      "id": "checkpoints",
+      "text": "Append meaningful decisions/checkpoints, completed units plus checks, hypotheses kept/reverted, pivots, blockers and gate fixes; loop runs get one row per iteration. Skip trivial actions. Correct errors ONLY by appending superseding rows; never edit/delete history. Prefer reproducible committed checks as evidence over hand-made one-offs. Commit the trail only if authorized and needed for review, not by default."
+    },
+    {
+      "id": "run-boundaries",
+      "text": "A run is one native conversation including later turns/summaries; pickup, replacement or a new chat starts a new run. Before resuming append work, inspect the log tail. When appending to an existing log, the run’s first row uses phase `start`; so does its first row after another run’s `start`. Name the timestamp range of preceding rows this run did not write and identify this run in evidence. Reserve `start` for these boundaries; the creator’s initial run needs no preceding-range marker."
+    },
+    {
+      "id": "transcript-audit",
+      "text": "Before handback, audit this run’s row stretches against its authorized native sessions_history/supplied transcript and actual artifacts, not filesystem sweeps of unrelated chats. Each stretch ends at another run’s start. Verify every row maps to a real action/decision, each evidence pointer resolves and proves the claim, and all consequential forks/pivots/abandoned approaches are logged. Append missing decisions or supersessions for false claims/evidence, never rewrite the story or audit other runs wholesale. If transcript access is unavailable, label the audit BLOCKED."
+    },
+    {
+      "id": "cross-family-review",
+      "text": "Before handback, resolve `judgment and prose` with pstack_route and spawn an independent read-only native sessions_spawn trail reviewer using emitted arguments on a VERIFIED DIFFERENT MODEL FAMILY from the worker. An explicit authorized role override may select that family through routing; no provider/model guessing. The reviewer reads trail plus scoped transcript and flags weak evidence, skipped/unproved verification, risky/scope-creeping/symptom choices and overlooked gaps. Self-review or same-family review is not a substitute. If family identity, transcript access or the required reviewer is unavailable, the review gate is BLOCKED."
+    },
+    {
+      "id": "attention",
+      "text": "EVERY reply for a run that produced a trail ends with Attention, except a handoff reply: there Attention goes immediately before the six [visible handoff](contract.md#visible-handoff) lines, which end the reply. Lead with `reviewed by <actual model>` on its own line, then reviewer flags tied to specific rows/moments, or `No flags` when actually reviewed clean. A model name alone is not a verdict. When review/audit is blocked, say BLOCKED and why instead of inventing a reviewer or no-flags result. Honor native privacy/retention policy."
+    },
+    {
+      "id": "show-me-your-work-no-false-block",
+      "text": "7. Before naming the audit or review BLOCKED for a stretch, check every record that can supply it: `sessions_history`, the run's saved tool inputs and outputs (for Code Mode exec, the saved code inputs) and the task's artifacts. BLOCKED needs the specific missing record. A reviewer that called a stretch unreadable while those records exist is rerun once as a fresh child with the record paths in its task, and a BLOCKED claim the records disprove is corrected by an appended superseding row."
+    },
+    {
+      "id": "show-me-your-work-interim-attention",
+      "text": "8. Every interim reply of a run with a trail also carries Attention, including each `sessions_yield` acknowledgment, where Attention comes before the six handoff lines. Its first line is `reviewed by <actual model>` for the last completed review, or `BLOCKED: not yet reviewed` with the reason before the first review completes. An interim reply without that lead fails this gate."
+    },
+    {
+      "id": "show-me-your-work-attention-before-handoff",
+      "text": "except a handoff reply: there Attention goes immediately before the six [visible handoff](contract.md#visible-handoff) lines, which end the reply."
+    }
+  ]
+}

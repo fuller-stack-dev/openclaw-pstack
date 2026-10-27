@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "route": "tdd",
+  "document": "workflows.md",
+  "priority": "P2",
+  "upstream": [
+    "skills/tdd/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "applicability-gate",
+      "text": "Use TDD when the user explicitly asks for TDD/a failing or regression test, OR the bug has an obvious CHEAP LOCAL test target. Assess practicality first even when requested. If the path is unclear, expensive, integration-heavy, production-only, vaguely reproducible, dependent on brittle mocks or broad unrelated fixture churn, do NOT manufacture a harness/new test merely to satisfy the route. State the reason, go directly to step 4 without manufacturing steps 2–3, and use the closest meaningful executable verification instead; a blocked required test remains a disclosed gap, not claimed red→green."
+    },
+    {
+      "id": "smallest-real-regression",
+      "text": "Identify intended/current behavior, affected path and smallest observable reproduction. Prefer the narrowest existing unit/component/integration/regression harness for that path. Write the smallest behavioral check that would catch the bug BEFORE changing production code. It must fail when behavior breaks, not mirror implementation or mostly test mocks. Run it and confirm failure for the intended reason; if it passes or fails for an unrelated setup reason, fix the test/reproduction before the implementation."
+    },
+    {
+      "id": "minimal-fix-green",
+      "text": "Make the smallest correct production fix preserving nearby contracts, then rerun the SAME regression and affected integration checks. Do not change tests to bless a wrong implementation, weaken existing assertions without an evidenced intentional behavior change, or expand into unrelated coverage. Make flaky cases deterministic where practical and name the signal; address a broader failure class only after the focused path. Audit the entire touched test file and never add hollow tests."
+    },
+    {
+      "id": "impractical-test-evidence",
+      "text": "When a new test is impractical, use a targeted real-code script, manual repro command, authorized browser automation, snapshot/log assertion or focused integration check. Prefer no new test over a bad one that needs unrelated infrastructure, encodes internals, depends on timing/global state or will immediately be discarded. If pre-fix execution itself is unavailable, state why and retain the closest meaningful isolated check without calling it failing-before proof."
+    },
+    {
+      "id": "red-green-report",
+      "text": "Return the failing-before test/executable command and actual intended failure, the passing-after SAME check and nearby validation, or the precise missing red/green evidence and substitute used. An unrun, unrelated-failure or blocked check is not a pass; no implicit commit or publication."
+    }
+  ]
+}

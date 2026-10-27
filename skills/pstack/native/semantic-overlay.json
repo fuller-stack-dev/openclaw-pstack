@@ -1,0 +1,3973 @@
+{
+  "schema": 1,
+  "kind": "upstream-rule-overlay",
+  "upstreamCommit": "29fa9382c9c250d134f6a2f1aa86c01c5f63119d",
+  "extraction": "Each line of a pinned UTF-8 upstream file that contains the word must, mustn't, required or never in any letter case.",
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "b928886260bd551b0c8f3e58617a5dc3ad8dfc1293d096b1ef81b84007532486",
+      "rules": [
+        {
+          "id": "r-6b3db03be95e747d",
+          "line": 250,
+          "map": [
+            {
+              "same": "r-8dbea0ede39bd56a"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "agents/comment-sicko.md",
+      "sha256": "3e239e40b7b4b9beb2cf7f3ccc57f2388eb8b69bd1ba8ae888ef87ef6e0e2116",
+      "rules": [
+        {
+          "id": "r-7ef34bb6296098cc",
+          "line": 17,
+          "map": [
+            {
+              "native": "agents/comment-sicko.md",
+              "quote": "A surprise in our own code is not a keep."
+            },
+            {
+              "gate": "no-comments/exceptions-suppressions"
+            }
+          ]
+        },
+        {
+          "id": "r-3792ca4352f9e9e5",
+          "line": 24,
+          "map": [
+            {
+              "native": "agents/comment-sicko.md",
+              "quote": "Inspect every scoped lint or TypeScript suppression and look up the rule it disables."
+            },
+            {
+              "gate": "no-comments/exceptions-suppressions"
+            }
+          ]
+        },
+        {
+          "id": "r-1ebea33b1c763750",
+          "line": 28,
+          "map": [
+            {
+              "native": "agents/comment-sicko.md",
+              "quote": "You identify refactor targets; you never write the refactor."
+            },
+            {
+              "gate": "no-comments/parent-audit-retry"
+            }
+          ]
+        },
+        {
+          "id": "r-8764265a165173b8",
+          "line": 30,
+          "map": [
+            {
+              "native": "agents/comment-sicko.md",
+              "quote": "Invent nothing. Every entry names code inside the scope and tells the truth about it."
+            },
+            {
+              "native": "agents/comment-sicko.md",
+              "quote": "Never edit files, run mutating commands, post reviews or touch application code"
+            }
+          ]
+        },
+        {
+          "id": "r-f24160deae422e19",
+          "line": 32,
+          "map": [
+            {
+              "native": "agents/comment-sicko.md",
+              "quote": "Return the native `comment-review` output contract"
+            },
+            {
+              "gate": "no-comments/output-contract"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "automations/benny/FOR_AGENTS.md",
+      "sha256": "a125e317dec1b8731fdc71f404c669f1127a73af932f7a7b8b8744a5542328a7",
+      "rules": [
+        {
+          "id": "r-10ba79c4ded68059",
+          "line": 14,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "No progress/root posts or DM."
+            }
+          ]
+        },
+        {
+          "id": "r-c91e8ac89c494194",
+          "line": 24,
+          "map": [
+            {
+              "same": "r-10ba79c4ded68059"
+            }
+          ]
+        },
+        {
+          "id": "r-5ed84206e1341895",
+          "line": 32,
+          "map": [
+            {
+              "exclude": "cursor-harness",
+              "reason": "Enabling pstack through a target repository's committed Cursor settings has no OpenClaw counterpart. The operator installs this plugin, and the native report workflow runs inside it (automation/benny.md)."
+            }
+          ]
+        },
+        {
+          "id": "r-71b7c0519a9a31d7",
+          "line": 62,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "preserve existing/local files."
+            }
+          ]
+        },
+        {
+          "id": "r-9bee74c8a18507bc",
+          "line": 83,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "Only a later explicit activation request authorizes native add/enable through the real tool."
+            }
+          ]
+        },
+        {
+          "id": "r-936bdfbf2821593e",
+          "line": 87,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "Build triage and reproduce separately with scripts/automation.mjs."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "automations/benny/README.md",
+      "sha256": "ca3c42cbb7f0bf7068f7407eb355815e6c234d5c2786942f3cbe751a3690024b",
+      "rules": [
+        {
+          "id": "r-3ada8ae9ff1d9b26",
+          "line": 10,
+          "map": [
+            {
+              "same": "r-71b7c0519a9a31d7"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "automations/benny/skills/reproduce-and-fix-issues/SKILL.md",
+      "sha256": "1363cc07343fe86aab42853b1bd4563288cbcbdf12f1c265b3b3b1afa25c09cb",
+      "rules": [
+        {
+          "id": "r-b19373adbda9afbc",
+          "line": 11,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "Resolve every REQUIRED field."
+            },
+            {
+              "native": "automation/benny.md",
+              "quote": "No actual connector => leave disabled."
+            }
+          ]
+        },
+        {
+          "id": "r-03a7021ee065c53d",
+          "line": 16,
+          "map": [
+            {
+              "same": "r-10ba79c4ded68059"
+            }
+          ]
+        },
+        {
+          "id": "r-e4782bcc3a2ec65a",
+          "line": 21,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "No worker gets posting credentials or write tools."
+            }
+          ]
+        },
+        {
+          "id": "r-f510e45d59e73711",
+          "line": 22,
+          "map": [
+            {
+              "same": "r-e4782bcc3a2ec65a"
+            }
+          ]
+        },
+        {
+          "id": "r-888af9370f7f4bfe",
+          "line": 25,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "Observe discriminating broken final state twice through independent/reset real UI attempts."
+            }
+          ]
+        },
+        {
+          "id": "r-8c7299feb4541df2",
+          "line": 26,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "A screenshot, synthetic state mutation, source read or unit test is not a UI repro."
+            }
+          ]
+        },
+        {
+          "id": "r-6bef234b44f8ac30",
+          "line": 45,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "Freeze source channel/root once"
+            }
+          ]
+        },
+        {
+          "id": "r-60d3a7e92846319e",
+          "line": 54,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "Use no fallback root/channel and no broadcast."
+            }
+          ]
+        },
+        {
+          "id": "r-8a6152580c2e0c4c",
+          "line": 109,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "Keep operations and source coordinates distinct."
+            }
+          ]
+        },
+        {
+          "id": "r-5fc9a59fcfa9ec03",
+          "line": 122,
+          "map": [
+            {
+              "same": "r-e4782bcc3a2ec65a"
+            }
+          ]
+        },
+        {
+          "id": "r-63840a35b6abcae4",
+          "line": 142,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "Missing capability => blocked; no symptom => could-not-reproduce; source channel remains quiet."
+            }
+          ]
+        },
+        {
+          "id": "r-867e7b53a6b66475",
+          "line": 183,
+          "map": [
+            {
+              "same": "r-63840a35b6abcae4"
+            }
+          ]
+        },
+        {
+          "id": "r-471c41bfcdff4da8",
+          "line": 222,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "After path must work twice on patched build with same input and evidence."
+            }
+          ]
+        },
+        {
+          "id": "r-e0025fe9491ae05b",
+          "line": 256,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "Read-only workers return findings; code worker only with proven posting-tool/credential isolation. Otherwise work inline."
+            }
+          ]
+        },
+        {
+          "id": "r-b66e78b3284d2e83",
+          "line": 289,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "Full touched-file/test audit, smallest causal change and affected checks."
+            }
+          ]
+        },
+        {
+          "id": "r-e62bb1fd9daa131f",
+          "line": 291,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "Never merge/deploy."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "automations/benny/skills/reproduce-and-fix-issues/references/control-adapter.md",
+      "sha256": "58b0615d2fca895f9a20df83266e280042b0d585b5f2fd324e2094a682fd846b",
+      "rules": [
+        {
+          "id": "r-c15ff5ffbf559f56",
+          "line": 3,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "Require real control capabilities: launch exact test revision, mapped navigation/actions, read-only state check, screenshot, recording and cleanup."
+            }
+          ]
+        },
+        {
+          "id": "r-2c9f011c546a2147",
+          "line": 9,
+          "map": [
+            {
+              "same": "r-c15ff5ffbf559f56"
+            }
+          ]
+        },
+        {
+          "id": "r-1ee38af99e30224a",
+          "line": 11,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "Section heading; the capabilities it introduces are mapped at their own lines."
+            }
+          ]
+        },
+        {
+          "id": "r-45aea36d66f53e96",
+          "line": 33,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "The control path must distinguish the target app from a similar window, shell or production instance"
+            }
+          ]
+        },
+        {
+          "id": "r-9521730feacf95a6",
+          "line": 57,
+          "map": [
+            {
+              "same": "r-c15ff5ffbf559f56"
+            }
+          ]
+        },
+        {
+          "id": "r-032652e6fbacd0f7",
+          "line": 66,
+          "map": [
+            {
+              "gate": "create-verification-skill/real-drive-proof"
+            },
+            {
+              "native": "automation/benny.md",
+              "quote": "Source-only control references explain intent"
+            }
+          ]
+        },
+        {
+          "id": "r-6deb5f517472f17d",
+          "line": 68,
+          "map": [
+            {
+              "same": "r-8c7299feb4541df2"
+            }
+          ]
+        },
+        {
+          "id": "r-8eb4a28f0362253e",
+          "line": 83,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "read-only state check"
+            }
+          ]
+        },
+        {
+          "id": "r-7d6a5a86832d2fba",
+          "line": 96,
+          "map": [
+            {
+              "same": "r-45aea36d66f53e96"
+            }
+          ]
+        },
+        {
+          "id": "r-e71d487d0909f428",
+          "line": 109,
+          "map": [
+            {
+              "same": "r-888af9370f7f4bfe"
+            }
+          ]
+        },
+        {
+          "id": "r-7a803fe1f92b2bbb",
+          "line": 125,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "Cleanup only task-created sessions/processes/profiles and expired artifacts, preserving user work."
+            }
+          ]
+        },
+        {
+          "id": "r-67ca59945ef34b47",
+          "line": 129,
+          "map": [
+            {
+              "same": "r-c15ff5ffbf559f56"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "automations/benny/skills/reproduce-and-fix-issues/references/feature-map.example.md",
+      "sha256": "1e5c7c8522daec3e43fcc2e73ceb97289ded65b552949ce65a11cc8eb3d2b6ee",
+      "rules": [
+        {
+          "id": "r-4a3cb2f19a12d92f",
+          "line": 5,
+          "map": [
+            {
+              "same": "r-71b7c0519a9a31d7"
+            }
+          ]
+        },
+        {
+          "id": "r-e34615e1fc99d845",
+          "line": 29,
+          "map": [
+            {
+              "same": "r-032652e6fbacd0f7"
+            }
+          ]
+        },
+        {
+          "id": "r-e45135e1faeb16cf",
+          "line": 46,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "Placeholder in a sample feature map; it names a value to fill in, not a rule."
+            }
+          ]
+        },
+        {
+          "id": "r-ac7485d69bd88c8b",
+          "line": 61,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "Statement that the sample features are fictional; it imposes nothing."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "automations/benny/skills/reproduce-and-fix-issues/references/verify-existing-fix.md",
+      "sha256": "c90eae00abcdec71a58fa8d60f2c495b082a526ad50b8e8e494837609129bf29",
+      "rules": [
+        {
+          "id": "r-877bb1f88018cdb9",
+          "line": 59,
+          "map": [
+            {
+              "same": "r-471c41bfcdff4da8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "automations/benny/skills/setup-benny/SKILL.md",
+      "sha256": "5a3cbe63360c9f6373b6cb6c79a1eaf7e0eba181bfaa1577e2e6431af3407282",
+      "rules": [
+        {
+          "id": "r-7798b4f3457a93f4",
+          "line": 15,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "Keep no secret values in configuration, prompts, fixtures, argv or artifacts."
+            },
+            {
+              "same": "r-9bee74c8a18507bc"
+            }
+          ]
+        },
+        {
+          "id": "r-36d34b5729573d21",
+          "line": 27,
+          "map": [
+            {
+              "same": "r-71b7c0519a9a31d7"
+            }
+          ]
+        },
+        {
+          "id": "r-ecf7272d4004c08b",
+          "line": 28,
+          "map": [
+            {
+              "same": "r-71b7c0519a9a31d7"
+            }
+          ]
+        },
+        {
+          "id": "r-d06e49575ad5e2c2",
+          "line": 61,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "Inspect the activation session's real automation schema, scheduler trigger availability, tool catalog and authenticated connector capabilities."
+            }
+          ]
+        },
+        {
+          "id": "r-6e80babb08893531",
+          "line": 67,
+          "map": [
+            {
+              "same": "r-9bee74c8a18507bc"
+            }
+          ]
+        },
+        {
+          "id": "r-05e67a332c0b7ddf",
+          "line": 69,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "Check immutable roots, tool allowlist, owner, no Main routes, disabled state and exact payload."
+            }
+          ]
+        },
+        {
+          "id": "r-1201573b764d34f7",
+          "line": 88,
+          "map": [
+            {
+              "same": "r-71b7c0519a9a31d7"
+            }
+          ]
+        },
+        {
+          "id": "r-110d0ec4dbd0c547",
+          "line": 90,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "Store only references outside this package."
+            }
+          ]
+        },
+        {
+          "id": "r-5fc2fc09d309efa0",
+          "line": 92,
+          "map": [
+            {
+              "same": "r-05e67a332c0b7ddf"
+            }
+          ]
+        },
+        {
+          "id": "r-47303e0330136cc0",
+          "line": 94,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "Section heading; the choices it introduces are mapped at their own lines."
+            }
+          ]
+        },
+        {
+          "id": "r-69dc41427af0e207",
+          "line": 105,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "Resolve every REQUIRED field."
+            }
+          ]
+        },
+        {
+          "id": "r-6250a0fca3f4b4e6",
+          "line": 106,
+          "map": [
+            {
+              "same": "r-69dc41427af0e207"
+            }
+          ]
+        },
+        {
+          "id": "r-ffdcaf6ede9429d6",
+          "line": 114,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "Resolve every REQUIRED field."
+            },
+            {
+              "native": "automation/benny.md",
+              "quote": "Obtain explicit repository/default branch"
+            }
+          ]
+        },
+        {
+          "id": "r-55c807cf11ca545e",
+          "line": 149,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "Do not guess owner or ping broad groups."
+            }
+          ]
+        },
+        {
+          "id": "r-d2f583f6d992d881",
+          "line": 165,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "No actual connector => leave disabled."
+            },
+            {
+              "same": "r-63840a35b6abcae4"
+            }
+          ]
+        },
+        {
+          "id": "r-2b9bdca34fb30176",
+          "line": 198,
+          "map": [
+            {
+              "same": "r-10ba79c4ded68059"
+            }
+          ]
+        },
+        {
+          "id": "r-b65900b57906aa87",
+          "line": 212,
+          "map": [
+            {
+              "same": "r-10ba79c4ded68059"
+            }
+          ]
+        },
+        {
+          "id": "r-ab9a4d743f10175a",
+          "line": 246,
+          "map": [
+            {
+              "native": "contract.md",
+              "quote": "use supported native scheduler/tool schema, exact owner and bounded lifecycle only when requested"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "automations/benny/skills/triage-issue-reports/SKILL.md",
+      "sha256": "216a758b8711e64d19a55e6032c496527daac6364d010611040f3c04ef1a448f",
+      "rules": [
+        {
+          "id": "r-7422b30f7f4774d2",
+          "line": 16,
+          "map": [
+            {
+              "same": "r-10ba79c4ded68059"
+            }
+          ]
+        },
+        {
+          "id": "r-ecd64377c7b11353",
+          "line": 17,
+          "map": [
+            {
+              "same": "r-60d3a7e92846319e"
+            }
+          ]
+        },
+        {
+          "id": "r-3e085621a8492387",
+          "line": 22,
+          "map": [
+            {
+              "same": "r-e4782bcc3a2ec65a"
+            }
+          ]
+        },
+        {
+          "id": "r-7a695b824114d8f0",
+          "line": 23,
+          "map": [
+            {
+              "same": "r-e4782bcc3a2ec65a"
+            }
+          ]
+        },
+        {
+          "id": "r-25cc0b64bc9057b2",
+          "line": 25,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "create with resolved target labels/status and source permalink"
+            }
+          ]
+        },
+        {
+          "id": "r-86f27f753b38bf2f",
+          "line": 42,
+          "map": [
+            {
+              "same": "r-6bef234b44f8ac30"
+            }
+          ]
+        },
+        {
+          "id": "r-1255180e6c22c2e6",
+          "line": 79,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "Trace likely code path/history enough to distinguish causal owner from visible symptom."
+            }
+          ]
+        },
+        {
+          "id": "r-2eb278afc22dc55b",
+          "line": 129,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "Verify exact schemas for read-thread, thread-reply, attachment-read and tracker search/read/create/update/compensation."
+            }
+          ]
+        },
+        {
+          "id": "r-c96c0a646e9114ac",
+          "line": 131,
+          "map": [
+            {
+              "same": "r-2eb278afc22dc55b"
+            }
+          ]
+        },
+        {
+          "id": "r-1aced370ba741722",
+          "line": 140,
+          "map": [
+            {
+              "same": "r-2eb278afc22dc55b"
+            }
+          ]
+        },
+        {
+          "id": "r-6045106be897b4da",
+          "line": 183,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "Possible duplicate => no new issue."
+            },
+            {
+              "native": "automation/benny.md",
+              "quote": "Clearly new live bug/performance only"
+            }
+          ]
+        },
+        {
+          "id": "r-66229975b666b048",
+          "line": 185,
+          "map": [
+            {
+              "same": "r-25cc0b64bc9057b2"
+            }
+          ]
+        },
+        {
+          "id": "r-00eb28d901231ba7",
+          "line": 204,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "Post exactly one substantive verdict in the frozen source thread"
+            }
+          ]
+        },
+        {
+          "id": "r-5c9cf8713c4f21f4",
+          "line": 226,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "Fresh preflight and read-after-write confirm correct thread."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "automations/benny/skills/triage-issue-reports/references/routing.example.md",
+      "sha256": "e5e53013692568cf69da8e8b302fff929fe2fbc9aec1a4651fd7997e2c7a4025",
+      "rules": [
+        {
+          "id": "r-de468410b23dcf0d",
+          "line": 3,
+          "map": [
+            {
+              "same": "r-71b7c0519a9a31d7"
+            }
+          ]
+        },
+        {
+          "id": "r-ae55c3752a2c1f19",
+          "line": 61,
+          "map": [
+            {
+              "native": "automation/benny.md",
+              "quote": "Owner pings default off; no cross-post."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "automations/benny/templates/reproduce-automation-prompt.md",
+      "sha256": "71ec574f1844e379394ae4ef14c48d7df10afbaa319d395c788d7f856f0e6899",
+      "rules": [
+        {
+          "id": "r-96551d69f48191f6",
+          "line": 7,
+          "map": [
+            {
+              "same": "r-05e67a332c0b7ddf"
+            }
+          ]
+        },
+        {
+          "id": "r-05ad9ea42592347b",
+          "line": 31,
+          "map": [
+            {
+              "same": "r-e4782bcc3a2ec65a"
+            }
+          ]
+        },
+        {
+          "id": "r-536193e6acde9b87",
+          "line": 33,
+          "map": [
+            {
+              "same": "r-10ba79c4ded68059"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "automations/benny/templates/triage-automation-prompt.md",
+      "sha256": "e0bba594547834f013ec805915610eb597e7929efe3ffbe85ae00339ee16d474",
+      "rules": [
+        {
+          "id": "r-b6910074326f3990",
+          "line": 7,
+          "map": [
+            {
+              "same": "r-05e67a332c0b7ddf"
+            }
+          ]
+        },
+        {
+          "id": "r-45d93aa9a8724826",
+          "line": 27,
+          "map": [
+            {
+              "same": "r-10ba79c4ded68059"
+            }
+          ]
+        },
+        {
+          "id": "r-63d641428a9878aa",
+          "line": 29,
+          "map": [
+            {
+              "same": "r-e4782bcc3a2ec65a"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "docs/guide/01-setup.md",
+      "sha256": "384655bdecc713122ca69a485723c58462002a1d512415e94e48597d0dce2fa5",
+      "rules": [
+        {
+          "id": "r-568087f95058546b",
+          "line": 41,
+          "map": [
+            {
+              "gate": "setup-pstack/verification-offers"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "docs/guide/02-poteto-mode.md",
+      "sha256": "d168829def6c410b1afd87d1a6eb297df385f89faa9b31260684074e9e4eb52a",
+      "rules": [
+        {
+          "id": "r-262faf539fb0b7eb",
+          "line": 45,
+          "map": [
+            {
+              "gate": "autonomous-run/autonomous-run-01"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "docs/guide/03-understand.md",
+      "sha256": "1ac97cbad51c15c18b3aade8634d81c8bbe50d2b3135c75c113ddb2a6dcb7af0",
+      "rules": [
+        {
+          "id": "r-569e940def564bed",
+          "line": 51,
+          "map": [
+            {
+              "same": "r-f338e84150f2bf55"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "docs/guide/04-design.md",
+      "sha256": "cff616278303b533e617c5c4408af6d28895edbb8687d6ce99bb5dd1f6644a6c",
+      "rules": [
+        {
+          "id": "r-fa86e0418833a83e",
+          "line": 75,
+          "map": [
+            {
+              "same": "r-fb46836eb61f8fc0"
+            }
+          ]
+        },
+        {
+          "id": "r-92e62e7ab2a94dfd",
+          "line": 89,
+          "map": [
+            {
+              "same": "r-89cbf42f42a7676c"
+            }
+          ]
+        },
+        {
+          "id": "r-af1b9bb3b2a74645",
+          "line": 114,
+          "map": [
+            {
+              "exclude": "guide-example",
+              "reason": "Example user prompt in the upstream guide; \"must match\" is the user's acceptance criterion inside a sample request, not an agent rule."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "docs/guide/05-build-and-clean.md",
+      "sha256": "1284e80595ae4f214dfa7c5c5f7758ff90a47b3273aa7b8142e51e574f5c5290",
+      "rules": [
+        {
+          "id": "r-e51767ca0ceaaf8e",
+          "line": 13,
+          "map": [
+            {
+              "exclude": "guide-example",
+              "reason": "Guide advice telling the human how to phrase a feature request; it introduces a sample prompt and binds no agent behavior."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "docs/guide/06-verify-and-ship.md",
+      "sha256": "5c16c88bf377bf5ea5ffd4cd9dc1a83f19a0415090cc4645865d16a5500d1cab",
+      "rules": [
+        {
+          "id": "r-43b9f8f312ee5c8d",
+          "line": 22,
+          "map": [
+            {
+              "gate": "visual-parity/visual-parity-01"
+            },
+            {
+              "gate": "visual-parity/visual-parity-13"
+            }
+          ]
+        },
+        {
+          "id": "r-6890c02850debdfb",
+          "line": 33,
+          "map": [
+            {
+              "same": "r-6d1b16e1d9f49217"
+            }
+          ]
+        },
+        {
+          "id": "r-4ec5e32cda8d98a8",
+          "line": 61,
+          "map": [
+            {
+              "same": "r-69a09da8dfe264c7"
+            }
+          ]
+        },
+        {
+          "id": "r-0297152e989f45b1",
+          "line": 94,
+          "map": [
+            {
+              "same": "r-e2364e2307c5790d"
+            }
+          ]
+        },
+        {
+          "id": "r-31e24f74b5d0e82b",
+          "line": 107,
+          "map": [
+            {
+              "exclude": "guide-example",
+              "reason": "Example user prompt in the upstream guide; \"must never\" states the user's property to verify, not an agent rule."
+            }
+          ]
+        },
+        {
+          "id": "r-a5835c6ec6408d01",
+          "line": 110,
+          "map": [
+            {
+              "same": "r-9196b7e800c9e173"
+            }
+          ]
+        },
+        {
+          "id": "r-1dbe944005f1f80d",
+          "line": 112,
+          "map": [
+            {
+              "same": "r-ab2f01c9da9da7e3"
+            }
+          ]
+        },
+        {
+          "id": "r-027f2bfe3d1174f0",
+          "line": 114,
+          "map": [
+            {
+              "same": "r-8887faf01e0a1f97"
+            }
+          ]
+        },
+        {
+          "id": "r-0d03eac46daa1715",
+          "line": 140,
+          "map": [
+            {
+              "same": "r-41de4a400c1bc20c"
+            }
+          ]
+        },
+        {
+          "id": "r-6c716d9e56721bc3",
+          "line": 150,
+          "map": [
+            {
+              "gate": "shipping/shipping-05"
+            },
+            {
+              "gate": "shipping/shipping-08"
+            },
+            {
+              "gate": "shipping/shipping-11"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "docs/guide/07-overnight.md",
+      "sha256": "b767a5dc5d7257efdb5cc8cfac92acfbb18fe8e023a3438339f4b45ce4a9264a",
+      "rules": [
+        {
+          "id": "r-f01ea1bb9ca75370",
+          "line": 40,
+          "map": [
+            {
+              "gate": "pause-safely/pause-safely-02"
+            }
+          ]
+        },
+        {
+          "id": "r-3593aeaa1b48b434",
+          "line": 56,
+          "map": [
+            {
+              "same": "r-e344f5ac26e37e87"
+            }
+          ]
+        },
+        {
+          "id": "r-b9033f7ccd4446dc",
+          "line": 88,
+          "map": [
+            {
+              "same": "r-6e02d0293d4da1aa"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "docs/guide/08-principles.md",
+      "sha256": "0b26b85292f0c09768abe727c9e92987dbf81f5b439a4871034c2fd1c4cb1723",
+      "rules": [
+        {
+          "id": "r-36ea30cd199c8182",
+          "line": 38,
+          "map": [
+            {
+              "same": "r-15a4253564ebca9c"
+            }
+          ]
+        },
+        {
+          "id": "r-cc0ce4cfd5b5d2d8",
+          "line": 64,
+          "map": [
+            {
+              "same": "r-8dbea0ede39bd56a"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "docs/guide/09-make-it-yours.md",
+      "sha256": "50642f7f894988f7c263700f46478e7aed7eb94a257683350d91a9a0d70dc141",
+      "rules": [
+        {
+          "id": "r-38906e4304f8579a",
+          "line": 42,
+          "map": [
+            {
+              "gate": "correct/enforcement-ladder"
+            }
+          ]
+        },
+        {
+          "id": "r-f0f75ef5e2db86f6",
+          "line": 62,
+          "map": [
+            {
+              "native": "workflows.md",
+              "quote": "| Generate a project skill to drive the real app and prove behavior | `create-verification-skill` |"
+            }
+          ]
+        },
+        {
+          "id": "r-b95b579d10a003c9",
+          "line": 90,
+          "map": [
+            {
+              "gate": "eval/eval-05"
+            },
+            {
+              "gate": "eval/eval-20"
+            }
+          ]
+        },
+        {
+          "id": "r-719330e458d7e016",
+          "line": 96,
+          "map": [
+            {
+              "same": "r-fe0f4520907053b7"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "docs/guide/10-recipes-and-pitfalls.md",
+      "sha256": "006d8282db567aeae57398d5de1f3a802af2e3ac1a1f564198c384183fca3f92",
+      "rules": [
+        {
+          "id": "r-033ab11cc77785ff",
+          "line": 90,
+          "map": [
+            {
+              "exclude": "guide-example",
+              "reason": "Example user prompt in the upstream guide; \"must never\" states the user's property to verify, not an agent rule."
+            }
+          ]
+        },
+        {
+          "id": "r-5d309e2c38ea5870",
+          "line": 167,
+          "map": [
+            {
+              "same": "r-89cbf42f42a7676c"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "docs/harness/claude-code.md",
+      "sha256": "c79e2283d3a83c6be3dd1cac33f9c074067c95e610ae6e0a16d9fdee84058927",
+      "rules": [
+        {
+          "id": "r-c478ae3e3188d629",
+          "line": 3,
+          "map": [
+            {
+              "native": "model-routing.md",
+              "quote": "Inspect the **current effective** first-class `sessions_spawn` schema."
+            }
+          ]
+        },
+        {
+          "id": "r-b76e05d55f9182db",
+          "line": 46,
+          "map": [
+            {
+              "gate": "setup-pstack/validate-authorized-write"
+            }
+          ]
+        },
+        {
+          "id": "r-f3d2546c0461739e",
+          "line": 54,
+          "map": [
+            {
+              "exclude": "cursor-harness",
+              "reason": "Claude Code harness note about Cursor `.mdc` rule files; OpenClaw loads native skills and never reads Cursor rule files (contract.md)."
+            }
+          ]
+        },
+        {
+          "id": "r-78d80dc6c9e95b26",
+          "line": 55,
+          "map": [
+            {
+              "native": "workflows.md",
+              "quote": "Prefer a resolving package/workspace path and anchor when no public copy is verified"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/architect/references/rationale-template.md",
+      "sha256": "0cedfccdc7b47fc881febd5a8293eecbc542c20f8df825639904a8102d2eb5d3",
+      "rules": [
+        {
+          "id": "r-e3c079fd8ab36e9f",
+          "line": 7,
+          "map": [
+            {
+              "gate": "architect/rationale"
+            }
+          ]
+        },
+        {
+          "id": "r-518970506fcc47fc",
+          "line": 11,
+          "map": [
+            {
+              "same": "r-088a6aea004d8837"
+            }
+          ]
+        },
+        {
+          "id": "r-5f6d86aea52bfda0",
+          "line": 27,
+          "map": [
+            {
+              "gate": "architect/rationale"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/architect/references/runner-prompt.md",
+      "sha256": "21dd5314aab778c5007228027a4591d97693fbec6ab86524037772b63f40948e",
+      "rules": [
+        {
+          "id": "r-088a6aea004d8837",
+          "line": 9,
+          "map": [
+            {
+              "gate": "architect/caller-first-packages"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/automate-me/SKILL.md",
+      "sha256": "30b35f3628c4fd8c11af0ada06d14cdc3b28901810caca2480f627d4d21acfbe",
+      "rules": [
+        {
+          "id": "r-4bf3fec71f1f30db",
+          "line": 102,
+          "map": [
+            {
+              "gate": "automate-me/mode-versus-task"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/benchmark-checklist/SKILL.md",
+      "sha256": "ba109e96c8f6c1c391baccf19e5d11e14370df7b3f2605e1572cd565a6c0fca0",
+      "rules": [
+        {
+          "id": "r-9956948afb7b8984",
+          "line": 11,
+          "map": [
+            {
+              "gate": "benchmark-checklist/claim-and-timing-boundary"
+            },
+            {
+              "gate": "benchmark-checklist/repeatability"
+            }
+          ]
+        },
+        {
+          "id": "r-6d1b16e1d9f49217",
+          "line": 27,
+          "map": [
+            {
+              "gate": "benchmark-checklist/errors-work-and-limits"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/blast-radius/SKILL.md",
+      "sha256": "2e10745b97f5862323dcda3b29ca60d56b5c3c98e37020085d26b48efbe0a436",
+      "rules": [
+        {
+          "id": "r-cca8475d9c433c03",
+          "line": 36,
+          "map": [
+            {
+              "gate": "blast-radius/likelihood-and-impact"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/create-formal-verification-skill/SKILL.md",
+      "sha256": "6c934cd15a9583533ff9b7a9cad62775d7e80402d26d3ba7f74f79ea21a1d8eb",
+      "rules": [
+        {
+          "id": "r-a53258f685dd9963",
+          "line": 9,
+          "map": [
+            {
+              "native": "workflows.md",
+              "quote": "State the property and user harm plainly."
+            },
+            {
+              "native": "workflows.md",
+              "quote": "plain-language counterexamples/findings"
+            }
+          ]
+        },
+        {
+          "id": "r-9196b7e800c9e173",
+          "line": 19,
+          "map": [
+            {
+              "native": "workflows.md",
+              "quote": "Choose the lowest-cost fitting tool: TLA+ is the default for event interleavings in any language"
+            }
+          ]
+        },
+        {
+          "id": "r-ab2f01c9da9da7e3",
+          "line": 24,
+          "map": [
+            {
+              "native": "workflows.md",
+              "quote": "show every property failing on a broken variant of the real code it guards"
+            }
+          ]
+        },
+        {
+          "id": "r-d5b2f6c24925e475",
+          "line": 33,
+          "map": [
+            {
+              "native": "workflows.md",
+              "quote": "Give valid frontmatter, exact rerun command and reproducible tool version"
+            }
+          ]
+        },
+        {
+          "id": "r-8887faf01e0a1f97",
+          "line": 37,
+          "map": [
+            {
+              "native": "workflows.md",
+              "quote": "A never-run or mutation-blind skill remains an unproved draft."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/create-verification-skill/SKILL.md",
+      "sha256": "d353973547bf8ad8977eca645f4cd4feaed0d32f4b43d1448f906b0a76c4d694",
+      "rules": [
+        {
+          "id": "r-21824793768366dd",
+          "line": 9,
+          "map": [
+            {
+              "gate": "create-verification-skill/frontmatter-and-shape"
+            },
+            {
+              "gate": "create-verification-skill/execute-cleanup-handback"
+            }
+          ]
+        },
+        {
+          "id": "r-5f83bfebef3cb8ca",
+          "line": 21,
+          "map": [
+            {
+              "gate": "create-verification-skill/repo-interview"
+            }
+          ]
+        },
+        {
+          "id": "r-018f3ec523c93cc0",
+          "line": 25,
+          "map": [
+            {
+              "gate": "create-verification-skill/frontmatter-and-shape"
+            }
+          ]
+        },
+        {
+          "id": "r-75c464db043819d4",
+          "line": 27,
+          "map": [
+            {
+              "gate": "create-verification-skill/launch-model"
+            }
+          ]
+        },
+        {
+          "id": "r-66684ecafd9cec10",
+          "line": 31,
+          "map": [
+            {
+              "gate": "create-verification-skill/execute-cleanup-handback"
+            }
+          ]
+        },
+        {
+          "id": "r-fd4ac534d5a9c483",
+          "line": 36,
+          "map": [
+            {
+              "gate": "create-verification-skill/feature-map-seeds"
+            }
+          ]
+        },
+        {
+          "id": "r-69a09da8dfe264c7",
+          "line": 40,
+          "map": [
+            {
+              "gate": "create-verification-skill/execute-cleanup-handback"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/create-verification-skill/references/feature-map-example/README.md",
+      "sha256": "cb7bd782cf89968a4ba3d58a5151db837430db92d19a6f52a906973b77b516ba",
+      "rules": [
+        {
+          "id": "r-4a6c0df28928747d",
+          "line": 12,
+          "map": [
+            {
+              "gate": "create-verification-skill/repo-interview"
+            },
+            {
+              "gate": "create-verification-skill/execute-cleanup-handback"
+            }
+          ]
+        },
+        {
+          "id": "r-e9ebd136bb3431c2",
+          "line": 42,
+          "map": [
+            {
+              "gate": "create-verification-skill/feature-map-seeds"
+            },
+            {
+              "gate": "create-verification-skill/real-drive-proof"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/figure-it-out/SKILL.md",
+      "sha256": "bdb23cdbd82a1e6af094b495691c832a6f7f3ab9706ba9edbeb664ef51a726e1",
+      "rules": [
+        {
+          "id": "r-34f5bfb6c2bf5f37",
+          "line": 23,
+          "map": [
+            {
+              "gate": "figure-it-out/frame-before-code"
+            },
+            {
+              "native": "principles.md",
+              "quote": "Proceed with authorized reversible decisions and state reasonable assumptions."
+            }
+          ]
+        },
+        {
+          "id": "r-a9d56fab870ecbed",
+          "line": 40,
+          "map": [
+            {
+              "gate": "figure-it-out/experiment"
+            },
+            {
+              "native": "principles.md",
+              "quote": "Builds, file times, queued actions and self-reports are insufficient for behavioral claims."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/interrogate/SKILL.md",
+      "sha256": "a16dfe179005abc22a4651b82f25b0c8ab953284276efe4e6dc341958fb63647",
+      "rules": [
+        {
+          "id": "r-1e7ed7cd01d77405",
+          "line": 36,
+          "map": [
+            {
+              "gate": "interrogate/reviewers"
+            },
+            {
+              "native": "model-routing.md",
+              "quote": "Required but unavailable independent review stays blocked."
+            },
+            {
+              "native": "model-routing.md",
+              "quote": "An unavailable saved model is an explicit blocker, not a substitute."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/ketchup/SKILL.md",
+      "sha256": "f2923ffd14f6fc778f75a47aaed1f317fb5fd00b5701ca769d6446c74106dead",
+      "rules": [
+        {
+          "id": "r-06d4deeb5ac19cac",
+          "line": 17,
+          "map": [
+            {
+              "native": "workflows.md",
+              "quote": "Work you can do yourself is not a user action item."
+            },
+            {
+              "native": "workflows.md",
+              "quote": "Do not invent unnecessary decisions."
+            }
+          ]
+        },
+        {
+          "id": "r-73d5356a17e0c292",
+          "line": 23,
+          "map": [
+            {
+              "native": "workflows.md",
+              "quote": "never cut items or replace the list with a count or link to meet a word limit"
+            }
+          ]
+        },
+        {
+          "id": "r-1b87534988e03cfe",
+          "line": 27,
+          "map": [
+            {
+              "native": "workflows.md",
+              "quote": "distinguish done from work still awaiting a decision"
+            }
+          ]
+        },
+        {
+          "id": "r-2c5278e05c80d44f",
+          "line": 29,
+          "map": [
+            {
+              "native": "workflows.md",
+              "quote": "your pick (including prerequisites and irreversible effects)"
+            }
+          ]
+        },
+        {
+          "id": "r-7cdc1d81dda953b6",
+          "line": 39,
+          "map": [
+            {
+              "native": "workflows.md",
+              "quote": "never a status list or action-item diagram"
+            }
+          ]
+        },
+        {
+          "id": "r-8c97bc4415d5a783",
+          "line": 43,
+          "map": [
+            {
+              "native": "workflows.md",
+              "quote": "never fabricate screenshots"
+            },
+            {
+              "native": "workflows.md",
+              "quote": "never invent a link"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/maintain-formal-verification-skill/SKILL.md",
+      "sha256": "0c96f54293542d3818b68754562b338073958781a9684454611dca37592e2d2c",
+      "rules": [
+        {
+          "id": "r-51a5335418a669c3",
+          "line": 24,
+          "map": [
+            {
+              "native": "workflows.md",
+              "quote": "no product fixes, verifier/toolchain installs or Git commits without explicit authorization"
+            },
+            {
+              "native": "workflows.md",
+              "quote": "Do not weaken the check or commit a product repro/fix as verification upkeep."
+            }
+          ]
+        },
+        {
+          "id": "r-843aa31b8d8bc20a",
+          "line": 34,
+          "map": [
+            {
+              "native": "workflows.md",
+              "quote": "Classify changes as no effect, verification drift, an intentionally changed promise supported by evidence, or a possible broken promise."
+            }
+          ]
+        },
+        {
+          "id": "r-16a422610bd61c0d",
+          "line": 35,
+          "map": [
+            {
+              "native": "workflows.md",
+              "quote": "Change a property only with evidence of an intentional promise change: record old/new wording and cite tests, docs, changelog or commit evidence."
+            }
+          ]
+        },
+        {
+          "id": "r-3b2bf11605515376",
+          "line": 38,
+          "map": [
+            {
+              "native": "workflows.md",
+              "quote": "Update code mappings and atomic steps from the code before rerunning, not from what makes a check pass."
+            },
+            {
+              "native": "workflows.md",
+              "quote": "Keep bounds unless invalidated; disclose any reduction."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/maintain-verification-skill/SKILL.md",
+      "sha256": "515c0eaa054b3f6be1b1fb06f2c2f173c80fddb58bbcac57576f89c479bc68e8",
+      "rules": [
+        {
+          "id": "r-e2364e2307c5790d",
+          "line": 21,
+          "map": [
+            {
+              "gate": "maintain-verification-skill/target-index"
+            },
+            {
+              "gate": "maintain-verification-skill/triage-redrive"
+            }
+          ]
+        },
+        {
+          "id": "r-a4cb6b0770fcf2f2",
+          "line": 29,
+          "map": [
+            {
+              "gate": "maintain-verification-skill/source-wave"
+            }
+          ]
+        },
+        {
+          "id": "r-9bd9e37b009e4d87",
+          "line": 33,
+          "map": [
+            {
+              "gate": "maintain-verification-skill/live-coverage"
+            },
+            {
+              "gate": "maintain-verification-skill/doctor-reset-retry"
+            },
+            {
+              "gate": "maintain-verification-skill/evidence-cleanup"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/make-bot-ui/SKILL.md",
+      "sha256": "ad19d0bc6764287ec08c2521701974e7dac941f72e4d0fe81a24f4614494586f",
+      "rules": [
+        {
+          "id": "r-bbdfbbbdfef8bda3",
+          "line": 5,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "Frontmatter trigger description: it says when the route applies (the user holds a webhook sender key), not what the agent must do."
+            }
+          ]
+        },
+        {
+          "id": "r-fe0f4520907053b7",
+          "line": 35,
+          "map": [
+            {
+              "gate": "make-bot-ui/server-side-secrets-and-wake"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/no-comments/SKILL.md",
+      "sha256": "078ecfe224eafbb017f6476870612838bf6dbe38c0b697e12f0c887d0313f17e",
+      "rules": [
+        {
+          "id": "r-00d2c37c65e5e357",
+          "line": 20,
+          "map": [
+            {
+              "gate": "no-comments/parent-audit-retry"
+            },
+            {
+              "gate": "no-comments/exceptions-suppressions"
+            }
+          ]
+        },
+        {
+          "id": "r-1b213936b9aa2994",
+          "line": 22,
+          "map": [
+            {
+              "gate": "no-comments/root-cause"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/poteto-help/references/prompting.md",
+      "sha256": "463f450c44a60afd001a2f69fdf8a5dea174351f339369b12ec3c41515e564d3",
+      "rules": [
+        {
+          "id": "r-fb46836eb61f8fc0",
+          "line": 28,
+          "map": [
+            {
+              "native": "principles.md",
+              "quote": "compare two or three genuinely different designs against observable criteria"
+            },
+            {
+              "gate": "prototype/prototype-02"
+            }
+          ]
+        },
+        {
+          "id": "r-89cbf42f42a7676c",
+          "line": 29,
+          "map": [
+            {
+              "gate": "interrogate/scope-intent"
+            },
+            {
+              "gate": "multi-phase-plan/multi-phase-plan-04"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/poteto-help/references/recipes.md",
+      "sha256": "f2d573014f72f7c798b1998b45f4360a8a83e7b8026c4ed9074e56c5a9d49338",
+      "rules": [
+        {
+          "id": "r-da4729659acfbd7a",
+          "line": 32,
+          "map": [
+            {
+              "exclude": "guide-example",
+              "reason": "Example user prompt in the upstream recipes page; \"must match\" is the user's acceptance criterion inside a sample request, not an agent rule."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/poteto-mode/SKILL.md",
+      "sha256": "2755f102e7a6d0496b429d1031a22fb353e1f3d523543367caeaae5c4ed6f544",
+      "rules": [
+        {
+          "id": "r-067178c302dd5f5e",
+          "line": 20,
+          "map": [
+            {
+              "gate": "poteto-mode/conditional-triggers"
+            },
+            {
+              "gate": "prototype/prototype-02"
+            }
+          ]
+        },
+        {
+          "id": "r-508f25eac6723b17",
+          "line": 32,
+          "map": [
+            {
+              "gate": "poteto-mode/surface-triggers"
+            },
+            {
+              "gate": "babysit/babysit-01"
+            }
+          ]
+        },
+        {
+          "id": "r-0f031cb00697229c",
+          "line": 75,
+          "map": [
+            {
+              "native": "principles.md",
+              "quote": "Proceed with authorized reversible decisions and state reasonable assumptions."
+            }
+          ]
+        },
+        {
+          "id": "r-f8a079dd7d30e639",
+          "line": 93,
+          "map": [
+            {
+              "gate": "poteto-mode/native-delegation"
+            },
+            {
+              "gate": "poteto-mode/delegate-brief"
+            }
+          ]
+        },
+        {
+          "id": "r-714bd15400f267f1",
+          "line": 112,
+          "map": [
+            {
+              "gate": "poteto-mode/autonomy-trail-closure"
+            }
+          ]
+        },
+        {
+          "id": "r-f338e84150f2bf55",
+          "line": 113,
+          "map": [
+            {
+              "gate": "poteto-mode/evidence-labels"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/poteto-mode/playbooks/autonomous-run.md",
+      "sha256": "6ac974fd2b09748add56493e89f578a35a6a9289e1026515878d81ef3cf129d1",
+      "rules": [
+        {
+          "id": "r-e344f5ac26e37e87",
+          "line": 11,
+          "map": [
+            {
+              "gate": "autonomous-run/autonomous-run-17"
+            },
+            {
+              "gate": "autonomous-run/autonomous-run-18"
+            },
+            {
+              "gate": "autonomous-run/autonomous-run-19"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/poteto-mode/playbooks/autopilot-full.md",
+      "sha256": "acf4f4a58c11045f9d3e8807d907a877e61ca6432b079f1087d7d30fc931566f",
+      "rules": [
+        {
+          "id": "r-ca0a55b7c41353e7",
+          "line": 3,
+          "map": [
+            {
+              "gate": "autopilot-full/autopilot-full-02"
+            },
+            {
+              "gate": "autopilot-full/autopilot-full-37"
+            }
+          ]
+        },
+        {
+          "id": "r-d0645e62d0921189",
+          "line": 8,
+          "map": [
+            {
+              "gate": "autopilot-full/autopilot-full-05"
+            },
+            {
+              "gate": "autopilot-full/autopilot-full-09"
+            },
+            {
+              "gate": "opening-a-pr/opening-a-pr-12"
+            }
+          ]
+        },
+        {
+          "id": "r-78345051911871db",
+          "line": 13,
+          "map": [
+            {
+              "gate": "autopilot-full/autopilot-full-08"
+            }
+          ]
+        },
+        {
+          "id": "r-b33e691503fdb7e9",
+          "line": 16,
+          "map": [
+            {
+              "gate": "autopilot-full/autopilot-full-27"
+            },
+            {
+              "gate": "autopilot-full/autopilot-full-28"
+            },
+            {
+              "gate": "autopilot-full/autopilot-full-10"
+            }
+          ]
+        },
+        {
+          "id": "r-a4636f263fca597c",
+          "line": 17,
+          "map": [
+            {
+              "gate": "autopilot-full/autopilot-full-30"
+            },
+            {
+              "gate": "autopilot-full/autopilot-full-37"
+            }
+          ]
+        },
+        {
+          "id": "r-2aad986a23aae241",
+          "line": 19,
+          "map": [
+            {
+              "gate": "autopilot-full/autopilot-full-33"
+            },
+            {
+              "gate": "autopilot-full/autopilot-full-34"
+            },
+            {
+              "gate": "autopilot-full/autopilot-full-36"
+            }
+          ]
+        },
+        {
+          "id": "r-6793ce65e80b1065",
+          "line": 20,
+          "map": [
+            {
+              "gate": "autopilot-full/autopilot-full-38"
+            },
+            {
+              "gate": "autopilot-full/autopilot-full-39"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/poteto-mode/playbooks/autopilot-stack.md",
+      "sha256": "c6bcb18b2ce605e77a2a2225854590a4b9a687911f79331746d91a4fe9a52e60",
+      "rules": [
+        {
+          "id": "r-8e82b35519640e7a",
+          "line": 3,
+          "map": [
+            {
+              "gate": "autopilot-stack/autopilot-stack-08"
+            },
+            {
+              "gate": "autopilot-stack/autopilot-stack-17"
+            }
+          ]
+        },
+        {
+          "id": "r-91e49b2ab8481b52",
+          "line": 5,
+          "map": [
+            {
+              "gate": "autopilot-stack/autopilot-stack-05"
+            },
+            {
+              "gate": "autopilot-stack/autopilot-stack-07"
+            },
+            {
+              "gate": "autopilot-stack/autopilot-stack-08"
+            }
+          ]
+        },
+        {
+          "id": "r-5e68c987ec12d101",
+          "line": 6,
+          "map": [
+            {
+              "gate": "autopilot-stack/autopilot-stack-06"
+            },
+            {
+              "gate": "autopilot-stack/autopilot-stack-10"
+            },
+            {
+              "gate": "autopilot-stack/autopilot-stack-13"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/poteto-mode/playbooks/babysit.md",
+      "sha256": "e261c1ff5581e0f8fc6c686f34de4b535f87473e77beabea7dd8323021214610",
+      "rules": [
+        {
+          "id": "r-9b8eb71eb5017e9a",
+          "line": 7,
+          "map": [
+            {
+              "gate": "babysit/babysit-02"
+            }
+          ]
+        },
+        {
+          "id": "r-7803bd48bb025319",
+          "line": 8,
+          "map": [
+            {
+              "gate": "babysit/babysit-04"
+            }
+          ]
+        },
+        {
+          "id": "r-c556f69daa5fd9ba",
+          "line": 10,
+          "map": [
+            {
+              "gate": "babysit/babysit-05"
+            }
+          ]
+        },
+        {
+          "id": "r-29182749d302041f",
+          "line": 12,
+          "map": [
+            {
+              "gate": "babysit/babysit-07"
+            },
+            {
+              "gate": "babysit/babysit-09"
+            },
+            {
+              "gate": "babysit/babysit-10"
+            },
+            {
+              "gate": "babysit/babysit-12"
+            }
+          ]
+        },
+        {
+          "id": "r-0253f90306f0120c",
+          "line": 16,
+          "map": [
+            {
+              "gate": "babysit/babysit-08"
+            }
+          ]
+        },
+        {
+          "id": "r-e9b04f6e2b9549e3",
+          "line": 19,
+          "map": [
+            {
+              "gate": "babysit/babysit-11"
+            }
+          ]
+        },
+        {
+          "id": "r-ff1099527d6d19e5",
+          "line": 20,
+          "map": [
+            {
+              "gate": "babysit/babysit-12"
+            },
+            {
+              "gate": "babysit/babysit-13"
+            }
+          ]
+        },
+        {
+          "id": "r-41de4a400c1bc20c",
+          "line": 21,
+          "map": [
+            {
+              "gate": "babysit/babysit-01"
+            },
+            {
+              "gate": "babysit/babysit-08"
+            },
+            {
+              "gate": "babysit/babysit-15"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/poteto-mode/playbooks/eval.md",
+      "sha256": "a93d449a908236afa6645179651844094b1547dbab4e484cffcdda630e4b90bf",
+      "rules": [
+        {
+          "id": "r-d696a09e017721d1",
+          "line": 12,
+          "map": [
+            {
+              "gate": "eval/eval-15"
+            }
+          ]
+        },
+        {
+          "id": "r-f69cd6937fab6778",
+          "line": 21,
+          "map": [
+            {
+              "gate": "eval/eval-14"
+            },
+            {
+              "gate": "eval/eval-15"
+            }
+          ]
+        },
+        {
+          "id": "r-1ddb8452fc07b118",
+          "line": 22,
+          "map": [
+            {
+              "gate": "eval/eval-18"
+            },
+            {
+              "gate": "eval/eval-19"
+            },
+            {
+              "gate": "eval/eval-20"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/poteto-mode/playbooks/hillclimb.md",
+      "sha256": "942c1565b75ad02a2cb6230dd7c1ebd87e19f59a00319ebac2b6616007bf018f",
+      "rules": [
+        {
+          "id": "r-eb4b2c3890ef8541",
+          "line": 5,
+          "map": [
+            {
+              "gate": "hillclimb/hillclimb-02"
+            },
+            {
+              "gate": "hillclimb/hillclimb-03"
+            }
+          ]
+        },
+        {
+          "id": "r-816905d1d90abd02",
+          "line": 8,
+          "map": [
+            {
+              "gate": "hillclimb/hillclimb-10"
+            },
+            {
+              "gate": "hillclimb/hillclimb-12"
+            }
+          ]
+        },
+        {
+          "id": "r-c7b56a1ce18c70f6",
+          "line": 15,
+          "map": [
+            {
+              "gate": "hillclimb/hillclimb-25"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/poteto-mode/playbooks/multi-phase-plan.md",
+      "sha256": "5f239457bfdec3345c92caa06c59bf0257c662b89353f25a1c02ea942dcd00b1",
+      "rules": [
+        {
+          "id": "r-0d197f8702c10d38",
+          "line": 6,
+          "map": [
+            {
+              "gate": "multi-phase-plan/multi-phase-plan-04"
+            },
+            {
+              "gate": "multi-phase-plan/multi-phase-plan-07"
+            }
+          ]
+        },
+        {
+          "id": "r-e614bd4b3034bc03",
+          "line": 13,
+          "map": [
+            {
+              "gate": "multi-phase-plan/multi-phase-plan-55"
+            },
+            {
+              "gate": "multi-phase-plan/multi-phase-plan-91"
+            },
+            {
+              "gate": "multi-phase-plan/multi-phase-plan-30"
+            }
+          ]
+        },
+        {
+          "id": "r-18e1a6907bc40d41",
+          "line": 41,
+          "map": [
+            {
+              "gate": "multi-phase-plan/multi-phase-plan-60"
+            },
+            {
+              "gate": "multi-phase-plan/multi-phase-plan-61"
+            }
+          ]
+        },
+        {
+          "id": "r-0e7efddab4094cc1",
+          "line": 56,
+          "map": [
+            {
+              "gate": "opening-a-pr/opening-a-pr-12"
+            },
+            {
+              "gate": "multi-phase-plan/multi-phase-plan-69"
+            }
+          ]
+        },
+        {
+          "id": "r-6b61eae889a3316b",
+          "line": 57,
+          "map": [
+            {
+              "gate": "multi-phase-plan/multi-phase-plan-69"
+            },
+            {
+              "gate": "opening-a-pr/opening-a-pr-14"
+            }
+          ]
+        },
+        {
+          "id": "r-9c3b7566eac4ffa3",
+          "line": 116,
+          "map": [
+            {
+              "gate": "multi-phase-plan/multi-phase-plan-30"
+            },
+            {
+              "gate": "multi-phase-plan/multi-phase-plan-104"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/poteto-mode/playbooks/opening-a-pr.md",
+      "sha256": "a5aef646de8b651306c2d10974623650e4a013a245aec1c00525bbe0e31bfa76",
+      "rules": [
+        {
+          "id": "r-6357b7391193194a",
+          "line": 26,
+          "map": [
+            {
+              "gate": "opening-a-pr/opening-a-pr-12"
+            }
+          ]
+        },
+        {
+          "id": "r-5332a09576e48011",
+          "line": 30,
+          "map": [
+            {
+              "gate": "opening-a-pr/opening-a-pr-14"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/poteto-mode/playbooks/orchestrate.md",
+      "sha256": "08dce6c9e7be1d13bc6944ab9b51665f935c531437f5e088bc53d2a62099ef05",
+      "rules": [
+        {
+          "id": "r-57dfeba77f9fce40",
+          "line": 3,
+          "map": [
+            {
+              "gate": "orchestrate/orchestrate-01"
+            },
+            {
+              "gate": "orchestrate/orchestrate-04"
+            }
+          ]
+        },
+        {
+          "id": "r-ce0b7b54297271b0",
+          "line": 5,
+          "map": [
+            {
+              "gate": "orchestrate/orchestrate-22"
+            },
+            {
+              "gate": "orchestrate/orchestrate-28"
+            }
+          ]
+        },
+        {
+          "id": "r-6e02d0293d4da1aa",
+          "line": 15,
+          "map": [
+            {
+              "gate": "orchestrate/orchestrate-07"
+            },
+            {
+              "gate": "orchestrate/orchestrate-08"
+            },
+            {
+              "gate": "orchestrate/orchestrate-09"
+            }
+          ]
+        },
+        {
+          "id": "r-c5498693b7bce2a1",
+          "line": 16,
+          "map": [
+            {
+              "gate": "orchestrate/orchestrate-29"
+            },
+            {
+              "gate": "orchestrate/orchestrate-30"
+            }
+          ]
+        },
+        {
+          "id": "r-e5d2d52431d64cbb",
+          "line": 19,
+          "map": [
+            {
+              "gate": "orchestrate/orchestrate-29"
+            },
+            {
+              "gate": "orchestrate/orchestrate-30"
+            }
+          ]
+        },
+        {
+          "id": "r-f849577d37915fc0",
+          "line": 26,
+          "map": [
+            {
+              "gate": "orchestrate/orchestrate-16"
+            }
+          ]
+        },
+        {
+          "id": "r-4a42569c7df30a7a",
+          "line": 32,
+          "map": [
+            {
+              "gate": "orchestrate/orchestrate-35"
+            }
+          ]
+        },
+        {
+          "id": "r-42eb93618fddaf44",
+          "line": 57,
+          "map": [
+            {
+              "gate": "orchestrate/orchestrate-21"
+            },
+            {
+              "gate": "orchestrate/orchestrate-23"
+            },
+            {
+              "gate": "orchestrate/orchestrate-24"
+            },
+            {
+              "gate": "orchestrate/orchestrate-31"
+            }
+          ]
+        },
+        {
+          "id": "r-1cb6a4b1691259c8",
+          "line": 61,
+          "map": [
+            {
+              "gate": "orchestrate/orchestrate-03"
+            },
+            {
+              "gate": "orchestrate/orchestrate-04"
+            }
+          ]
+        },
+        {
+          "id": "r-53434b09eb6407c9",
+          "line": 66,
+          "map": [
+            {
+              "gate": "orchestrate/orchestrate-43"
+            }
+          ]
+        },
+        {
+          "id": "r-d27ae155735f1516",
+          "line": 71,
+          "map": [
+            {
+              "gate": "orchestrate/orchestrate-32"
+            },
+            {
+              "gate": "orchestrate/orchestrate-38"
+            }
+          ]
+        },
+        {
+          "id": "r-37252166dff202d8",
+          "line": 80,
+          "map": [
+            {
+              "gate": "orchestrate/orchestrate-42"
+            }
+          ]
+        },
+        {
+          "id": "r-db806c0f5675fcf1",
+          "line": 82,
+          "map": [
+            {
+              "gate": "orchestrate/orchestrate-40"
+            },
+            {
+              "gate": "orchestrate/orchestrate-41"
+            }
+          ]
+        },
+        {
+          "id": "r-d1d92f85ac7dd7ae",
+          "line": 92,
+          "map": [
+            {
+              "gate": "orchestrate/orchestrate-50"
+            }
+          ]
+        },
+        {
+          "id": "r-f8f71a62fbb48d58",
+          "line": 96,
+          "map": [
+            {
+              "gate": "orchestrate/orchestrate-51"
+            }
+          ]
+        },
+        {
+          "id": "r-a893e70bda81582a",
+          "line": 97,
+          "map": [
+            {
+              "gate": "orchestrate/orchestrate-30"
+            },
+            {
+              "gate": "orchestrate/orchestrate-36"
+            },
+            {
+              "gate": "orchestrate/orchestrate-52"
+            }
+          ]
+        },
+        {
+          "id": "r-933f3c1e04789068",
+          "line": 99,
+          "map": [
+            {
+              "gate": "orchestrate/orchestrate-53"
+            }
+          ]
+        },
+        {
+          "id": "r-962d391dbe35c017",
+          "line": 108,
+          "map": [
+            {
+              "gate": "orchestrate/orchestrate-57"
+            },
+            {
+              "gate": "orchestrate/orchestrate-58"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/poteto-mode/playbooks/refactoring.md",
+      "sha256": "0f5dd38113379ea8cf61e2182eca0a7478eea9a869eb40c2dddab3335aeca197",
+      "rules": [
+        {
+          "id": "r-87d24154554042fb",
+          "line": 8,
+          "map": [
+            {
+              "gate": "refactoring/refactoring-11"
+            },
+            {
+              "gate": "refactoring/refactoring-12"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/poteto-mode/playbooks/shipping.md",
+      "sha256": "bf56339bdf7e0223bcff5abf4e8599e3f5b547b3fcc3b4ce9475e6e7dda14a9f",
+      "rules": [
+        {
+          "id": "r-71ee6ac42f812676",
+          "line": 5,
+          "map": [
+            {
+              "gate": "shipping/shipping-03"
+            },
+            {
+              "gate": "opening-a-pr/opening-a-pr-12"
+            }
+          ]
+        },
+        {
+          "id": "r-753e440c61b01cc1",
+          "line": 7,
+          "map": [
+            {
+              "gate": "shipping/shipping-14"
+            },
+            {
+              "gate": "shipping/shipping-16"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/poteto-mode/playbooks/worktree-cleanup.md",
+      "sha256": "be04ae0afe19d4a4da5bcc4e94455f68dbebd1cda6eb0f456ca0d358ecf76c00",
+      "rules": [
+        {
+          "id": "r-30d01d0c131fe7a7",
+          "line": 3,
+          "map": [
+            {
+              "native": "playbooks.md",
+              "quote": "Inventory exact paths and owners with supported worktree tools"
+            }
+          ]
+        },
+        {
+          "id": "r-c51c04329e753bec",
+          "line": 5,
+          "map": [
+            {
+              "native": "playbooks.md",
+              "quote": "Prove merged/reproducible status, no live processes/consumers and no unique unpublished source."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/poteto-mode/references/bugbot-triage.md",
+      "sha256": "b2d146c770d8d3593e1ef3d77b668039b8e1f78093ea1a86f1d45d7f99614309",
+      "rules": [
+        {
+          "id": "r-f8168f3b0cee0b28",
+          "line": 3,
+          "map": [
+            {
+              "gate": "babysit/babysit-12"
+            }
+          ]
+        },
+        {
+          "id": "r-63578881ca85039f",
+          "line": 23,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "Placeholder in the rubric's entry template; it names a field to fill in, not an agent rule."
+            }
+          ]
+        },
+        {
+          "id": "r-49c6d292666ac2a6",
+          "line": 45,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "Quoted example of a bot comment used as a matching signal; the word is part of the bot's text, not a rule."
+            }
+          ]
+        },
+        {
+          "id": "r-a0cd115bed789e11",
+          "line": 93,
+          "map": [
+            {
+              "gate": "babysit/babysit-12"
+            }
+          ]
+        },
+        {
+          "id": "r-1ee0662b74579279",
+          "line": 101,
+          "map": [
+            {
+              "gate": "babysit/babysit-12"
+            }
+          ]
+        },
+        {
+          "id": "r-568be67aefc0d275",
+          "line": 138,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "Quoted example of a bot comment used as a matching signal; the word is part of the bot's text, not a rule."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/poteto-mode/scripts/check-plan.mjs",
+      "sha256": "e58c3d871b09d477be00628d69dd23ffa6c2e3a1728f5b867a841baa8e90278b",
+      "rules": [
+        {
+          "id": "r-f7e67978ca5e175e",
+          "line": 100,
+          "map": [
+            {
+              "gate": "multi-phase-plan/multi-phase-plan-20"
+            },
+            {
+              "native": "plan-adapter.md",
+              "quote": "`plan-check.mjs` checker through native tool admission"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/poteto-mode/scripts/orch/orch.test.ts",
+      "sha256": "5e80b416bdcd68e4067690ce857345852fd2e0db3dcf3e25607999cd55b963d2",
+      "rules": [
+        {
+          "id": "r-39401c679e3dce9f",
+          "line": 364,
+          "map": [
+            {
+              "gate": "orchestrate/orchestrate-46"
+            },
+            {
+              "gate": "orchestrate/orchestrate-18"
+            }
+          ]
+        },
+        {
+          "id": "r-16073a25418f3d65",
+          "line": 474,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "Sample standing-order string in a test fixture for the source-only orch helper; it is test data, not an instruction to this agent."
+            }
+          ]
+        },
+        {
+          "id": "r-588c8d9183865a8f",
+          "line": 475,
+          "map": [
+            {
+              "same": "r-16073a25418f3d65"
+            }
+          ]
+        },
+        {
+          "id": "r-a855fd4a74192f73",
+          "line": 491,
+          "map": [
+            {
+              "same": "r-16073a25418f3d65"
+            }
+          ]
+        },
+        {
+          "id": "r-2ea0c239fc44fc2a",
+          "line": 571,
+          "map": [
+            {
+              "exclude": "source-only-code",
+              "reason": "Argument validation in the test suite of the source-only orch CLI, which is never executed (orchestrate-18); native file tools replace it (orchestrate-14)."
+            }
+          ]
+        },
+        {
+          "id": "r-8767c5f6343947d1",
+          "line": 670,
+          "map": [
+            {
+              "exclude": "source-only-code",
+              "reason": "Required-option assertion in the test suite of the source-only orch CLI, which is never executed (orchestrate-18); native file tools replace it (orchestrate-14)."
+            }
+          ]
+        },
+        {
+          "id": "r-72ef19d0b29cb317",
+          "line": 732,
+          "map": [
+            {
+              "exclude": "source-only-code",
+              "reason": "Empty-unit-id assertion in the test suite of the source-only orch CLI, which is never executed (orchestrate-18); native file tools replace it (orchestrate-14)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/poteto-mode/scripts/orch/orch.ts",
+      "sha256": "47c92c57e8276616d8de94665a126bd832e748036afa8d0ffdbacb7946decb5c",
+      "rules": [
+        {
+          "id": "r-69377fe02ea0a2e2",
+          "line": 96,
+          "map": [
+            {
+              "exclude": "source-only-code",
+              "reason": "Argument validation in the source-only orch CLI, which is never executed (orchestrate-18); native file tools replace it (orchestrate-14)."
+            }
+          ]
+        },
+        {
+          "id": "r-a7401c1302352539",
+          "line": 251,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "TypeScript `never` return type in source-only code, not prose."
+            }
+          ]
+        },
+        {
+          "id": "r-500eb266abb5681e",
+          "line": 253,
+          "map": [
+            {
+              "exclude": "source-only-code",
+              "reason": "Subcommand validation in the source-only orch CLI, which is never executed (orchestrate-18); native file tools replace it (orchestrate-14)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/poteto-mode/scripts/orch/store.ts",
+      "sha256": "558cfda533e1ebe7c8d7842604f07e0be7618759cf129b4c2397a8e29516ecea",
+      "rules": [
+        {
+          "id": "r-4a89b26fbfa9d05a",
+          "line": 291,
+          "map": [
+            {
+              "gate": "orchestrate/orchestrate-46"
+            }
+          ]
+        },
+        {
+          "id": "r-31971b256c16cfce",
+          "line": 305,
+          "map": [
+            {
+              "exclude": "source-only-code",
+              "reason": "Empty-value validation in the source-only orch store, which is never executed (orchestrate-18); native file tools replace it (orchestrate-14)."
+            }
+          ]
+        },
+        {
+          "id": "r-c1feaf2b184ae259",
+          "line": 313,
+          "map": [
+            {
+              "exclude": "source-only-code",
+              "reason": "Empty-value validation in the source-only orch store, which is never executed (orchestrate-18); native file tools replace it (orchestrate-14)."
+            }
+          ]
+        },
+        {
+          "id": "r-25c7443e9c6b78cb",
+          "line": 320,
+          "map": [
+            {
+              "exclude": "source-only-code",
+              "reason": "Positive-integer validation in the source-only orch store, which is never executed (orchestrate-18); native file tools replace it (orchestrate-14)."
+            }
+          ]
+        },
+        {
+          "id": "r-617eefa6b7acb2d9",
+          "line": 678,
+          "map": [
+            {
+              "exclude": "source-only-code",
+              "reason": "frontier.json shape validation in the source-only orch store, which is never executed (orchestrate-18); native file tools replace it (orchestrate-14)."
+            }
+          ]
+        },
+        {
+          "id": "r-6cb49513f8679b1a",
+          "line": 1010,
+          "map": [
+            {
+              "gate": "orchestrate/orchestrate-14"
+            },
+            {
+              "gate": "opening-a-pr/opening-a-pr-12"
+            }
+          ]
+        },
+        {
+          "id": "r-3fbe0bbb9cc33d44",
+          "line": 1562,
+          "map": [
+            {
+              "exclude": "source-only-code",
+              "reason": "Duplicate --prs validation in the source-only orch store, which is never executed (orchestrate-18); native file tools replace it (orchestrate-14)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/poteto-mode/scripts/watch-pr/cli.ts",
+      "sha256": "89c08863089181a232be782c4b2ed90a1552f44aeecb0dcb7aac2c623620e680",
+      "rules": [
+        {
+          "id": "r-147227ea810ffd95",
+          "line": 37,
+          "map": [
+            {
+              "exclude": "source-only-code",
+              "reason": "Argument validation in the source-only watch-pr CLI, which is never executed; native babysit reads forge state through authorized tools (babysit-07) and unattended watching stays BLOCKED (babysit-10)."
+            }
+          ]
+        },
+        {
+          "id": "r-ff7514a95382ffbb",
+          "line": 43,
+          "map": [
+            {
+              "exclude": "source-only-code",
+              "reason": "Non-negative argument validation in the source-only watch-pr CLI, which is never executed; native babysit reads forge state through authorized tools (babysit-07) and unattended watching stays BLOCKED (babysit-10)."
+            }
+          ]
+        },
+        {
+          "id": "r-f998e441806496c9",
+          "line": 49,
+          "map": [
+            {
+              "exclude": "source-only-code",
+              "reason": "Positive-integer argument validation in the source-only watch-pr CLI, which is never executed; native babysit reads forge state through authorized tools (babysit-07) and unattended watching stays BLOCKED (babysit-10)."
+            }
+          ]
+        },
+        {
+          "id": "r-7bf75fc3887e0094",
+          "line": 56,
+          "map": [
+            {
+              "exclude": "source-only-code",
+              "reason": "Positive-integer argument validation in the source-only watch-pr CLI, which is never executed; native babysit reads forge state through authorized tools (babysit-07) and unattended watching stays BLOCKED (babysit-10)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/poteto-mode/scripts/watch-pr/github.ts",
+      "sha256": "a605b8531468dbe4c07b93663c0993a9c11dc7e9179adde970f5c740396451d9",
+      "rules": [
+        {
+          "id": "r-415765a5fa91c15c",
+          "line": 81,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "TypeScript `never` type in source-only code, not prose."
+            }
+          ]
+        },
+        {
+          "id": "r-f54829a9d32d9434",
+          "line": 251,
+          "map": [
+            {
+              "gate": "babysit/babysit-07"
+            },
+            {
+              "gate": "babysit/babysit-08"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/poteto-mode/scripts/watch-pr/policy.ts",
+      "sha256": "f2a3e31223d05edc05e5473cc3f8f3cb9bd20c202c30c6abe7f21f0f7aee8fbb",
+      "rules": [
+        {
+          "id": "r-135bb2ff74d0865b",
+          "line": 278,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "TypeScript `never` type in source-only code, not prose."
+            }
+          ]
+        },
+        {
+          "id": "r-78b6a79745166ce1",
+          "line": 325,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "TypeScript `never` type in source-only code, not prose."
+            }
+          ]
+        },
+        {
+          "id": "r-52891fb37547f6a1",
+          "line": 825,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "TypeScript `never` type in source-only code, not prose."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/poteto-mode/scripts/watch-pr/render.ts",
+      "sha256": "2b709e86628d5b8fdb61f860e60ababc342b0626c67576305442cf548283a604",
+      "rules": [
+        {
+          "id": "r-740c537f777e875a",
+          "line": 17,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "TypeScript `never` type in source-only code, not prose."
+            }
+          ]
+        },
+        {
+          "id": "r-b2c7ebe37d560c2f",
+          "line": 128,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "TypeScript `never` type in source-only code, not prose."
+            }
+          ]
+        },
+        {
+          "id": "r-4377aee8e432c5b5",
+          "line": 165,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "TypeScript `never` type in source-only code, not prose."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/poteto-mode/scripts/watch-pr/types.compile.ts",
+      "sha256": "621af4c9a664fbf699a9737efccdc248abb416df8819c9dc5f824beae2b9b1d6",
+      "rules": [
+        {
+          "id": "r-99bacfe18766a426",
+          "line": 87,
+          "map": [
+            {
+              "gate": "babysit/babysit-08"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/poteto-mode/scripts/watch-pr/types.ts",
+      "sha256": "0cac435294dc85ce1ba755e8e67f6c5ab163dfa252f2722d6e3a2d68c58fec59",
+      "rules": [
+        {
+          "id": "r-af235fdf9f1168a6",
+          "line": 9,
+          "map": [
+            {
+              "exclude": "source-only-code",
+              "reason": "Positive-integer validation in the types of the source-only watch-pr CLI, which is never executed; native babysit reads forge state through authorized tools (babysit-07) and unattended watching stays BLOCKED (babysit-10)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/poteto-mode/scripts/worktree-audit.sh",
+      "sha256": "e0a94e5e5b1ff60638916e440600e15851f7b79bc1a1d1f602fde05d465e2ec0",
+      "rules": [
+        {
+          "id": "r-39732a75d4611a8b",
+          "line": 4,
+          "map": [
+            {
+              "native": "worktree-audit-adapter.md",
+              "quote": "**No bucket authorizes deletion.**"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/principle-build-the-lever/SKILL.md",
+      "sha256": "3434b0ad0c640c6f1d7960be7a8986c3bcdc14e26060360dec29903df60074ff",
+      "rules": [
+        {
+          "id": "r-e198e0d40811b6b4",
+          "line": 21,
+          "map": [
+            {
+              "native": "principles.md",
+              "quote": "Avoid a new framework for a one-off task."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/principle-experience-first/SKILL.md",
+      "sha256": "58903529d733b1c1a7c9ccf127d45ef3c7d0d9f0b81164a4dc6b80efe6f2912b",
+      "rules": [
+        {
+          "id": "r-360c75e37c7dae1f",
+          "line": 11,
+          "map": [
+            {
+              "native": "principles.md",
+              "quote": "Every feature, control and option must be justified by the central workflow it serves"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/principle-explain-the-number/SKILL.md",
+      "sha256": "cd5a25f9e7cf023627ccb470dc5faa97542f29b4319496a32b839a8e1e988047",
+      "rules": [
+        {
+          "id": "r-2e2ddb5db88987eb",
+          "line": 10,
+          "map": [
+            {
+              "native": "principles.md",
+              "quote": "identify the limiter, real completed work, errors, noise, repeated-run spread and end-to-end relevance"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/principle-fix-root-causes/SKILL.md",
+      "sha256": "8df3c8c3fe57eb0055a5c8efab8ab144557fdf301da70b1cdc77a3a3ef3f3052",
+      "rules": [
+        {
+          "id": "r-d10e857e2cffdec3",
+          "line": 17,
+          "map": [
+            {
+              "native": "principles.md",
+              "quote": "A guard is valid when it handles a legitimate state, not when it conceals corruption."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/principle-make-operations-idempotent/SKILL.md",
+      "sha256": "7aa9327cf1f1aa057e95d47a0a78bd88a8f9d556b608866fee939d455a53a019",
+      "rules": [
+        {
+          "id": "r-abb7f0cacbf3ba46",
+          "line": 15,
+          "map": [
+            {
+              "native": "principles.md",
+              "quote": "must be recognizable as stale by the next run through evidence that holds wherever the previous run stopped"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/principle-minimize-reader-load/SKILL.md",
+      "sha256": "1ea2b7fef2391cae5844c4efdbd59031f775e8a52d06b7495d707229a200dcca",
+      "rules": [
+        {
+          "id": "r-15a4253564ebca9c",
+          "line": 9,
+          "map": [
+            {
+              "native": "principles.md",
+              "quote": "Reduce unjustified indirection and hidden mutable state, not merely line count."
+            }
+          ]
+        },
+        {
+          "id": "r-845b0c114af04890",
+          "line": 11,
+          "map": [
+            {
+              "native": "principles.md",
+              "quote": "Reduce unjustified indirection and hidden mutable state, not merely line count."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/principle-model-the-domain/SKILL.md",
+      "sha256": "52c0d85e0c3827c41c18299b642657d7b47eaf77b7b31609e42e0df42b84c75f",
+      "rules": [
+        {
+          "id": "r-230706d4d7b3267c",
+          "line": 20,
+          "map": [
+            {
+              "native": "principles.md",
+              "quote": "invalid combinations are rejected and valid transitions are exercised"
+            }
+          ]
+        },
+        {
+          "id": "r-ec4d978738c7f0c0",
+          "line": 24,
+          "map": [
+            {
+              "native": "principles.md",
+              "quote": "Use structures matching real states and access patterns instead of scattered synchronized flags."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/principle-never-block-on-the-human/SKILL.md",
+      "sha256": "05030a7a083c337676f793881b4e93cd218e8f1dd676529f56e6ac1d3efb8d1f",
+      "rules": [
+        {
+          "id": "r-282a81b33800f5c7",
+          "line": 2,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "Skill name in frontmatter; the principle itself is mapped at its body text."
+            }
+          ]
+        },
+        {
+          "id": "r-317ca88dbe988430",
+          "line": 7,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "Document title; the principle itself is mapped at its body text."
+            }
+          ]
+        },
+        {
+          "id": "r-8dbea0ede39bd56a",
+          "line": 9,
+          "map": [
+            {
+              "native": "principles.md",
+              "quote": "Proceed with authorized reversible decisions and state reasonable assumptions."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/principle-test-behavior-not-implementation/SKILL.md",
+      "sha256": "f7223698623b6a26fea49c751e466b38e6691b1f32ce841d3983e7ffbe2b74a6",
+      "rules": [
+        {
+          "id": "r-eec37f27d8c88bd0",
+          "line": 13,
+          "map": [
+            {
+              "native": "principles.md",
+              "quote": "breaking the requirement fails the test; harmless internal restructuring does not."
+            }
+          ]
+        },
+        {
+          "id": "r-9daf389505de2813",
+          "line": 18,
+          "map": [
+            {
+              "native": "principles.md",
+              "quote": "Assert observable return values, errors, persisted state or external effects through real interfaces."
+            },
+            {
+              "native": "principles.md",
+              "quote": "breaking the requirement fails the test; harmless internal restructuring does not."
+            }
+          ]
+        },
+        {
+          "id": "r-db3ada74c8b722bb",
+          "line": 20,
+          "map": [
+            {
+              "native": "principles.md",
+              "quote": "Assert observable return values, errors, persisted state or external effects through real interfaces."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/recall/SKILL.md",
+      "sha256": "b0ceb996259c3404532f61e4b010df4e3d80d7ddbed85b3c302895723eb62a89",
+      "rules": [
+        {
+          "id": "r-2e2eab4e4b0af462",
+          "line": 18,
+          "map": [
+            {
+              "gate": "recall/scope-classification"
+            },
+            {
+              "gate": "recall/history-mining"
+            }
+          ]
+        },
+        {
+          "id": "r-62fbeabcf44433f2",
+          "line": 19,
+          "map": [
+            {
+              "gate": "recall/history-mining"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/reflect/references/divergent-reviewer.md",
+      "sha256": "f6030d88e20e906ef5e2d9ba44cb013ce610c49c2fe2ef74c377d32e0dc9e939",
+      "rules": [
+        {
+          "id": "r-060b3cfa93838ad6",
+          "line": 21,
+          "map": [
+            {
+              "gate": "reflect/review-contract"
+            },
+            {
+              "gate": "reflect/existing-first"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/reflect/references/judgment-reviewer.md",
+      "sha256": "38f917619fbf346062d643e0ad6b12fc952d58678dfcbbf42ffcf6d8b9c08307",
+      "rules": [
+        {
+          "id": "r-abb24776f8984dff",
+          "line": 20,
+          "map": [
+            {
+              "same": "r-060b3cfa93838ad6"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/reflect/references/synthesizer.md",
+      "sha256": "6af816963de74d1a1aef4070273c1ff533d2072732e488e159ddc0b299fec3cd",
+      "rules": [
+        {
+          "id": "r-7524d0f613b32a67",
+          "line": 18,
+          "map": [
+            {
+              "gate": "reflect/existing-first"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/reflect/references/tooling-reviewer.md",
+      "sha256": "f81b8697e7366fbbc18feba52c6e3253a101f751091364ebc4396a1d9b5753b4",
+      "rules": [
+        {
+          "id": "r-4a682a00b7cab318",
+          "line": 31,
+          "map": [
+            {
+              "same": "r-060b3cfa93838ad6"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/setup-pstack/SKILL.md",
+      "sha256": "b45512f6ca5e96e81681984683b7472bfe892581da3a89a73cca4159438f29ed",
+      "rules": [
+        {
+          "id": "r-fd73853373008769",
+          "line": 14,
+          "map": [
+            {
+              "gate": "setup-pstack/read-only-inspection"
+            },
+            {
+              "gate": "setup-pstack/validate-authorized-write"
+            }
+          ]
+        },
+        {
+          "id": "r-da9216c1577460c3",
+          "line": 35,
+          "map": [
+            {
+              "gate": "setup-pstack/validate-authorized-write"
+            },
+            {
+              "gate": "setup-pstack/role-table-confirmation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/show-me-your-work/SKILL.md",
+      "sha256": "920a8217cbb62f92a2222fb81fc9eab17ecd554a0277e444a95a927195139bd1",
+      "rules": [
+        {
+          "id": "r-72c09827a68f387d",
+          "line": 21,
+          "map": [
+            {
+              "gate": "show-me-your-work/canonical-format"
+            }
+          ]
+        },
+        {
+          "id": "r-89d398f4009ed4ed",
+          "line": 52,
+          "map": [
+            {
+              "gate": "show-me-your-work/checkpoints"
+            }
+          ]
+        },
+        {
+          "id": "r-35a85811921c53d7",
+          "line": 63,
+          "map": [
+            {
+              "gate": "show-me-your-work/checkpoints"
+            },
+            {
+              "gate": "show-me-your-work/transcript-audit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/show-me-your-work/scripts/log.sh",
+      "sha256": "a65a4bc5fb7cdeadbdb7b7ff1ca4682f4d9c42420942b2977cd17b46c4ac338e",
+      "rules": [
+        {
+          "id": "r-ea9dd10d36d05159",
+          "line": 19,
+          "map": [
+            {
+              "gate": "show-me-your-work/canonical-format"
+            },
+            {
+              "native": "trail-adapter.md",
+              "quote": "Rows are only appended."
+            }
+          ]
+        },
+        {
+          "id": "r-1a0afbb8d5166404",
+          "line": 30,
+          "map": [
+            {
+              "native": "trail-adapter.md",
+              "quote": "gets a leading single quote, so a spreadsheet treats it as text."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/swarm/SKILL.md",
+      "sha256": "031657cb81e490f9aed5c75d6ff2a4fda35ccafbaf72be604e59481cc4080cdc",
+      "rules": [
+        {
+          "id": "r-a0f3d6aef8623b7e",
+          "line": 20,
+          "map": [
+            {
+              "gate": "swarm/frame"
+            }
+          ]
+        },
+        {
+          "id": "r-5cbb476e75e9b31b",
+          "line": 29,
+          "map": [
+            {
+              "gate": "swarm/brief"
+            }
+          ]
+        },
+        {
+          "id": "r-5e465640c9806e6a",
+          "line": 37,
+          "map": [
+            {
+              "gate": "swarm/retry-gap"
+            },
+            {
+              "gate": "swarm/results"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/teach/SKILL.md",
+      "sha256": "bd286e5a6290673be2cd28aef7af2ec7f1fb138e6bce156ea657368c7e7fc8a4",
+      "rules": [
+        {
+          "id": "r-1ef99e9dde4d58fd",
+          "line": 15,
+          "map": [
+            {
+              "gate": "teach/teaching-output"
+            }
+          ]
+        },
+        {
+          "id": "r-82c750acfbff43c7",
+          "line": 21,
+          "map": [
+            {
+              "gate": "teach/teaching-output"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/technical-writing/SKILL.md",
+      "sha256": "61fe9c424a798ebf36ad94941f87be049cb8827bdf86d21474a0dde37b513c43",
+      "rules": [
+        {
+          "id": "r-b6707b0e5d855957",
+          "line": 55,
+          "map": [
+            {
+              "gate": "technical-writing/reader-style"
+            }
+          ]
+        },
+        {
+          "id": "r-2fbabc5394a2eeed",
+          "line": 58,
+          "map": [
+            {
+              "gate": "technical-writing/procedure-words"
+            },
+            {
+              "gate": "technical-writing/reader-style"
+            }
+          ]
+        },
+        {
+          "id": "r-002bb439368efca7",
+          "line": 60,
+          "map": [
+            {
+              "gate": "technical-writing/reader-style"
+            }
+          ]
+        },
+        {
+          "id": "r-6a703140ed568776",
+          "line": 73,
+          "map": [
+            {
+              "gate": "technical-writing/reader-style"
+            },
+            {
+              "gate": "technical-writing/single-instruction"
+            }
+          ]
+        },
+        {
+          "id": "r-0d0ab7b9aebe4514",
+          "line": 80,
+          "map": [
+            {
+              "gate": "technical-writing/unambiguous-syntax"
+            }
+          ]
+        },
+        {
+          "id": "r-2738b1f58536b598",
+          "line": 82,
+          "map": [
+            {
+              "gate": "technical-writing/unambiguous-syntax"
+            }
+          ]
+        },
+        {
+          "id": "r-b419e40ace9e3f13",
+          "line": 86,
+          "map": [
+            {
+              "gate": "technical-writing/unambiguous-syntax"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/typescript-best-practices/SKILL.md",
+      "sha256": "ec1dac086d3708e5940d45d250c30a37dd953b4e3cb2ca0692f5851d7a039e27",
+      "rules": [
+        {
+          "id": "r-190421c1d3ce14ed",
+          "line": 15,
+          "map": [
+            {
+              "native": "workflows.md",
+              "quote": "create branded values through a validating type guard that narrows the input, never an `as` cast."
+            }
+          ]
+        },
+        {
+          "id": "r-76dd230fe707576c",
+          "line": 17,
+          "map": [
+            {
+              "native": "workflows.md",
+              "quote": "Prefer derived types, total operations and verified narrowing to any, lying guards, casts and assertions."
+            }
+          ]
+        },
+        {
+          "id": "r-9c7df19badbcfd4a",
+          "line": 22,
+          "map": [
+            {
+              "native": "workflows.md",
+              "quote": "Prefer derived types, total operations and verified narrowing to any, lying guards, casts and assertions."
+            }
+          ]
+        },
+        {
+          "id": "r-774a24aecec9fbba",
+          "line": 23,
+          "map": [
+            {
+              "native": "workflows.md",
+              "quote": "Keep useful pure/local logic, exhaust variants, and respect API compatibility requirements."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/typescript-best-practices/references/patterns.md",
+      "sha256": "12e70c9419a8b3f5d6a1ab80e272c1f00a43ac0b3bbf72d68199033570e5de77",
+      "rules": [
+        {
+          "id": "r-49acb331f0d2b6d5",
+          "line": 54,
+          "map": [
+            {
+              "same": "r-76dd230fe707576c"
+            }
+          ]
+        },
+        {
+          "id": "r-d64b2e69ef5bcfcd",
+          "line": 98,
+          "map": [
+            {
+              "same": "r-76dd230fe707576c"
+            }
+          ]
+        },
+        {
+          "id": "r-858f9c9fa7e7cde8",
+          "line": 213,
+          "map": [
+            {
+              "same": "r-9c7df19badbcfd4a"
+            }
+          ]
+        },
+        {
+          "id": "r-eb959e56c3872030",
+          "line": 225,
+          "map": [
+            {
+              "same": "r-774a24aecec9fbba"
+            }
+          ]
+        },
+        {
+          "id": "r-9efccf17f41b802f",
+          "line": 236,
+          "map": [
+            {
+              "same": "r-774a24aecec9fbba"
+            }
+          ]
+        },
+        {
+          "id": "r-d569229e3a657ff9",
+          "line": 252,
+          "map": [
+            {
+              "same": "r-774a24aecec9fbba"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/why/SKILL.md",
+      "sha256": "144d42e7712723d763e607bc0a969e5f1cdf83ec7228519d87677cc534571bed",
+      "rules": [
+        {
+          "id": "r-ad55f9d9f4c353a6",
+          "line": 17,
+          "map": [
+            {
+              "gate": "why/independent-synthesizer"
+            },
+            {
+              "gate": "why/confidence-output"
+            }
+          ]
+        },
+        {
+          "id": "r-0b4636efcbc30e17",
+          "line": 63,
+          "map": [
+            {
+              "gate": "why/seven-category-coverage"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/why/references/epistemics.md",
+      "sha256": "d54a2361b2d5973bc3fe2edf62f446d87935974d4b40d47f23b9529f956ca758",
+      "rules": [
+        {
+          "id": "r-4fa8f0a26e62639c",
+          "line": 7,
+          "map": [
+            {
+              "gate": "why/confidence-output"
+            }
+          ]
+        },
+        {
+          "id": "r-e1ad2c5f4c25daf8",
+          "line": 11,
+          "map": [
+            {
+              "gate": "why/confidence-output"
+            }
+          ]
+        },
+        {
+          "id": "r-aa9f63e1221890bd",
+          "line": 41,
+          "map": [
+            {
+              "gate": "why/confidence-output"
+            }
+          ]
+        },
+        {
+          "id": "r-6dfdb067cd0f2e31",
+          "line": 55,
+          "map": [
+            {
+              "gate": "why/confidence-output"
+            },
+            {
+              "gate": "why/investigator-evidence"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/why/references/investigator-prompt.md",
+      "sha256": "c44afba186f899094f3694e6c9d6de5d14ff7c4ce28b787a9f50fc789c9a7fc3",
+      "rules": [
+        {
+          "id": "r-352d227a922310e9",
+          "line": 43,
+          "map": [
+            {
+              "gate": "why/investigator-evidence"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/why/references/sources/databricks.md",
+      "sha256": "236ede7aab6454662a992db088a5393537a5233a4c26719c93188f9e174488f6",
+      "rules": [
+        {
+          "id": "r-467b1f2d6bf4f642",
+          "line": 58,
+          "map": [
+            {
+              "gate": "why/investigator-evidence"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/why/references/synthesizer-prompt.md",
+      "sha256": "11c62671aa7b7a6e3d36929ffe2b59bf95e6ca664eee4d93e6ee527dd3390ddb",
+      "rules": [
+        {
+          "id": "r-45feb9ffc9492a50",
+          "line": 29,
+          "map": [
+            {
+              "gate": "why/independent-synthesizer"
+            }
+          ]
+        },
+        {
+          "id": "r-026da7a8fd3f8b5c",
+          "line": 31,
+          "map": [
+            {
+              "gate": "why/confidence-output"
+            }
+          ]
+        },
+        {
+          "id": "r-7a876f45e21aba69",
+          "line": 32,
+          "map": [
+            {
+              "gate": "why/confidence-output"
+            }
+          ]
+        },
+        {
+          "id": "r-1e97e24faee095a8",
+          "line": 33,
+          "map": [
+            {
+              "gate": "why/confidence-output"
+            }
+          ]
+        },
+        {
+          "id": "r-b0308e317fe682e7",
+          "line": 34,
+          "map": [
+            {
+              "gate": "why/confidence-output"
+            }
+          ]
+        },
+        {
+          "id": "r-42eaa984a3ab52e6",
+          "line": 72,
+          "map": [
+            {
+              "gate": "why/confidence-output"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

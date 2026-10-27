@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "route": "figure-it-out",
+  "document": "workflows.md",
+  "priority": "P1",
+  "upstream": [
+    "skills/figure-it-out/SKILL.md",
+    "skills/show-me-your-work/SKILL.md",
+    "skills/architect/SKILL.md",
+    "skills/poteto-mode/playbooks/autonomous-run.md"
+  ],
+  "gates": [
+    {
+      "id": "frame-before-code",
+      "text": "Use this route when no narrower playbook fits, or for a large/cross-cutting auditable run. Start with a checklist to read relevant native principles, then Frame / Design / Loop / Trail / Verify. BEFORE ANY CODE, write a named workflow with a falsifiable done predicate, quantified units/effort/scope, grounded blockers and highest-risk unknown, constraints, and an explicit rigor level with its gates/artifacts and rationale. Bias rigor high for one-way doors and blast radius; present framing/tradeoffs and take one framing checkpoint before committing to a multi-hour run. Proceed with authorized reversible work, preserving every explicit user gate."
+    },
+    {
+      "id": "workflow-design",
+      "text": "Write the designed phase list before execution. Decompose into atomic independently deliverable units, riskiest unknown first, with scaffold and a verification harness BEFORE features. Capture the pre-change baseline so checks compare old versus new. One-way-door design choices run native architect/arena; skip redundant design contests for settled mechanical work, not required independent gates."
+    },
+    {
+      "id": "fan-out-judges",
+      "text": "Choose parallel seams and disjoint outputs without over-fan-out. Resolve every worker and independent judge through pstack_route and native sessions_spawn with emitted arguments; pair delegated work with an actual judge and inspect artifacts. If a required delegate, design comparison or judge cannot run, mark that gate BLOCKED, never silently replace it with sequential parent work. Preserve existing owners and authorized resource limits; do not create branches/worktrees without authority."
+    },
+    {
+      "id": "experiment",
+      "text": "Execute the written phases under a per-unit hypothesis → smallest change → measure on the real artifact → keep/revert loop. Verify each unit before the next, not only at the end. Suspect the observation method when a pass is too easy. If a worker games a gate, reset the affected attempt and harden its contract; fix a wrong gate as its own change rather than routing around it. Verdicts are VERIFIED, NOT VERIFIED or INCONCLUSIVE; inconclusive is NOT a pass and negative results stay visible."
+    },
+    {
+      "id": "trail",
+      "text": "Compose native show-me-your-work throughout execution, one row as each step reaches its checkpoint, including pivots/reverts/blockers. That route owns the canonical trail, run boundaries, transcript audit, mandatory different-family review and Attention section; do not invent a weaker parallel log. Keep the trail local unless committing is authorized and warranted for review. No standing program, scheduler or implicit publication."
+    },
+    {
+      "id": "whole-outcome",
+      "text": "Verify the whole real product against the original predicate, not only the harness, and encode recurring corrections as structural gates within authority. Return the named playbook/phase list, rigor level/why, decision-trail path, per-predicate VERIFIED/NOT VERIFIED/INCONCLUSIVE evidence, open work and blocked gates, plus show-me-your-work’s Attention output."
+    },
+    {
+      "id": "figure-it-out-row-after-each-commit",
+      "text": "Write each row right after the commit or checkpoint it records, before the next unit starts; never batch rows at the end. A row written late says so and gives the commit and the time of the checkpoint it records."
+    }
+  ]
+}

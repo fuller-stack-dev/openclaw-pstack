@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "route": "bro",
+  "document": "workflows.md",
+  "priority": "P2",
+  "upstream": [
+    "skills/bro/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "bro-01",
+      "text": "1. Restate your last substantive assistant message. Use plain everyday words, not the user’s last message or a tool receipt."
+    },
+    {
+      "id": "bro-02",
+      "text": "2. Preserve meaning, uncertainty and required action while making it simpler and shorter. Do no new work. Keep every name as written: a named hypothesis, function, file, flag, test or term the reader may search for or act on (such as `concurrent-drain`) stays exactly as the original spells it. Plain words replace the jargon around a name, never the name itself; a synonym such as `parallel-drain` for `concurrent-drain` is a different name."
+    },
+    {
+      "id": "bro-03",
+      "text": "3. If `judgment and prose` resolves to a selection that differs from, or cannot be verified against, the parent, write the restatement in a routed child and deliver the child's text verbatim, quoted and attributed under [delivering a routed result](delegation.md#delivering-a-routed-result); otherwise write it inline. The child's task carries the original message verbatim and no parent paraphrase, gloss or expected wording of it, which the child would copy."
+    },
+    {
+      "id": "bro-04",
+      "text": "4. Before delivery, compare every claim in the restatement with the original: it must have fewer words; check names, and check uncertainty, conditions and required actions in context, not just matching substrings. Keep the original's degree of certainty and obligation: `unverified` does not become `unproven`, and `needs to choose` does not become `must decide`. A failed check goes back to its author once, naming the mismatch without supplying a replacement. Recheck the entire correction against the original, not just the previously failed phrases; record the word counts and claim-level result in Parent verification. Deliver only if every check passes. If the correction still fails, report the fidelity gate BLOCKED and the remaining mismatch instead of delivering it as a faithful restatement. The parent never rewrites the child's text."
+    },
+    {
+      "id": "bro-keeps-names",
+      "text": "Keep every name as written: a named hypothesis, function, file, flag, test or term the reader may search for or act on (such as `concurrent-drain`) stays exactly as the original spells it. Plain words replace the jargon around a name, never the name itself; a synonym such as `parallel-drain` for `concurrent-drain` is a different name."
+    },
+    {
+      "id": "bro-original-to-child",
+      "text": "The child's task carries the original message verbatim and no parent paraphrase, gloss or expected wording of it, which the child would copy."
+    },
+    {
+      "id": "bro-check-against-original",
+      "text": "Recheck the entire correction against the original, not just the previously failed phrases; record the word counts and claim-level result in Parent verification."
+    }
+  ]
+}

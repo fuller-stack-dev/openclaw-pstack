@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "route": "runtime-forensics",
+  "document": "playbooks.md",
+  "priority": "P2",
+  "upstream": [
+    "skills/poteto-mode/SKILL.md",
+    "skills/poteto-mode/playbooks/runtime-forensics.md"
+  ],
+  "gates": [
+    {
+      "id": "runtime-forensics-01",
+      "text": "Own the diagnosis from the running process, not a source-only theory or an unrequested fix. Observation is read-only by default; attachment, instrumentation, and any hotfix retain their separate authorization gates."
+    },
+    {
+      "id": "runtime-forensics-02",
+      "text": "Identify the exact owned or authorized runtime, revision, process, and symptom. Discover and use the installed control skill for that matching surface. Capture a real artifact appropriate to the signal, such as a CPU profile for a spinning process, a heap snapshot for a leak, or a CDP trace for a visual glitch. A source guess or a capture from another runtime is not the matching-runtime capture gate."
+    },
+    {
+      "id": "runtime-forensics-03",
+      "text": "Reduce the captured artifact to a concrete finding, such as a hot function, a retainer chain to a GC root, or a loop firing without input. For a large artifact, delegate bounded parsing to a read-only `swarm workers` child and retain only its reduced findings and artifact pointers in the lead context. Keep the original capture intact."
+    },
+    {
+      "id": "runtime-forensics-04",
+      "text": "Every required independent phase MUST resolve its role through `pstack_route`, use emitted native `sessions_spawn` arguments, and collect the accepted child through its native completion path. If planning, spawning, collection, required diversity, or evidence is unavailable, name that gate BLOCKED and do not claim the route complete."
+    },
+    {
+      "id": "runtime-forensics-05",
+      "text": "Prove the proposed mechanism with an authorized confirming instrumentation experiment on the same running process. State the predicted signal, make the smallest reversible observation or probe, and compare the observed result with competing causes before accepting the explanation. CDP evaluation or a no-reload live hotfix is an option only when separately authorized for that process; diagnosis alone grants neither. Do not restart, reload, attach, or mutate live code by implication."
+    },
+    {
+      "id": "runtime-forensics-06",
+      "text": "If matching capture or the confirming experiment cannot run safely with current access, name the missing capture or confirming-instrumentation gate BLOCKED. Preserve the strongest supported hypothesis and its limits; source reasoning, counters alone, and a proposed experiment do not confirm the mechanism."
+    },
+    {
+      "id": "runtime-forensics-07",
+      "text": "Map the finding to the matching source file, symbol, and allocating or scheduling line. Keep artifact facts distinct from inference and unresolved alternatives."
+    },
+    {
+      "id": "runtime-forensics-08",
+      "text": "Keep the throughput checkpoint to one line: `throughput checkpoint: n/a, read-only forensics`."
+    },
+    {
+      "id": "runtime-forensics-09",
+      "text": "For long routed phases, spawn announcing children (without `collect`; a collector is collected in the turn that spawned it) and use a short bounded native wait, then hand off the exact owner, accepted run/session IDs, phase, snapshot, completed artifacts, and next collection action; finish on resume without respawning accepted children or calling pending work complete."
+    },
+    {
+      "id": "runtime-forensics-10",
+      "text": "**Reply.** Signal captured, reduced finding, confirming experiment and result, source location, artifact paths, the one-line throughput checkpoint, and limits or blocked gates. No fix unless asked; hand the known cause to [bug-fix](#bug-fix) or [perf-issue](#perf-issue)."
+    },
+    {
+      "id": "runtime-forensics-11",
+      "text": "The runtime-forensics requirements are text-regression guards only, not behavioral proof."
+    },
+    {
+      "id": "runtime-forensics-visible-handoff",
+      "text": "9. Spawn the parser, the confirming judgment and any correction child as announcing children (without `collect`) and collect them under the [bounded-wait handoff](contract.md#bounded-wait-handoff); a collector is collected in this turn with `agents_wait` and `awaitResults: true`, never handed off. Every handoff, including one after a correction, goes into the visible reply under [visible handoff](contract.md#visible-handoff): the `sessions_yield` acknowledgment carries the owner, the pending run and session IDs, the phase, the snapshot, the completed artifacts and the next action. An empty acknowledgment fails this gate."
+    }
+  ]
+}

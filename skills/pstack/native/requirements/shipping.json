@@ -1,0 +1,149 @@
+{
+  "schema": 1,
+  "route": "shipping",
+  "document": "playbooks.md",
+  "priority": "P1",
+  "upstream": [
+    "skills/poteto-mode/SKILL.md",
+    "skills/poteto-mode/playbooks/shipping.md",
+    "skills/swarm/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "shipping-01",
+      "text": "Own what lands."
+    },
+    {
+      "id": "shipping-02",
+      "text": "Publication and merge need explicit authority for the exact repository and scope."
+    },
+    {
+      "id": "shipping-03",
+      "text": "Use the authorized native GitHub or forge tool after inspecting its schema; record the selected forge and any fallback."
+    },
+    {
+      "id": "shipping-04",
+      "text": "Do not require another CLI or bypass tool policy."
+    },
+    {
+      "id": "shipping-05",
+      "text": "Before landing, route one independent verifier per PR through `pstack_route` using `swarm workers`, then native `sessions_spawn` with emitted arguments."
+    },
+    {
+      "id": "shipping-06",
+      "text": "The verifier must not have authored the change."
+    },
+    {
+      "id": "shipping-07",
+      "text": "It drives the matching real surface through an installed control skill or named driver, parent against head, and records PASS, PASS+NOTES, or FAIL with exact revisions and artifacts."
+    },
+    {
+      "id": "shipping-08",
+      "text": "Green CI, bot approval, author self-proof, queued work, and a local child described as cloud are not independent user-level verdicts."
+    },
+    {
+      "id": "shipping-09",
+      "text": "Missing required verification is BLOCKED, not a sequential parent fallback."
+    },
+    {
+      "id": "shipping-10",
+      "text": "Walk bottom-up from the lowest unmerged PR and stop at the first missing PASS or PASS+NOTES."
+    },
+    {
+      "id": "shipping-11",
+      "text": "Only the bottom-rooted contiguous verified run may land; its highest verified PR is the ceiling."
+    },
+    {
+      "id": "shipping-12",
+      "text": "Verified work above a gap waits."
+    },
+    {
+      "id": "shipping-13",
+      "text": "An independent patch moved onto trunk must receive a fresh verdict without the old lower-stack context."
+    },
+    {
+      "id": "shipping-14",
+      "text": "Before trusting an older verdict, compare `git patch-id` at its verdict SHA and current head."
+    },
+    {
+      "id": "shipping-15",
+      "text": "Drift requires requalification."
+    },
+    {
+      "id": "shipping-16",
+      "text": "For test-, docs-, or lint-only changes, a lane may carry only when its build output is equivalent at both SHAs apart from recorded noise."
+    },
+    {
+      "id": "shipping-17",
+      "text": "Prove noise with two builds of the verdict SHA or embedded commit identities and list affected files."
+    },
+    {
+      "id": "shipping-18",
+      "text": "Changed material still needs fresh checks and review."
+    },
+    {
+      "id": "shipping-19",
+      "text": "A no-build lane cannot prove this exception and must rerun."
+    },
+    {
+      "id": "shipping-20",
+      "text": "Freeze branch and base writes during landing."
+    },
+    {
+      "id": "shipping-21",
+      "text": "Merge the lowest unmerged PR only, one at a time, with the authorized forge operation."
+    },
+    {
+      "id": "shipping-22",
+      "text": "Read the PR back to confirm merged with trunk as base; queued or auto-merge requested is not landed."
+    },
+    {
+      "id": "shipping-23",
+      "text": "Arm auto-merge only when the verdict covers the current head."
+    },
+    {
+      "id": "shipping-24",
+      "text": "The only permitted topology change in flight is moving the next child onto the actual merge result and retargeting it to trunk after its parent lands, under existing authority and source custody."
+    },
+    {
+      "id": "shipping-25",
+      "text": "Any force update needs its exact-head lease and required approval."
+    },
+    {
+      "id": "shipping-26",
+      "text": "Reapply the patch-id rule, fresh-head CI, and review before the next merge."
+    },
+    {
+      "id": "shipping-27",
+      "text": "Observe through bounded native status reads or an already authorized owner/watch path."
+    },
+    {
+      "id": "shipping-28",
+      "text": "Do not run upstream watchers or create a scheduler by implication."
+    },
+    {
+      "id": "shipping-29",
+      "text": "Diagnose a stall before changing anything."
+    },
+    {
+      "id": "shipping-30",
+      "text": "Expected post-merge retargeting is not damage to repair."
+    },
+    {
+      "id": "shipping-31",
+      "text": "Keep unrelated writers frozen through the ceiling, then stop."
+    },
+    {
+      "id": "shipping-32",
+      "text": "Extending the ceiling requires a new verification pass."
+    },
+    {
+      "id": "shipping-33",
+      "text": "**Reply.** Verified run and ceiling, each PR's verdict and verifier, what actually landed and its read-back proof, and what the next gap needs."
+    },
+    {
+      "id": "shipping-visible-handoff",
+      "text": "6. Spawn each verifier and fixer as an announcing child (without `collect`) and collect it under the [bounded-wait handoff](contract.md#bounded-wait-handoff); a collector is collected in this turn with `agents_wait` and `awaitResults: true`, never handed off. Every `sessions_yield` in this route, including one that only waits for a finished child's completion delivery, carries the six [visible handoff](contract.md#visible-handoff) lines in its `acknowledgment`; a status sentence is not a handoff."
+    }
+  ]
+}

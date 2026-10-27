@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "route": "sharpen",
+  "document": "workflows.md",
+  "priority": "P2",
+  "upstream": [
+    "skills/sharpen/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "four-observations",
+      "text": "Keep this route read-only and make the task deeper, not bigger. BEFORE the rewrite, give FOUR concise observations: (1) what a top professional would do that the prompt does not ask for, (2) the rawest material they would start from instead of digested summaries, (3) their specific methods/tools, and (4) what other than the agent or user would independently show the result is right. These observations are part of the answer, not hidden analysis."
+    },
+    {
+      "id": "preserve-choices",
+      "text": "Preserve the original goal and all explicit constraints, required scope and safety gates. Leave user-owned choices open instead of deciding them. Remove only self-imposed complexity; do not enlarge the task or turn a suggestion into authority."
+    },
+    {
+      "id": "rewrite-only-not-execution",
+      "text": "After the four observations, return the rewritten prompt asking for exactly that deeper approach. Do NOT execute the underlying task, edit files, start jobs or publish. If the caller EXPLICITLY requests output-only, return only the rewrite and identify that as the deliberate output-only adaptation when explaining the route, not a silent loss of the default four-observation contract."
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "route": "setup-pstack",
+  "document": "workflows.md",
+  "priority": "P2",
+  "upstream": [
+    "skills/setup-pstack/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "read-only-inspection",
+      "text": "Read pstack and poteto-mode through the native skill loader and follow [native setup](model-routing.md#setup-and-first-use). Plain setup/help stays read-only: only an explicit request to configure role selections authorizes editing workspace-root `pstack-models.json`. Inspect current host/model, effective native spawn schema, fresh available-model/control metadata and existing workspace config without implicit billed probes or secret reads. Absence inherits; invalid existing config is an error, not defaults."
+    },
+    {
+      "id": "reasoning-budget-preview",
+      "text": "For EXPLICIT configuration only, elicit the desired reasoning budget unless already specified. Preview the upstream choices `unlimited — max reasoning`, `large — xhigh reasoning`, `medium — high reasoning` and `small — medium reasoning`, but map them ONLY to thinking controls the current native host/model actually admits. Model, thinking and fastMode remain separate native fields, never slug suffixes. If an exact target is unsupported, show the capability gap and ask for an available choice rather than silently downgrading, guessing a family/model or dropping controls. Preserve explicitly chosen models/panels and inheritance; do not invent a persisted budget field outside the native JSON schema."
+    },
+    {
+      "id": "role-table-confirmation",
+      "text": "Before writing, show the full candidate table of ALL 17 exact native roles with model, thinking and fastMode separately, inherited/unchanged selections, unavailable choices and proposed removals/changes. Each arena/architect/interrogate panel remains exactly TWO entries; the cross-judge pool has TWO entries from which ONE judge is selected. Explain token/reasoning tradeoffs without invented prices or effective-control claims. Ask the user to accept this role table or change specific selections, using only detected native choices plus inheritance. Do not write before this confirmation; a request already specifying the full confirmed table needs no redundant question. Plain setup does not solicit configuration or write it by implication."
+    },
+    {
+      "id": "validate-authorized-write",
+      "text": "After confirmation, preserve unrelated existing selections and validate the ENTIRE candidate against the native schema, fresh model/control availability and actual sessions_spawn schema. Write only the authorized workspace-root JSON, never Cursor rules, parent/profile/global settings, auth bindings, providers or jobs. An unavailable requested selection leaves that configuration gate BLOCKED; never install a provider, silently substitute or overwrite the whole file to discard unrelated state. Live billed probes need separate authority and first-class native spawning."
+    },
+    {
+      "id": "readback-and-continuation",
+      "text": "Confirm the saved config through read-back and pstack_route planning. Distinguish requested values, inventory, actual spawn resolution and observed effective controls: a saved plan proves neither execution nor service tier. Ordinary config changes apply to future NEW delegations; ongoing/resumed work retains its owner and historical snapshots. A newer explicit correction follows [append-only continuation supersession](model-routing.md#explicit-user-corrections-on-continuation), not replay or rewriting prior evidence."
+    },
+    {
+      "id": "verification-offers",
+      "text": "After role configuration, inspect existing project skills/harnesses read-only. If no user-path verification skill or equivalent harness exists, offer create-verification-skill ONCE per chat; separately offer create-formal-verification-skill ONCE if no project formal check exists. A refusal ends that offer. Setup never generates either skill or enables an automation: generation/editing requires an explicit request and the matching native route."
+    }
+  ]
+}

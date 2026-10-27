@@ -1,0 +1,113 @@
+{
+  "schema": 1,
+  "route": "autonomous-run",
+  "document": "playbooks.md",
+  "priority": "P1",
+  "upstream": [
+    "skills/poteto-mode/SKILL.md",
+    "skills/poteto-mode/playbooks/autonomous-run.md",
+    "skills/show-me-your-work/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "autonomous-run-01",
+      "text": "Own a bounded, checkable exit predicate and state it before the first iteration."
+    },
+    {
+      "id": "autonomous-run-02",
+      "text": "Respect existing authority, scope, holds, and owners; an autonomy grant does not erase operator gates."
+    },
+    {
+      "id": "autonomous-run-03",
+      "text": "Keep a real completion path."
+    },
+    {
+      "id": "autonomous-run-04",
+      "text": "Collect child results through their accepted native mode."
+    },
+    {
+      "id": "autonomous-run-05",
+      "text": "Unattended command continuation is BLOCKED for this skill-guided route: pstack arms requester-admitted scheduled turns only for its native controller workflows. Provide an explicit resume handoff instead of silently skipping it or creating a timer. Any supported implementation must follow the native [automation lifecycle](automation/README.md) with the existing non-main owner, event trigger, bounded fallback interval, deadline, and iteration budget."
+    },
+    {
+      "id": "autonomous-run-06",
+      "text": "If the required connector or scheduler is absent, report continuation BLOCKED and leave a concrete handoff."
+    },
+    {
+      "id": "autonomous-run-07",
+      "text": "Setup or dry-run never activates a job."
+    },
+    {
+      "id": "autonomous-run-08",
+      "text": "Never execute upstream loop or watcher helpers."
+    },
+    {
+      "id": "autonomous-run-09",
+      "text": "Make the smallest evidence-backed unit, verify it against the predicate before the next unit, then commit it if it advances the goal or discard it completely if it does not."
+    },
+    {
+      "id": "autonomous-run-10",
+      "text": "No speculative defensive changes remain."
+    },
+    {
+      "id": "autonomous-run-11",
+      "text": "Stage scoped files only, and never commit or publish without authority."
+    },
+    {
+      "id": "autonomous-run-12",
+      "text": "A missing commit checkpoint is BLOCKED rather than silently skipped."
+    },
+    {
+      "id": "autonomous-run-13",
+      "text": "Record every iteration and its predicate movement in the append-only [show-me-your-work](workflows.md#show-me-your-work) trail, including pivots, discards, and blockers."
+    },
+    {
+      "id": "autonomous-run-14",
+      "text": "Fix authorized reversible blockers and return to the predicate."
+    },
+    {
+      "id": "autonomous-run-15",
+      "text": "Keep out-of-band fixes separate and do not expand task scope; irreversible decisions and genuine product calls retain their gates."
+    },
+    {
+      "id": "autonomous-run-16",
+      "text": "A plateau alone is not done."
+    },
+    {
+      "id": "autonomous-run-17",
+      "text": "Pivot approach rather than relax the predicate."
+    },
+    {
+      "id": "autonomous-run-18",
+      "text": "Stop successfully only when the predicate is observed true."
+    },
+    {
+      "id": "autonomous-run-19",
+      "text": "A genuine dead end or expired bound gets an explicit incomplete handoff, not a lowered goal or a promise of unarranged background work."
+    },
+    {
+      "id": "autonomous-run-20",
+      "text": "Before handback, audit this run's trail against authorized scoped native history and resolving evidence pointers."
+    },
+    {
+      "id": "autonomous-run-21",
+      "text": "Resolve a different-family trail reviewer with `pstack_route`, spawn through native `sessions_spawn`, collect it, and include its Attention flags."
+    },
+    {
+      "id": "autonomous-run-22",
+      "text": "Self-review is not a substitute."
+    },
+    {
+      "id": "autonomous-run-23",
+      "text": "If independent review or family evidence is unavailable, the audit/review gate is BLOCKED, not complete."
+    },
+    {
+      "id": "autonomous-run-24",
+      "text": "**Reply.** Exit predicate, iterations, kept commits or delivered work, discarded work, final predicate state, trail path, and Attention section with reviewer model and specific flags or no flags."
+    },
+    {
+      "id": "autonomous-run-stop-at-pending-wait",
+      "text": "When a bounded wait returns with an announcing child still pending, hand off under the [bounded-wait handoff](contract.md#bounded-wait-handoff) and end the turn: no history reads, test reruns, source probes or second waits while it is pending."
+    }
+  ]
+}

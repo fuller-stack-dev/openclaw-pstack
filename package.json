@@ -1,0 +1,107 @@
+{
+  "name": "@fuller-stack-dev/openclaw-pstack",
+  "version": "1.2.7",
+  "description": "Exact-session workflow mode, role routing, and source-attributed pstack guidance for OpenClaw",
+  "license": "MIT",
+  "files": [
+    "dist/index.js",
+    "skills/poteto-mode/SKILL.md",
+    "skills/routes",
+    "skills/pstack/SKILL.md",
+    "skills/pstack/README.md",
+    "skills/pstack/ADAPTATION.md",
+    "skills/pstack/native",
+    "skills/pstack/upstream",
+    "skills/pstack/source-manifest.json",
+    "skills/pstack/native-manifest.json",
+    "skills/pstack/scripts/automation.mjs",
+    "skills/pstack/scripts/watch-pr.mjs",
+    "skills/pstack/scripts/model-routing.mjs",
+    "skills/pstack/scripts/model-routing-cli.mjs",
+    "skills/pstack/scripts/session_mode.py",
+    "skills/pstack/scripts/plan-check.mjs",
+    "skills/pstack/scripts/output-contracts.mjs",
+    "skills/pstack/scripts/verify_install.py",
+    "openclaw.plugin.json",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "NOTICE"
+  ],
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "pack": "node scripts/pack.mjs",
+    "test:pack": "node --test tests/pack.test.mjs",
+    "test:routing": "node --test skills/pstack/tests/model-routing.test.mjs",
+    "doctor": "python3 skills/pstack/scripts/verify_install.py skills/pstack",
+    "typecheck": "node scripts/typecheck.mjs",
+    "test:automation": "node --test skills/pstack/tests/automation.test.mjs",
+    "test:watch-pr": "node --test skills/pstack/tests/watch-pr.test.mjs",
+    "test:contracts": "node --test skills/pstack/tests/output-contracts.test.mjs",
+    "test:python": "python3 -m unittest discover -s skills/pstack/tests -p test_*.py",
+    "test:plan": "node --test tests/plan-check.test.mjs",
+    "test:host": "node scripts/test-host.mjs",
+    "test:workflow": "node scripts/test-workflow.mjs",
+    "sync:routes": "node scripts/sync-routes.mjs",
+    "test:routes": "node --test tests/route-generation.test.mjs",
+    "sync:overlay": "node scripts/sync-overlay.mjs",
+    "test:overlay": "node --test tests/semantic-overlay.test.mjs"
+  },
+  "peerDependencies": {
+    "openclaw": ">=2026.10.5"
+  },
+  "openclaw": {
+    "extensions": [
+      "./dist/index.js"
+    ],
+    "install": {
+      "minHostVersion": ">=2026.10.5",
+      "clawhubSpec": "@fuller-stack-dev/openclaw-pstack"
+    },
+    "compat": {
+      "pluginApi": ">=2026.10.5",
+      "minGatewayVersion": "2026.10.5"
+    },
+    "build": {
+      "openclawVersion": "2026.10.10-beta.2",
+      "pluginSdkVersion": "2026.10.10-beta.2"
+    }
+  },
+  "author": {
+    "name": "fuller-stack-dev",
+    "url": "https://github.com/fuller-stack-dev"
+  },
+  "maintainers": [
+    {
+      "name": "fuller-stack-dev",
+      "url": "https://github.com/fuller-stack-dev"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fuller-stack-dev/openclaw-pstack.git"
+  },
+  "homepage": "https://github.com/fuller-stack-dev/openclaw-pstack#readme",
+  "bugs": {
+    "url": "https://github.com/fuller-stack-dev/openclaw-pstack/issues"
+  },
+  "keywords": [
+    "openclaw-plugin",
+    "pstack",
+    "workflow",
+    "model-routing",
+    "developer-tools"
+  ],
+  "engines": {
+    "node": ">=24.16.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  },
+  "peerDependenciesMeta": {
+    "openclaw": {
+      "optional": true
+    }
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "schema": 1,
+  "route": "session-pickup",
+  "document": "playbooks.md",
+  "priority": "P2",
+  "upstream": [
+    "skills/poteto-mode/SKILL.md",
+    "skills/poteto-mode/playbooks/session-pickup.md"
+  ],
+  "gates": [
+    {
+      "id": "session-pickup-01",
+      "text": "Own the resume point. Read the prior trail instead of repeating completed work. Historical decisions are authoritative context, but a prior self-report is not behavioral proof."
+    },
+    {
+      "id": "session-pickup-02",
+      "text": "Locate the supplied trail, branch, or session with authorized native `sessions_history` and `sessions_search` scoped to the named topic, sessions, and workspace. Read metadata and the last messages first, then relevant decision points. Never sweep unrelated private chats or Cursor project directories. For a long transcript, delegate a bounded read-only timeline reduction through the `swarm workers` role and retain its evidence pointers."
+    },
+    {
+      "id": "session-pickup-03",
+      "text": "Every required independent phase MUST resolve its role through `pstack_route`, use emitted native `sessions_spawn` arguments, and collect the accepted child through its native completion path. If planning, spawning, collection, required diversity, or evidence is unavailable, name that gate BLOCKED and do not claim the route complete."
+    },
+    {
+      "id": "session-pickup-04",
+      "text": "Reconstruct the actual branch, exact head, worktree, diff against base, landed work, pending tasks, decisions, current processes, and existing child owners. Reconcile the latest instructions, pauses, cancelled or interrupted inputs, source custody, and accepted completion modes before acting. Never replay a cancelled request, revive held work, or replace an existing owner just to obtain a fresh start."
+    },
+    {
+      "id": "session-pickup-05",
+      "text": "Write a done-versus-pending diff between the original goal and plan and what actually shipped or remains on disk. Name the exact resume point and distinguish verified results from inherited claims. Reuse valid artifacts and results; do not rerun the old repro or redo completed work merely to verify from scratch."
+    },
+    {
+      "id": "session-pickup-06",
+      "text": "Pick and state one routing verdict: continue the execution; ship a finished recommendation; ratify or override a prior conclusion; or postmortem a failed run. Name the matching native playbook and the next executable action. Pickup ends at this handoff; the routed playbook owns execution, and a finished recommendation does not authorize publication."
+    },
+    {
+      "id": "session-pickup-07",
+      "text": "Check inherited material claims against the original goal on the real artifact using existing exact-revision evidence where valid and the smallest missing observation where not. A passing prior self-report is not proof, while a verified completed phase needs no wholesale repeat. Mark stale, missing, or wrong-surface evidence unverified or BLOCKED; explain any work that truly had to be redone."
+    },
+    {
+      "id": "session-pickup-08",
+      "text": "Preserve the historical routing snapshot and exact owner/run/session IDs for accepted work. Do not re-resolve defaults, respawn accepted children, or relabel earlier claims as observed; apply explicit newer corrections only through [append-only supersession](model-routing.md#explicit-user-corrections-on-continuation)."
+    },
+    {
+      "id": "session-pickup-09",
+      "text": "For long routed phases, spawn announcing children (without `collect`; a collector is collected in the turn that spawned it) and use a short bounded native wait, then hand off the exact owner, accepted run/session IDs, phase, snapshot, completed artifacts, and next collection action; finish on resume without respawning accepted children or calling pending work complete. Requested unattended continuation is BLOCKED for this skill-guided route, because pstack arms requester-admitted scheduled turns only for its native controller workflows; do not create a timer to fill that gap."
+    },
+    {
+      "id": "session-pickup-10",
+      "text": "**Reply.** Keep the resume reply compact: where the prior agent stopped; what is done versus pending; what was inherited versus redone, ideally nothing redone; the routing verdict and exact resume point; inherited-claim verification and the outcome or blocker."
+    },
+    {
+      "id": "session-pickup-11",
+      "text": "The session-pickup requirements are text-regression guards only, not behavioral proof."
+    },
+    {
+      "id": "session-pickup-trail-read",
+      "text": "9. Confirm the trail with `sessions_history`, or find it with `sessions_search`, even when the current conversation quotes it, and cite the session and message IDs read."
+    },
+    {
+      "id": "session-pickup-judgment",
+      "text": "10. Route the done-versus-pending judgment and the verdict: resolve `judgment and prose` under the [planner call](delegation.md#planner-call), with the reconstructed branch, diff, trail evidence and inherited claims in the task, whenever its selection differs from or cannot be verified against the parent. Spawn the returned arguments, collect the child and deliver its verdict verbatim, quoted and attributed under [delivering a routed result](delegation.md#delivering-a-routed-result). A role-only `pstack_route` call or a parent-written verdict does not satisfy this phase."
+    },
+    {
+      "id": "session-pickup-verdict-label",
+      "text": "11. Write the verdict as one line, `Verdict: <label>`, with exactly one of the four labels `continue`, `ship`, `ratify or override` (say which) or `postmortem`, followed by the matching native playbook and the next executable action. No other wording replaces the label: a pause, a checkpoint or held work is still one of the four, usually `continue` with the blocker named."
+    },
+    {
+      "id": "session-pickup-child-picks-label",
+      "text": "12. The parent never chooses, ranks or hints at the verdict label. The judgment task gives all four labels with their meanings and the evidence, and asks the child to pick one; it never contains a filled-in `Verdict:` line or a preferred label. After collection the parent only validates that the child's line starts with `Verdict: ` and one of the four labels. A missing or invalid label goes to one fresh correction child under [checking facts before delivery](delegation.md#checking-facts-before-delivery); the parent never writes or changes the label itself."
+    },
+    {
+      "id": "session-pickup-fact-check",
+      "text": "13. Check the child's account of the trail against the messages you read: a claim about what the trail says, such as that tests passed or never ran, must appear in those messages. Correct or annotate every mismatch under [checking facts before delivery](delegation.md#checking-facts-before-delivery) before delivering the verdict."
+    },
+    {
+      "id": "session-pickup-child-writes-verdict",
+      "text": "The judgment child writes this line, never the parent (step 12)."
+    },
+    {
+      "id": "session-pickup-collect-in-turn",
+      "text": "Deliver the verdict in the pickup turn: spawn the judgment child as a collector and collect it with `agents_wait` and `awaitResults: true`, or spawn it as an announcing child and hand off with `sessions_yield`, whose completion event resumes this session. Never end the pickup turn on a handoff while a collector is pending: nothing resumes the session when a collector finishes."
+    }
+  ]
+}

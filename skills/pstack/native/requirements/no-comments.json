@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "route": "no-comments",
+  "document": "workflows.md",
+  "priority": "P1",
+  "upstream": [
+    "skills/no-comments/SKILL.md",
+    "agents/comment-sicko.md",
+    "skills/architect/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "scope-reviewer",
+      "text": "Use the caller’s scoped files/diff; otherwise use the diff against the appropriate base (default main), including working-tree changes. Expand a diff to its exact changed-file list first: the reviewer scope is literal repo-relative file paths, never a diff label or pattern. Read full surrounding context. Resolve `judgment and prose` with pstack_route and spawn a bounded independent read-only comment reviewer through native sessions_spawn using emitted arguments and the [native comment brief](delegation.md#comment-reviewer-brief). The reviewer proposes comment-only changes and exact-symbol reshape flags; it never edits application code. If unavailable, the reviewer gate is BLOCKED and no-comments fails, never an inline-parent substitute."
+    },
+    {
+      "id": "exceptions-suppressions",
+      "text": "Require evidence for stale, redundant or misleading comments and for each MUST KILL root-cause flag. Keep legal/license text, public API contracts, proven unchangeable external/platform/protocol constraints, useful issue/RFC links, justified style/faulty-rule suppressions and safety rationale. Inspect every scoped lint/TypeScript suppression and the rule it suppresses: correctness/safety suppressions require actionable underlying-code findings, not blind deletion. For thin IMPORTANT/do-not-remove claims or uncertain keeps, run native how/why on the named symbol before judgment."
+    },
+    {
+      "id": "parent-audit-retry",
+      "text": "The parent audits the entire report and proposed diff, accepting/rejecting each finding. Reject application-code edits, scope escapes, protected deletions, false MUST KILL reasons and accusations against valid intentional behavior. Keep actionable reshape flags for surprising owned code rather than treating explanatory comments as the root fix. Restore only erroneous proposed deletions with exact exception evidence. Reject one invalid report and rerun the reviewer ONCE with the failure named; reject a second, report open findings and fail the gate."
+    },
+    {
+      "id": "safe-adaptation",
+      "text": "Upstream’s persona and delete-on-doubt behavior are deliberately excluded: ambiguity is an open finding, never authority to delete safety instructions or useful constraints. A valid keep needs scoped evidence; a disproved keep is not protected merely by its wording. Native scope, permission and safety policy govern every accepted deletion."
+    },
+    {
+      "id": "root-cause",
+      "text": "When editing is authorized, fix trivial accepted flags directly by deleting dead paths, dropping unnecessary parameters or using the real API. If any accepted fix needs a new shape, run native architect ONCE for the accepted set plus surrounding code, stopping at the sketch; its required independent design/judge gates still apply. Then implement the smallest in-scope root-cause fix and remove each named workaround, not symptom guards. An out-of-scope root cause stays open with the smallest safe in-scope remediation and a sketch of remaining work; never widen the fence."
+    },
+    {
+      "id": "constraint-approval",
+      "text": "For change/wording/contact constraints that code can enforce, offer the cheapest in-scope type, runtime, behavioral-test or CI-lint encoding and wait for explicit interactive approval (or caller pre-approval for unattended/eval use). Approved encodings must be proved before deleting their comments. Without approval, do not encode or silently discard the constraint: report it unenforced/open under the safe native adaptation. Preserve proven constraints about things we cannot change."
+    },
+    {
+      "id": "closure",
+      "text": "Verify accepted edits and any changed behavior, read every touched file in full, and return deletion count, restored-comment count/reasons, reviewer reruns, accepted/rejected flags, architect sketch/path, root-cause fixes, encoding offers, approved encodings, unenforced constraints and other open work. Read-only authority or a blocked design/reviewer/approval gate is reported explicitly, never claimed as completed remediation."
+    },
+    {
+      "id": "output-contract",
+      "text": "8. Render the reviewer with `pstack_brief` profile `comment-sicko` and the exact file list as scope (expand a diff label such as `main...HEAD` to its files first; brackets and other punctuation in a file name stay literal), and check its `comment-review` JSON with `pstack_brief` before the parent audit; a failed check is the one named rerun. See [native agent briefs](agent-briefs.md)."
+    }
+  ]
+}

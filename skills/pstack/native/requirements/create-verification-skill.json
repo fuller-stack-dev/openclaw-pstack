@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "route": "create-verification-skill",
+  "document": "workflows.md",
+  "priority": "P2",
+  "upstream": [
+    "skills/create-verification-skill/SKILL.md",
+    "skills/create-verification-skill/references/feature-map-example/README.md",
+    "skills/create-verification-skill/references/feature-map-example/create-note.md",
+    "skills/create-verification-skill/references/feature-map-example/search.md"
+  ],
+  "gates": [
+    {
+      "id": "repo-interview",
+      "text": "Read installed native skill-creator, repository instructions, existing project skills and harnesses. Interview SOURCE, not the user, for the primary/secondary user surface, exact run command, usable readiness, ports/auth/seeds, drive handles, evidence and instance isolation. Prefer the project’s real harness before a generic browser/PTY/HTTP recipe. If the checkout cannot build/start, fix only within authority or report the precise blocker before generating instructions that teach a broken base. Any necessary harmless scaffold is named as verification-only and removed in cleanup; do not install dependencies or alter product code implicitly."
+    },
+    {
+      "id": "frontmatter-and-shape",
+      "text": "Write only the explicitly authorized project-owned `verify-<app>` skill source, preserving existing ownership/collisions and native invocation boundaries, never Cursor paths or installed shared blocks. Valid YAML frontmatter MUST include `name: verify-<app>` and a description naming the app, surface and when to use it. Write Launch, Doctor, Drive, Evidence, Cleanup and Helpers sections with real commands/paths and no placeholders, for a cold reader who has not seen this task. Every shipped helper script MUST be executable, and its exact invocation MUST appear in the skill body; reuse an existing executable harness where sufficient instead of inventing a duplicate."
+    },
+    {
+      "id": "launch-model",
+      "text": "Launch must reach a USABLE state from empty isolated state, including actual migrations/seeds/readiness and teardown, not merely a responding port. For a server/UI use one owned instance with verified port/profile/data custody; refuse to double-drive a shared user instance. For a short-lived CLI/TUI build once and start each drive in a fresh isolated process/PTY. For a LIBRARY, launch means importing the actual public API in a FRESH PROCESS for each isolated drive, not inventing a long-running server or using private/test-only setters. Doctor is a read-only check of the right build/instance, readiness, auth and ownership, run before driving and whenever anything looks off."
+    },
+    {
+      "id": "real-drive-proof",
+      "text": "Drive the REAL user path through stable native browser/CLI/API/public-library handles from this repository. Capture the action AND resulting state plus independent side effects (stored files/rows/messages where authorized), not just a final screen. Mock only a real production boundary that cannot safely be driven. When using dry-run/test mode, observe what it actually skips, including files/network/refs/browser, rather than trusting its name. Name a proof-artifact location outside removable scratch so cleanup cannot eat evidence."
+    },
+    {
+      "id": "feature-map-seeds",
+      "text": "Seed a maintained `features/README.md` index with baseline preconditions, drive/proof conventions and one file per real top user-facing feature, aiming for 3–5 to start; fewer real features means explain the smaller seed, never fabricate scope. Follow the source-only [feature-map shape](../upstream/skills/create-verification-skill/references/feature-map-example/README.md): each feature has an H1/user-POV description and EXACTLY FOUR H2s in order: `Sub-features`, `How to get to it (user POV)`, `Driving it with <harness>` (substitute the actual harness name), and `Gotchas`. List every entry point, required preconditions, exact action/command and observable end state. A missing seed/precondition makes that journey fail with the reason in Gotchas; never weaken a journey or claim another entry point verifies the omitted path."
+    },
+    {
+      "id": "execute-cleanup-handback",
+      "text": "Follow the generated skill end to end as a fresh reader: launch, doctor, drive ONE mapped feature, capture evidence and run cleanup; then VERIFY that evidence survives at its named location. Clean all owned residue after EVERY failed iteration too, even a stuck/exited attempt, and kill only processes you started, never by name. Fix and rerun skill-owned failures within authority. Any stand-in target must list setup steps it covers that the real target has not proved. A never-executed or blocked skill is an UNPROVED DRAFT, not a verified deliverable; stand-in coverage is not proof of the unrun real-target setup. Return paths, mapped coverage, commands/results, surviving evidence and exact gaps; point to native maintain-verification-skill, suggesting cadence only if asked. No implicit PR, job or publication."
+    },
+    {
+      "id": "create-verification-skill-pointer",
+      "text": "7. Name native maintain-verification-skill in the user-facing handback itself, for example `Next: /pstack-maintain-verification-skill keeps this skill in sync as the app changes.` A pointer only inside the generated skill does not satisfy the handback."
+    }
+  ]
+}

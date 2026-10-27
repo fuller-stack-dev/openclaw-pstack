@@ -1,0 +1,68 @@
+{
+  "schema": 1,
+  "route": "poteto-mode",
+  "document": "workflows.md",
+  "priority": "P2",
+  "upstream": [
+    "skills/poteto-mode/SKILL.md",
+    "agents/poteto-agent.md"
+  ],
+  "gates": [
+    {
+      "id": "playbook-checklist",
+      "text": "The receiving session owns the run, not a delegated replacement coordinator. Select and fully read the matching native playbook, then open a task checklist whose FIRST items copy that playbook’s native steps VERBATIM, before task-specific items. Retain every skipped step with `skip: <one-line reason>`; a required gate that cannot run is BLOCKED, not an optional skip. Large/cross-cutting work, work the user will review later, or no fitting playbook uses figure-it-out; a genuine standing multi-day program uses orchestrate, while one-session work follows its collapse rule."
+    },
+    {
+      "id": "conditional-triggers",
+      "text": "Apply the actual triggers, not a generic three-step substitute: nontrivial change, architecture decision or “are we sure?” → how; an empirical approach fork → authorized prototype/measurement rather than asking the human for an observable fact (read-only investigation stays read-only); code → name its data shape and read principle-model-the-domain; crossing function boundaries → architect before implementation; partitioned/race fan-out → swarm, whole-artifact bakeoff → arena; contested design → interrogate before shipping; nontrivial multi-step work → the matching throughput checkpoint. Only a genuinely missing product/preference/safety choice goes to the user. Authorization and explicit named gates still win."
+    },
+    {
+      "id": "surface-triggers",
+      "text": "Any prose including replies → unslop; docs/RFCs/README/PR descriptions/commit messages → technical-writing; skill authoring → installed native skill-creator. Before commit, discover an applicable native cleanup/review skill rather than importing Cursor deslop; before review → no-comments under its real scope and required gates. For UI/IDE/CLI changes use the matching installed native control skill and reproduce a bug on that surface. Before acting on a measured number → benchmark-checklist. PR-status work → babysit with a declared mode, never implicitly from opening a PR; authorized landing → shipping’s contiguous verified run. Assess automated review comments skeptically against concrete evidence, not automatic agreement or dismissal."
+    },
+    {
+      "id": "principle-citations",
+      "text": "Read the FULL applicable leaf section in native principles.md before applying it, including principles for domain/architecture, reader load, root causes, real behavioral verification, verifiable units and explaining measured numbers. In the reply name EACH principle that shaped a decision and the specific choice it changed, with a resolving source pointer. Cite only principles actually read this session, not a decorative catalog. Ground in source, state the observable done predicate and authorized scope, and verify each bounded unit against the real artifact."
+    },
+    {
+      "id": "native-delegation",
+      "text": "Use native role routing and delegation, never upstream Task/custom-agent registration, Cursor paths, orchestration/log scripts or guessed model-slug fallbacks. EVERY required independent phase MUST resolve pstack_route, use emitted arguments with native sessions_spawn and collect through its accepted completion path, or name that gate BLOCKED; even a matching-model sequential parent pass cannot satisfy independence. Preserve existing owners, snapshots and explicit corrections; children already executing an assigned role do not recursively redispatch it. Inspect all artifacts/diffs and own the final synthesis rather than forwarding self-reports."
+    },
+    {
+      "id": "autonomy-trail-closure",
+      "text": "Long/autonomous/multi-phase work or a user stepping away requires native show-me-your-work with its audit/review gates; a broken skill is an explicit repair/blocker through its canonical owner, not a silent workaround or automatic unrelated PR. Autonomy does not authorize external/destructive actions, provider changes, jobs, publication or bypassing explicit pauses. Keep comments for non-obvious why/real constraints under no-comments’ safe adaptation. Finish with consumer/maintainer impact, actual results/evidence, tradeoffs/open decisions and unresolved gates in plain prose; never fabricate links. Future route commands use `pstack-<route>`; bare names are explicit opt-in only and never shadow core. The native/requirements JSON guards are text regression only, not behavioral proof."
+    },
+    {
+      "id": "bounded-wait-resume",
+      "text": "For long routed phases, spawn announcing children (without `collect`; a collector is collected in the turn that spawned it) and use a short schema-supported bounded native wait, then hand off the exact owner, accepted run/session IDs, phase, routing snapshot, completed artifacts and next collection action in the task-owned record, and finish on resume under [the shared lifecycle](contract.md#collection-and-resume). Never respawn accepted children, synthesize before required results arrive or call pending work complete. Unattended continuation runs only for native controller workflows (/pstack-architect, -arena, -interrogate, -swarm, -how, -why, -reflect) on hosts that grant requester-admitted scheduled command turns; otherwise that gate is BLOCKED when requested, with an explicit resume handoff, not an ad-hoc scheduler."
+    },
+    {
+      "id": "delegate-brief",
+      "text": "7. Render each helper or code-writing delegate with `pstack_brief` profile `poteto-agent` and check its returned `delegate-result` with `pstack_brief` before inspecting its diff; see [native agent briefs](agent-briefs.md). A delegate that skipped a required native read or reports PASS over a failing check is rejected, not summarized."
+    },
+    {
+      "id": "evidence-labels",
+      "text": "8. Every claim carries its evidence or its label in the same sentence: measured, inferred or guess. A prediction or an unseen cause is a guess. Run a check you can run yourself instead of handing it to the human; name the missing capability for one you cannot run."
+    },
+    {
+      "id": "poteto-mode-delivery",
+      "text": "9. Deliver a routed explainer, judgment or prose result verbatim, quoted and attributed under [delivering a routed result](delegation.md#delivering-a-routed-result). A parent conclusion that differs from the child's goes outside the quote, labelled as the parent's, with its own evidence; it never silently replaces the child's conclusion."
+    },
+    {
+      "id": "poteto-mode-planner",
+      "text": "10. Plan every required phase under the [planner call](delegation.md#planner-call): the how explainer or explorers a trigger requires, `judgment and prose` for the reply whenever its selection differs from or cannot be verified against the parent, and each `poteto-agent` delegate. Spawn each with its returned arguments and collect it, or name that phase BLOCKED. A phase planned without `spawnSchema`, or planned and never spawned, is not routed. Check each delegate's `delegate-result` with `pstack_brief` before summarizing its report; an unchecked report is named unvalidated, not summarized as findings."
+    },
+    {
+      "id": "poteto-mode-rerun-rejected",
+      "text": "11. When `pstack_brief` rejects a routed explainer's or delegate's report, rerun it once as a fresh child: plan the same role again under the [planner call](delegation.md#planner-call), add the check's exact errors to the task, spawn it and check the new report. A collector child is one-shot, so a refused `sessions_send` does not end the phase. Only a second rejection leaves that phase BLOCKED, and the parent's own probe never stands in for it."
+    },
+    {
+      "id": "poteto-mode-checklist",
+      "text": "12. Show the opened checklist in the reply: the matching playbook's native steps copied verbatim as its first items, then the task items. Before handback, mark every item done, `skip: <reason>` or BLOCKED; an unmarked item fails this gate."
+    },
+    {
+      "id": "poteto-mode-claim-labels",
+      "text": "13. Before sending the reply, check every sentence that makes a claim: it carries its evidence or the word measured, inferred or guess. For code work the reply names the data shape it chose, such as the event type a trigger receives, and each principle that shaped a decision."
+    }
+  ]
+}

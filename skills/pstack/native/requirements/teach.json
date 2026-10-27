@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "route": "teach",
+  "document": "workflows.md",
+  "priority": "P2",
+  "upstream": [
+    "skills/teach/SKILL.md",
+    "skills/how/SKILL.md",
+    "skills/why/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "learning-scope",
+      "text": "Read enough source to orient, and choose the few ideas the person needs from why they are asking and what the conversation shows they know. Do not quiz them to establish a starting point. Keep this route explanatory and read-only, not implementation."
+    },
+    {
+      "id": "real-parallel-how-why",
+      "text": "Run the REAL native how and why routes, with their role planning, native sessions_spawn phases, briefs, accepted collection and output contracts, not two informal parent passes. For a subsystem require BOTH and run their independent investigation phases in parallel within native limits, combining only after their required results arrive. A small change may need only one; state why the other contributes nothing rather than silently omitting it. Keep why scoped to the actual question and let it record all category gaps/skips under its own contract. Missing required how/why delegation or collection leaves the named teaching-evidence gate BLOCKED, never sequential parent personas."
+    },
+    {
+      "id": "routed-prose",
+      "text": "After required how/why results are collected, resolve `judgment and prose` through pstack_route for the teaching response; use emitted arguments with native sessions_spawn and accepted collection whenever the selection differs from, or cannot be verified against, the parent. Only a verified matching/inherited non-independent prose phase may remain inline under the contract. Reword findings freely for teaching but preserve why’s confidence language: evidential hedges are findings, not filler."
+    },
+    {
+      "id": "teaching-output",
+      "text": "Lead with a plain definition and the smallest complete answer, usually a sentence or two. Tie the concept to this case, its problem, mechanism, reasons and edge cases rather than listing functions. Add layers at the person’s pace; no wall of text, quizzes, pacing theater or stock insight labels. Show code, a debugger or a diagram when that lands faster. For three or more moving parts, build a short diagram series that redraws the prior picture and adds one part rather than one all-at-once reference diagram. Use native supported media only when useful and authorized; do not generate images by default. Apply native unslop without deleting uncertainty. Return the explanation itself, not a report of the phases; in one-shot use any offer to go deeper only at the end."
+    },
+    {
+      "id": "bounded-wait-resume",
+      "text": "For long routed phases, spawn announcing children (without `collect`; a collector is collected in the turn that spawned it) and use a short schema-supported bounded native wait, then hand off the exact owner, accepted run/session IDs, phase, routing snapshot, completed artifacts and next collection action in the task-owned record, and finish on resume under [the shared lifecycle](contract.md#collection-and-resume). Never respawn accepted children, synthesize before required results arrive or call pending work complete. Unattended continuation runs only for native controller workflows (/pstack-architect, -arena, -interrogate, -swarm, -how, -why, -reflect) on hosts that grant requester-admitted scheduled command turns; otherwise that gate is BLOCKED when requested, with an explicit resume handoff, not an ad-hoc scheduler."
+    },
+    {
+      "id": "teach-delivery",
+      "text": "5. Deliver the collected teaching response verbatim, quoted and attributed under [delivering a routed result](delegation.md#delivering-a-routed-result). Teaching edits belong in the routed child's brief or one same-owner correction, never a parent rewrite of the explanation."
+    },
+    {
+      "id": "teach-handoff",
+      "text": "6. Spawn how, why and the teaching child as announcing children (without `collect`) and collect them under the [bounded-wait handoff](contract.md#bounded-wait-handoff); a collector is collected in this turn with `agents_wait` and `awaitResults: true`, never handed off. Once a wait returns with an announcing child pending, reply with the handoff and end the turn instead of writing the explanation yourself."
+    },
+    {
+      "id": "teach-visible-handoff",
+      "text": "7. Wait for each pending announcing how, why or teaching child with a timeout of at most 60 seconds before handing off. Put the handoff in the visible reply under [visible handoff](contract.md#visible-handoff), and do no more work in that turn: no source reads or probes while the synthesizer or the teaching child is pending."
+    },
+    {
+      "id": "teach-collector-correction",
+      "text": "A same-owner correction applies only to an announcing child that is still open; a collector child is one-shot and refuses `sessions_send`, so correct its response with one fresh correction child under [checking facts before delivery](delegation.md#checking-facts-before-delivery)."
+    }
+  ]
+}

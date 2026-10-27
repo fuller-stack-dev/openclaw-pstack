@@ -1,0 +1,154 @@
+{
+  "schema": 1,
+  "route": "hillclimb",
+  "document": "playbooks.md",
+  "priority": "P1",
+  "upstream": [
+    "skills/poteto-mode/SKILL.md",
+    "skills/poteto-mode/playbooks/hillclimb.md",
+    "skills/benchmark-checklist/SKILL.md",
+    "skills/show-me-your-work/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "hillclimb-01",
+      "text": "Supervise and review; delegate attempts."
+    },
+    {
+      "id": "hillclimb-02",
+      "text": "One hypothesis, one change, one measurement, then keep or revert."
+    },
+    {
+      "id": "hillclimb-03",
+      "text": "Never stack untested changes."
+    },
+    {
+      "id": "hillclimb-04",
+      "text": "Ground architecture through [how](workflows.md#how)."
+    },
+    {
+      "id": "hillclimb-05",
+      "text": "Name realistic workload dimensions such as size, history, state, and concurrency, and reproduce the complaint."
+    },
+    {
+      "id": "hillclimb-06",
+      "text": "If nothing reproduces it, repair the repro first."
+    },
+    {
+      "id": "hillclimb-07",
+      "text": "Fix the metric, better direction, target, and minimum attempt count before changes."
+    },
+    {
+      "id": "hillclimb-08",
+      "text": "Use the user's numbers or obtain agreement on missing material targets."
+    },
+    {
+      "id": "hillclimb-09",
+      "text": "A lucky early win does not satisfy the target-plus-minimum-attempt predicate."
+    },
+    {
+      "id": "hillclimb-10",
+      "text": "Prove harness sensitivity with contrasting realistic workloads that separate as expected."
+    },
+    {
+      "id": "hillclimb-11",
+      "text": "Revise a harness that cannot distinguish them."
+    },
+    {
+      "id": "hillclimb-12",
+      "text": "Vet it with [benchmark-checklist](workflows.md#benchmark-checklist), then freeze one repeatable command that prints the sampled metric, error count, and completed-work count."
+    },
+    {
+      "id": "hillclimb-13",
+      "text": "Record the baseline and a green regression gate before the first change."
+    },
+    {
+      "id": "hillclimb-14",
+      "text": "Open the append-only [show-me-your-work](workflows.md#show-me-your-work) trail."
+    },
+    {
+      "id": "hillclimb-15",
+      "text": "Keep the attempt log out of the tracked tree."
+    },
+    {
+      "id": "hillclimb-16",
+      "text": "Read it before each attempt."
+    },
+    {
+      "id": "hillclimb-17",
+      "text": "Record id, architecture-grounded hypothesis, change, before, after, delta, tests, kept or reverted, and note."
+    },
+    {
+      "id": "hillclimb-18",
+      "text": "For performance hypotheses use [perf-issue](#perf-issue)'s mantra order, not its early-target stop rule."
+    },
+    {
+      "id": "hillclimb-19",
+      "text": "Resolve each `hillclimb` attempt through `pstack_route` and delegate with emitted native `sessions_spawn` arguments and tight scope."
+    },
+    {
+      "id": "hillclimb-20",
+      "text": "Independent attempts use separate worktrees; the lead reviews rather than types their changes."
+    },
+    {
+      "id": "hillclimb-21",
+      "text": "If required delegation cannot run, the attempt gate is BLOCKED, never a sequential parent fallback."
+    },
+    {
+      "id": "hillclimb-22",
+      "text": "Measure before and after with the frozen harness and run the regression gate."
+    },
+    {
+      "id": "hillclimb-23",
+      "text": "Keep only gains beyond noise with green correctness, or a simplification that holds the metric."
+    },
+    {
+      "id": "hillclimb-24",
+      "text": "Otherwise revert the whole attempt."
+    },
+    {
+      "id": "hillclimb-25",
+      "text": "With commit authority, make one scoped commit per kept attempt and log kept and reverted outcomes before starting the next."
+    },
+    {
+      "id": "hillclimb-26",
+      "text": "Without it, mark the commit checkpoint BLOCKED rather than claiming it happened."
+    },
+    {
+      "id": "hillclimb-27",
+      "text": "Push past the first plateau."
+    },
+    {
+      "id": "hillclimb-28",
+      "text": "Pivot category, revisit source, or combine measured near-misses before declaring ideas exhausted."
+    },
+    {
+      "id": "hillclimb-29",
+      "text": "Correctness and simplicity outrank the metric."
+    },
+    {
+      "id": "hillclimb-30",
+      "text": "Stop at the target plus minimum attempts, a genuine blocker, or documented exhaustion where remaining ideas are marginal relative to cost."
+    },
+    {
+      "id": "hillclimb-31",
+      "text": "Do not relax the predicate or stop with cheap untried hypotheses."
+    },
+    {
+      "id": "hillclimb-32",
+      "text": "A budget expiry is an incomplete handoff, not success."
+    },
+    {
+      "id": "hillclimb-33",
+      "text": "**Reply.** Metric and target, baseline and final with percent delta, attempts kept and reverted, each accepted fix, log path, next best hypothesis, and unmet gates."
+    },
+    {
+      "id": "hillclimb-34",
+      "text": "No persistent loop is created; an authorized unattended run may borrow only [autonomous-run](#autonomous-run)'s wake mechanism."
+    },
+    {
+      "id": "hillclimb-no-invented-minimum",
+      "text": "7. Never set a missing attempt minimum yourself. If the user gave only a maximum, such as at most 2 attempts, run attempts up to that maximum and stop earlier only on a genuine blocker or documented exhaustion; a kept win before then does not end the run. If the user gave neither, ask for the number or agree it before the first attempt."
+    }
+  ]
+}

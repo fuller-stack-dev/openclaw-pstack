@@ -1,0 +1,320 @@
+{
+  "schema": 1,
+  "kind": "agent-attested-brief-and-output-contracts",
+  "enforcement": "Briefs rendered by pstack_brief are prompt-enforced: guidance plus inherited native tool policy. On hosts advertising native-subagent-profiles-v1, every profile below is also registered as a narrow-only host subagent profile whose narrowTools deny list the host removes from native controller children; the model-facing sessions_spawn cannot select a profile, so agent-driven spawns stay prompt-enforced. Output shapes are validated by pstack_brief check, pstack_workflow collection and native controller collection.",
+  "profiles": [
+    {
+      "id": "comment-sicko",
+      "label": "Native comment reviewer (ported from upstream comment-sicko)",
+      "upstream": "agents/comment-sicko.md",
+      "upstreamSha256": "3e239e40b7b4b9beb2cf7f3ccc57f2388eb8b69bd1ba8ae888ef87ef6e0e2116",
+      "instructionsFile": "native/agents/comment-sicko.md",
+      "routingRole": "judgment and prose",
+      "readOnly": true,
+      "outputSchema": "comment-review",
+      "route": "no-comments",
+      "requiredReads": ["native/contract.md", "native/workflows.md#no-comments", "native/agents/comment-sicko.md"],
+      "narrowTools": {"deny": ["write", "edit", "apply_patch", "sessions", "sessions_create", "sessions_spawn", "sessions_send", "conversations_send", "conversations_turn", "subagents", "create_goal", "update_goal", "skill_workshop", "personal_instructions", "ask_user", "github_publish", "secrets", "group:automation", "group:messaging", "group:nodes", "group:ui", "group:media", "group:plugins"]}
+    },
+    {
+      "id": "poteto-agent",
+      "label": "Native pstack delegate (ported from upstream poteto-agent)",
+      "upstream": "agents/poteto-agent.md",
+      "upstreamSha256": "979f18abd000d185a0b4c41a2a4111c0910596a7f5c81cbb571885bc721b2bf7",
+      "instructionsFile": "native/agents/poteto-agent.md",
+      "routingRole": "assigned",
+      "readOnly": false,
+      "outputSchema": "delegate-result",
+      "route": "poteto-mode",
+      "requiredReads": ["SKILL.md", "native/contract.md", "native/principles.md", "native/workflows.md#poteto-mode", "native/agents/poteto-agent.md"],
+      "narrowTools": {"deny": ["sessions_spawn", "sessions_create", "sessions_send", "conversations_send", "conversations_turn", "subagents", "github_publish", "secrets", "group:automation", "group:messaging", "group:nodes"]}
+    }
+  ],
+  "panelProfiles": [
+    {
+      "id": "panel-reviewer",
+      "label": "Read-only pstack panel reviewer (shell kept for read-only inspection)",
+      "instructionsFile": "native/agents/panel-reviewer.md",
+      "roles": ["interrogate reviewers", "how explorer", "how explainer", "reflect tooling", "reflect judgment, divergent, synthesizer"],
+      "narrowTools": {"deny": ["write", "edit", "apply_patch", "sessions", "sessions_create", "sessions_spawn", "sessions_send", "conversations_send", "conversations_turn", "subagents", "create_goal", "update_goal", "skill_workshop", "personal_instructions", "ask_user", "github_publish", "secrets", "group:automation", "group:messaging", "group:nodes", "group:ui", "group:media", "group:plugins"]}
+    },
+    {
+      "id": "panel-judge",
+      "label": "Strictly read-only pstack cross-judge (no shell)",
+      "instructionsFile": "native/agents/panel-judge.md",
+      "roles": ["arena cross-judge pool"],
+      "narrowTools": {"deny": ["write", "edit", "apply_patch", "sessions", "sessions_create", "sessions_spawn", "sessions_send", "conversations_send", "conversations_turn", "subagents", "create_goal", "update_goal", "skill_workshop", "personal_instructions", "ask_user", "github_publish", "secrets", "group:automation", "group:messaging", "group:nodes", "group:ui", "group:media", "group:plugins", "group:runtime"]}
+    }
+  ],
+  "panelRoles": {
+    "architect runners": "architect-runner",
+    "arena runners": "arena-runner",
+    "arena cross-judge pool": "cross-judge",
+    "interrogate reviewers": "interrogate-reviewer"
+  },
+  "schemas": {
+    "architect-runner": {
+      "description": "One whole-shape design package. The workflow ledger derives the shape digest from shape itself; do not compute one.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["packagePath", "usage", "shape", "rationale"],
+      "properties": {
+        "packagePath": {"type": "string", "minLength": 1, "maxLength": 1024},
+        "usage": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["readme", "callSites"],
+          "properties": {
+            "readme": {"type": "string", "minLength": 1, "maxLength": 4096},
+            "callSites": {"type": "array", "minItems": 2, "maxItems": 3, "items": {"type": "string", "minLength": 1, "maxLength": 2048}}
+          }
+        },
+        "shape": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["summary", "publicSurface", "modules"],
+          "properties": {
+            "summary": {"type": "string", "minLength": 1, "maxLength": 2048},
+            "publicSurface": {"type": "array", "minItems": 1, "maxItems": 32, "items": {"type": "string", "minLength": 1, "maxLength": 512}},
+            "modules": {
+              "type": "array", "minItems": 1, "maxItems": 32,
+              "items": {
+                "type": "object", "additionalProperties": false, "required": ["name", "responsibility"],
+                "properties": {
+                  "name": {"type": "string", "minLength": 1, "maxLength": 256},
+                  "responsibility": {"type": "string", "minLength": 1, "maxLength": 1024}
+                }
+              }
+            }
+          }
+        },
+        "rationale": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["problem", "usage", "shape", "synthesisDecision", "tradeoffsAccepted", "alternativesConsidered", "openQuestionsAndRisks", "nextImplementationStep"],
+          "properties": {
+            "problem": {"type": "string", "minLength": 1, "maxLength": 2048},
+            "usage": {"type": "string", "minLength": 1, "maxLength": 2048},
+            "shape": {"type": "string", "minLength": 1, "maxLength": 2048},
+            "synthesisDecision": {"type": "string", "minLength": 1, "maxLength": 2048},
+            "tradeoffsAccepted": {"type": "string", "minLength": 1, "maxLength": 2048},
+            "alternativesConsidered": {
+              "type": "array", "minItems": 1, "maxItems": 8,
+              "items": {
+                "type": "object", "additionalProperties": false, "required": ["shape", "whyLost"],
+                "properties": {
+                  "shape": {"type": "string", "minLength": 1, "maxLength": 1024},
+                  "whyLost": {"type": "string", "minLength": 1, "maxLength": 1024}
+                }
+              }
+            },
+            "openQuestionsAndRisks": {"type": "string", "minLength": 1, "maxLength": 2048},
+            "nextImplementationStep": {"type": "string", "minLength": 1, "maxLength": 1024}
+          }
+        }
+      }
+    },
+    "arena-runner": {
+      "description": "One whole candidate artifact. Candidates never see or score the picker's rubric.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifactPath", "rationale", "alternatives"],
+      "properties": {
+        "artifactPath": {"type": "string", "minLength": 1, "maxLength": 1024},
+        "rationale": {"type": "string", "minLength": 1, "maxLength": 4096},
+        "alternatives": {
+          "type": "array", "minItems": 1, "maxItems": 8,
+          "items": {
+            "type": "object", "additionalProperties": false, "required": ["approach", "whyRejected"],
+            "properties": {
+              "approach": {"type": "string", "minLength": 1, "maxLength": 1024},
+              "whyRejected": {"type": "string", "minLength": 1, "maxLength": 1024}
+            }
+          }
+        }
+      }
+    },
+    "cross-judge": {
+      "description": "One read-only judge scoring every usable candidate on every rubric criterion.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rubric", "candidates", "recommendedBase", "rationale"],
+      "properties": {
+        "rubric": {
+          "type": "array", "minItems": 3, "maxItems": 6,
+          "items": {
+            "type": "object", "additionalProperties": false, "required": ["id", "criterion"],
+            "properties": {
+              "id": {"type": "string", "pattern": "^[a-z0-9-]{1,64}$"},
+              "criterion": {"type": "string", "minLength": 1, "maxLength": 1024}
+            }
+          }
+        },
+        "candidates": {
+          "type": "array", "minItems": 1, "maxItems": 8,
+          "items": {
+            "type": "object", "additionalProperties": false, "required": ["label", "scores"],
+            "properties": {
+              "label": {"type": "string", "minLength": 1, "maxLength": 128},
+              "scores": {
+                "type": "array", "minItems": 3, "maxItems": 6,
+                "items": {
+                  "type": "object", "additionalProperties": false, "required": ["criterion", "score", "rationale"],
+                  "properties": {
+                    "criterion": {"type": "string", "pattern": "^[a-z0-9-]{1,64}$"},
+                    "score": {"type": "integer", "minimum": 1, "maximum": 5},
+                    "rationale": {"type": "string", "minLength": 1, "maxLength": 2048}
+                  }
+                }
+              }
+            }
+          }
+        },
+        "recommendedBase": {"type": "string", "minLength": 1, "maxLength": 128},
+        "rationale": {"type": "string", "minLength": 1, "maxLength": 4096}
+      }
+    },
+    "interrogate-reviewer": {
+      "description": "One independent read-only reviewer. The lead, not the reviewer, assigns the four verdict buckets.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["findings", "lenses", "testAssessment"],
+      "properties": {
+        "findings": {
+          "type": "array", "minItems": 0, "maxItems": 64,
+          "items": {
+            "type": "object", "additionalProperties": false, "required": ["severity", "title", "location", "mechanism", "evidence", "inference"],
+            "properties": {
+              "severity": {"type": "string", "enum": ["critical", "warning", "nit"]},
+              "title": {"type": "string", "minLength": 1, "maxLength": 256},
+              "location": {"type": "string", "minLength": 1, "maxLength": 512},
+              "mechanism": {"type": "string", "minLength": 1, "maxLength": 2048},
+              "evidence": {"type": "string", "minLength": 1, "maxLength": 4096},
+              "suggestion": {"type": "string", "minLength": 1, "maxLength": 2048},
+              "inference": {"type": "boolean"}
+            }
+          }
+        },
+        "lenses": {
+          "type": "array", "minItems": 7, "maxItems": 7,
+          "items": {
+            "type": "object", "additionalProperties": false, "required": ["lens", "disposition", "note"],
+            "properties": {
+              "lens": {"type": "string", "enum": ["correctness-and-edge-paths", "idempotency-and-concurrency", "root-cause", "structural-integrity", "behavioral-verification", "complexity", "security"]},
+              "disposition": {"type": "string", "enum": ["covered", "not-applicable"]},
+              "note": {"type": "string", "minLength": 1, "maxLength": 1024}
+            }
+          }
+        },
+        "testAssessment": {"type": "string", "minLength": 1, "maxLength": 4096}
+      }
+    },
+    "comment-review": {
+      "description": "Report-only comment review. Proposals, not edits; doubt becomes an open finding, never a deletion.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scope", "deletions", "mustKill", "keeps", "open", "deletionCount", "applicationCodeEdited"],
+      "properties": {
+        "scope": {"type": "array", "description": "The exact file paths the parent supplied, echoed unchanged.", "minItems": 1, "maxItems": 256, "items": {"type": "string", "minLength": 1, "maxLength": 1024}},
+        "deletions": {
+          "type": "array", "minItems": 0, "maxItems": 512,
+          "items": {
+            "type": "object", "additionalProperties": false, "required": ["file", "line", "comment", "reason", "evidence"],
+            "properties": {
+              "file": {"type": "string", "minLength": 1, "maxLength": 1024},
+              "line": {"type": "integer", "minimum": 1, "maximum": 10000000},
+              "comment": {"type": "string", "minLength": 1, "maxLength": 2048},
+              "reason": {"type": "string", "enum": ["stale", "redundant", "misleading", "narration", "commented-out-code", "suppression"]},
+              "rule": {"type": "string", "minLength": 1, "maxLength": 256},
+              "ruleClass": {"type": "string", "enum": ["correctness", "safety", "style", "pedantic", "faulty"]},
+              "symbol": {"type": "string", "description": "Correctness or safety suppression only: the suppressed symbol, which a MUST KILL finding in the same file must name.", "minLength": 1, "maxLength": 256},
+              "evidence": {"type": "string", "minLength": 1, "maxLength": 2048}
+            }
+          }
+        },
+        "mustKill": {
+          "type": "array", "minItems": 0, "maxItems": 128,
+          "items": {
+            "type": "object", "additionalProperties": false, "required": ["file", "line", "symbol", "reshape", "mechanism", "evidence"],
+            "properties": {
+              "file": {"type": "string", "minLength": 1, "maxLength": 1024},
+              "line": {"type": "integer", "minimum": 1, "maximum": 10000000},
+              "symbol": {"type": "string", "minLength": 1, "maxLength": 256},
+              "reshape": {"type": "string", "enum": ["rename", "extract", "type", "rearchitect", "delete-dead-path", "use-real-api"]},
+              "mechanism": {"type": "string", "minLength": 1, "maxLength": 2048},
+              "evidence": {"type": "string", "minLength": 1, "maxLength": 2048}
+            }
+          }
+        },
+        "keeps": {
+          "type": "array", "minItems": 0, "maxItems": 512,
+          "items": {
+            "type": "object", "additionalProperties": false, "required": ["file", "line", "clause", "evidence"],
+            "properties": {
+              "file": {"type": "string", "minLength": 1, "maxLength": 1024},
+              "line": {"type": "integer", "minimum": 1, "maximum": 10000000},
+              "clause": {"type": "string", "enum": ["legal-or-license", "external-constraint", "public-api-contract", "issue-or-rfc-link", "justified-suppression", "safety-rationale"]},
+              "evidence": {"type": "string", "minLength": 1, "maxLength": 2048}
+            }
+          }
+        },
+        "open": {
+          "type": "array", "minItems": 0, "maxItems": 256,
+          "items": {
+            "type": "object", "additionalProperties": false, "required": ["file", "line", "question"],
+            "properties": {
+              "file": {"type": "string", "minLength": 1, "maxLength": 1024},
+              "line": {"type": "integer", "minimum": 1, "maximum": 10000000},
+              "question": {"type": "string", "minLength": 1, "maxLength": 2048}
+            }
+          }
+        },
+        "deletionCount": {"type": "integer", "minimum": 0, "maximum": 512},
+        "applicationCodeEdited": {"type": "boolean"}
+      }
+    },
+    "delegate-result": {
+      "description": "One bounded delegate's report for the owning parent to inspect; never a completion claim on its own.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "contractRead", "summary", "changes", "checks", "principlesApplied", "blockers"],
+      "properties": {
+        "status": {"type": "string", "enum": ["PASS", "ISSUES", "BLOCKED"]},
+        "contractRead": {"type": "array", "minItems": 0, "maxItems": 16, "items": {"type": "string", "minLength": 1, "maxLength": 1024}},
+        "summary": {"type": "string", "minLength": 1, "maxLength": 4096},
+        "changes": {
+          "type": "array", "minItems": 0, "maxItems": 256,
+          "items": {
+            "type": "object", "additionalProperties": false, "required": ["path", "kind"],
+            "properties": {
+              "path": {"type": "string", "minLength": 1, "maxLength": 1024},
+              "kind": {"type": "string", "enum": ["added", "modified", "deleted"]}
+            }
+          }
+        },
+        "checks": {
+          "type": "array", "minItems": 0, "maxItems": 64,
+          "items": {
+            "type": "object", "additionalProperties": false, "required": ["command", "exitCode", "result"],
+            "properties": {
+              "command": {"type": "string", "minLength": 1, "maxLength": 2048},
+              "exitCode": {"type": "integer", "minimum": -1, "maximum": 255},
+              "result": {"type": "string", "minLength": 1, "maxLength": 2048}
+            }
+          }
+        },
+        "principlesApplied": {
+          "type": "array", "minItems": 0, "maxItems": 24,
+          "items": {
+            "type": "object", "additionalProperties": false, "required": ["principle", "decision"],
+            "properties": {
+              "principle": {"type": "string", "pattern": "^principle-[a-z0-9-]{1,96}$"},
+              "decision": {"type": "string", "minLength": 1, "maxLength": 1024}
+            }
+          }
+        },
+        "blockers": {"type": "array", "minItems": 0, "maxItems": 32, "items": {"type": "string", "minLength": 1, "maxLength": 1024}}
+      }
+    }
+  }
+}

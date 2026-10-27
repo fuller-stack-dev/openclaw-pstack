@@ -1,0 +1,68 @@
+{
+  "schema": 1,
+  "route": "prototype",
+  "document": "playbooks.md",
+  "priority": "P2",
+  "upstream": [
+    "skills/poteto-mode/SKILL.md",
+    "skills/poteto-mode/playbooks/prototype.md"
+  ],
+  "gates": [
+    {
+      "id": "prototype-01",
+      "text": "Own the design decision, not production code. The prototype is a throwaway instrument; the real build follows feature. Prefer a cheap observable comparison over polish, abstractions, or a production implementation plan."
+    },
+    {
+      "id": "prototype-02",
+      "text": "Name the decision and falsifiable comparison criteria before building, whether layout, interaction, density, behavior, timing, or approach. If there is no decision to settle, route to [feature](#feature), not a purposeless prototype. Test observable forks instead of asking the human for facts; reserve genuine product or preference choices for the user."
+    },
+    {
+      "id": "prototype-03",
+      "text": "When the design space is open, gather authorized prior art and summarize a moodboard of themes, palettes, and layouts; let the user select directions before building. Skip this branch explicitly when the direction is already set. Explore competing variations, including useful ones the request did not name, rather than polishing the first idea."
+    },
+    {
+      "id": "prototype-04",
+      "text": "Build the smallest throwaway instrument in a task-owned isolated scratch directory, separate from production source. Use plain HTML/CSS/JS or the lightest available rendering stack for a visual choice, or a small script for a behavioral or timing choice. A server, network dependency, or installation still needs its normal authorization; do not add production frameworks, abstractions, or a manufactured assertion suite just for the sketch."
+    },
+    {
+      "id": "prototype-05",
+      "text": "When comparing alternatives, put every labeled variant behind one switcher, such as buttons, a keypress, or a single script selector. Keep the same input and conditions so the user can compare without opening unrelated builds. One polished variant or disconnected demos do not satisfy the one-switcher comparison."
+    },
+    {
+      "id": "prototype-06",
+      "text": "Observe the decision on its matching authorized surface. For a visual comparison, use the installed native control skill to capture every variant and drive its interactions. For behavior or timing, preserve the actual output, timing, or render being compared. The observation is the test here; screenshots of source, compile success, or assertions about a proxy do not settle the decision. If the needed observation is unavailable, name the decision-evidence gate BLOCKED."
+    },
+    {
+      "id": "prototype-07",
+      "text": "Present the variants, observed evidence, tradeoffs, and recommendation with the scratch path. State plainly that the artifact is throwaway, not shippable code. Hand the chosen direction and evidence to [feature](#feature), or [architect](workflows.md#architect) for the whole shape, rather than silently promoting the sketch to production. Cleanup preserves ownership and required deletion permission."
+    },
+    {
+      "id": "prototype-08",
+      "text": "If a required independent phase is selected, it MUST resolve its role through `pstack_route`, use emitted native `sessions_spawn` arguments, and collect the accepted child through its native completion path. If planning, spawning, collection, required diversity, or evidence is unavailable, name that gate BLOCKED; a sequential parent pass never supplies the independent phase. An assigned child executes its own phase without recursive redispatch."
+    },
+    {
+      "id": "prototype-09",
+      "text": "For long routed phases, spawn announcing children (without `collect`; a collector is collected in the turn that spawned it) and use a short bounded native wait, then hand off the exact owner, accepted run/session IDs, phase, snapshot, completed artifacts, and next collection action; finish on resume without respawning accepted children or calling pending work complete."
+    },
+    {
+      "id": "prototype-10",
+      "text": "**Reply.** Decision, variants explored, screenshots or observed output and timing, tradeoffs, recommendation, scratch path, and the feature or architect handoff. Explicitly call the prototype throwaway."
+    },
+    {
+      "id": "prototype-11",
+      "text": "The prototype requirements are text-regression guards only, not behavioral proof."
+    },
+    {
+      "id": "prototype-handoff",
+      "text": "9. Spawn routed builders and observers as announcing children (without `collect`) and collect them under the [bounded-wait handoff](contract.md#bounded-wait-handoff): every `subagents` wait has a timeout of at most 60 seconds, and once a wait returns with a child pending, hand off and end the turn with `sessions_yield`. A collector is collected in this turn with `agents_wait` and `awaitResults: true`, never handed off. An unbounded `subagents` wait, or another wait after a pending result, fails this gate."
+    },
+    {
+      "id": "prototype-visible-handoff",
+      "text": "10. Put every handoff in the visible reply under [visible handoff](contract.md#visible-handoff): the six lines (Handoff, Owner, Pending, Done so far, Snapshot, Next) go in the `sessions_yield` acknowledgment, or are the final reply text when the turn ends without a yield, and nothing follows them. `Done so far:` names the variants and evidence collected so far. An empty acknowledgment, or a handoff only in the private `message`, fails this gate."
+    },
+    {
+      "id": "prototype-collect-in-turn",
+      "text": "A collector is collected in this turn with `agents_wait` and `awaitResults: true`, never handed off."
+    }
+  ]
+}

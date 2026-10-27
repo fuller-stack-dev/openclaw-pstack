@@ -1,0 +1,6 @@
+{
+  "ownerSessionKey": "REQUIRED_EXISTING_NON_MAIN_OWNER",
+  "prompt": "REQUIRED_BOUNDED_TASK",
+  "doneWhen": "REQUIRED_OBSERVABLE_ACCEPTANCE",
+  "deadline": "REQUIRED_ISO_DEADLINE"
+}

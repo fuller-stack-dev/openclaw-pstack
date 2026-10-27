@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "route": "poteto-help",
+  "document": "workflows.md",
+  "priority": "P2",
+  "upstream": [
+    "skills/poteto-help/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "poteto-help-example",
+      "text": "6. Every help reply contains one runnable example in the exact form `/pstack <route> <request>`, such as `/pstack how explain the retry path`, and applies rule 5's distinction between `/pstack <route>` and `pstack-<route>` commands. Bare route names alone do not satisfy this."
+    }
+  ]
+}

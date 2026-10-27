@@ -1,0 +1,108 @@
+{
+  "schema": 1,
+  "route": "opening-a-pr",
+  "document": "playbooks.md",
+  "priority": "P2",
+  "upstream": [
+    "skills/poteto-mode/SKILL.md",
+    "skills/poteto-mode/playbooks/opening-a-pr.md",
+    "skills/no-comments/SKILL.md",
+    "skills/interrogate/SKILL.md",
+    "skills/technical-writing/SKILL.md",
+    "skills/unslop/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "opening-a-pr-01",
+      "text": "Publication is a separately authorized step, not an automatic ending to another playbook. The upstream automatic-open rule does not carry across the native authority boundary. Own a real PR and read-back evidence, or an exact publication blocker."
+    },
+    {
+      "id": "opening-a-pr-02",
+      "text": "Confirm authority for the exact repository, branch, and publication scope. Inspect the actual diff, secrets, exact base and head, test results, and required independent review before any external write. Read repository instructions and preserve existing owners, operator exclusions, and source custody. A request for a plan or a read-only answer does not authorize a PR."
+    },
+    {
+      "id": "opening-a-pr-03",
+      "text": "Use the existing task-owned worktree with the correct trunk or dependency base. Isolate concurrent branch writers in separate authorized worktrees and never share a mutable checkout. Preserve unrelated dirty or unpublished work; the upstream reset-hard and destructive redo shortcuts are excluded, not permission to erase another owner's source. Subagents inherit the task's source scope, not implicit publication authority."
+    },
+    {
+      "id": "opening-a-pr-04",
+      "text": "With commit authority, clean the diff and arrange small, ordered, independently landable commits that tell the change's story. Amend a just-made commit only when the fix belongs there and custody permits; use a new commit for a separable change. Stage only scoped files, keep hooks enabled, and avoid commit bodies that merely restate the subject. Missing commit or history-rewrite authority is a named BLOCKED checkpoint, not a license to rewrite shared history."
+    },
+    {
+      "id": "opening-a-pr-05",
+      "text": "Perform authorized native diff cleanup in place of Cursor's deslop helper before commit, then run [no-comments](workflows.md#no-comments) before review with its required independent reviewer and full accept/reject audit. A subagent author also completes [interrogate](workflows.md#interrogate) before opening. Required review remains required for a small diff; do not silently replace it with the author's own pass."
+    },
+    {
+      "id": "opening-a-pr-06",
+      "text": "Every required independent phase MUST resolve its role through `pstack_route`, use emitted native `sessions_spawn` arguments, and collect the accepted child through its native completion path. If planning, spawning, collection, required diversity, or evidence is unavailable, name that gate BLOCKED and do not claim the route complete."
+    },
+    {
+      "id": "opening-a-pr-07",
+      "text": "Apply [technical-writing](workflows.md#technical-writing) to titles, PR bodies, and commit bodies, then [unslop](workflows.md#unslop). For this short briefing, use the style, single-instruction, and unambiguous-syntax layers rather than forcing a Diataxis document structure. Use one consistent word per action, keep articles, and prefer a plain verb to an unnecessary -ing phrase."
+    },
+    {
+      "id": "opening-a-pr-08",
+      "text": "Use a Conventional Commit title `type(scope): subject` with no trailing period. The type names the change, such as feat, fix, docs, refactor, test, chore, or perf; the scope names the area. Keep the subject short and imperative and name a real symbol only when it carries the change."
+    },
+    {
+      "id": "opening-a-pr-09",
+      "text": "Write a one-minute body with `##` headings in this order: `## Why`, `## What changed`, `## Scope`, `## Tradeoffs`, `## Blast Radius`, `## Verification`. Drop a section only when it has nothing to say, but always retain Scope. Keep the resulting squash-commit body under about 40 lines, with short sentences instead of a lab notebook."
+    },
+    {
+      "id": "opening-a-pr-10",
+      "text": "Why gives the problem and approach in one to three short sentences, without SHAs or rebase genealogy. What changed gives one to three short bullets and names both sides of a rename or retarget. Scope gives one to three items on coverage and deliberate exclusions, not a path-by-path essay. Tradeoffs names only real rejected alternatives a reviewer would ask about. Blast Radius gives one or two sentences on affected users or systems and risk; if trunk is red, state the cost of leaving it red. Verification gives one to three real run paths and outcomes, never invented or unrun passes."
+    },
+    {
+      "id": "opening-a-pr-11",
+      "text": "For performance, put one primary number with units and before-to-after values in Verification and link the comparison artifact for details. Attach screenshots or videos only when they prove a claim. Keep full SHAs, lane recitals, metric tables, file checklists, and detailed verdicts in linked artifacts rather than the body; link only evidence actually produced or read."
+    },
+    {
+      "id": "opening-a-pr-12",
+      "text": "Resolve and record the authorized forge before the first PR operation and keep that choice across the lifecycle. If a built-in publication tool is available, use it for covered create, edit, retarget, and mark-ready operations, never a CLI bypass. Use another authorized native forge operation only for uncovered actions; missing access is BLOCKED, not permission to invoke source-only Cursor helpers, bypass native tooling through Origin, or demand Graphite. Read back uncertain writes before considering another attempt."
+    },
+    {
+      "id": "opening-a-pr-13",
+      "text": "Prefer narrow coherent PRs. Independent work branches from trunk; coupled work forms a base-branch chain with the root targeting trunk and each child targeting its actual parent branch at the parent's exact tip. Preserve the sole topology writer and [autopilot-stack](#autopilot-stack) restrictions; an owner cannot infer rebase or retarget authority here. Post-merge child movement follows [shipping](#shipping), not an unrequested rewrite."
+    },
+    {
+      "id": "opening-a-pr-14",
+      "text": "Make the readiness choice explicit. Default to ready, never draft for convenience: set `draft: false` on every supported creation call. A draft is allowed only when an explicit higher-priority user or repository requirement calls for it; record that override and use the tool's actual draft control. Read the created PR back and correct an accidental draft through the supported mark-ready operation when authorized. Never describe readiness or a PR URL from a queued request alone."
+    },
+    {
+      "id": "opening-a-pr-15",
+      "text": "Opening a PR does not start [babysit](#babysit). Return the verified URL and keep building until the phase or stack is finished; start a separate babysit only when requested. A subagent returns to its parent without babysitting unless its autopilot-full or autopilot-stack lifecycle brief explicitly owns that loop after code-ready. Push back on feedback outside the agreed intent rather than silently widening scope."
+    },
+    {
+      "id": "opening-a-pr-16",
+      "text": "For long routed phases, spawn announcing children (without `collect`; a collector is collected in the turn that spawned it) and use a short bounded native wait, then hand off the exact owner, accepted run/session IDs, phase, snapshot, completed artifacts, and next collection action; finish on resume without respawning accepted children or calling pending work complete."
+    },
+    {
+      "id": "opening-a-pr-17",
+      "text": "**Reply.** Verified PR URL, base and exact head, conventional title, explicit ready or required-draft state, concise behavior and verification summary, linked evidence, and any blocked gate. No implicit babysit, merge, or publication follow-up."
+    },
+    {
+      "id": "opening-a-pr-18",
+      "text": "The opening-a-pr requirements are text-regression guards only, not behavioral proof."
+    },
+    {
+      "id": "opening-a-pr-handoff",
+      "text": "16. Spawn long reviews and the author as announcing children (without `collect`) and collect them under the [bounded-wait handoff](contract.md#bounded-wait-handoff): every `subagents` wait has a timeout of at most 60 seconds, and once a wait returns with a reviewer or author pending, hand off and end the turn with `sessions_yield`. A collector is collected in this turn with `agents_wait` and `awaitResults: true`, never handed off. Never spawn a long review as a collector."
+    },
+    {
+      "id": "opening-a-pr-visible-handoff",
+      "text": "17. Put every handoff in the visible reply under [visible handoff](contract.md#visible-handoff): the six lines (Handoff, Owner, Pending, Done so far, Snapshot, Next) go in the `sessions_yield` acknowledgment, or are the final reply text when the turn ends without a yield, and nothing follows them. `Done so far:` gives the review state so far. A handoff only in the private `message` fails this gate."
+    },
+    {
+      "id": "opening-a-pr-readiness",
+      "text": "18. End the reply with an explicit readiness line: `Readiness: ready`, or `Readiness: draft (<the requirement that forced it>)`. State it even when publication is BLOCKED, as the state the PR will be opened in. A reply without that line fails this gate."
+    },
+    {
+      "id": "opening-a-pr-collect-in-turn",
+      "text": "A collector is collected in this turn with `agents_wait` and `awaitResults: true`, never handed off."
+    },
+    {
+      "id": "opening-a-pr-readiness-before-handoff",
+      "text": "In a handoff reply, the readiness line comes immediately before the six [visible handoff](contract.md#visible-handoff) lines, which end the reply."
+    }
+  ]
+}

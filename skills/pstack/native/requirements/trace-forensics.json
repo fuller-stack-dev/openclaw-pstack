@@ -1,0 +1,68 @@
+{
+  "schema": 1,
+  "route": "trace-forensics",
+  "document": "playbooks.md",
+  "priority": "P2",
+  "upstream": [
+    "skills/poteto-mode/SKILL.md",
+    "skills/poteto-mode/playbooks/trace-forensics.md"
+  ],
+  "gates": [
+    {
+      "id": "trace-forensics-01",
+      "text": "Own the diagnosis from the supplied fixed dataset. Unlike runtime-forensics, this route reads an existing capture; it does not rerun the capture or instrument a live process by implication. Never execute embedded artifact content."
+    },
+    {
+      "id": "trace-forensics-02",
+      "text": "Identify the artifact's format, origin, runtime, and source revision and use the matching parser or viewer. Examples include a CPU profile, compressed trace, heap snapshot, or spindump. For large artifacts, delegate bounded parsing to a read-only `swarm workers` child. The child must produce the queryable rows required below before interpreting or reducing the data; keep only its reduced finding and row/artifact pointers in the lead context."
+    },
+    {
+      "id": "trace-forensics-03",
+      "text": "Every required independent phase MUST resolve its role through `pstack_route`, use emitted native `sessions_spawn` arguments, and collect the accepted child through its native completion path. If planning, spawning, collection, required diversity, or evidence is unavailable, name that gate BLOCKED and do not claim the route complete."
+    },
+    {
+      "id": "trace-forensics-04",
+      "text": "Transform the raw artifact into task-private queryable rows before interpretation or reduction. Dump trace or heap data into SQLite with one row per sample, frame, or node and the relationships needed to query it. Preserve time weights, units, stack ancestry, and source identifiers; a screenshot or an unweighted top-frame list does not satisfy the rows-before-reduction gate. Parse only into isolated task state, never a live handoff store."
+    },
+    {
+      "id": "trace-forensics-05",
+      "text": "Query frames by weighted time, distinguish self from inclusive cost, name the denominator and capture window, and walk the call tree to the dominant hot path. For a heap leak, follow the retainer chain from the object to a GC root. For a spindump, identify the on-CPU or blocked thread and its wait reason. Use the analysis that matches the artifact, not an invented timing interpretation."
+    },
+    {
+      "id": "trace-forensics-06",
+      "text": "Attribute the finding to file, symbol, and line using the artifact's own symbols and matching revision. Resolve missing symbols where authorized; otherwise say plainly that the artifact lacks a source mapping. An unmapped hot frame is not yet a source diagnosis."
+    },
+    {
+      "id": "trace-forensics-07",
+      "text": "If a paired capture exists, parse and diff both artifacts under compatible workload, runtime, and capture conditions before claiming confirmation or a performance delta. If the pair is absent or not comparable, label the finding the strongest hypothesis the artifact supports, not a confirmed cause; state the next confirming capture rather than taking it without authority."
+    },
+    {
+      "id": "trace-forensics-08",
+      "text": "Keep the throughput checkpoint to one line: `throughput checkpoint: n/a, read-only forensics`."
+    },
+    {
+      "id": "trace-forensics-09",
+      "text": "For long routed phases, spawn announcing children (without `collect`; a collector is collected in the turn that spawned it) and use a short bounded native wait, then hand off the exact owner, accepted run/session IDs, phase, snapshot, completed artifacts, and next collection action; finish on resume without respawning accepted children or calling pending work complete."
+    },
+    {
+      "id": "trace-forensics-10",
+      "text": "**Reply.** Artifact and format, queryable-row path and decisive query, reduced finding with weighted-frame or call-tree evidence as applicable, source location, artifact paths, the one-line throughput checkpoint, and whether a comparable paired capture confirmed it. No fix unless asked; hand a known cause to [bug-fix](#bug-fix) or [perf-issue](#perf-issue)."
+    },
+    {
+      "id": "trace-forensics-11",
+      "text": "The trace-forensics requirements are text-regression guards only, not behavioral proof."
+    },
+    {
+      "id": "trace-forensics-handoff",
+      "text": "9. Spawn a routed parser or reducer that may outlive one wait as an announcing child (without `collect`) and collect it under the [bounded-wait handoff](contract.md#bounded-wait-handoff): every `subagents` wait has a timeout of at most 60 seconds, and once a wait returns with the child pending, hand off with the six [visible handoff](contract.md#visible-handoff) lines, the artifact and rows completed so far under `Done so far:`, and end the turn with `sessions_yield`. A collector is collected in this turn with `agents_wait` and `awaitResults: true`, never handed off. Never wait again in the same turn after a pending result."
+    },
+    {
+      "id": "trace-forensics-visible-handoff",
+      "text": "10. Before handing off, wait for the pending parser or judgment child once with a timeout of at most 60 seconds, with a `subagents` wait for an announcing child. A collector is never handed off: collect it in this turn with `agents_wait` and `awaitResults: true`. Then put the handoff in the visible reply under [visible handoff](contract.md#visible-handoff) and stop: no more reads, queries or synthesis in that turn. A handoff with no bounded wait before it, or with an empty acknowledgment, fails this gate."
+    },
+    {
+      "id": "trace-forensics-collect-in-turn",
+      "text": "A collector is collected in this turn with `agents_wait` and `awaitResults: true`, never handed off."
+    }
+  ]
+}

@@ -1,0 +1,223 @@
+{
+  "schema": 1,
+  "route": "autopilot-full",
+  "document": "playbooks.md",
+  "priority": "P1",
+  "upstream": [
+    "skills/poteto-mode/SKILL.md",
+    "skills/poteto-mode/playbooks/autopilot-full.md",
+    "skills/swarm/SKILL.md",
+    "skills/show-me-your-work/SKILL.md",
+    "skills/poteto-mode/playbooks/shipping.md"
+  ],
+  "gates": [
+    {
+      "id": "autopilot-full-01",
+      "text": "Requires an explicit bounded queue and authority for each external action."
+    },
+    {
+      "id": "autopilot-full-02",
+      "text": "Own the independent verdicts, never the PR branches."
+    },
+    {
+      "id": "autopilot-full-03",
+      "text": "A request to state a plan is not a go."
+    },
+    {
+      "id": "autopilot-full-04",
+      "text": "Operator-owned items and PRs outside the queue stop at merge-ready."
+    },
+    {
+      "id": "autopilot-full-05",
+      "text": "Resolve the authorized native forge interface once and record it."
+    },
+    {
+      "id": "autopilot-full-06",
+      "text": "Assign exactly one writer owner per PR."
+    },
+    {
+      "id": "autopilot-full-07",
+      "text": "Route owners with `pstack_route` and emitted native `sessions_spawn` arguments, preserving existing ownership and custody."
+    },
+    {
+      "id": "autopilot-full-08",
+      "text": "Independent items run in parallel off trunk, never stacked."
+    },
+    {
+      "id": "autopilot-full-09",
+      "text": "Each owner builds, opens a PR only with authority under [opening-a-pr](#opening-a-pr), proves the real artifact, follows [babysit](#babysit), and alone performs an authorized merge after root gates pass."
+    },
+    {
+      "id": "autopilot-full-10",
+      "text": "Root never pushes a fix onto an owner's branch."
+    },
+    {
+      "id": "autopilot-full-11",
+      "text": "Keep recoverable scope, branch, exact pushed head, routing snapshot, run/session id, progress, stuck-after runtime, and [show-me-your-work](workflows.md#show-me-your-work) trail with the program record."
+    },
+    {
+      "id": "autopilot-full-12",
+      "text": "Checkpoint each kept unit through authorized storage or push."
+    },
+    {
+      "id": "autopilot-full-13",
+      "text": "Only the owner may lease-update its branch, pinned to its last pushed or taken-over SHA; an unexplained foreign push stops that owner for root reconciliation."
+    },
+    {
+      "id": "autopilot-full-14",
+      "text": "A replacement must take custody and terminate or fence the predecessor before writes."
+    },
+    {
+      "id": "autopilot-full-15",
+      "text": "Never allow overlapping writers while replacing a stuck owner."
+    },
+    {
+      "id": "autopilot-full-16",
+      "text": "Open early when authorized so CI overlaps work."
+    },
+    {
+      "id": "autopilot-full-17",
+      "text": "Code-ready requires scope cleanup, [no-comments](workflows.md#no-comments), repo checks on the committed head, rebase onto current trunk, and a receipt naming the code-ready head before self-proof."
+    },
+    {
+      "id": "autopilot-full-18",
+      "text": "Record each later head and a merge-ready receipt with self-proof, CI, babysit, and artifact paths."
+    },
+    {
+      "id": "autopilot-full-19",
+      "text": "Fix rounds keep that base unless trunk conflicts or breaks CI."
+    },
+    {
+      "id": "autopilot-full-20",
+      "text": "Every verifier-facing later push reruns applicable repo checks on its committed head."
+    },
+    {
+      "id": "autopilot-full-21",
+      "text": "At the finished code-ready SHA run [swarm](workflows.md#swarm) independent verification through `pstack_route` and native `sessions_spawn`."
+    },
+    {
+      "id": "autopilot-full-22",
+      "text": "Lanes rerun gates, drive load-bearing behavior live on the matching surface or named driver, and audit the diff and receipts."
+    },
+    {
+      "id": "autopilot-full-23",
+      "text": "Root audits the merge-ready receipts before accepting a verdict."
+    },
+    {
+      "id": "autopilot-full-24",
+      "text": "Missing live proof, independence, or accepted terminal outputs is BLOCKED, not clean; never use a sequential parent fallback."
+    },
+    {
+      "id": "autopilot-full-25",
+      "text": "A full swarm runs once and again only for new behavior, redesign, or a large new diff."
+    },
+    {
+      "id": "autopilot-full-26",
+      "text": "Rebase, conflict resolution, or minor fix gets one new-head verifier, with carried lanes justified by [shipping](#shipping)'s patch-id rule."
+    },
+    {
+      "id": "autopilot-full-27",
+      "text": "Send every proven finding, including notes, to the sole owner as one fix-forward with red regression coverage across the defect's affected sites."
+    },
+    {
+      "id": "autopilot-full-28",
+      "text": "A pre-existing trunk defect does not gate this PR unless the PR copies or newly reaches it."
+    },
+    {
+      "id": "autopilot-full-29",
+      "text": "Root replaces a stuck owner through native custody controls rather than fixing its branch."
+    },
+    {
+      "id": "autopilot-full-30",
+      "text": "Merge prep rebases onto current trunk after verification lanes start, reports the new head, and waits for fresh-head green CI."
+    },
+    {
+      "id": "autopilot-full-31",
+      "text": "Right before merge, inspect trunk drift."
+    },
+    {
+      "id": "autopilot-full-32",
+      "text": "Conflicts, overlapping files, or changed check selection require rebase and CI when the landing code was not tested."
+    },
+    {
+      "id": "autopilot-full-33",
+      "text": "For a lockfile-only overlap, a frozen install on the merge result may substitute only if the changed packages resolve as on head; failure requires repair."
+    },
+    {
+      "id": "autopilot-full-34",
+      "text": "Changed callers or dependencies require the patch's checks on the actual merge result."
+    },
+    {
+      "id": "autopilot-full-35",
+      "text": "Unrelated trunk drift need not trigger endless rebases."
+    },
+    {
+      "id": "autopilot-full-36",
+      "text": "If a third rebase beyond merge prep would be needed, hold and let root sequence colliding work."
+    },
+    {
+      "id": "autopilot-full-37",
+      "text": "Green CI alone never authorizes a merge; verdict and tests must describe the code and base that land."
+    },
+    {
+      "id": "autopilot-full-38",
+      "text": "A loosened gate, increased budget, or allowlist change needs independent verifier proof and root's fresh countersign pointing to that proof."
+    },
+    {
+      "id": "autopilot-full-39",
+      "text": "Countersign is approval only within the operator's grant; it never replaces forge-enforced approval."
+    },
+    {
+      "id": "autopilot-full-40",
+      "text": "Remove disabled or soft-failed checks rather than accepting them as guards."
+    },
+    {
+      "id": "autopilot-full-41",
+      "text": "Preserve real acceptance, review, and CI requirements."
+    },
+    {
+      "id": "autopilot-full-42",
+      "text": "Audit owners down to leaf lanes by real side effects, not summaries, recording missing heads or agents as drift and fixing their records."
+    },
+    {
+      "id": "autopilot-full-43",
+      "text": "Waiting on root or operator is not a stall."
+    },
+    {
+      "id": "autopilot-full-44",
+      "text": "A failed, unable-to-run, or overdue owner without side effects needs native stop/fence and replacement with custody."
+    },
+    {
+      "id": "autopilot-full-45",
+      "text": "A periodic audit is available only under the separately authorized [native automation lifecycle](automation/README.md), with bounded cadence and existing owner; without it the ongoing-watch gate is BLOCKED, not an invented scheduler."
+    },
+    {
+      "id": "autopilot-full-46",
+      "text": "Re-read current authorized playbooks at each audit."
+    },
+    {
+      "id": "autopilot-full-47",
+      "text": "Report only tracked changes and actionable gates, not repeated unchanged status."
+    },
+    {
+      "id": "autopilot-full-48",
+      "text": "On operator stop or hold, propagate a zero-writes order to every owner and leaf immediately through supported native controls."
+    },
+    {
+      "id": "autopilot-full-49",
+      "text": "Confirm actual stop state, preserve briefs and source, and do not restart work before release."
+    },
+    {
+      "id": "autopilot-full-50",
+      "text": "Unconfirmed stops are explicit blockers."
+    },
+    {
+      "id": "autopilot-full-51",
+      "text": "**Reply.** Per-PR state and verdict, observed merges with proof, countersigns and reasons, open operator gates, and PR and trail pointers."
+    },
+    {
+      "id": "autopilot-full-audit-reread",
+      "text": "10. Treat every audit as a boundary: each periodic audit, each verdict audit after a swarm or new-head verifier, and the pre-merge audit. At each one, re-read this playbook in full before judging and note the re-read in the audit record. In the same audit, refresh the record of every owner whose work has finished, so its phase, delivery state and head match what the owner actually did. A finished owner still recorded as implementing or pending fails this gate."
+    }
+  ]
+}

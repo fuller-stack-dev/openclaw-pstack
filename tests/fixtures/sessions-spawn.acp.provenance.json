@@ -1,0 +1,62 @@
+{
+  "repository": "openclaw/openclaw",
+  "tag": "v2026.10.10-beta.2",
+  "commit": "2b85c4c25ea98d72ca1d3e93fb0fd9cac8f0ddab",
+  "method": "Construct createSessionsSpawnTool(options) and createAgentsWaitTool(options), then finalizeAgentToolAvailability([spawnTool, waitTool]); JSON.parse(JSON.stringify(spawnTool.parameters)) from immutable pinned source using the host source resolver; neither tool.execute is called; with registered healthy inert test backend pstack-schema-capture, removed immediately after construction; not a live Gateway descriptor",
+  "options": {
+    "config": {
+      "acp": {
+        "enabled": true,
+        "backend": "pstack-schema-capture"
+      },
+      "tools": {
+        "swarm": {
+          "enabled": true
+        }
+      }
+    }
+  },
+  "schemaSha256": "c798891fb8dce4c70ff7e375849e5000c21c02f9bbc4d3ea663efef5be713b68",
+  "sourceFiles": [
+    {
+      "path": "src/agents/tools/sessions-spawn-tool.ts",
+      "sha256": "cc88a5c6015b610583ef4d389124f1be7017bf0e7070b770ef60f837acf9d9ae"
+    },
+    {
+      "path": "src/agents/tools/sessions-spawn-visible.schema.ts",
+      "sha256": "68c03337600574a48f0033375bf2ea892c922f5e7ab708aed9fc6989aea5dfff"
+    },
+    {
+      "path": "src/agents/schema/typebox.ts",
+      "sha256": "136f610e0eacec46409be69a4a5fad3c33a025450c0fdb5c04077c9c51394ccc"
+    },
+    {
+      "path": "src/agents/subagents/swarm/swarm-config.ts",
+      "sha256": "23276dfc20957120505d8c58460d3ac9e8928b8da6dd64529fcd1e941266ee5c"
+    },
+    {
+      "path": "src/agents/subagents/swarm/swarm-collector-capability.ts",
+      "sha256": "58c5000899060667571c452353a382ff96879a6774ea13521e444e519b46399a"
+    },
+    {
+      "path": "src/agents/agent-tool-availability.ts",
+      "sha256": "e9a37d202e2fa100b63774a583acf187e006e0d5f75490ac9b365530f1edc219"
+    },
+    {
+      "path": "src/agents/tools/agents-wait-tool.ts",
+      "sha256": "2ecd1bb7a8817b5dcd544c7bcbf818fc613410514dea8a88db5a3491bf540110"
+    },
+    {
+      "path": "src/acp/runtime/availability.ts",
+      "sha256": "12576f73b5d8780427fc7c6cb3014144974ec2d61e77642822aa475ba051a7ad"
+    },
+    {
+      "path": "src/acp/runtime/registry.ts",
+      "sha256": "f179025428b7b1bc4490b14dc332b3b8b1aac981fd52a5e1ea188fa4a376d982"
+    },
+    {
+      "path": "src/acp/policy.ts",
+      "sha256": "d46ad56c590ee7eec52fc2c2df0ddbe7a8e10774887ad568ff0f611440904dca"
+    }
+  ]
+}

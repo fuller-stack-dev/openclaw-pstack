@@ -1,0 +1,242 @@
+{
+  "type": "object",
+  "required": [
+    "task"
+  ],
+  "properties": {
+    "task": {
+      "type": "string"
+    },
+    "user": {
+      "type": "string",
+      "description": "The person's requester_profile.id, required when several people have steered this turn."
+    },
+    "taskName": {
+      "type": "string",
+      "description": "Stable later-target alias; starts lowercase letter; then lowercase/digit/_/-."
+    },
+    "label": {
+      "type": "string",
+      "description": "Short task title shown in UI lists; name the work, not the agent."
+    },
+    "runtime": {
+      "enum": [
+        "subagent"
+      ],
+      "type": "string",
+      "description": "Runtime; visible=true and managed worktrees require \"subagent\"."
+    },
+    "agentId": {
+      "type": "string"
+    },
+    "model": {
+      "type": "string"
+    },
+    "runTimeoutSeconds": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Child run timeout in seconds; overrides the configured subagent default and is preserved on native continuations. Zero disables the timeout; requester wake turns use their own budget."
+    },
+    "thinking": {
+      "type": "string",
+      "description": "Thinking override; unavailable with visible=true."
+    },
+    "cwd": {
+      "type": "string",
+      "description": "Child working directory. Visible paths outside configured agent workspaces require operator.admin. Mutually exclusive with projectId/projectGitUrl. With no source selector and worktree=true: inherit the same-agent parent managed repository; otherwise use the target agent workspace."
+    },
+    "mode": {
+      "enum": [
+        "run"
+      ],
+      "type": "string",
+      "description": "\"run\" one-shot. Visible sessions accept omitted/default \"run\" and remain persistent."
+    },
+    "cleanup": {
+      "enum": [
+        "delete",
+        "keep"
+      ],
+      "type": "string",
+      "description": "Hidden session cleanup; delete snapshots and removes its managed worktree through session cleanup. visible=true always keeps the session."
+    },
+    "expectsCompletionMessage": {
+      "type": "boolean",
+      "description": "false: fire-and-forget; requester gets no completion handoff when the child finishes."
+    },
+    "completionTarget": {
+      "enum": [
+        "parent"
+      ],
+      "type": "string",
+      "description": "parent: return results in a private requester turn; no automatic channel delivery. After sessions_yield, answer under the conversation's normal reply rules (NO_REPLY stays silent). Native hidden run only; unavailable with ACP, collect, visible, thread, session mode, or expectsCompletionMessage=false."
+    },
+    "sandbox": {
+      "enum": [
+        "inherit",
+        "require"
+      ],
+      "type": "string",
+      "description": "\"inherit\" parent sandbox policy; \"require\" fails unless child is sandboxed."
+    },
+    "context": {
+      "enum": [
+        "isolated",
+        "fork"
+      ],
+      "type": "string",
+      "description": "Native: explicit context=\"isolated\" starts clean; context=\"fork\" copies requester transcript and requires the same agent. Omitted context is isolated."
+    },
+    "lightContext": {
+      "type": "boolean",
+      "description": "Light bootstrap; subagent only; unavailable with visible=true."
+    },
+    "fastMode": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "string",
+          "const": "auto"
+        },
+        {
+          "type": "string",
+          "const": "ultrafast"
+        }
+      ]
+    },
+    "placement": {
+      "anyOf": [
+        {
+          "type": "object",
+          "required": [
+            "kind"
+          ],
+          "properties": {
+            "kind": {
+              "type": "string",
+              "const": "local"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "profileId"
+          ],
+          "properties": {
+            "kind": {
+              "type": "string",
+              "const": "profile"
+            },
+            "profileId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256,
+              "pattern": "^\\S(?:.*\\S)?$"
+            },
+            "machineClass": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "os": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            }
+          },
+          "additionalProperties": false
+        }
+      ],
+      "description": "Execution placement: omitted or {kind: \"local\"} uses local execution for native and ACP runs. {kind: \"profile\", profileId, os?, machineClass?} selects a configured cloud profile and requires visible=true and worktree=true. Never supply placeholder selectors. Omitted cloud selectors use profile defaults; the first task starts only after cloud dispatch.",
+      "~optional": true
+    },
+    "visible": {
+      "type": "boolean",
+      "description": "Persistent sidebar session only when the user requests a separate session or needs to revisit and steer it independently. Internal QA/coding/review/test workers: omit or false. Subagent runtime only; default run mode and empty attachments accepted; no thread/thinking/lightContext or attachment staging."
+    },
+    "group": {
+      "type": "string",
+      "description": "Custom sidebar group; requires visible=true when nonempty. A new name creates the group. Omit or pass an empty string to leave it ungrouped."
+    },
+    "projectId": {
+      "type": "string",
+      "description": "Registered project for a native subagent; hidden children require worktree=true. Mutually exclusive with projectGitUrl and cwd."
+    },
+    "projectGitUrl": {
+      "type": "string",
+      "description": "GitHub HTTPS or git@github.com repository URL for a visible session's managed clone; mutually exclusive with projectId and cwd. Local paths and file URLs are not accepted.",
+      "maxLength": 2048
+    },
+    "worktree": {
+      "type": "boolean",
+      "description": "Managed checkout for hidden or visible runtime=\"subagent\"; first turn waits for preparation. ACP unsupported."
+    },
+    "worktreeName": {
+      "type": "string",
+      "description": "Managed worktree name; requires worktree=true."
+    },
+    "worktreeBaseRef": {
+      "type": "string",
+      "description": "Managed worktree base ref; requires worktree=true."
+    },
+    "attachments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "content"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "encoding": {
+            "enum": [
+              "utf8",
+              "base64"
+            ],
+            "type": "string"
+          },
+          "mimeType": {
+            "type": "string"
+          }
+        }
+      },
+      "maxItems": 50,
+      "description": "Inline snapshots; visible=true accepts only an empty array."
+    },
+    "attachAs": {
+      "type": "object",
+      "properties": {
+        "mountPath": {
+          "type": "string"
+        }
+      },
+      "description": "Attachment mount hint; visible=true accepts only an omitted or blank mountPath."
+    },
+    "collect": {
+      "type": "boolean",
+      "description": "Swarm collector child for large parallel fan-out, not one or a few children; no completion notification."
+    },
+    "outputSchema": {
+      "type": "object",
+      "patternProperties": {
+        "^.*$": {}
+      },
+      "description": "JSON Schema for the child's structured result; requires collect=true."
+    },
+    "groupId": {
+      "type": "string",
+      "description": "Groups parallel collector children; requires collect=true."
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "route": "why",
+  "document": "workflows.md",
+  "priority": "P2",
+  "upstream": [
+    "skills/why/SKILL.md",
+    "skills/why/references/investigator-prompt.md",
+    "skills/why/references/synthesizer-prompt.md",
+    "skills/why/references/epistemics.md",
+    "skills/why/references/source-playbook.md",
+    "skills/why/references/sources/incident-postmortem.md"
+  ],
+  "gates": [
+    {
+      "id": "code-anchor",
+      "text": "State the target and rationale question, using conversation context for a reasonable interpretation rather than blocking on a vague referent. Build a shared code anchor before dispatch: file:line ranges, symbols, blame, history with patches through renames, recent commits, PR numbers and linked tickets. Read substantive PR bodies, reviews and discussion through authorized native GitHub tools. Mechanics establish the target, never author intent; do not assume the latest commit explains the whole shape."
+    },
+    {
+      "id": "seven-category-coverage",
+      "text": "Default to the full parallel investigation. Discover available authorized native readers/connectors and record ALL SEVEN categories: (1) source control history for implementation/review rationale, (2) issue/ticket tracker for product/business pressure, (3) long-form documents for design rationale, (4) real-time team chat for deliberation, (5) infrastructure observability for runtime signals, (6) error/exception tracking for defensive-code causes, and (7) product analytics warehouse for experiments, data and thresholds. Record connector ambiguity. Search each available relevant source; null results are findings. Skip only with an explicit written unavailable-access/tool gap or evidence of provable irrelevance, never “probably irrelevant.” Native discovery replaces Cursor MCP directories; never broaden private access, install a connector or contact people implicitly."
+    },
+    {
+      "id": "parallel-investigators",
+      "text": "Resolve `why investigators` through pstack_route and launch independent native sessions_spawn investigators concurrently with emitted arguments, one per available source in the category map, each owning one source/connector rather than combining unrelated sources. Source control ALWAYS needs an investigator unless the rare trivial-target exception below applies; unavailable source-control access leaves that coverage gate BLOCKED. Adapt the [investigator brief](../upstream/skills/why/references/investigator-prompt.md), the matching [source playbook](../upstream/skills/why/references/source-playbook.md), and [incident-postmortem queries](../upstream/skills/why/references/sources/incident-postmortem.md) for defensive code. Supply the question and common anchor. Investigators do not write or send anything; use inherited tool policy, not an invented read-only flag that removes required readers."
+    },
+    {
+      "id": "investigator-evidence",
+      "text": "Each investigator gathers rather than concludes: search broadly within the authorized topic, then narrow; read full relevant records, preserve contradictions and record exact queries including empty searches. Follow links within its own source only; cross-source leads go to the other investigator. Return Source, What I Searched, Direct Evidence Found (quote/accurate paraphrase, precise citation, author/date when known, relevance), Indirect / Circumstantial Evidence (inference chain and alternative readings), Contradictions, Gaps and Additional Leads. Never infer motivation from behavior or style, silently substitute another feature, or round partial evidence into a strong claim."
+    },
+    {
+      "id": "independent-synthesizer",
+      "text": "After collecting every accepted investigator through its native completion path, resolve `why synthesizer` with pstack_route and spawn ONE independent native sessions_spawn synthesizer using emitted arguments, the question, anchor, ALL findings/nulls/skips, [synthesis brief](../upstream/skills/why/references/synthesizer-prompt.md) and full [epistemics framework](../upstream/skills/why/references/epistemics.md). It weighs evidence, merges overlaps, surfaces contradictions, spot-checks citations through authorized readers and makes no writes. Missing a required investigator, planning, synthesis or accepted collection leaves that named gate BLOCKED; a sequential parent pass is never independent investigation/synthesis."
+    },
+    {
+      "id": "confidence-output",
+      "text": "Every claim MUST be Direct, Supported, Inferred, Speculative or Unknown. Direct means explicit textual evidence of rationale; Supported means multiple indirect sources converge, with the derivation visible. Both require adjacent precise source citations. Inferred exposes its chain with hedged wording; Speculative is a labeled competing possibility; Unknown names what was searched and remains unanswered. Code mechanics alone never prove intent. Check a hypothesis embedded in the question independently. Present The Question, The Code in Question, What We Found, What We Can Reasonably Infer, Competing Hypotheses, What We Don’t Know, Sources Consulted and Confidence Summary, omitting only genuinely empty optional inference/hypothesis sections. Sources Consulted has one line per investigator plus EVERY unavailable/skipped category and reason. Light presentation edits MUST preserve confidence language. For a planned change, append evidenced Preserve / Change / Avoid / Risk constraints after Sources Consulted; no tickets or messages."
+    },
+    {
+      "id": "trivial-target-exception",
+      "text": "The ONLY inline investigation exception is a single-commit trivial target whose PR already contains the complete answer, AFTER confirming that all seven category searches would be redundant and stating why explicitly. Matching-selection routing still applies. A narrow question alone does not justify this exception, erase category gaps or permit parent substitutes for required independent phases."
+    },
+    {
+      "id": "bounded-wait-resume",
+      "text": "For long routed phases, spawn announcing children (without `collect`; a collector is collected in the turn that spawned it) and use a short schema-supported bounded native wait, then hand off the exact owner, accepted run/session IDs, phase, routing snapshot, completed artifacts and next collection action in the task-owned record, and finish on resume under [the shared lifecycle](contract.md#collection-and-resume). Never respawn accepted children, synthesize before required results arrive or call pending work complete. Unattended continuation runs only for native controller workflows (/pstack-architect, -arena, -interrogate, -swarm, -how, -why, -reflect) on hosts that grant requester-admitted scheduled command turns; otherwise that gate is BLOCKED when requested, with an explicit resume handoff, not an ad-hoc scheduler."
+    }
+  ]
+}

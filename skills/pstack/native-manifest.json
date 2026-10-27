@@ -1,0 +1,448 @@
+{
+  "schema": 1,
+  "adapterVersion": "plugin-1.2.7",
+  "files": [
+    {
+      "path": "ADAPTATION.md",
+      "bytes": 3730,
+      "sha256": "d6b3c508a691459e295f1da45a1330498d294fa24d16fcde081fdfce1d2477a4"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3168,
+      "sha256": "89506590b075d151826863bcfafd77c0e3ca97d61ae25a0eb8c5bb65b3dfc755"
+    },
+    {
+      "path": "SKILL.md",
+      "bytes": 4370,
+      "sha256": "88e15a66c5e6ce13ac0c72b09899833c1549f077d8102b241a07b0967377f7e2"
+    },
+    {
+      "path": "native/agent-briefs.md",
+      "bytes": 9728,
+      "sha256": "ef8abfeffed823b88dc7d322fbf901aca15ac98f05ddb1cf9ae7eb965d8f1262"
+    },
+    {
+      "path": "native/agents/comment-sicko.md",
+      "bytes": 3579,
+      "sha256": "d383ef660770b689ee13c67013f94e891e1b5b93111bc31b77158427f0ae4bb2"
+    },
+    {
+      "path": "native/agents/contracts.json",
+      "bytes": 17638,
+      "sha256": "9f91e4b2ce04f6406cabd287e9ec56df554a77a14d1db3e0736e95664898861f"
+    },
+    {
+      "path": "native/agents/panel-judge.md",
+      "bytes": 912,
+      "sha256": "44455fda367b6aaf8e47f721d6665595f8b9ceb5702945d930f976df20e6abcf"
+    },
+    {
+      "path": "native/agents/panel-reviewer.md",
+      "bytes": 1149,
+      "sha256": "167df839577a9bbf5f7e80b56f9e45e3ef8d0b327c21bab68fe3ddc0da2423b7"
+    },
+    {
+      "path": "native/agents/poteto-agent.md",
+      "bytes": 2506,
+      "sha256": "811abbe2849a2040eeca0be50eb87479a24e8ac4ae0f05b0cc9a964dd399fc0a"
+    },
+    {
+      "path": "native/automation/README.md",
+      "bytes": 9914,
+      "sha256": "b99de633d4e7a6c7f73681d0e75dca00c8abea3709ac18303d134bc80d3b4071"
+    },
+    {
+      "path": "native/automation/benny.example.json",
+      "bytes": 1309,
+      "sha256": "69e698e521eee25fbb7aabc3d5f30079e0362910c50669b2eb7b4376aec6ed9a"
+    },
+    {
+      "path": "native/automation/benny.md",
+      "bytes": 17731,
+      "sha256": "74dabef2a96e8cdea14dc13be6944043dff3e0fa7622b42ae451a33479b1439b"
+    },
+    {
+      "path": "native/automation/loop.example.json",
+      "bytes": 184,
+      "sha256": "bf49b75b43519495f2834d0a819931362a1bbb48c6c5352d3efc21e4d9b83806"
+    },
+    {
+      "path": "native/automation/watch-pr.md",
+      "bytes": 8954,
+      "sha256": "d648c15da5867cbd9328c79a07d61e768b2a66376fbe111342f75b3410da82cc"
+    },
+    {
+      "path": "native/contract.md",
+      "bytes": 20427,
+      "sha256": "4f46a981450590487be9917348112be1a1a606c680f39bdd1e3d96795ed5447a"
+    },
+    {
+      "path": "native/delegation.md",
+      "bytes": 11535,
+      "sha256": "652d871d8487ec4a908167e4ae8688990fe4c9d014de188a048994b1faf49cb5"
+    },
+    {
+      "path": "native/model-routing.md",
+      "bytes": 18483,
+      "sha256": "bb73dc989cd6dc71a65b4a69e262bcbc9ae54b49415844dac8e345f910a5665e"
+    },
+    {
+      "path": "native/plan-adapter.md",
+      "bytes": 2495,
+      "sha256": "a9c6afe7d69a44928bfb434ca7f9ad7fb61c6cc351b6ec82bd9dc4eaac246c4b"
+    },
+    {
+      "path": "native/playbooks.md",
+      "bytes": 95755,
+      "sha256": "1ea434ad4172f527760123314caf42bd8265c188efca253028fdc765fc7b3807"
+    },
+    {
+      "path": "native/principles.md",
+      "bytes": 7085,
+      "sha256": "c1fe96dde84612dccf54833e6363a04cf1ece9e4db3e604b54417b1bfcbd03f1"
+    },
+    {
+      "path": "native/requirements/architect.json",
+      "bytes": 5213,
+      "sha256": "196b52f1d2dadef58da9e5646cc204209576f404d064c4e1fc818c1612f158c2"
+    },
+    {
+      "path": "native/requirements/arena.json",
+      "bytes": 4572,
+      "sha256": "21bab97befc6ab5f8e192506bed199b0b8d11930fb43f5457274014417b14902"
+    },
+    {
+      "path": "native/requirements/automate-me.json",
+      "bytes": 5688,
+      "sha256": "b8704ca879ebb2ea58b874739acd505237534ac2aec069ba0c9140efc1233d4e"
+    },
+    {
+      "path": "native/requirements/autonomous-run.json",
+      "bytes": 4586,
+      "sha256": "c0a64bca1f8b0422ed73bd79983823fc9203fec814a3167997e555d5ef5ca8de"
+    },
+    {
+      "path": "native/requirements/autopilot-full.json",
+      "bytes": 9119,
+      "sha256": "37e81eceaea21d480d16cf11844564aa5f1efb1fe925a2a6cc988565cf9a6a3d"
+    },
+    {
+      "path": "native/requirements/autopilot-stack.json",
+      "bytes": 4098,
+      "sha256": "12ec5422ab2c34bc3d7ff83744cf588d0d8dd1bc9b06b9021b1fda208b329965"
+    },
+    {
+      "path": "native/requirements/babysit.json",
+      "bytes": 8680,
+      "sha256": "eb80e6028ed0a6de71fa0ffda30424de75d76aee0a8ebc903b9f2663014b728d"
+    },
+    {
+      "path": "native/requirements/benchmark-checklist.json",
+      "bytes": 3398,
+      "sha256": "6a0f6e080877184bb017bae16e189d3a25d08a86e5d823590a74ce479c16df02"
+    },
+    {
+      "path": "native/requirements/blast-radius.json",
+      "bytes": 4353,
+      "sha256": "9b972a9da676f5591753e300af640ef1119f84d8ddd02306bf7a02ffd8992e29"
+    },
+    {
+      "path": "native/requirements/bro.json",
+      "bytes": 3070,
+      "sha256": "f554b8447c67e39fb3a5df4edbc82e55c6c6eb1ce0dfd2112700134a7210f850"
+    },
+    {
+      "path": "native/requirements/bug-fix.json",
+      "bytes": 4381,
+      "sha256": "7fc751616c95d434676b2f234da685382f21f1d79f9bba31b95c79fd6615f0e4"
+    },
+    {
+      "path": "native/requirements/correct.json",
+      "bytes": 2956,
+      "sha256": "654fc04fb8673233e39a0646cd0e4e90aca911cce5ca93457b5e48c449342966"
+    },
+    {
+      "path": "native/requirements/create-verification-skill.json",
+      "bytes": 5342,
+      "sha256": "a70b02229af3720931b048f3ec0812fbc5453f0905aa86f73fb0958cacb414ef"
+    },
+    {
+      "path": "native/requirements/eval.json",
+      "bytes": 9948,
+      "sha256": "c2ef04d3cec413c497f2d70bc63e6a110a595a6324ea59a14c70c763f762c6ea"
+    },
+    {
+      "path": "native/requirements/feature.json",
+      "bytes": 4198,
+      "sha256": "f6b25b34f7e153468af38c206e77af725102c8c6a5210891d3a073add20452f1"
+    },
+    {
+      "path": "native/requirements/figure-it-out.json",
+      "bytes": 3780,
+      "sha256": "c2f6a6c2de079b37a581fd60630ef823532dc9695cf77e583518c916cca5690b"
+    },
+    {
+      "path": "native/requirements/hillclimb.json",
+      "bytes": 5458,
+      "sha256": "707464261f535e982313d50235c0a616a8d13f833b9e9aa8171b5212068e4bdf"
+    },
+    {
+      "path": "native/requirements/how.json",
+      "bytes": 3745,
+      "sha256": "400404054008215265220ef8bc949d7f5e39a68c01326391aa541e39fb6590b4"
+    },
+    {
+      "path": "native/requirements/interrogate.json",
+      "bytes": 4875,
+      "sha256": "c0170728313ca9f7baa08edaa20d46ed529db4726e2ce5387b978eaaa159761e"
+    },
+    {
+      "path": "native/requirements/investigation.json",
+      "bytes": 4822,
+      "sha256": "fff0a59f5ff75646533c154956a3f2bb9bab4a4f4ca72da344bfabb5126f414e"
+    },
+    {
+      "path": "native/requirements/ketchup.json",
+      "bytes": 1078,
+      "sha256": "08535fb1c624736325699f13eab7b959980eff43499f8cc4df7ba9052c40e4ed"
+    },
+    {
+      "path": "native/requirements/maintain-verification-skill.json",
+      "bytes": 5490,
+      "sha256": "21305316832e7dcabb03a5867915f44e43c4a7ba906631c948b37e89bb575bea"
+    },
+    {
+      "path": "native/requirements/make-bot-ui.json",
+      "bytes": 4128,
+      "sha256": "ebe3cb7bc04d4404b3c8f6beaf7683bbc24e54e0436dce64c1b107510012710e"
+    },
+    {
+      "path": "native/requirements/multi-phase-plan.json",
+      "bytes": 18892,
+      "sha256": "216540797ebe4539cc5919c34d91233cc9d3bb6447552d7841a3a20ac9bed597"
+    },
+    {
+      "path": "native/requirements/no-comments.json",
+      "bytes": 4826,
+      "sha256": "4ae052b75c3fee779835af765f1e1f557d2b28d7917c2722a0741d42a3f43b44"
+    },
+    {
+      "path": "native/requirements/opening-a-pr.json",
+      "bytes": 9969,
+      "sha256": "f53f8a968556e025424a45c9c71f0b1264e7c6f0c963dd6a04f4a4c478d049d0"
+    },
+    {
+      "path": "native/requirements/orchestrate.json",
+      "bytes": 11304,
+      "sha256": "5b83bd3823e957ac081332c1429beb3595298c3c0759f866fd9625af708ce460"
+    },
+    {
+      "path": "native/requirements/pause-safely.json",
+      "bytes": 2906,
+      "sha256": "9804ae08f7f9def025b1a272d9fdeb85558a18502a7e5d8083e8f92a008db6ed"
+    },
+    {
+      "path": "native/requirements/perf-issue.json",
+      "bytes": 3392,
+      "sha256": "85f59fb9f26af9f5afb93d383696991d065b18ea5d97369cf7a4b47aa4244c62"
+    },
+    {
+      "path": "native/requirements/poteto-help.json",
+      "bytes": 507,
+      "sha256": "0d2ba6b3e51a340fd7630d1131f1c547cd96aa9a4564e2237fdae847aa00ffb9"
+    },
+    {
+      "path": "native/requirements/poteto-mode.json",
+      "bytes": 8540,
+      "sha256": "57693de36be2a43c128cad536f7d47b6fc22b8b64ceb2e0339b40839c1c4eec2"
+    },
+    {
+      "path": "native/requirements/prototype.json",
+      "bytes": 5762,
+      "sha256": "9164b342584dbfc60272cb11717e86cecd06ec7a889814ab1bfc55611a19fc09"
+    },
+    {
+      "path": "native/requirements/recall.json",
+      "bytes": 6211,
+      "sha256": "a379fdea5dd2545fe652e601e604491c998d8c38a62e92364305cd9751c2aaef"
+    },
+    {
+      "path": "native/requirements/refactoring.json",
+      "bytes": 4861,
+      "sha256": "6ae5939addd0846fbaf6f1adc90d1c84ede2153c4e52cb47c8444f5a54f9daeb"
+    },
+    {
+      "path": "native/requirements/reflect.json",
+      "bytes": 4963,
+      "sha256": "58841469999aa7e682f3395d6599ce7b098fea0882b4e66367ad531c4155f49b"
+    },
+    {
+      "path": "native/requirements/runtime-forensics.json",
+      "bytes": 4728,
+      "sha256": "34847f0371c235cff05c78c62f10cee7a6f7407f1a324cc6840fdfe256e654fe"
+    },
+    {
+      "path": "native/requirements/session-pickup.json",
+      "bytes": 7552,
+      "sha256": "c0a2b5715ed8ed7f0f1083f57df7639090ad6d2cb8be6477ed5bbb13ba13163c"
+    },
+    {
+      "path": "native/requirements/setup-pstack.json",
+      "bytes": 4091,
+      "sha256": "7a6317d400623963728580e925d85f93c016bd8338a27e97d547efd4429551ce"
+    },
+    {
+      "path": "native/requirements/sharpen.json",
+      "bytes": 1432,
+      "sha256": "dffb2783992c48f307f3f00f862d17b73bbe8826455e67521a1c6b6d92dac3b8"
+    },
+    {
+      "path": "native/requirements/shipping.json",
+      "bytes": 5479,
+      "sha256": "c70009a2c54874d89fcc4b12a6d970237acd0ba48a45fe03570973168fb68aa5"
+    },
+    {
+      "path": "native/requirements/show-me-your-work.json",
+      "bytes": 5148,
+      "sha256": "885c1a9c50d63931d68d7e59b28ae94d9e566e75b13861405208570d75d0e04c"
+    },
+    {
+      "path": "native/requirements/swarm.json",
+      "bytes": 2712,
+      "sha256": "a000099ed3e15cdee6e0d85ee5334c40e01d64c69bfbf63bdcbed49b3e32f047"
+    },
+    {
+      "path": "native/requirements/tdd.json",
+      "bytes": 2847,
+      "sha256": "a50fb83f29199143a0145514bd50535687bbd9c5b5013da6adcd1a467c85df4d"
+    },
+    {
+      "path": "native/requirements/teach.json",
+      "bytes": 5104,
+      "sha256": "b1e35543bb72baf6eb0fdf529f30c5808c13d9030ef3157b9977c52eb999ac61"
+    },
+    {
+      "path": "native/requirements/technical-writing.json",
+      "bytes": 3425,
+      "sha256": "7b71e61036cd6fae7756c844edd5c4d64853b1059842cd0781f93b66339bc83e"
+    },
+    {
+      "path": "native/requirements/trace-forensics.json",
+      "bytes": 5781,
+      "sha256": "882e879377469a1ef1abdfa14efd8cff09c29ef38ac72799b945b765e8cc6b7f"
+    },
+    {
+      "path": "native/requirements/unslop.json",
+      "bytes": 1132,
+      "sha256": "1f4e2502da80642b7a3d457b681d997867adb0906c009eff5eefc0ab9f90c593"
+    },
+    {
+      "path": "native/requirements/visual-parity.json",
+      "bytes": 4298,
+      "sha256": "a2db3ad74ac8d8c1b7085f0c6b518ec93945095a1d26c8b7ba48d36f6cb6c410"
+    },
+    {
+      "path": "native/requirements/why.json",
+      "bytes": 6906,
+      "sha256": "883c41945465100dc12bb735989f6ec7f8789d55e001da063e504132518e3560"
+    },
+    {
+      "path": "native/route-commands.md",
+      "bytes": 5500,
+      "sha256": "62ab87a5316cc80df9273d59ddb0a6ea6c7b5cdbbdfeb939642a3c6d89fd9301"
+    },
+    {
+      "path": "native/route-skills.json",
+      "bytes": 52359,
+      "sha256": "a2ff3c9dd39d464e4c25ac58ede3f2f7d5914dc792376314cdfc9b5e9d8cf39a"
+    },
+    {
+      "path": "native/routes.json",
+      "bytes": 3398,
+      "sha256": "caeff9c5dcb7f82131306f96ea2d3c34417ccb14263d11f9ebdf03d25456b90c"
+    },
+    {
+      "path": "native/semantic-overlay.json",
+      "bytes": 102534,
+      "sha256": "2d97113e5abe1602e40423d3941d7591ba43368a859dc5e2a70cfef2f70462e0"
+    },
+    {
+      "path": "native/semantic-overlay.md",
+      "bytes": 141898,
+      "sha256": "c5ff79d70cf1a3a87241e7af8526eea6b45d59be8971f1224eb5b652b4938f21"
+    },
+    {
+      "path": "native/session-mode.md",
+      "bytes": 15006,
+      "sha256": "87a86f40c81330c22b115fdd8b4449ef4b9fe378abcb9b05df06336989f2ba17"
+    },
+    {
+      "path": "native/trail-adapter.md",
+      "bytes": 4216,
+      "sha256": "64e5b24f8386d1b2eb38f35d46bf47f63c3896da043098f95bc6a009abc6acc7"
+    },
+    {
+      "path": "native/workflow-ledger.md",
+      "bytes": 11102,
+      "sha256": "1a24da175f2ee883b0ccf671a2fd22ce78463dffb7d7cc815fa330e70b404ce9"
+    },
+    {
+      "path": "native/workflows.md",
+      "bytes": 107737,
+      "sha256": "8d0a255a27ea7c0920cf0cddc77f26803473e46136f0e98f39fe5ea08eda77bb"
+    },
+    {
+      "path": "native/worktree-audit-adapter.md",
+      "bytes": 8350,
+      "sha256": "641aeeae6ecd59e398f2fb9b1a14528f19a0e09f74e58644a18c3f8302132478"
+    },
+    {
+      "path": "scripts/automation.mjs",
+      "bytes": 16280,
+      "sha256": "8124124b540c5f4fe165c867fbcd05294ac74c7c0032cc1268b37bce332d2447"
+    },
+    {
+      "path": "scripts/model-routing-cli.mjs",
+      "bytes": 6538,
+      "sha256": "c9db2f24c78bcc8cabee7cabc2714a612b3591cef4eb740ed1dae95c16ca69de"
+    },
+    {
+      "path": "scripts/model-routing.mjs",
+      "bytes": 28862,
+      "sha256": "3ffe80eccba591b8b96117d96a31ba91d78203a1ad45180713e06478f560de55"
+    },
+    {
+      "path": "scripts/output-contracts.mjs",
+      "bytes": 18898,
+      "sha256": "d62eb13dd7d6690f3a1b98c4f0f06a1f147138fbbec8fdcd94761d3fbeb28aec"
+    },
+    {
+      "path": "scripts/plan-check.mjs",
+      "bytes": 11931,
+      "sha256": "3ab5de92f11916ad16ed546a781082b6a5ed4e8caffec9eac7eecee35a9dfde5"
+    },
+    {
+      "path": "scripts/session_mode.py",
+      "bytes": 15794,
+      "sha256": "afc7e88b436e97dbc1c376352b1b64712776c486623b3f4042d17685cf3e0b8e"
+    },
+    {
+      "path": "scripts/verify_install.py",
+      "bytes": 26203,
+      "sha256": "896e7849e3f6c78cc8b74a3e885853b3ea0727a33f080ed138bebccd265c7985"
+    },
+    {
+      "path": "scripts/watch-pr.mjs",
+      "bytes": 34038,
+      "sha256": "032f1f2a3c42dc1a5cba2cb84ff3e9e5c525c35138d8c6fae4a495e571f232f2"
+    },
+    {
+      "path": "source-manifest.json",
+      "bytes": 49743,
+      "sha256": "8b3a38140fefcc10296899cfc892d62f4356afcdc0c8396b2def585219729415"
+    }
+  ],
+  "aliasSha256": "6a5ec0be96d24e505449e2bf9bd2e3b8fe2fc3b0b4f29ee3926113aff0ee0da8",
+  "baselineSkillNames": []
+}

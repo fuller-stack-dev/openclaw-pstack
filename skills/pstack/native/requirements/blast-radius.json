@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "route": "blast-radius",
+  "document": "workflows.md",
+  "priority": "P2",
+  "upstream": [
+    "skills/blast-radius/SKILL.md",
+    "skills/why/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "exact-change-and-library",
+      "text": "Read the exact change, surrounding contracts, symbols and relevant PR/commit rationale using native why’s code-anchor method. Follow what grep misses: persisted columns, JSON/wire formats, cross-language consumers, flags, downstream callers, lifecycle/microtask/unmount/teardown timing and framework differences. BEFORE clearing a library-dependent risk, inspect the actual library source at the SHIPPED PINNED VERSION and any local patch; documentation for another version is not evidence."
+    },
+    {
+      "id": "safety-facts",
+      "text": "Find the ONE or TWO invariants/facts most of the change’s safety depends on, not a long hypothetical caller list. For each, state the strongest evidence actually reached: assertion only, cited source, a step-by-step unreachable bad case, executed real-code check, or reproduction in the running app. A plausible writeup and a line pointer alone are not runtime proof."
+    },
+    {
+      "id": "likelihood-and-impact",
+      "text": "For EACH confirmed risk give the failure mechanism, exact source pointer, realistic likelihood and impact/cost, evidence strength and cheapest way to check. Use justified qualitative estimates or observed frequencies, never invented probabilities. Keep risks actually checked and cleared in a SEPARATE Cleared list with reasons; an empty scoped search is a finding but does not prove all callers absent. Preserve why-style uncertainty and never invent an API/caller."
+    },
+    {
+      "id": "real-proof-and-panel",
+      "text": "Run the narrowest authorized isolated script/test against the REAL code and exact shipped dependency/function to prove the safety fact, or reproduce it in the running app, and retain the command/result. If access/execution is unavailable, mark that fact UNPROVEN with the missing check. For a big or wide change, run native arena on the same blast-radius question; its independent runners, cross-judge and collection gates MUST use pstack_route and native sessions_spawn or stay named BLOCKED, never sequential parent opinions. Review authority alone does not authorize product repairs, merge or external actions."
+    },
+    {
+      "id": "blast-radius-output",
+      "text": "Return What it does (including non-obvious effects), The one fact it’s safe because of (evidence level and proof or UNPROVEN), Risks (likelihood, impact, mechanism, citation and check), Cleared, and Before you merge (cheapest remaining real repro/test and script). Include observed proof output for important facts, not only a conclusion. Apply unslop and sanitize private evidence before any separately authorized public output."
+    },
+    {
+      "id": "bounded-wait-resume",
+      "text": "For long routed phases, spawn announcing children (without `collect`; a collector is collected in the turn that spawned it) and use a short schema-supported bounded native wait, then hand off the exact owner, accepted run/session IDs, phase, routing snapshot, completed artifacts and next collection action in the task-owned record, and finish on resume under [the shared lifecycle](contract.md#collection-and-resume). Never respawn accepted children, synthesize before required results arrive or call pending work complete. Unattended continuation runs only for native controller workflows (/pstack-architect, -arena, -interrogate, -swarm, -how, -why, -reflect) on hosts that grant requester-admitted scheduled command turns; otherwise that gate is BLOCKED when requested, with an explicit resume handoff, not an ad-hoc scheduler."
+    },
+    {
+      "id": "blast-radius-likelihood-for-every-risk",
+      "text": "This applies to every risk listed under Risks: each one, not only the first, names its realistic likelihood and its cheapest check."
+    },
+    {
+      "id": "blast-radius-check-before-delivery",
+      "text": "Before delivering the report, check that every risk under Risks has its likelihood and its cheapest check; a risk missing either goes to one fresh correction child under [checking facts before delivery](delegation.md#checking-facts-before-delivery), never a parent edit."
+    }
+  ]
+}

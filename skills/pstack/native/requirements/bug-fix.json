@@ -1,0 +1,122 @@
+{
+  "schema": 1,
+  "route": "bug-fix",
+  "document": "playbooks.md",
+  "priority": "P1",
+  "upstream": [
+    "skills/poteto-mode/SKILL.md",
+    "skills/poteto-mode/playbooks/bug-fix.md",
+    "skills/architect/SKILL.md",
+    "skills/tdd/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "bug-fix-01",
+      "text": "Own the diagnosis, review, and verification."
+    },
+    {
+      "id": "bug-fix-02",
+      "text": "Delegate investigation and implementation through native role routing, not a second parent pass."
+    },
+    {
+      "id": "bug-fix-03",
+      "text": "Reproduce the defect yourself on the matching authorized UI, CLI, or runtime surface in isolated state."
+    },
+    {
+      "id": "bug-fix-04",
+      "text": "Discover its installed control skill."
+    },
+    {
+      "id": "bug-fix-05",
+      "text": "Ask the user to reproduce only after driving as far as possible and stating the exact access gap."
+    },
+    {
+      "id": "bug-fix-06",
+      "text": "Tighten conditions, synthesize the trigger, or instrument until the failure is observable."
+    },
+    {
+      "id": "bug-fix-07",
+      "text": "Run [how](workflows.md#how) over the subsystem and [why](workflows.md#why) for regression history."
+    },
+    {
+      "id": "bug-fix-08",
+      "text": "Binary-search competing hypotheses with runtime observations."
+    },
+    {
+      "id": "bug-fix-09",
+      "text": "Confirm the surviving mechanism before design fan-out."
+    },
+    {
+      "id": "bug-fix-10",
+      "text": "Revert edits motivated by refuted hypotheses."
+    },
+    {
+      "id": "bug-fix-11",
+      "text": "Every retained line must follow from evidence, not a defensive guess."
+    },
+    {
+      "id": "bug-fix-12",
+      "text": "If the fix crosses a function boundary, complete [architect](workflows.md#architect) before implementation."
+    },
+    {
+      "id": "bug-fix-13",
+      "text": "Resolve the `bug-fix` role with `pstack_route`, then use the emitted arguments with native `sessions_spawn` for a scoped implementation owner."
+    },
+    {
+      "id": "bug-fix-14",
+      "text": "Required independent investigation, design, or implementation that cannot run is BLOCKED; never replace it with sequential parent prose."
+    },
+    {
+      "id": "bug-fix-15",
+      "text": "An assigned implementation child owns its diff without recursively redispatching its own phase."
+    },
+    {
+      "id": "bug-fix-16",
+      "text": "Re-run the original repro on the same surface and affected success and failure paths."
+    },
+    {
+      "id": "bug-fix-17",
+      "text": "Wrong-surface or inconclusive results are not passes."
+    },
+    {
+      "id": "bug-fix-18",
+      "text": "Unit branch coverage alone does not prove the bug absent."
+    },
+    {
+      "id": "bug-fix-19",
+      "text": "When a cheap local regression path exists, follow [tdd](workflows.md#tdd), run it red for the intended reason, and place the failing-test commit before the fix commit."
+    },
+    {
+      "id": "bug-fix-20",
+      "text": "Stage only scoped files."
+    },
+    {
+      "id": "bug-fix-21",
+      "text": "When the path is expensive, integration-heavy, or unclear, record why and use the closest executable regression instead; do not manufacture a weak test."
+    },
+    {
+      "id": "bug-fix-22",
+      "text": "Missing commit authority makes the history checkpoint BLOCKED; it does not grant permission to commit."
+    },
+    {
+      "id": "bug-fix-23",
+      "text": "Review the actual diff and every touched file."
+    },
+    {
+      "id": "bug-fix-24",
+      "text": "Use [opening-a-pr](#opening-a-pr) only with separate publication authority."
+    },
+    {
+      "id": "bug-fix-25",
+      "text": "**Reply.** What was broken, the root cause, the fix, and the verification."
+    },
+    {
+      "id": "bug-fix-26",
+      "text": "Include verbatim failing-before and passing-after repro output, or name the exact missing proof."
+    },
+    {
+      "id": "bug-fix-verbatim-failure",
+      "text": "7. In the reply, paste the captured failing-before output verbatim in a code block: the runner's own assertion or error lines as printed, such as the full `AssertionError` with its expected and actual values, not a summary like `9 !== 20`. Paste the passing-after lines the same way. If the failing output was not captured, say so and name that proof missing; never reconstruct it."
+    }
+  ]
+}

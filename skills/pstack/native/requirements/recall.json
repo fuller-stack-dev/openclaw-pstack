@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "route": "recall",
+  "document": "workflows.md",
+  "priority": "P2",
+  "upstream": [
+    "skills/recall/SKILL.md",
+    "skills/why/SKILL.md",
+    "skills/why/references/source-playbook.md"
+  ],
+  "gates": [
+    {
+      "id": "scope-classification",
+      "text": "Classify first: one specific prior chat/branch to resume goes to session-pickup; durable working habits go to automate-me. For recall, pin topic, workspace/session access and exact time window, defaulting to seven days only when unspecified, and state the scope. Never silently narrow “all” to recent N or read another workspace’s private history. Prefer a supplied complete state capsule and skip redundant chat mining."
+    },
+    {
+      "id": "history-mining",
+      "text": "Search only authorized sessions_search/history or supplied records, never Cursor filesystem transcripts or unrelated private chats. Topic-filter before reading relevant regions, order by actual activity timestamps rather than UUIDs, and exclude the current chat and obvious worker/eval/test noise. For a larger corpus resolve `swarm workers` with pstack_route and launch independent native sessions_spawn readers concurrently over bounded nonoverlapping slices with emitted arguments; collect accepted outputs. One or two chats may be searched directly under matching-selection rules. Each returns topic, user goal, decisions, open threads, struggles/corrections and artifacts, citing exact native session/message IDs. Keep raw private history out of the parent report. Missing required slice delegation/collection leaves history coverage BLOCKED, not a sequential parent substitute."
+    },
+    {
+      "id": "mandatory-shared-record",
+      "text": "Whenever the topic names a feature, file, subsystem, area or bug, a shared-record sweep is REQUIRED, including “my work on X.” Run native why’s independent source investigators in parallel with chat mining, asking for current state, failed/reverted attempts and continuing user reports rather than only original intent. Reuse its seven-category map, source briefs, pstack_route → native sessions_spawn → accepted completion, one-source ownership, null-result findings and explicit unavailable/irrelevant gaps. Skip this sweep ONLY for pure activity recall with no named target. An unavailable required source phase stays BLOCKED; personal transcripts alone never establish a named feature’s complete state."
+    },
+    {
+      "id": "live-reconciliation",
+      "text": "Verify surfaced branches, PRs, tickets and owners against current authorized read-only source/forge state without waking, replacing or resuming them. If a claim hinges on what an agent actually ran, read the full relevant authorized transcript, not a truncated summary. Keep done, unverified and pending distinct. Never replay cancelled/interrupted inputs."
+    },
+    {
+      "id": "capsule-contract",
+      "text": "Return Capsule (at most 5 bullets), Threads (one line per thread), Problems (at most 5 recurring problems, including user symptoms and shipped/reverted fixes), then Next move (ONE concrete most useful action). Prefix each thread with EXACTLY ONE evidenced tag: `[merged #N]`, `[open PR #N]`, `[in flight <branch>]`, `[verified, uncommitted]`, `[reverted #N]` or `[planned, not started]`. Never invent a PR/branch or verified state to fill a tag; unresolved status is a named reconciliation blocker. Keep all in-scope threads and cut detail before threads when the brief grows beyond a screen. Cite chat findings by native session/message IDs and shared findings by PR/ticket/source pointers. Apply unslop, exclude adjacent work unless it blocks this topic, and sanitize private context before any separately authorized public output."
+    },
+    {
+      "id": "bounded-wait-resume",
+      "text": "For long routed phases, spawn announcing children (without `collect`; a collector is collected in the turn that spawned it) and use a short schema-supported bounded native wait, then hand off the exact owner, accepted run/session IDs, phase, routing snapshot, completed artifacts and next collection action in the task-owned record, and finish on resume under [the shared lifecycle](contract.md#collection-and-resume). Never respawn accepted children, synthesize before required results arrive or call pending work complete. Unattended continuation runs only for native controller workflows (/pstack-architect, -arena, -interrogate, -swarm, -how, -why, -reflect) on hosts that grant requester-admitted scheduled command turns; otherwise that gate is BLOCKED when requested, with an explicit resume handoff, not an ad-hoc scheduler."
+    },
+    {
+      "id": "recall-collect-first",
+      "text": "6. Synthesize only after every required slice reader and why investigator is collected. While any is pending, do not re-read the sources yourself, resolve or spawn the recall synthesis, or write the Capsule; follow the [bounded-wait handoff](contract.md#bounded-wait-handoff) and end the turn with the pending run IDs. Recover a truncated collected result from that child's own history or one same-owner correction, or name its coverage BLOCKED; the parent's own reading never replaces it."
+    },
+    {
+      "id": "recall-problems-are-symptoms",
+      "text": "7. Problems lists what users hit: recurring symptoms, errors or regressions, and the fixes shipped or reverted for them, each with its evidence. Coverage gaps, unavailable sources and BLOCKED phases go on a separate `Coverage:` line after Next move, never in Problems."
+    },
+    {
+      "id": "recall-collector-correction",
+      "text": "A same-owner correction applies only to an announcing child that is still open; a collector child is one-shot and refuses `sessions_send`, so recover its result with one fresh correction child under [checking facts before delivery](delegation.md#checking-facts-before-delivery)."
+    },
+    {
+      "id": "recall-decoded-quote",
+      "text": "Quote the judgment child's text in its decoded form, without backslash-escaped quotation marks or literal `\\n` sequences that its own text lacks, under [checking facts before delivery](delegation.md#checking-facts-before-delivery)."
+    }
+  ]
+}

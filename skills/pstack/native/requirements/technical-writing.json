@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "route": "technical-writing",
+  "document": "workflows.md",
+  "priority": "P2",
+  "upstream": [
+    "skills/technical-writing/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "diataxis-structure",
+      "text": "Apply ALL FOUR upstream writing layers, grounded in the [source-only standard](../upstream/skills/technical-writing/SKILL.md). First use Diátaxis to choose tutorial (learning by doing, visible results), how-to (competent action toward a goal), reference (dry complete lookup facts), or explanation (one bounded why/understanding topic). Keep ONE mode per document, splitting/linking mixed purposes rather than mixing a tutorial, argument and reference table. PR descriptions and commit messages use the other three layers without forcing a Diátaxis document mode."
+    },
+    {
+      "id": "reader-style",
+      "text": "Second, use Google developer style: concrete active present-tense sentences to “you,” direct commands for instructions, condition/common case before action/exception, descriptive links and sentence-case headings with no skipped levels. Use numbered sequences and parallel bullets, code font for literal syntax and the actual repository symbol/path/flag rather than a synonym. Vary sentence length naturally, cut words that do no work and use everyday words; a rule that worsens clarity needs a better sentence, not mechanical obedience."
+    },
+    {
+      "id": "single-instruction",
+      "text": "Third, apply the STE single-instruction layer: ONE instruction per sentence and one thought elsewhere; split overloaded steps, normally around 20 instruction words/25 other words rather than treating a count as a proof. Put warnings/conditions BEFORE the guarded action, keep articles, choose one word per action/meaning and write direct procedures rather than passive narration. Do not strip context needed for safe execution."
+    },
+    {
+      "id": "unambiguous-syntax",
+      "text": "Fourth, apply the Global English unambiguous-syntax layer: keep “only”/“not” beside what they modify, give pronouns one clear referent, break noun strings, retain explicit verbs/articles/structural words and disambiguate and/or groupings in prose. Prefer periods to semicolons/long dashes and avoid idioms, invented jargon, plural “(s)” and ambiguous prose slashes. Literal commands, URLs, paths, code and quotations keep exact executable syntax; style rules never corrupt them. Product UI strings follow their own copy guidelines."
+    },
+    {
+      "id": "unslop-and-verification",
+      "text": "Run native unslop on EVERY document this route writes/reviews, including the reply, while preserving confidence, quotes, code and the user’s style. Use real paths and concrete tested commands with expected results, and verify links/counts/factual claims at the checked revision; include the regeneration command for derived counts/trees. New jargon-pattern suggestions are proposals, never permission to edit another skill. Follow the requested format, repository conventions and applicable native artifact/presentation skill instead of imposing Cursor formatting. No implicit commit/PR/publication."
+    },
+    {
+      "id": "procedure-words",
+      "text": "6. Never write “simply”, “easy” or “quickly” in a procedure, “please” in an instruction, or “click here” as link text. If a step were simple, the reader would not need it."
+    }
+  ]
+}

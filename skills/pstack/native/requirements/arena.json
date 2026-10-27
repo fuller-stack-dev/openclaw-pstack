@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "route": "arena",
+  "document": "workflows.md",
+  "priority": "P1",
+  "upstream": [
+    "skills/arena/SKILL.md",
+    "skills/poteto-mode/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "frame",
+      "text": "Open a Frame / Fan out / Cross-judge / Pick / Graft / Verify checklist before launching. Freeze the task, artifact, grounding and permitted changes. Derive 3–6 concrete gradeable rubric criteria; candidates see the same task, not the picker’s rubric."
+    },
+    {
+      "id": "fan-out",
+      "text": "Resolve `arena runners` with pstack_route and use its emitted native sessions_spawn arguments for both independent candidates, launched concurrently within authorized resource limits. Give each a separate writable worktree or task-owned output directory, shared grounding paths, and instructions to produce the artifact plus a short rationale naming considered/rejected alternatives. Preserve exact native role selections; no guessed model-family fallbacks or provider installation. Missing delegation is BLOCKED, not a sequential bakeoff."
+    },
+    {
+      "id": "collect",
+      "text": "Collect all candidate runs through their accepted native completion path before judging. A candidate with no usable output is a recorded dropout; proceed with the remaining artifacts, never count a queued or still-writing candidate as complete. Read full artifact files, not truncated result summaries."
+    },
+    {
+      "id": "cross-judge",
+      "text": "AFTER candidate writing has stopped, resolve `arena cross-judge pool` through pstack_route and spawn ONE independent read-only native sessions_spawn judge using its emitted selection. The judge sees the rubric and each candidate’s artifact path under an exact label: with the workflow ledger, the slot id its spawn plan lists (such as `candidates:0`); otherwise a label the parent assigns and later passes to pstack_brief check. It scores every criterion under those labels and recommends a base with rationale. Prefer a verified different family from the parent; disclose unavailable/unverified diversity without inventing it. A missing or failed judge leaves the cross-judge gate BLOCKED and prevents a completed arena verdict."
+    },
+    {
+      "id": "lead-comparison",
+      "text": "The lead reads EVERY candidate end to end, scores each criterion independently and records those scores under each candidate's exact label before any judge score is visible to it; the native controller enforces this with its `lead` checkpoint, spawning the judge only after the lead's scores are recorded. Collect the judge, compare verdicts and read both rationales before resolving disagreement; agreement is evidence, not a substitute for the lead’s inspection. Pick the base easiest for a future maintainer to extend without breaking invariants, preferring a cleaner boundary or smaller API on ties. Resolve judgment/prose routing before any delegated synthesis."
+    },
+    {
+      "id": "graft",
+      "text": "Walk every losing candidate again for coherent improvements, normally one or two per candidate; adapt by hand under one mental model, never paste a majority of every candidate together. Convergence needs no forced graft. Wild divergence means an underspecified frame: reframe and rerun rather than averaging incompatible shapes."
+    },
+    {
+      "id": "verify",
+      "text": "Verify the synthesized real artifact and affected behavior. If verification exposes a bad frame, reframe/rerun; if a candidate caught the missed issue, return to Graft. Do not paper over it. Return one artifact and a synthesis note naming base/why, judge verdict and disagreements, each graft/source, rejections/why, convergence, dropouts, diversity limitations and verification/blockers."
+    },
+    {
+      "id": "bounded-wait-resume",
+      "text": "For long routed phases, spawn announcing children (without `collect`; a collector is collected in the turn that spawned it) and use a short bounded native wait, then hand off pending run IDs and finish on resume under [the shared lifecycle](contract.md#collection-and-resume); never respawn accepted children or claim pending work complete."
+    },
+    {
+      "id": "output-contract",
+      "text": "8. Candidates return the `arena-runner` [output contract](agent-briefs.md#panel-output-contracts), without rubric scores, and the judge returns `cross-judge`, scoring exactly the usable candidates on every criterion. An invalid output stays pending for a corrected object from the same child; it is never rewritten by the parent."
+    }
+  ]
+}

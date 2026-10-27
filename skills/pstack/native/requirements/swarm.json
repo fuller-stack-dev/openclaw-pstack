@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "route": "swarm",
+  "document": "workflows.md",
+  "priority": "P1",
+  "upstream": [
+    "skills/swarm/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "frame",
+      "text": "Open a Frame / Fan out / Aggregate / Report checklist. State the done predicate, output artifact/report, exact coverage slices and whether the shape is partitioned, a race or mixed. Declare `first pass`, `rank all` or `best-of` before any race/mixed dispatch; do not change the selection rule after seeing results."
+    },
+    {
+      "id": "brief",
+      "text": "Resolve `swarm workers` (or explicit race-arm selections) with pstack_route, then launch independent native sessions_spawn workers with emitted arguments and bounded concurrency. Each self-contained brief names goal, scope, slice/arm, exact revision SHAs, verification and output. Measurement briefs specify sample count, what one sample means and run order; require those SHAs and that method in the result. Give writers disjoint writable outputs. Native local children are not cloud machines; use an authorized isolated native environment only when actually available."
+    },
+    {
+      "id": "results",
+      "text": "Collect every run through its actual native completion path. Workers return PASS, ISSUES or BLOCKED with evidence, all defects they can prove, and every SHA/method required by their brief. An unavailable required worker is BLOCKED; no sequential parent pass substitutes for independent coverage. Record dropouts and inspect actual artifacts rather than trusting self-reports."
+    },
+    {
+      "id": "retry-gap",
+      "text": "Reject a result that omits or mismatches any specified SHA or measurement method; retry that slice ONCE through routed native delegation with the failed contract named. A second miss becomes an explicit coverage gap, not a pass. Every required coverage slice needs a valid result; for races apply only the predeclared selection rule."
+    },
+    {
+      "id": "integration-report",
+      "text": "Merge findings, spot-check evidence and verify integration while preserving existing task owners. Return one consolidated table, issue one-liners, gaps/dropouts and the race rule when used, not raw worker dumps. Missing, failed or invalid slices cannot support a complete-coverage claim."
+    },
+    {
+      "id": "bounded-wait-resume",
+      "text": "For long routed phases, spawn announcing children (without `collect`; a collector is collected in the turn that spawned it) and use a short bounded native wait, then hand off pending run IDs and finish on resume under [the shared lifecycle](contract.md#collection-and-resume); never respawn accepted children or claim pending work complete."
+    }
+  ]
+}

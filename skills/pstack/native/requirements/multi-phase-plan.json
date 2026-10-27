@@ -1,0 +1,515 @@
+{
+  "schema": 1,
+  "route": "multi-phase-plan",
+  "document": "playbooks.md",
+  "priority": "P1",
+  "upstream": [
+    "skills/poteto-mode/SKILL.md",
+    "skills/poteto-mode/playbooks/multi-phase-plan.md",
+    "skills/poteto-mode/playbooks/prototype.md",
+    "skills/poteto-mode/scripts/check-plan.mjs",
+    "skills/swarm/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "multi-phase-plan-01",
+      "text": "The plan is the deliverable, not implementation."
+    },
+    {
+      "id": "multi-phase-plan-02",
+      "text": "For one or two files with an obvious approach, say a multi-phase plan is unnecessary and stop."
+    },
+    {
+      "id": "multi-phase-plan-03",
+      "text": "Otherwise preserve these gates."
+    },
+    {
+      "id": "multi-phase-plan-04",
+      "text": "Settle each observable open question with the [prototype](#prototype) workflow before writing the plan."
+    },
+    {
+      "id": "multi-phase-plan-05",
+      "text": "Keep task-owned branch and SHA evidence and screenshots or observed outputs for Appendix A."
+    },
+    {
+      "id": "multi-phase-plan-06",
+      "text": "The prototype is throwaway, not production implementation."
+    },
+    {
+      "id": "multi-phase-plan-07",
+      "text": "Only a genuine product or preference decision no run can settle goes to the operator with options."
+    },
+    {
+      "id": "multi-phase-plan-08",
+      "text": "Missing prototype authority or runtime is BLOCKED, not guessed evidence."
+    },
+    {
+      "id": "multi-phase-plan-09",
+      "text": "Explore the affected code with scoped native readers."
+    },
+    {
+      "id": "multi-phase-plan-10",
+      "text": "Resolve `how explorer` through `pstack_route` and use emitted native `sessions_spawn` arguments."
+    },
+    {
+      "id": "multi-phase-plan-11",
+      "text": "Each reader returns file pointers, conventions, test commands, and entry points, not source dumps."
+    },
+    {
+      "id": "multi-phase-plan-12",
+      "text": "Required exploration that cannot run is BLOCKED, never a silent sequential parent substitute."
+    },
+    {
+      "id": "multi-phase-plan-13",
+      "text": "Write to the operator's path or a task-owned docs directory."
+    },
+    {
+      "id": "multi-phase-plan-14",
+      "text": "Keep every heading and sub-block in the skeleton below, in order, fill every placeholder, and use one section per PR with its own evidence."
+    },
+    {
+      "id": "multi-phase-plan-15",
+      "text": "Name the execution route and merger in How to read this: [autopilot-full](#autopilot-full) for independent PRs with merge authority, [autopilot-stack](#autopilot-stack) for coupled work or withheld landing, or [orchestrate](#orchestrate) for a standing program."
+    },
+    {
+      "id": "multi-phase-plan-16",
+      "text": "The plan never grants publication authority."
+    },
+    {
+      "id": "multi-phase-plan-17",
+      "text": "Apply [technical-writing](workflows.md#technical-writing), then [unslop](workflows.md#unslop)."
+    },
+    {
+      "id": "multi-phase-plan-18",
+      "text": "The body is a how-to; appendices hold explanation and references."
+    },
+    {
+      "id": "multi-phase-plan-19",
+      "text": "Use task headings, plain sentences, no long dashes or mid-sentence connector colons."
+    },
+    {
+      "id": "multi-phase-plan-20",
+      "text": "The short introduction is under ten nonblank lines."
+    },
+    {
+      "id": "multi-phase-plan-21",
+      "text": "Every verification block opens with the exact verification rule below."
+    },
+    {
+      "id": "multi-phase-plan-22",
+      "text": "Unit tests alone do not verify a PR."
+    },
+    {
+      "id": "multi-phase-plan-23",
+      "text": "Require ten independent live lanes at its exact head using `pstack_route` and emitted native `sessions_spawn` arguments for `swarm workers`, each with a concrete scenario, saved screenshot path, and pass predicate."
+    },
+    {
+      "id": "multi-phase-plan-24",
+      "text": "One is the Regression lane against trunk."
+    },
+    {
+      "id": "multi-phase-plan-25",
+      "text": "A missing trunk feature is recorded honestly; gate the added behavior and user-visible end state rather than invent a trunk result."
+    },
+    {
+      "id": "multi-phase-plan-26",
+      "text": "A missing capture or driver is a BLOCKED live gate, not removal of that block."
+    },
+    {
+      "id": "multi-phase-plan-27",
+      "text": "Pick native browser/computer, CLI, or simulator controls by actual surface; two surfaces need lanes on both."
+    },
+    {
+      "id": "multi-phase-plan-28",
+      "text": "Record missing control capability in Appendix C and still name the intended driver."
+    },
+    {
+      "id": "multi-phase-plan-29",
+      "text": "Perf verification names Metric, Probe, Baseline, and Rule."
+    },
+    {
+      "id": "multi-phase-plan-30",
+      "text": "Measure trunk first, then interleave trunk and head with both producing the named metric and a numeric failure threshold."
+    },
+    {
+      "id": "multi-phase-plan-31",
+      "text": "If scenarios differ because trunk lacks the feature, prohibit an invalid ratio and add absolute budgets for diff-added work and the user-visible end state."
+    },
+    {
+      "id": "multi-phase-plan-32",
+      "text": "A PR changing an interaction needs operator review in chat with screenshots and a 30 to 60 second video before merge."
+    },
+    {
+      "id": "multi-phase-plan-33",
+      "text": "A non-interaction PR says `**Review gate.** None. PR-1 is not review-gated.` using its real PR id and has no boxes there."
+    },
+    {
+      "id": "multi-phase-plan-34",
+      "text": "The program checklist must specify explicit-go arming, dependency order, one owner per PR, exact file boundaries, native PR mechanics, committed-head checks, comment review, code-ready and merge-ready receipts, verification and patch-id rules, boot commands, and stop propagation."
+    },
+    {
+      "id": "multi-phase-plan-35",
+      "text": "Full verification names one gates lane, ten live lanes, one perf lane, and at least two focused audit lanes."
+    },
+    {
+      "id": "multi-phase-plan-36",
+      "text": "Root audits receipts before a clean verdict."
+    },
+    {
+      "id": "multi-phase-plan-37",
+      "text": "New behavior, redesign, or large diffs rerun the full swarm; minor fixes and rebases need a new-head verifier unless patch-id evidence carries a lane."
+    },
+    {
+      "id": "multi-phase-plan-38",
+      "text": "No failed lane is clean."
+    },
+    {
+      "id": "multi-phase-plan-39",
+      "text": "Native automation is only a separately authorized bounded owner lifecycle, not an upstream loop command or a plan-created timer."
+    },
+    {
+      "id": "multi-phase-plan-40",
+      "text": "Resolve `scripts/plan-check.mjs` from the installed pstack skill directory and run `node /absolute/path/to/pstack/scripts/plan-check.mjs /absolute/path/to/plan.md`; fix every diagnostic."
+    },
+    {
+      "id": "multi-phase-plan-41",
+      "text": "Source-checkout behavioral tests run with `node --test tests/plan-check.test.mjs`."
+    },
+    {
+      "id": "multi-phase-plan-42",
+      "text": "It is a read-only structural gate, not proof that the plan's experiments, permissions, or evidence are valid."
+    },
+    {
+      "id": "multi-phase-plan-43",
+      "text": "If the shipped helper is unavailable, report the checker gate BLOCKED, never run the pinned upstream script."
+    },
+    {
+      "id": "multi-phase-plan-44",
+      "text": "Hand back the path, PR ids and dependencies, review-gated set, prototype conclusions and unknowns, and the actual checker output, then stop."
+    },
+    {
+      "id": "multi-phase-plan-45",
+      "text": "Execution begins only on the operator's explicit go under the named execution playbook."
+    },
+    {
+      "id": "multi-phase-plan-46",
+      "text": "Keep this skeleton, replacing angle-bracket placeholders with concrete evidence-producing tasks."
+    },
+    {
+      "id": "multi-phase-plan-47",
+      "text": "The example is deliberately incomplete until filled."
+    },
+    {
+      "id": "multi-phase-plan-48",
+      "text": "# <Program> plan"
+    },
+    {
+      "id": "multi-phase-plan-49",
+      "text": "<Who benefits, what changes, the governing rule, and ordered PR ids. Under ten lines.>"
+    },
+    {
+      "id": "multi-phase-plan-50",
+      "text": " ## How to read this"
+    },
+    {
+      "id": "multi-phase-plan-51",
+      "text": "One box is one unit of work. Every box names the evidence that checks it."
+    },
+    {
+      "id": "multi-phase-plan-52",
+      "text": "Check a box only when its evidence exists, such as a file, log, screenshot, run, or SHA."
+    },
+    {
+      "id": "multi-phase-plan-53",
+      "text": "The body is a how-to. Appendices explain and record."
+    },
+    {
+      "id": "multi-phase-plan-54",
+      "text": "The program runs playbooks/<execution route>. <Who merges and which items stop at merge-ready.>"
+    },
+    {
+      "id": "multi-phase-plan-55",
+      "text": "Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked."
+    },
+    {
+      "id": "multi-phase-plan-56",
+      "text": " ## Program checklist"
+    },
+    {
+      "id": "multi-phase-plan-57",
+      "text": "### Arm the program"
+    },
+    {
+      "id": "multi-phase-plan-58",
+      "text": "- [ ] State the protocol and plan, then stop until the operator's explicit go."
+    },
+    {
+      "id": "multi-phase-plan-59",
+      "text": "- [ ] Read the execution playbook, swarm, installed control skill, opening-a-pr, and other used native leaves from the approved trunk revision at start and each audit."
+    },
+    {
+      "id": "multi-phase-plan-60",
+      "text": "- [ ] Record the authorized native audit lifecycle or its BLOCKED gate, owner, cadence, deadline, and budget. No timer is created by this plan."
+    },
+    {
+      "id": "multi-phase-plan-61",
+      "text": "- [ ] Audit prompt. Re-read the execution route, inspect every active lane's side effects, record heads and runs, replace stuck work only after custody is safe, repair drift, and append a trail row. Send a status message only for unreported tracked changes or a new operator decision. No repeated unchanged status."
+    },
+    {
+      "id": "multi-phase-plan-62",
+      "text": "- [ ] Propagate the operator's hold as zero-writes to every owner and leaf."
+    },
+    {
+      "id": "multi-phase-plan-63",
+      "text": "### Spawn owners"
+    },
+    {
+      "id": "multi-phase-plan-64",
+      "text": "- [ ] Use `pstack_route` and emitted native `sessions_spawn` arguments for one owner per PR with its full lifecycle and standing orders."
+    },
+    {
+      "id": "multi-phase-plan-65",
+      "text": "- [ ] <Concrete dependency graph and branching order.>"
+    },
+    {
+      "id": "multi-phase-plan-66",
+      "text": "- [ ] <Exclusive file boundaries per PR.>"
+    },
+    {
+      "id": "multi-phase-plan-67",
+      "text": "- [ ] <Interaction-changing PR ids requiring screenshots and video review.>"
+    },
+    {
+      "id": "multi-phase-plan-68",
+      "text": "### PR mechanics, for every PR"
+    },
+    {
+      "id": "multi-phase-plan-69",
+      "text": "- [ ] <Authorized native forge and PR creation operation, ready or explicitly required draft, correct base.>"
+    },
+    {
+      "id": "multi-phase-plan-70",
+      "text": "- [ ] <Repo lint, typecheck, focused tests on committed head before push. Hooks stay enabled.>"
+    },
+    {
+      "id": "multi-phase-plan-71",
+      "text": "- [ ] <Scope cleanup before commit, no-comments before review, and concrete review-thread triage.>"
+    },
+    {
+      "id": "multi-phase-plan-72",
+      "text": "- [ ] <Code-ready rebase rule for this execution route, every later head receipt, self-proof and babysit. Stack owners never rebase or retarget.>"
+    },
+    {
+      "id": "multi-phase-plan-73",
+      "text": "### Verdict and merge, for every PR"
+    },
+    {
+      "id": "multi-phase-plan-74",
+      "text": "- [ ] <Code-ready full swarm with one gates lane, ten live lanes, perf lane, and at least two audit lanes. Minor-fix new-head verifier rule.>"
+    },
+    {
+      "id": "multi-phase-plan-75",
+      "text": "- [ ] <Root receipt audit, all lanes PASS, owner fix-forward for findings, patch-id requalification.>"
+    },
+    {
+      "id": "multi-phase-plan-76",
+      "text": "- [ ] <Authorized merge rule, or root stack append and operator landing.>"
+    },
+    {
+      "id": "multi-phase-plan-77",
+      "text": "### Boot recipe, for every live lane"
+    },
+    {
+      "id": "multi-phase-plan-78",
+      "text": "- [ ] <Isolated authorized environment, exact head checkout, backend and surface start, ready predicate.>"
+    },
+    {
+      "id": "multi-phase-plan-79",
+      "text": "- [ ] <Named native control driver for input and read-only diagnostics.>"
+    },
+    {
+      "id": "multi-phase-plan-80",
+      "text": "- [ ] <Per-lane screenshot and report paths.>"
+    },
+    {
+      "id": "multi-phase-plan-81",
+      "text": " ## <Task as a verb phrase> (<PR id>)"
+    },
+    {
+      "id": "multi-phase-plan-82",
+      "text": "**Depends on.** <PR id or None.>"
+    },
+    {
+      "id": "multi-phase-plan-83",
+      "text": "**Files.**"
+    },
+    {
+      "id": "multi-phase-plan-84",
+      "text": "- [ ] <Edit, create, or delete concrete path.>"
+    },
+    {
+      "id": "multi-phase-plan-85",
+      "text": "**Build.**"
+    },
+    {
+      "id": "multi-phase-plan-86",
+      "text": "- [ ] <One change naming a symbol and file.>"
+    },
+    {
+      "id": "multi-phase-plan-87",
+      "text": "**You see.**"
+    },
+    {
+      "id": "multi-phase-plan-88",
+      "text": "- [ ] <Observable log or screen state.>"
+    },
+    {
+      "id": "multi-phase-plan-89",
+      "text": "**Verify, unit.** Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked."
+    },
+    {
+      "id": "multi-phase-plan-90",
+      "text": "- [ ] <Test file, behavioral case, exact command, and output artifact.>"
+    },
+    {
+      "id": "multi-phase-plan-91",
+      "text": "**Verify, live.** Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked. Ten lanes on `<resolved native swarm workers selection>` at the PR head."
+    },
+    {
+      "id": "multi-phase-plan-92",
+      "text": "- [ ] Lane 1. Regression lane against trunk. <Same load-bearing scenario on trunk and head, or honest absence and added end-state gate.> Save `<screenshot path>`. Pass when <predicate>."
+    },
+    {
+      "id": "multi-phase-plan-93",
+      "text": "- [ ] Lane 2. <Scenario.> Save `<screenshot path>`. Pass when <predicate>."
+    },
+    {
+      "id": "multi-phase-plan-94",
+      "text": "- [ ] Lane 3. <Scenario.> Save `<screenshot path>`. Pass when <predicate>."
+    },
+    {
+      "id": "multi-phase-plan-95",
+      "text": "- [ ] Lane 4. <Scenario.> Save `<screenshot path>`. Pass when <predicate>."
+    },
+    {
+      "id": "multi-phase-plan-96",
+      "text": "- [ ] Lane 5. <Scenario.> Save `<screenshot path>`. Pass when <predicate>."
+    },
+    {
+      "id": "multi-phase-plan-97",
+      "text": "- [ ] Lane 6. <Scenario.> Save `<screenshot path>`. Pass when <predicate>."
+    },
+    {
+      "id": "multi-phase-plan-98",
+      "text": "- [ ] Lane 7. <Scenario.> Save `<screenshot path>`. Pass when <predicate>."
+    },
+    {
+      "id": "multi-phase-plan-99",
+      "text": "- [ ] Lane 8. <Scenario.> Save `<screenshot path>`. Pass when <predicate>."
+    },
+    {
+      "id": "multi-phase-plan-100",
+      "text": "- [ ] Lane 9. <Scenario.> Save `<screenshot path>`. Pass when <predicate>."
+    },
+    {
+      "id": "multi-phase-plan-101",
+      "text": "- [ ] Lane 10. <Scenario.> Save `<screenshot path>`. Pass when <predicate>."
+    },
+    {
+      "id": "multi-phase-plan-102",
+      "text": "**Verify, perf.** Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked."
+    },
+    {
+      "id": "multi-phase-plan-103",
+      "text": "- [ ] Metric. <Same metric at trunk and head, plus added work and end state when necessary.>"
+    },
+    {
+      "id": "multi-phase-plan-104",
+      "text": "- [ ] Probe. <Interleaved concrete procedure on both revisions.>"
+    },
+    {
+      "id": "multi-phase-plan-105",
+      "text": "- [ ] Baseline. <Trunk value and artifact recorded first.>"
+    },
+    {
+      "id": "multi-phase-plan-106",
+      "text": "- [ ] Rule. <Numeric failure threshold and absolute budgets when unlike scenarios forbid a ratio.>"
+    },
+    {
+      "id": "multi-phase-plan-107",
+      "text": "**Review gate.** <Operator reviews before merge, or None. PR id is not review-gated.>"
+    },
+    {
+      "id": "multi-phase-plan-108",
+      "text": "- [ ] <Copy named screenshots to review artifacts. Remove these boxes for None.>"
+    },
+    {
+      "id": "multi-phase-plan-109",
+      "text": "- [ ] <Record 30 to 60 second video and save its path.>"
+    },
+    {
+      "id": "multi-phase-plan-110",
+      "text": "- [ ] <Send the artifacts through authorized chat, then stop at merge-ready for operator review.>"
+    },
+    {
+      "id": "multi-phase-plan-111",
+      "text": "**Merge.**"
+    },
+    {
+      "id": "multi-phase-plan-112",
+      "text": "- [ ] <Root clean exact-head verdict and resolved review findings.>"
+    },
+    {
+      "id": "multi-phase-plan-113",
+      "text": "- [ ] <Fresh-head CI, base-drift checks, and patch-id rule.>"
+    },
+    {
+      "id": "multi-phase-plan-114",
+      "text": "- [ ] <Authorized owner merge or root append for operator landing.>"
+    },
+    {
+      "id": "multi-phase-plan-115",
+      "text": " ## Close the program"
+    },
+    {
+      "id": "multi-phase-plan-116",
+      "text": "- [ ] Every box above has resolving evidence."
+    },
+    {
+      "id": "multi-phase-plan-117",
+      "text": "- [ ] Return the execution route's report."
+    },
+    {
+      "id": "multi-phase-plan-118",
+      "text": " ## Appendix A. Prototype evidence"
+    },
+    {
+      "id": "multi-phase-plan-119",
+      "text": "<Questions settled with branch, SHA, artifacts, and unresolved questions.>"
+    },
+    {
+      "id": "multi-phase-plan-120",
+      "text": " ## Appendix B. Alternatives rejected"
+    },
+    {
+      "id": "multi-phase-plan-121",
+      "text": "<Alternatives and reasons.>"
+    },
+    {
+      "id": "multi-phase-plan-122",
+      "text": " ## Appendix C. Risks"
+    },
+    {
+      "id": "multi-phase-plan-123",
+      "text": "<Risk, responsible PR, what its owner watches, missing control capabilities.>"
+    },
+    {
+      "id": "multi-phase-plan-124",
+      "text": " ## Appendix D. Links and reading list"
+    },
+    {
+      "id": "multi-phase-plan-125",
+      "text": "<Required native leaves, how and interrogate PRs, and decision trail.>"
+    }
+  ]
+}

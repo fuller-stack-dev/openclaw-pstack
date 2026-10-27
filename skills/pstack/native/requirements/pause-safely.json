@@ -1,0 +1,88 @@
+{
+  "schema": 1,
+  "route": "pause-safely",
+  "document": "playbooks.md",
+  "priority": "P1",
+  "upstream": [
+    "skills/poteto-mode/SKILL.md",
+    "skills/poteto-mode/playbooks/pause-safely.md"
+  ],
+  "gates": [
+    {
+      "id": "pause-safely-01",
+      "text": "Explicit pause only."
+    },
+    {
+      "id": "pause-safely-02",
+      "text": "Do not pause on \"keep going\", \"going to bed, keep going\", or \"don't stop\"."
+    },
+    {
+      "id": "pause-safely-03",
+      "text": "Own a clean checkpoint a cold-start agent can resume."
+    },
+    {
+      "id": "pause-safely-04",
+      "text": "Stop new dispatch."
+    },
+    {
+      "id": "pause-safely-05",
+      "text": "Finish the current atomic step or back it out, then cancel or pause exact owned nested work through supported native controls."
+    },
+    {
+      "id": "pause-safely-06",
+      "text": "Confirm actual state; queued stop requests are not confirmed stops."
+    },
+    {
+      "id": "pause-safely-07",
+      "text": "Take no irreversible action just to pause."
+    },
+    {
+      "id": "pause-safely-08",
+      "text": "Do not create a PR or push a new branch."
+    },
+    {
+      "id": "pause-safely-09",
+      "text": "Existing publication still needs its original authority."
+    },
+    {
+      "id": "pause-safely-10",
+      "text": "Make a scoped WIP checkpoint of uncommitted task edits as one clear `wip:` commit on the current branch when commits are authorized."
+    },
+    {
+      "id": "pause-safely-11",
+      "text": "Stage only owned paths."
+    },
+    {
+      "id": "pause-safely-12",
+      "text": "If the tree is broken, say so in the commit body."
+    },
+    {
+      "id": "pause-safely-13",
+      "text": "If commit authority or safety is missing, preserve unique edits and mark the WIP gate BLOCKED with the exact obstacle; do not silently omit the checkpoint or commit unrelated shared work."
+    },
+    {
+      "id": "pause-safely-14",
+      "text": "Write an off-context cold-start resume note in a task-owned durable file."
+    },
+    {
+      "id": "pause-safely-15",
+      "text": "Include intent, current atomic step, completed and verified work, disk and process state, exact branch and SHAs, next action, key files, and gotchas."
+    },
+    {
+      "id": "pause-safely-16",
+      "text": "Point at an existing [show-me-your-work](workflows.md#show-me-your-work) trail instead of duplicating it."
+    },
+    {
+      "id": "pause-safely-17",
+      "text": "Compaction notes must exist outside the shrinking conversation, not only in chat."
+    },
+    {
+      "id": "pause-safely-18",
+      "text": "**Reply.** Position in the loop, what is on disk versus still unrecorded, checkpoint and note paths, commits, clean or dirty state, stop confirmation or blocker, and first resume action."
+    },
+    {
+      "id": "pause-safely-19",
+      "text": "This is a pause, not a completion report."
+    }
+  ]
+}

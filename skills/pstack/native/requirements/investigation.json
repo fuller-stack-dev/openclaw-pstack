@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "route": "investigation",
+  "document": "playbooks.md",
+  "priority": "P2",
+  "upstream": [
+    "skills/poteto-mode/SKILL.md",
+    "skills/poteto-mode/playbooks/investigation.md",
+    "skills/how/SKILL.md",
+    "skills/why/SKILL.md",
+    "skills/unslop/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "investigation-01",
+      "text": "Own the cited answer or recommendation, not a code change. This route is read-only."
+    },
+    {
+      "id": "investigation-02",
+      "text": "Define the question and authorized source boundary. Run [how](workflows.md#how), not an optional informal walkthrough. A simple question requires one `how explainer` that explores and explains; a complex question requires two to four distinct `how explorer` slices followed by the explainer after their results arrive. For motivation questions also run [why](workflows.md#why) with its investigator and synthesizer phases. Do not collapse these into sequential parent prose."
+    },
+    {
+      "id": "investigation-03",
+      "text": "Every required independent phase MUST resolve its role through `pstack_route`, use emitted native `sessions_spawn` arguments, and collect the accepted child through its native completion path. If planning, spawning, collection, required diversity, or evidence is unavailable, name that gate BLOCKED and do not claim the route complete."
+    },
+    {
+      "id": "investigation-04",
+      "text": "Keep the throughput checkpoint to one line: `throughput checkpoint: n/a, read-only investigation`."
+    },
+    {
+      "id": "investigation-05",
+      "text": "Test a decisive hypothesis only through safe authorized observation. Produce the how-shaped sections Overview, Key Concepts, How It Works, Where Things Live, and Gotchas, omitting only sections that do not apply. For a decision between alternatives, a recommendation with a tradeoffs table may replace that shape. Cite the actual sources and label observations, inference, and unknowns."
+    },
+    {
+      "id": "investigation-06",
+      "text": "Apply [unslop](workflows.md#unslop) to the reply without deleting required content or uncertainty. Resolve substantive judgment and prose through [role routing](model-routing.md); a configured alternative must really delegate, not relabel the parent's writing."
+    },
+    {
+      "id": "investigation-07",
+      "text": "Do not open a PR, start babysit, or invoke architect as part of this read-only answer. If the investigation precedes an authorized code change, hand back the findings and re-route the change to [bug-fix](#bug-fix) or [feature](#feature). For an \"are we sure?\" question, give a real judgment with reasons and push back on a disproved premise."
+    },
+    {
+      "id": "investigation-08",
+      "text": "For long routed phases, spawn announcing children (without `collect`; a collector is collected in the turn that spawned it) and use a short bounded native wait, then hand off the exact owner, accepted run/session IDs, phase, snapshot, completed artifacts, and next collection action; finish on resume without respawning accepted children or calling pending work complete."
+    },
+    {
+      "id": "investigation-09",
+      "text": "**Reply.** The cited investigation output or recommendation, the one-line throughput checkpoint, uncertainty, and exact blocked gates."
+    },
+    {
+      "id": "investigation-10",
+      "text": "The investigation requirements are text-regression guards only, not behavioral proof."
+    },
+    {
+      "id": "investigation-delivery",
+      "text": "8. When the how explainer or the `judgment and prose` child wrote the answer, deliver its collected text verbatim, quoted and attributed under [delivering a routed result](delegation.md#delivering-a-routed-result), including every applicable section it wrote, Key Concepts and Where Things Live among them. Put the throughput checkpoint, evidence labels and blocked gates outside the quote; a parent rewrite never replaces the routed answer."
+    },
+    {
+      "id": "investigation-visible-handoff",
+      "text": "9. Put every handoff in the visible reply under [visible handoff](contract.md#visible-handoff): the six lines (Handoff, Owner, Pending, Done so far, Snapshot, Next) go in the `sessions_yield` acknowledgment, or are the final reply text when the turn ends without a yield. They name the children pending now, with run and session IDs, and nothing follows them: a line such as \"the prose run remains pending\" or a handoff sent with a message tool does not replace them."
+    },
+    {
+      "id": "investigation-handoff-ends-reply",
+      "text": "They name the children pending now, with run and session IDs, and nothing follows them: a line such as \"the prose run remains pending\" or a handoff sent with a message tool does not replace them."
+    }
+  ]
+}

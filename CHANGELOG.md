@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.9 — 2026-10-28
+
+- Version-only ClawHub release to restore the listing display name to `openclaw-pstack` after older pending releases finalized. No runtime or behavior changes from 1.2.8.
+
 ## 1.2.8 — 2026-10-27
 
 - First public ClawHub release, published from the public repository. No code changes from 1.2.7; the earlier unreviewed ClawHub uploads (1.2.5–1.2.7) were withdrawn and their version numbers stay reserved.

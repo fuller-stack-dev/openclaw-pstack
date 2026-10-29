@@ -63,10 +63,12 @@ it("rejects forged parent facts rather than using them to choose the same family
   await expect(h.call({ ...request, parentFamily: "family-b" })).rejects.toThrow(/parent.*contradicts/i);
   expect(h.state).not.toHaveBeenCalled();
 });
-it.each(["active-model", "family", "capability", "catalog", "guard"])("blocks only the required new judge when %s metadata is unavailable", async missing => {
+it.each(["active-model", "family", "capability", "catalog", "pending-catalog", "guard", "session"])("blocks only the required new judge when %s metadata is unavailable", async missing => {
   const h = harness();
   if (missing === "active-model") delete h.context.activeModel;
   if (missing === "guard") delete h.context.assertInvocationCurrent;
+  if (missing === "session") delete h.context.sessionId;
+  if (missing === "pending-catalog") h.list.mockResolvedValue({ state: "pending", revision: "pending", models: structuredClone(rows) } as any);
   if (missing === "family") h.list.mockResolvedValue({ state: "prepared", revision: "unknown", models: rows.map(({ family, ...row }) => row) } as any);
   if (missing === "capability") h.registerFactory([]);
   if (missing === "catalog") delete h.context.runtimeContext;
@@ -131,6 +133,15 @@ it("qualifies the host active-model producer against actual latest SQLite reads,
     await upsertSessionEntry({ ...scope, entry: { ...stored, sessionId: "replacement" } });
     await expect(retained.execute("stale-plan", request)).rejects.toThrow(/incarnation/);
   } finally { await closeOpenClawAgentDatabasesAsync(); clearRuntimeConfigSnapshot(); await fixture.cleanup(); }
+});
+it("keeps role-only inspection read-only and labels unknown diversity without returning a spawn plan", async () => {
+  const h = harness();
+  h.registerFactory([]); delete h.context.runtimeContext; delete h.context.activeModel;
+  const inspected = await h.call({ role: request.role });
+  expect(inspected.details.snapshot.diversity).toBe("unverified");
+  expect(inspected.details.spawnArgs).toBeUndefined();
+  expect(h.entry).not.toHaveBeenCalled();
+  expect(h.state).not.toHaveBeenCalled();
 });
 it("retains historical judge snapshots without reselection on a metadata-poor older host", async () => {
   const h = harness();

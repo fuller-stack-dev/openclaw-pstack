@@ -116,11 +116,40 @@ test("handles frontmatter, CRLF, and fences without counting code examples as ev
 
 test("rejects unfilled placeholders and prose violations with original line numbers", () => {
   const result = checkPlan(valid + "Unfilled <metric>.\nBad prose: connector.\nLong — dash and ‘quote’.\n", "relay.md");
-  assert.match(result.problems.map((p) => p.message).join("\n"), /unfilled angle-bracket/);
-  assert.ok(result.problems.some((p) => p.line === valid.split("\n").length + 1 && p.message === "mid-sentence colon"));
-  assert.match(messages(valid + "Long — dash and ‘quote’.\n"), /long dash/);
-  assert.match(messages(valid + "Long — dash and ‘quote’.\n"), /curly quote/);
+  const line = valid.split("\n").length;
+  assert.deepEqual(result.problems, [
+    { line, message: "unfilled angle-bracket placeholder or HTML; use concrete Markdown evidence" },
+    { line: line + 1, message: "mid-sentence colon" },
+    { line: line + 2, message: "long dash" },
+    { line: line + 2, message: "curly quote" },
+  ]);
   assert.deepEqual(checkPlan(valid + "Use `node x:y` and [the docs](https://example.invalid/a:b).\n").problems, []);
+});
+
+for (const count of [1, 2, 3, 4]) test(`ignores punctuation inside matching ${count}-backtick code spans`, () => {
+  const delimiter = "`".repeat(count);
+  const inner = count === 1 ? "x" : "`x`";
+  assert.deepEqual(checkPlan(valid + `Use ${delimiter}echo ${inner}: “quoted” — example${delimiter}.\n`).problems, []);
+});
+
+test("matches whole backtick runs and leaves unmatched and surrounding prose visible", () => {
+  const punctuation = ["long dash", "curly quote", "mid-sentence colon"];
+  const line = valid.split("\n").length;
+  for (const [source, expected] of [
+    ["Use ``echo `x`: y``. Bad: prose.", ["mid-sentence colon"]],
+    ["Bad: ‘prose’ — before ``echo `x`: y``.", punctuation],
+    ["Use ``unclosed: bad` here.", ["mid-sentence colon"]],
+    ["Use `unclosed: ‘bad’ — here.", punctuation],
+    ["Use ```unclosed: ‘bad’ — here``.", punctuation],
+    ["Use ``unclosed: ‘bad’ — here````.", punctuation],
+    ["Use ``unclosed `inside: ‘code’ — only` outside: prose.", ["mid-sentence colon"]],
+    ["Use ``one ` shorter: ‘code’ — run``.", []],
+    ["Use `one `` longer: ‘code’ — run`.", []],
+    ["Use ``one: ‘code’ — span`` and `two: ‘code’ — span`.", []],
+  ]) {
+    assert.deepEqual(checkPlan(valid + source + "\n").problems,
+      expected.map(message => ({ line, message })), source);
+  }
 });
 
 test("CLI returns pass, diagnostics, usage, and read-error exits without changing input", () => {

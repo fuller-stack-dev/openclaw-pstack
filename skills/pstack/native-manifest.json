@@ -33,6 +33,11 @@
       "sha256": "9f91e4b2ce04f6406cabd287e9ec56df554a77a14d1db3e0736e95664898861f"
     },
     {
+      "path": "native/agents/interrogate-adversary.md",
+      "bytes": 1310,
+      "sha256": "77ad94c3a70465f3b9674339e13bf3621a66685568de5bea557cd4ca1057bfcc"
+    },
+    {
       "path": "native/agents/panel-judge.md",
       "bytes": 912,
       "sha256": "44455fda367b6aaf8e47f721d6665595f8b9ceb5702945d930f976df20e6abcf"
@@ -81,6 +86,11 @@
       "path": "native/delegation.md",
       "bytes": 11535,
       "sha256": "652d871d8487ec4a908167e4ae8688990fe4c9d014de188a048994b1faf49cb5"
+    },
+    {
+      "path": "native/interrogate-executed.md",
+      "bytes": 2987,
+      "sha256": "939d3243438796a31a3cdb5e8b1ff811be654f27dd141be63c7b3d94877a7451"
     },
     {
       "path": "native/legacy/interrogate/README.md",
@@ -385,7 +395,7 @@
     {
       "path": "native/route-skills.json",
       "bytes": 52359,
-      "sha256": "a2ff3c9dd39d464e4c25ac58ede3f2f7d5914dc792376314cdfc9b5e9d8cf39a"
+      "sha256": "f9d985d746d496f8629b0948702f75d66cdb378f206f20054dcf7e15a4a9bc33"
     },
     {
       "path": "native/routes.json",
@@ -419,8 +429,8 @@
     },
     {
       "path": "native/workflows.md",
-      "bytes": 107737,
-      "sha256": "8d0a255a27ea7c0920cf0cddc77f26803473e46136f0e98f39fe5ea08eda77bb"
+      "bytes": 108236,
+      "sha256": "c13a9de732661dfd45dc8032672d074134d4fc19b5b2273d8d870049c5a93546"
     },
     {
       "path": "native/worktree-audit-adapter.md",
@@ -431,6 +441,11 @@
       "path": "scripts/automation.mjs",
       "bytes": 16280,
       "sha256": "8124124b540c5f4fe165c867fbcd05294ac74c7c0032cc1268b37bce332d2447"
+    },
+    {
+      "path": "scripts/interrogate-semantics.mjs",
+      "bytes": 9416,
+      "sha256": "85bd642caeb62e24276f5788ce975354aa3d80f65d717b2ede7822ee2f96e8be"
     },
     {
       "path": "scripts/model-routing-cli.mjs",
@@ -444,8 +459,8 @@
     },
     {
       "path": "scripts/output-contracts.mjs",
-      "bytes": 18898,
-      "sha256": "d62eb13dd7d6690f3a1b98c4f0f06a1f147138fbbec8fdcd94761d3fbeb28aec"
+      "bytes": 21259,
+      "sha256": "4b3c41e26efeef8f5675b8dbc85a1e9b4a9a6e0c429c387eebef1611a14f165c"
     },
     {
       "path": "scripts/plan-check.mjs",

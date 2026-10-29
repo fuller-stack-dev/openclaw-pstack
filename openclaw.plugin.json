@@ -47,7 +47,7 @@
   "contracts": {
     "commandRuntimeCapabilities": ["subagents", "scheduledTurns"],
     "sessionScheduledTurns": ["requester-command"],
-    "subagentProfiles": ["comment-sicko", "poteto-agent", "panel-reviewer", "panel-judge"],
+    "subagentProfiles": ["comment-sicko", "poteto-agent", "panel-reviewer", "panel-judge", "interrogate-adversary"],
     "tools": [
       "pstack_route",
       "pstack_workflow",

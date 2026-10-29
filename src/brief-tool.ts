@@ -1,8 +1,9 @@
+import { executedContracts, frozenSchema, executedContextSchema } from "../skills/pstack/scripts/interrogate-semantics.mjs";
 import { readFile } from "node:fs/promises";
 import { isAbsolute, join, normalize, sep } from "node:path";
 import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
 import { validateJsonSchemaValue } from "openclaw/plugin-sdk/json-schema-runtime";
-import { PANEL_ROLES, PROFILES, profile, checkOutput, renderBrief, requiredRead, scopeAdvisories, scopeErrors } from "../skills/pstack/scripts/output-contracts.mjs";
+import { PANEL_ROLES, PROFILES, profile, checkOutput, renderBrief, requiredRead, scopeAdvisories, scopeErrors, assertProofContext } from "../skills/pstack/scripts/output-contracts.mjs";
 import type { HostProfiles } from "./native-runtime.js";
 
 const paths = { type: "array", minItems: 1, maxItems: 256, items: { type: "string", minLength: 1, maxLength: 1024, pattern: "^[^\\u0000-\\u001f\\u007f]*[^\\s\\u0000-\\u001f\\u007f][^\\u0000-\\u001f\\u007f]*$" } };
@@ -13,13 +14,15 @@ export const briefParameters = {
     profile: { type: "string", enum: [...PROFILES], description: "render: native brief template to fill." },
     task: { type: "string", minLength: 1, maxLength: 16000, pattern: "\\S", description: "render: the bounded task, treated as data." },
     scope: { ...paths, description: "Parent-supplied review scope: literal repo-relative file paths, one per entry, exactly as findings will name them (app/[id]/page.tsx is one file). Expand a diff or pattern to its files first (for example git diff --name-only main...HEAD). Refused: blank, absolute, a .. segment, a control character or Unicode line break (U+0085, U+2028, U+2029), a leading : (pathspec magic) or a trailing / (directory). Required to render the read-only reviewer; check rejects a report that widens it." },
-    contract: { type: "string", enum: [...PROFILES, ...PANEL_ROLES], description: "check: profile id or panel/pool role whose output contract applies." },
+    contract: { type: "string", enum: [...PROFILES, ...PANEL_ROLES, ...Object.keys(executedContracts)], description: "check: profile id or panel/pool role whose output contract applies." },
     output: { type: "object", additionalProperties: true, description: "check: the child's returned JSON object, validated without coercion." },
     status: { type: "string", enum: ["PASS", "ISSUES", "BLOCKED"], description: "check: the child's reported result status, when its contract depends on it." },
+    frozen: frozenSchema,
+    reviewers: executedContextSchema.properties.reviewers,
     candidates: { ...paths, maxItems: 8, description: "check cross-judge: exact usable candidate labels." },
   }, required: ["action"],
 };
-const allowed: Record<string, string[]> = { render: ["profile", "task", "scope"], check: ["contract", "output", "scope", "status", "candidates"] };
+const allowed: Record<string, string[]> = { render: ["profile", "task", "scope"], check: ["contract", "output", "scope", "status", "candidates", "frozen", "reviewers"] };
 function assertArguments(value: unknown) {
   const checked = validateJsonSchemaValue({ schema: briefParameters, value });
   if (!checked.ok) throw Error("Invalid pstack_brief arguments: " + checked.errors.slice(0, 4).map(e => e.text).join("; "));
@@ -92,6 +95,12 @@ export function registerBriefTool(api: OpenClawPluginApi, root: string, hostProf
           notice: "Resolve the routing role with pstack_route and pass this brief as the native sessions_spawn task. Rendering is not admission, execution or tool enforcement; sessions_spawn cannot select a host profile." });
       }
       const context: Record<string, unknown> = { status: p.status, candidates: p.candidates, scope: p.scope };
+      if (Object.hasOwn(executedContracts, p.contract)) {
+        if (!["PASS", "ISSUES", ...(p.contract === "interrogate-executed-lead" ? ["BLOCKED"] : [])].includes(p.status)) throw Error("Executed check needs explicit status; only a lead may carry BLOCKED accounting");
+        assertProofContext(p.frozen);
+        if (p.contract === "interrogate-executed-lead") assertProofContext({ frozen: p.frozen, reviewers: p.reviewers }, true);
+        Object.assign(context, { frozen: p.frozen, reviewers: p.reviewers });
+      }
       let output = p.output, readErrors: string[] = [];
       if (p.contract === "poteto-agent") {
         const routes = JSON.parse(await readFile(join(skill, "native/routes.json"), "utf8"));

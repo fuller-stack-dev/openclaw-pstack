@@ -80,9 +80,10 @@ describe("frozen pre-executed-proof interrogate records", () => {
     expect(deliverable(record, view)).toContain("legacy-lead:0");
   });
 
-  it.each(["pending", "correction", "failed-correction"] as const)("resumes frozen %s with original pins and no duplicate accepted child or second correction", async mode => {
-    const correction = mode !== "pending";
+  it.each(["pending", "natural-native", "correction", "failed-correction"] as const)("resumes frozen %s with original pins and no duplicate accepted child or second correction", async mode => {
+    const correction = mode === "correction" || mode === "failed-correction";
     let record = correction ? structuredClone(frozen.correction) as RecordV1 : copy("v2", true);
+    if (mode === "natural-native") record.setup.profiles = structuredClone(frozen.nativeAdmissionV2.profiles);
     const spawned: any[] = [], collected: string[][] = [];
     const key = workflowKey(record.owner, record.id);
     const result = (slot: string) => {
@@ -101,7 +102,8 @@ describe("frozen pre-executed-proof interrogate records", () => {
     expect(finished.view.status).toBe(mode === "failed-correction" ? "blocked" : "completed");
     expect(collected).toEqual(correction ? [["new-lead"]] : [["legacy-reviewers:1"], ["new-lead"]]);
     expect(spawned).toHaveLength(1);
-    expect(spawned[0].profile).toBe("panel-reviewer");
+    expect(spawned[0].profile).toBe(mode === "natural-native" ? undefined : "panel-reviewer");
+    if (mode === "natural-native") expect(record.setup.profiles).not.toHaveProperty("judgment and prose");
     expect(spawned[0].task).toContain("slot lead:0");
     if (correction) {
       expect(spawned[0].task).toContain("one correction");

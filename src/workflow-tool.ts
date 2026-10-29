@@ -1,3 +1,5 @@
+import { fileURLToPath } from "node:url";
+import { interrogateSemantics } from "../skills/pstack/scripts/interrogate-semantics.mjs";
 import type { OpenClawPluginApi, OpenClawPluginToolContext } from "openclaw/plugin-sdk/plugin-entry";
 import { buildSpawnArgs } from "../skills/pstack/scripts/model-routing.mjs";
 import { contractFor, outputInstruction } from "../skills/pstack/scripts/output-contracts.mjs";
@@ -138,14 +140,15 @@ export function registerWorkflowTool(api: OpenClawPluginApi, ownerFor: OwnerReso
       // Panel children learn the exact closed output shape their collection must satisfy,
       // and a judge learns the exact labels collection will require.
       const candidates = judgeCandidates(record);
-      const task = [p.task, ...(candidates ? [judgeInstruction(candidates)] : []), ...(contractFor(job.role) ? [outputInstruction(job.role)] : [])].join("\n\n");
+      const semantics = interrogateSemantics(record.setup);
+      const task = [p.task, ...(semantics?.executed ? ["Read " + fileURLToPath(new URL("../" + semantics.recipe, import.meta.url)) + "; execute safe repro only in fresh task-owned frozen-scope scratch. Agent-attested evidence, not host execution proof. Frozen framing: " + JSON.stringify(view.evidence.frame).replaceAll("PSTACK_SNAPSHOT", "PSTACK\\u005fSNAPSHOT")] : []), ...(candidates ? [judgeInstruction(candidates)] : []), ...(contractFor(job.role, record.setup) ? [outputInstruction(job.role, record.setup)] : [])].join("\n\n");
       const args = buildSpawnArgs({ snapshot, task, catalog: view.catalog,
         spawnSchema: p.spawnSchema, baseArgs: p.baseArgs ?? {}, workspace: owner.workspace });
       const selected = args[job.index];
       if (!selected) throw Error("Snapshot selection index is unavailable");
       selected.task += "\n" + spawnTag(workflowKey(owner, record.id), snapshotId, job.id);
       return reply({ assurance: "agent-attested", workflowId: record.id, revision: view.revision,
-        slot: job.id, snapshotId, outputContract: contractFor(job.role)?.name ?? null, ...(candidates ? { candidates } : {}), spawnArgs: selected, notice: "Call the first-class native tool, then append its actual accepted IDs. This plan is not admission or execution evidence." });
+        slot: job.id, snapshotId, outputContract: contractFor(job.role, record.setup)?.name ?? null, ...(candidates ? { candidates } : {}), spawnArgs: selected, notice: "Call the first-class native tool, then append its actual accepted IDs. This plan is not admission or execution evidence." });
     },
   }), { names: ["pstack_workflow"] });
 }

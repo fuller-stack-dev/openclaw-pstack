@@ -657,5 +657,14 @@
       }
     },
     "events": []
+  },
+  "nativeAdmissionV2": {
+    "provenance": "Synthetic receipts with the normal v2 admission profile shape from controller.nativeSetup and panelProfileFor at 0d3c845a8c3c0e143167253a3b4cad7cb0d12027: reviewers pinned, judgment and prose unprofiled. Existing v2 remains the broader supported synthetic pinned-lead case.",
+    "profiles": {
+      "interrogate reviewers": {
+        "id": "panel-reviewer",
+        "instructionsSha256": "167df839577a9bbf5f7e80b56f9e45e3ef8d0b327c21bab68fe3ddc0da2423b7"
+      }
+    }
   }
 }

@@ -1,5 +1,6 @@
 /** Agent-attested brief and output contracts. Pure: no tools, spawning, files or network. */
 import contracts from '../native/agents/contracts.json' with { type: 'json' };
+import { interrogateSemantics, executedContracts, frozenSchema, executedContextSchema, frozenErrors, checkExecuted } from './interrogate-semantics.mjs';
 import { ROLE_SPECS } from './model-routing.mjs';
 
 const KEYWORDS = {
@@ -188,7 +189,11 @@ export const WRITER_ROLES = Object.freeze(['feature, refactoring', 'bug-fix', 'p
 const READ_ONLY_DENY = ['write', 'edit', 'apply_patch', 'sessions_spawn', 'group:plugins'];
 checkContracts(contracts);
 
-export function contractFor(nameOrRole) {
+export function contractFor(nameOrRole, setup) {
+  const semantics = interrogateSemantics(setup);
+  if (semantics && nameOrRole === 'interrogate reviewers') nameOrRole = semantics.reviewer;
+  if (semantics?.executed && nameOrRole === 'judgment and prose') nameOrRole = semantics.lead;
+  if (Object.hasOwn(executedContracts, nameOrRole)) return { name: nameOrRole, schema: JSON.parse(JSON.stringify(executedContracts[nameOrRole])) };
   const name = own(contracts.panelRoles, nameOrRole) ? contracts.panelRoles[nameOrRole]
     : contracts.profiles.find(p => p.id === nameOrRole)?.outputSchema ?? nameOrRole;
   if (!own(contracts.schemas, name)) return undefined;
@@ -208,7 +213,7 @@ export function subagentProfiles() {
   return [
     ...contracts.profiles.map(p => ({ id: p.id, description: p.label, instructionsFile: 'skills/pstack/' + p.instructionsFile,
       outputSchema: JSON.parse(JSON.stringify(contracts.schemas[p.outputSchema])), tools: { deny: [...p.narrowTools.deny] } })),
-    ...contracts.panelProfiles.map(p => ({ id: p.id, description: p.label, instructionsFile: 'skills/pstack/' + p.instructionsFile,
+    ...([...contracts.panelProfiles, { ...contracts.panelProfiles.find(p => p.id === 'panel-reviewer'), id: 'interrogate-adversary', label: 'Executed interrogate: scratch-only shell writes are prompt-enforced', instructionsFile: 'native/agents/interrogate-adversary.md' }]).map(p => ({ id: p.id, description: p.label, instructionsFile: 'skills/pstack/' + p.instructionsFile,
       tools: { deny: [...p.narrowTools.deny] } })),
   ];
 }
@@ -219,17 +224,28 @@ export function profileKeepsShell(id) {
   return !found || !['group:runtime', 'exec'].some(tool => found.narrowTools.deny.includes(tool));
 }
 /** The panel profile a controller role spawns under, when one serves it. */
-export function panelProfileFor(role) {
+export function panelProfileFor(role, setup) {
+  const semantics = interrogateSemantics(setup);
+  if (semantics?.executed && ['interrogate reviewers', 'judgment and prose'].includes(role)) return semantics.profile;
   return contracts.panelProfiles.find(p => p.roles.includes(role))?.id;
 }
 
 /** Returns every structural and cross-field error; an empty list is agent-attested shape validity only. */
 export function checkOutput(nameOrRole, output, context = {}) {
-  const contract = contractFor(nameOrRole);
+  const contract = contractFor(nameOrRole, context.setup);
   if (!contract) return ['unknown output contract: ' + nameOrRole];
   const errors = [];
   check(contract.schema, output, '$', errors);
-  if (!errors.length) SEMANTICS[contract.name](output, context, message => errors.push(message));
+  if (!errors.length) {
+    if (Object.hasOwn(executedContracts, contract.name)) {
+      try {
+        if (!['PASS', 'ISSUES', 'BLOCKED'].includes(context.status)) throw Error('Executed check requires explicit result status');
+        assertProofContext(contract.name === 'interrogate-executed-lead' ? { frozen: context.frozen, reviewers: context.reviewers } : context.frozen, contract.name === 'interrogate-executed-lead');
+        checkExecuted(contract.name, output, context, message => errors.push(message));
+      } catch (error) { errors.push(String(error.message)); }
+    }
+    else SEMANTICS[contract.name](output, context, message => errors.push(message));
+  }
   return errors;
 }
 export function assertOutput(nameOrRole, output, context) {
@@ -237,8 +253,8 @@ export function assertOutput(nameOrRole, output, context) {
   if (errors.length) throw Error('Invalid ' + nameOrRole + ' output: ' + errors.slice(0, 4).join('; '));
 }
 
-export function outputInstruction(nameOrRole) {
-  const contract = contractFor(nameOrRole);
+export function outputInstruction(nameOrRole, setup) {
+  const contract = contractFor(nameOrRole, setup);
   if (!contract) throw Error('Unknown output contract: ' + nameOrRole);
   return 'Output contract `' + contract.name + '`: end with exactly one JSON object matching this closed schema. The parent validates it before use; shape validity is not evidence of correctness.\n' + JSON.stringify(contract.schema);
 }
@@ -269,3 +285,16 @@ export function renderBrief(id, { instructions, task, requiredReads, scope }) {
     '## Output\n' + outputInstruction(p.outputSchema),
   ].join('\n\n');
 }
+
+/** Validate frozen context before comparing any agent output to it. */
+export function assertProofContext(value, reviewers = false) {
+  const errors = [];
+  check(reviewers ? executedContextSchema : frozenSchema, value, '$', errors);
+  if (!errors.length) {
+    frozenErrors(reviewers ? value.frozen : value, message => errors.push(message));
+    if (reviewers) for (const r of value.reviewers) errors.push(...checkOutput('interrogate-executed-reviewer', r.output, { frozen: value.frozen, status: r.output.findings.length ? 'ISSUES' : 'PASS' }));
+  }
+  if (errors.length) throw Error('Invalid frozen proof context: ' + errors.slice(0,4).join('; '));
+  return value;
+}
+for (const schema of [...Object.values(executedContracts), frozenSchema, executedContextSchema]) checkSchemaDefinition(schema);

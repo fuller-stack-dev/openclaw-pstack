@@ -118,6 +118,8 @@ For long routed phases, spawn announcing children (without `collect`; a collecto
 5. Merge findings, spot-check evidence and verify integration while preserving existing task owners. Return one consolidated table, issue one-liners, gaps/dropouts and the race rule when used, not raw worker dumps. Missing, failed or invalid slices cannot support a complete-coverage claim.
 
 ## interrogate
+**Record-local semantics:** new native and agent-led ledger admissions use [executed proof](interrogate-executed.md). Read that protocol in full: frozen inputs, safe scratch-only reproduction, fresh independent lead reruns and Intent / Findings / Dropped. Never interpret a frozen old record using new defaults. The numbered legacy steps below apply ONLY to records without executedProof; native controllers resolve those records to the [preserved legacy workflow](legacy/interrogate/workflow.md).
+
 For long routed phases, spawn announcing children (without `collect`; a collector is collected in the turn that spawned it) and use a short bounded native wait, then hand off pending run IDs and finish on resume under [the shared lifecycle](contract.md#collection-and-resume); never respawn accepted children or claim pending work complete.
 
 1. Keep this route read-only. Freeze the caller’s files/diff or the full feature-branch diff against the appropriate base, exact head, surrounding callers/types and test context. State one clear intent paragraph grounded in the request, commits, existing PR and code; ask only when intent is genuinely unresolved. Challenge execution against that intent, not the goal itself.

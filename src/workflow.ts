@@ -1,6 +1,8 @@
 import { createHash } from "node:crypto";
 import { validateSnapshot } from "../skills/pstack/scripts/model-routing.mjs";
-import { contractFor, assertOutput, profileKeepsShell } from "../skills/pstack/scripts/output-contracts.mjs";
+import { contractFor, assertOutput, profileKeepsShell, assertProofContext } from "../skills/pstack/scripts/output-contracts.mjs";
+
+import { interrogateSemantics } from "../skills/pstack/scripts/interrogate-semantics.mjs";
 
 export const KINDS = ["architect", "arena", "interrogate", "swarm", "how", "why", "reflect"] as const;
 export type Kind = (typeof KINDS)[number];
@@ -24,7 +26,7 @@ export type ProfilePin = { id: string; instructionsSha256: string };
  * later child briefs from the task, every child of a pinned role must spawn under that profile,
  * and records created before version 2 keep the stage sequence they were admitted with.
  */
-export type Setup = { kind: Kind; taskDigest: string; sourceDigest: string; snapshots: Snapshot[]; catalog: Catalog; options: Options; task?: string; profiles?: Record<string, ProfilePin>; stagesVersion?: 2; correction?: Correction; leadFirst?: true };
+export type Setup = { kind: Kind; taskDigest: string; sourceDigest: string; snapshots: Snapshot[]; catalog: Catalog; options: Options; task?: string; profiles?: Record<string, ProfilePin>; stagesVersion?: 2; correction?: Correction; leadFirst?: true; executedProof?: true };
 /**
  * Native arena and architect records from 1.2.3 (`leadFirst`): the lead records its own scores in a
  * `lead` checkpoint before the controller spawns the judge, so the judge's scores cannot shape them.
@@ -36,7 +38,7 @@ export const LEAD_FIRST_KINDS: readonly Kind[] = ["arena", "architect"];
  * slot, under the source's pinned routing snapshot and profile, briefed with the source's
  * inputs, the delivered report and the errors found in it.
  */
-export type Correction = { workflowId: string; slot: string; runId: string; artifactDigest: string; report: string; errors: string; by: string };
+export type Correction = { workflowId: string; slot: string; runId: string; artifactDigest: string; report: string; errors: string; by: string; proofContext?: { frozen: unknown; reviewers: { slot: string; artifactDigest: string; output: unknown }[] } };
 /** The slot whose report a native workflow delivers verbatim, by kind and stages version. */
 export const CORRECTABLE: Partial<Record<Kind, { slot: string; role: string }>> = {
   how: { slot: "explainer:0", role: "how explainer" }, why: { slot: "synthesizer:0", role: "why synthesizer" }, interrogate: { slot: "lead:0", role: "judgment and prose" },
@@ -146,8 +148,8 @@ function stages(s: Setup): Stage[] {
         : [checkpoint("ground", "how", "rationale-constraints")]),
       jobs("designs", "architect runners", 2), ...(s.leadFirst ? [checkpoint("lead", "lead-scores")] : []), jobs("judge", "arena cross-judge pool", 1), s.leadFirst ? checkpoint("compare", "judge-comparison", "red-flags") : checkpoint("compare", "lead-scores", "judge-comparison", "red-flags"), checkpoint("synthesis", "caller-first-package", "rationale", "alternatives-grafts-rejections"), ...(s.options.intent === "checkpoint" ? [{ ...checkpoint("agree", "user-decision"), approval: true as const }] : []), ...(s.options.intent !== "design-only" ? [checkpoint("implement", "implementation-authority", "behavioral-verification", "deviations-or-none")] : [])];
     case "arena": return [checkpoint("frame", "task-and-isolation", "rubric-3-to-6"), jobs("candidates", "arena runners", 2), ...(s.leadFirst ? [checkpoint("lead", "lead-scores")] : []), jobs("judge", "arena cross-judge pool", 1), s.leadFirst ? checkpoint("compare", "judge-comparison") : checkpoint("compare", "lead-scores", "judge-comparison"), checkpoint("graft", "base-and-rejections", "grafts-or-convergence"), checkpoint("verify", "behavioral-verification", "synthesis-note")];
-    case "interrogate": return [checkpoint("frame", "intent", "frozen-head", "rubric"), jobs("reviewers", "interrogate reviewers", 2),
-      v2 ? jobs("lead", "judgment and prose", 1) : checkpoint("verdict", "all-findings-four-buckets", "model-attributed-agreement-map", "source-validation")];
+    case "interrogate": return [checkpoint("frame", ...interrogateSemantics(s)!.frame), jobs("reviewers", "interrogate reviewers", 2),
+      v2 ? jobs("lead", "judgment and prose", 1) : checkpoint("verdict", ...interrogateSemantics(s)!.verdict)];
     case "swarm": return [checkpoint("frame", "predicate-and-coverage", "predeclared-race-rule-or-partition"), { name: "workers", gates: [], jobs: (s.options.slices ?? []).map(slice => ({ id: "workers:" + slice.id, role: "swarm workers", index: 0, slice })) }, checkpoint("aggregate", "integration-verification", "coverage-and-dropouts")];
     case "how": return [...(s.options.complexity === "complex" ? [jobs("explorers", "how explorer", s.options.explorers!)] : []), jobs("explainer", "how explainer", 1),
       ...(v2 ? [] : [checkpoint("present", "explanation-sections", "light-edits-only")])];
@@ -184,15 +186,18 @@ function validateSources(sources: unknown) {
 }
 /** Native records may leave swarm slices or why sources to a configure event during framing. */
 export function validateSetup(s: Setup, native = false) {
-  fields(s, ["kind", "taskDigest", "sourceDigest", "snapshots", "catalog", "options", ...(native ? ["task", "profiles", "stagesVersion", "correction", "leadFirst"] : [])], "setup");
+  fields(s, ["kind", "taskDigest", "sourceDigest", "snapshots", "catalog", "options", "executedProof", ...(native ? ["task", "profiles", "stagesVersion", "correction", "leadFirst"] : [])], "setup");
+  if (s.executedProof !== undefined && (s.executedProof !== true || s.kind !== "interrogate")) throw Error("executedProof belongs only to interrogate");
   if (s.stagesVersion !== undefined && s.stagesVersion !== 2) throw Error("Unsupported native stages version");
   if (s.leadFirst !== undefined && (s.leadFirst !== true || s.stagesVersion !== 2 || s.correction || !LEAD_FIRST_KINDS.includes(s.kind))) throw Error("leadFirst belongs only to a version-2 arena or architect record");
   if (s.correction !== undefined) {
     const c = s.correction;
-    fields(c, ["workflowId", "slot", "runId", "artifactDigest", "report", "errors", "by"], "correction");
+    fields(c, ["workflowId", "slot", "runId", "artifactDigest", "report", "errors", "by", "proofContext"], "correction");
     if (s.stagesVersion !== 2 || !CORRECTABLE[s.kind] || c.slot !== CORRECTABLE[s.kind]!.slot) throw Error("Only a version-2 how, why or interrogate deliverable can be corrected");
     if (typeof c.workflowId !== "string" || !/^pw-[a-z0-9]{12}$/.test(c.workflowId)) throw Error("Invalid corrected workflow id");
     text(c.runId, "corrected run id", 256); sha(c.artifactDigest, "corrected artifact"); text(c.report, "corrected report", 32000);
+    if (s.executedProof) assertProofContext(c.proofContext, true);
+    else if (c.proofContext !== undefined) throw Error("Legacy correction cannot carry executed proof context");
     text(c.errors, "correction errors", 8000); text(c.by, "correcting requester", 512);
   }
   if (!KINDS.includes(s.kind)) throw Error("Unsupported workflow kind");
@@ -289,7 +294,7 @@ export function judgeCandidates(record: RecordV1) {
     return { label: j.id, path: output?.artifactPath ?? output?.packagePath ?? null };
   });
 }
-function validateResult(r: Result, job: Job, view: View, native: boolean, previous?: Stage) {
+function validateResult(r: Result, job: Job, view: View, native: boolean, setup: Setup, previous?: Stage) {
   fields(r, ["status", "artifactDigest", "evidence", "shapeDigest", "sha", "method", "output", ...(native ? ["report"] : [])], "result");
   if (!["PASS", "ISSUES", "BLOCKED"].includes(r.status)) throw Error("Invalid result status");
   sha(r.artifactDigest, "artifact");
@@ -297,13 +302,13 @@ function validateResult(r: Result, job: Job, view: View, native: boolean, previo
   for (const e of r.evidence) text(e, "result evidence");
   if (r.report !== undefined) text(r.report, "child report", 32000);
   // Panel roles carry a closed output contract; other roles keep artifact digests only.
-  const contract = contractFor(job.role);
-  if (!contract || r.status === "BLOCKED") {
+  const contract = contractFor(job.role, setup);
+  if (!contract || (r.status === "BLOCKED" && !(setup.executedProof && job.role === "judgment and prose" && r.output !== undefined))) {
     if (r.output !== undefined) throw Error(contract ? "A BLOCKED result carries evidence, not a panel output" : "No output contract for role " + job.role);
   } else {
     if (r.output === undefined) throw Error("Panel output required for " + job.role + " (" + contract.name + ")");
     const candidates = previous ? usable(previous, view).map(j => j.id) : undefined;
-    assertOutput(job.role, r.output, { status: r.status, candidates });
+    assertOutput(job.role, r.output, { status: r.status, candidates, setup, ...(setup.executedProof ? proofContext(setup, view) : {}) });
   }
   // Optional for compatibility: when supplied it must equal the digest the ledger derives.
   if (r.shapeDigest !== undefined) {
@@ -405,7 +410,7 @@ export function workflowView(record: RecordV1): View {
         if (!job || !attempt || attempt.runId !== e.runId || attempt.result || attempt.rejected) throw Error("Result must belong to the pending accepted child");
         if (native && e.selection !== undefined) { validateReceipt(e.selection); attempt.receipts!.push(clone(e.selection)); }
         if (e.type === "collect") {
-          validateResult(e.result, job, view, native, scoredStage(sequence, pos));
+          validateResult(e.result, job, view, native, record.setup, scoredStage(sequence, pos));
           if (native) {
             // A native result is usable only when host receipts confirm every requested control.
             const requested = view.snapshots[attempt.snapshotId]!.selections[job.index]!;
@@ -454,7 +459,14 @@ export function workflowView(record: RecordV1): View {
         // A native swarm slice that also failed its one retry becomes a recorded coverage gap, never a pass.
         const gaps = native && record.setup.kind === "swarm" && stage.name === "workers";
         fields(e.evidence, stage.name === "candidates" ? ["dropouts"] : gaps ? ["coverage-gaps"] : stage.gates, "phase evidence");
-        for (const key of stage.gates) text(e.evidence[key], "gate " + key);
+        for (const key of stage.gates) text(e.evidence[key], "gate " + key, record.setup.executedProof ? 128000 : 4096);
+        if (record.setup.executedProof && stage.name === "frame") assertProofContext(JSON.parse(e.evidence["frozen-head"]!));
+        if (record.setup.executedProof && stage.name === "verdict") {
+          const lead = JSON.parse(e.evidence["independent-lead"]!);
+          fields(lead, ["status", "output"], "independent lead");
+          if (!["PASS", "ISSUES"].includes(lead.status as string)) throw Error("Independent lead unavailable: BLOCKED");
+          assertOutput(interrogateSemantics(record.setup)!.lead, lead.output, { status: lead.status, ...proofContext(record.setup, view) });
+        }
         if (native && Object.values(view.dispatches).length) throw Error("A pending native dispatch must be reconciled before advancing");
         let usableCount = 0, gapCount = 0;
         for (const j of stage.jobs) {
@@ -618,7 +630,8 @@ export async function mutateWorkflow<C>(store: KeyedStore<C>, owner: Owner, id: 
   let next: RecordV1;
   if (revision === 0) {
     if (observed.value !== undefined) throw Error("Workflow already exists; read it instead of recreating children");
-    next = createWorkflow(id, owner, change as Setup, version);
+    const setup = change as Setup;
+    next = createWorkflow(id, owner, setup.kind === "interrogate" && !setup.correction ? { ...setup, executedProof: true } : setup, version);
   } else next = appendEvent(ownedRecord(observed.value, owner, id), revision, change as Event);
   assertCurrent();
   if (Buffer.byteLength(JSON.stringify(next)) > LEDGER_BUDGET.cancel.bytes) throw new LedgerBudgetError("Workflow ledger size budget reached; nothing was written");
@@ -628,4 +641,15 @@ export async function mutateWorkflow<C>(store: KeyedStore<C>, owner: Owner, id: 
   assertCurrent();
   if (result.status !== "applied") throw Error("Concurrent workflow change; read the new revision before retrying");
   return { record: next, view: workflowView(next) };
+}
+
+/** Frozen inputs for collection, replay and correction; never derive them from a child report. */
+export function proofContext(setup: Setup, view: View) {
+  if (setup.correction?.proofContext) return setup.correction.proofContext;
+  const frozen = assertProofContext(JSON.parse(view.evidence.frame?.["frozen-head"] ?? "null"));
+  const reviewers = ["reviewers:0", "reviewers:1"].flatMap(slot => {
+    const result = view.attempts[slot]?.at(-1)?.result;
+    return result && result.status !== "BLOCKED" ? [{ slot, artifactDigest: result.artifactDigest, output: result.output }] : [];
+  });
+  return { frozen, reviewers };
 }

@@ -21,6 +21,7 @@
     "skills/pstack/scripts/session_mode.py",
     "skills/pstack/scripts/plan-check.mjs",
     "skills/pstack/scripts/output-contracts.mjs",
+    "skills/pstack/scripts/interrogate-semantics.mjs",
     "skills/pstack/scripts/verify_install.py",
     "openclaw.plugin.json",
     "README.md",

@@ -16,8 +16,8 @@
     },
     {
       "path": "native/workflows.md",
-      "bytes": 107737,
-      "sha256": "8d0a255a27ea7c0920cf0cddc77f26803473e46136f0e98f39fe5ea08eda77bb"
+      "bytes": 108236,
+      "sha256": "c13a9de732661dfd45dc8032672d074134d4fc19b5b2273d8d870049c5a93546"
     },
     {
       "path": "native/playbooks.md",
@@ -453,7 +453,7 @@
       "sha256": "fa477a1532de8267e30dd95b30c05df66de6f813e37b730a05f7aa99d714c51c",
       "route": "interrogate",
       "document": "workflows.md",
-      "sectionSha256": "4b78f6c3176dea4ed72ec9d170a6a79d2c78ac4a98e3d29a149bd8dbbdf2dc52",
+      "sectionSha256": "74fdf96d20af617aaf2d539247222420705dca9322cf6be8c09befa62a3ffcc1",
       "requirementIds": [
         "scope-intent",
         "references",

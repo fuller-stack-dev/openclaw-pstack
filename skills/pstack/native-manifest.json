@@ -34,8 +34,8 @@
     },
     {
       "path": "native/agents/interrogate-adversary.md",
-      "bytes": 1310,
-      "sha256": "77ad94c3a70465f3b9674339e13bf3621a66685568de5bea557cd4ca1057bfcc"
+      "bytes": 1841,
+      "sha256": "663e7ddb139401b731f119aa137be5b561ea543f9221aa34e80b137522b3a409"
     },
     {
       "path": "native/agents/panel-judge.md",
@@ -89,8 +89,8 @@
     },
     {
       "path": "native/interrogate-executed.md",
-      "bytes": 2987,
-      "sha256": "939d3243438796a31a3cdb5e8b1ff811be654f27dd141be63c7b3d94877a7451"
+      "bytes": 3293,
+      "sha256": "074e6caf91ae7ef556185c6e5c777d1c5e5736d87c6a716be289037f027cf3a9"
     },
     {
       "path": "native/legacy/interrogate/README.md",

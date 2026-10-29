@@ -25,7 +25,7 @@ const gateway = await build({
 
 // Inspect the complete gateway graph, not only the artifact entry's graph.
 const inputs = Object.keys(gateway.metafile.inputs);
-if (inputs.some(p => p.split("/").some(part => ["artifacts", "pele", "rastermill"].includes(part))))
+if (inputs.some(p => p.split("/").some(part => ["artifacts", "pele", "rastermill", "@resvg", "resvg-wasm"].includes(part))))
   throw Error("Artifact/render dependency leaked into gateway bundle");
 const artifact = await build({
   entryPoints: { statechart: "src/artifacts/statechart/statechart.ts", "statechart-worker": "src/artifacts/statechart/worker.ts" },
@@ -35,3 +35,5 @@ const artifact = await build({
   banner: { js: "/*! Native statechart port; notices: licenses/statechart-MIT.txt and licenses/pele.txt. */" },
 });
 console.log(JSON.stringify({ gatewayInputs: inputs, artifactInputs: Object.keys(artifact.metafile.inputs), outputs: Object.keys(artifact.metafile.outputs) }));
+
+await import("./build-video.mjs");

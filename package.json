@@ -7,6 +7,7 @@
     "dist/index.js",
     "dist/statechart.mjs",
     "dist/statechart-worker.mjs",
+    "dist/ketchup-video.mjs",
     "licenses",
     "skills/poteto-mode/SKILL.md",
     "skills/routes",
@@ -51,7 +52,8 @@
     "test:routes": "node --test tests/route-generation.test.mjs",
     "sync:overlay": "node scripts/sync-overlay.mjs",
     "test:overlay": "node --test tests/semantic-overlay.test.mjs",
-    "test:statechart": "node tests/artifact-statechart-packed.mjs"
+    "test:statechart": "node tests/artifact-statechart-packed.mjs",
+    "test:video": "node --test tests/artifact-video-pack.test.mjs"
   },
   "peerDependencies": {
     "openclaw": ">=2026.10.5"
@@ -102,7 +104,8 @@
     "node": ">=24.16.0"
   },
   "devDependencies": {
-    "esbuild": "0.28.2"
+    "esbuild": "0.28.2",
+    "@resvg/resvg-wasm": "2.6.2"
   },
   "peerDependenciesMeta": {
     "openclaw": {

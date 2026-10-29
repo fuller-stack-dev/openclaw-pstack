@@ -5,6 +5,9 @@
   "license": "MIT",
   "files": [
     "dist/index.js",
+    "dist/statechart.mjs",
+    "dist/statechart-worker.mjs",
+    "licenses",
     "skills/poteto-mode/SKILL.md",
     "skills/routes",
     "skills/pstack/SKILL.md",
@@ -47,7 +50,8 @@
     "sync:routes": "node scripts/sync-routes.mjs",
     "test:routes": "node --test tests/route-generation.test.mjs",
     "sync:overlay": "node scripts/sync-overlay.mjs",
-    "test:overlay": "node --test tests/semantic-overlay.test.mjs"
+    "test:overlay": "node --test tests/semantic-overlay.test.mjs",
+    "test:statechart": "node tests/artifact-statechart-packed.mjs"
   },
   "peerDependencies": {
     "openclaw": ">=2026.10.5"
@@ -104,5 +108,8 @@
     "openclaw": {
       "optional": true
     }
+  },
+  "dependencies": {
+    "pele": "1.9.0"
   }
 }

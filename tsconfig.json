@@ -13,5 +13,11 @@
     "noImplicitReturns": true,
     "noUncheckedIndexedAccess": true
   },
-  "include": ["src/**/*.ts", "src/**/*.mjs"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.mjs"
+  ],
+  "exclude": [
+    "src/artifacts"
+  ]
 }

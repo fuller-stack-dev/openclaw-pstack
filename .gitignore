@@ -1,6 +1,6 @@
 node_modules/
 .coverage/
 *.tgz
-artifacts/
+/artifacts/
 # Raw diagnostic runs may contain host configuration and prompts.
 evidence/

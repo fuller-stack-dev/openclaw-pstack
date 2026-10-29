@@ -14,3 +14,9 @@ packaging are adaptations maintained by fuller-stack-dev.
 
 This is not the official Cursor pstack plugin. Cursor and the upstream author
 have not endorsed this independent adaptation.
+
+The separately invoked native statechart CLI adapts reviewed statechart sources
+from cursor/plugins c742dd61706fbacc1b95f1a20b7b988cf096ce6c, MIT (c) 2026 Lauren Tan.
+Its worker bundles Pele 1.9.0, MIT (c) 2026 kepano, with the included ISC notice.
+Full notices: licenses/statechart-MIT.txt and licenses/pele.txt.
+These artifact entries are not imported by the Gateway plugin.

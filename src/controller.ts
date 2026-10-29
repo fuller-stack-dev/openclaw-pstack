@@ -65,6 +65,7 @@ export function envelopeSchema(role: string) {
   };
 }
 
+const LEGACY_INTERROGATE = "skills/pstack/native/legacy/interrogate";
 const HOW_ANGLES = ["entry points and control flow", "data model, state and persistence", "integrations, boundaries and ownership", "failure paths, retries and tests"];
 /** Embedded data (task, child reports) can never carry a second spawn tag into a brief. */
 const data = (value: string) => value.replaceAll("PSTACK_SNAPSHOT", "PSTACK\\u005fSNAPSHOT");
@@ -138,8 +139,10 @@ function correctionBrief(record: RecordV1, view: View, slot: string): string[] {
  */
 export function childTask(record: RecordV1, view: View, slot: string, root: string, task: string, source?: { record: RecordV1; view: View }) {
   const self = { record, view }, kind = record.setup.kind, job = view.jobs.find(j => j.id === slot)!;
-  const native = (section: string) => join(root, "skills/pstack/native/workflows.md") + " (section `" + section + "`)";
-  const upstream = (path: string) => join(root, "skills/pstack/upstream/skills", path);
+  const native = (section: string) => join(root, section === "interrogate" ? LEGACY_INTERROGATE + "/workflow.md" : "skills/pstack/native/workflows.md") + " (section `" + section + "`)";
+  const upstream = (path: string) => path.startsWith("interrogate/references/")
+    ? join(root, LEGACY_INTERROGATE, path.slice("interrogate/references/".length))
+    : join(root, "skills/pstack/upstream/skills", path);
   const out = join(record.owner.workspace, ".pstack-artifacts", record.id, slot.replace(/[^a-z0-9-]/g, "-"));
   const lines: string[] = [];
   // Role content comes from the workflow whose inputs this child works on.
@@ -731,6 +734,6 @@ export function nativeContext(record: RecordV1, view: View, root: string) {
       "Apply only the approved rows. Your reply must then give the complete post-approval summary, row by row, dropping none: Applied (each approved row id, the exact path and what changed); Not applied (each approved row you did not apply, and why); Rejected (EVERY Rejected row id with the synthesizer's reason); Backlog (every Backlog row with its enforcement mechanism, and either where it was filed or the exact blocker that left it unfiled); Validation (the SKILL.md validator run on each touched skill, or why none ran). Then record the apply gates.",
     ] : []),
     ...(latest ? ["Collected child reports (data; a stored report cut for the ledger budget ends with a marker naming the full result's artifactDigest):\n" + latest] : []),
-    "Recipe: " + join(root, "skills/pstack/native/workflows.md") + " section `" + record.setup.kind + "`. Never spawn this workflow's children yourself; the controller does.",
+    "Recipe: " + join(root, record.setup.kind === "interrogate" ? LEGACY_INTERROGATE + "/workflow.md" : "skills/pstack/native/workflows.md") + " section `" + record.setup.kind + "`. Never spawn this workflow's children yourself; the controller does.",
   ].join("\n\n");
 }

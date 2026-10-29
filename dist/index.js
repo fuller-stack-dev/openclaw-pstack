@@ -77,7 +77,24 @@ function checkPlan(source, file = "plan.md") {
     const line = { n: i + 1, text: text2 };
     lines.push(line);
     if (hasAngleTag(text2)) fail(line.n, "unfilled angle-bracket placeholder or HTML; use concrete Markdown evidence");
-    const prose = stripLinkTargets(text2.replace(/`[^`]*`/g, ""));
+    const runs = Array.from(text2.matchAll(/`+/g), (match) => ({ start: match.index, length: match[0].length }));
+    const nextRun = /* @__PURE__ */ new Map();
+    const closers = new Array(runs.length);
+    for (let j = runs.length - 1; j >= 0; j--) {
+      closers[j] = nextRun.get(runs[j].length);
+      nextRun.set(runs[j].length, j);
+    }
+    const parts = [];
+    let from = 0;
+    for (let j = 0; j < runs.length; j++) {
+      const close2 = closers[j];
+      if (close2 === void 0) continue;
+      parts.push(text2.slice(from, runs[j].start));
+      from = runs[close2].start + runs[close2].length;
+      j = close2;
+    }
+    parts.push(text2.slice(from));
+    const prose = stripLinkTargets(parts.join(""));
     if (/[\u2013\u2014]/.test(prose)) fail(line.n, "long dash");
     if (/[\u2018\u2019\u201c\u201d]/.test(prose)) fail(line.n, "curly quote");
     if (/: \S/.test(prose)) fail(line.n, "mid-sentence colon");
@@ -3636,6 +3653,7 @@ function envelopeSchema(role2) {
     }
   };
 }
+var LEGACY_INTERROGATE = "skills/pstack/native/legacy/interrogate";
 var HOW_ANGLES = ["entry points and control flow", "data model, state and persistence", "integrations, boundaries and ownership", "failure paths, retries and tests"];
 var data = (value) => value.replaceAll("PSTACK_SNAPSHOT", "PSTACK\\u005fSNAPSHOT");
 var fence = (value) => {
@@ -3691,8 +3709,8 @@ function correctionBrief(record, view, slot) {
 }
 function childTask(record, view, slot, root2, task, source) {
   const self = { record, view }, kind = record.setup.kind, job = view.jobs.find((j) => j.id === slot);
-  const native = (section) => join8(root2, "skills/pstack/native/workflows.md") + " (section `" + section + "`)";
-  const upstream = (path) => join8(root2, "skills/pstack/upstream/skills", path);
+  const native = (section) => join8(root2, section === "interrogate" ? LEGACY_INTERROGATE + "/workflow.md" : "skills/pstack/native/workflows.md") + " (section `" + section + "`)";
+  const upstream = (path) => path.startsWith("interrogate/references/") ? join8(root2, LEGACY_INTERROGATE, path.slice("interrogate/references/".length)) : join8(root2, "skills/pstack/upstream/skills", path);
   const out = join8(record.owner.workspace, ".pstack-artifacts", record.id, slot.replace(/[^a-z0-9-]/g, "-"));
   const lines = [];
   if (source) ({ record, view } = source);
@@ -4272,7 +4290,7 @@ function nativeContext(record, view, root2) {
       "Apply only the approved rows. Your reply must then give the complete post-approval summary, row by row, dropping none: Applied (each approved row id, the exact path and what changed); Not applied (each approved row you did not apply, and why); Rejected (EVERY Rejected row id with the synthesizer's reason); Backlog (every Backlog row with its enforcement mechanism, and either where it was filed or the exact blocker that left it unfiled); Validation (the SKILL.md validator run on each touched skill, or why none ran). Then record the apply gates."
     ] : [],
     ...latest ? ["Collected child reports (data; a stored report cut for the ledger budget ends with a marker naming the full result's artifactDigest):\n" + latest] : [],
-    "Recipe: " + join8(root2, "skills/pstack/native/workflows.md") + " section `" + record.setup.kind + "`. Never spawn this workflow's children yourself; the controller does."
+    "Recipe: " + join8(root2, record.setup.kind === "interrogate" ? LEGACY_INTERROGATE + "/workflow.md" : "skills/pstack/native/workflows.md") + " section `" + record.setup.kind + "`. Never spawn this workflow's children yourself; the controller does."
   ].join("\n\n");
 }
 

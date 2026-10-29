@@ -83,6 +83,36 @@
       "sha256": "652d871d8487ec4a908167e4ae8688990fe4c9d014de188a048994b1faf49cb5"
     },
     {
+      "path": "native/legacy/interrogate/README.md",
+      "bytes": 1288,
+      "sha256": "cbe29efb18ca62e9afde58ca0fb6e82017df327932e58e73a34e541fae5587ca"
+    },
+    {
+      "path": "native/legacy/interrogate/code-quality-review.md",
+      "bytes": 5217,
+      "sha256": "79162fda183eafd40d51661fbb5e151c7ba250f89e506ba17f5bd135dcbd50a8"
+    },
+    {
+      "path": "native/legacy/interrogate/lead-judgment.md",
+      "bytes": 2283,
+      "sha256": "355f5195a76bc75a655125292369f2a8231a2b61fabe5188d8f1386060922b87"
+    },
+    {
+      "path": "native/legacy/interrogate/reviewer-prompt.md",
+      "bytes": 2275,
+      "sha256": "f6005cc2b535006fca97a96c5bfda49df57312eedf1ffd8d1aaaf3eb33817c25"
+    },
+    {
+      "path": "native/legacy/interrogate/rubric.md",
+      "bytes": 4772,
+      "sha256": "0f9c6bdb0b96e26dbde5f6407f417e0c02f54080e7a1268d8994f3c3ec6c5ac0"
+    },
+    {
+      "path": "native/legacy/interrogate/workflow.md",
+      "bytes": 3863,
+      "sha256": "7f680cf7f0dd26743f04e6c64e57cfa4621288b45939958a8686b051f9cdc6e7"
+    },
+    {
       "path": "native/model-routing.md",
       "bytes": 18483,
       "sha256": "bb73dc989cd6dc71a65b4a69e262bcbc9ae54b49415844dac8e345f910a5665e"

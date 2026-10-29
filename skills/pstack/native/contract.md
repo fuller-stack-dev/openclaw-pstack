@@ -14,6 +14,14 @@ Pstack is an installable OpenClaw plugin. Registered commands own exact-session 
 - Do not automatically open PRs, post messages, deploy, start servers, create timers, or migrate data at the end of a playbook. Publishing is its own authorized step.
 - Do not restart/update the live gateway, use a live handoff store for tests, change agents/providers/credentials, create automations, or resume held work as a pstack side effect.
 
+## Current goal
+
+In the first task reply, restate the current user goal, the problem and the smallest expected change in your own words; do not wait for redundant confirmation. Carry that goal into each delegate brief, the opening of each PR Why section, and the final report, except a fully specified one-line edit. If evidence rules out the requested change, show that evidence and stop rather than inventing a replacement goal. Explicit corrections require fresh grounding against the current request. Retain holds, owners, accepted snapshots and safety gates; an old plan or reported policy is never new authority. Required machine-output contracts keep their exact shape.
+
+## Native artifact execution
+
+The separate [statechart and ketchup-video CLIs](artifacts.md) run only through ordinary agent exec, never inside the Gateway. Read their complete usage, toolchain, ownership, factual-evidence and cancellation boundaries before use. Neither this guide nor a successful CLI run registers new routes or proves model-generated reports.
+
 ## Compatibility map
 
 Discover tools, do not assume names from the source package exist. In Code Mode use `catalog.search` and the returned tool's `describe()` schema. Use first-class tools where available; never substitute direct RPC/CLI for an unavailable restricted tool.

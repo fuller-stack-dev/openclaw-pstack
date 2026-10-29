@@ -53,6 +53,11 @@
       "sha256": "811abbe2849a2040eeca0be50eb87479a24e8ac4ae0f05b0cc9a964dd399fc0a"
     },
     {
+      "path": "native/artifacts.md",
+      "bytes": 8910,
+      "sha256": "d5af7560a008283b7b7d0fbcd0607aea079d35a43f9a3374a037a67d0d3c6a4a"
+    },
+    {
       "path": "native/automation/README.md",
       "bytes": 9914,
       "sha256": "b99de633d4e7a6c7f73681d0e75dca00c8abea3709ac18303d134bc80d3b4071"
@@ -79,8 +84,8 @@
     },
     {
       "path": "native/contract.md",
-      "bytes": 20427,
-      "sha256": "4f46a981450590487be9917348112be1a1a606c680f39bdd1e3d96795ed5447a"
+      "bytes": 21469,
+      "sha256": "7662f2653164ed717a90c78b1ad238e2ddf8b2674f83e85ac4fb95f4a11323bc"
     },
     {
       "path": "native/delegation.md",

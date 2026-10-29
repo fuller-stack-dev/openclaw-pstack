@@ -1,6 +1,6 @@
 # Prefixed route commands and manual guides
 
-The 55 workflow/playbook routes in [routes.json](routes.json) have literal
+The 57 workflow/playbook routes in [routes.json](routes.json) have literal
 registered plugin commands named `pstack-<route>`.
 For example, `/pstack-architect [request]` selects architect guidance.
 The existing `/pstack <route> <request>` and exact-session on/off/status/help/migrate
@@ -54,7 +54,7 @@ literal command registration or assume its truncated spelling is stable.
 
 Bare route names are disabled by default. An operator may explicitly choose
 `plugins.entries.pstack.config.bareRouteAliases=true` under normal configuration
-authority. Only those same 55 reviewed routes are requested. Principles and
+authority. Only those same 57 reviewed routes are requested. Principles and
 native extensions are not included: no bare loop, command controls, cron or
 administrative alias is requested. No reserved command ownership is claimed.
 The host's reserved-name and existing-plugin collision checks stay authoritative;
@@ -71,7 +71,7 @@ requirements before generating any guide. Each guide points to the complete
 existing native section rather than abbreviating or replacing its gates.
 Native workflow/playbook text and requirement files are not rewritten.
 
-The generated manifest binds 55 guide hashes, every native input hash, selected
+The generated manifest binds 57 guide hashes, every native input hash, selected
 section hashes and all restored gate IDs. Doctor verifies external guide bytes,
 exact inventory, no symlink traversal and manual invocation policy; real archive
 verification runs that same doctor. CI's check mode fails on stale/missing output

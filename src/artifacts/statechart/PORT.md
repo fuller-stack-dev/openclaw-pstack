@@ -88,7 +88,7 @@ All three touched test files were read in full. Assertions use native built CLI,
 The network branch of explicit toolchain fetch has not been newly exercised: the approved
 canonical jar and existing-cache branch are reused. No claim of full upstream corpus parity,
 Windows behavior, malicious user-code containment, publication or live plugin activation.
-The source-only mirror remains the prior 172 files and 55 route inputs; this native port is separate.
+The source-only mirror now pins all 573 upstream files with 57 native route inputs. This port remains a separate ordinary-exec artifact; the source/doc migration does not rebuild or requalify its renderer.
 
 New/empty output reservations are a narrow concurrent-publication guard, not a replay/job system.
 A crash lock is not automatically stolen by PID alone; inspect its exact stage and current consumers.

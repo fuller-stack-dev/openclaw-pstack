@@ -19,8 +19,8 @@ This is preparation only: no login, upload, public-repo change, tag or release.
 | Public reviewable source | Repository intentionally remains private. The community-publishing checklist requires public GitHub source. The operator must separately authorize any visibility change before public release; this task does not. |
 | File limits | CLI 0.23.3 ClawPack parser: max 10,000 files, 50 MiB combined unpacked bytes (and per file), 64 MiB decompressed tar stream, 256 KiB package.json; max 120 MiB compressed ClawPack transport. Multipart inline limit is 18 MiB (larger artifacts use staged upload). The release is far below all; pack tests enforce the tighter parser bounds. Future server policies may add limits. Skill-publish 10 MiB/file is a separate flow, not used here. |
 | Safe archive | Plain ustar, package/ prefix, regular files/directories only, no links/PAX/duplicate paths/macOS metadata; source-mode and extracted-doctor regression checks. Managed npm extraction renames upstream .gitignore to .npmignore; doctor reports that exact relocation and still verifies its pinned bytes and complete inventory, without rewriting the installed tree. |
-| Runtime-only shipping | Literal allowlist ships built runtime, two model-visible non-user-invocable guidance skills, 55 manual model-hidden route guides, native guidance/helpers, source integrity records, pinned upstream reference and public docs/licenses. Excludes adapter tests, evidence, artifacts, operator docs, verification dumps and sourcemaps. Upstream's own tests/assets stay only as byte-identical reference, never executed. |
-| License/rights | MIT root license retains Lauren Tan attribution and adds adapter owner; original upstream MIT license preserved. NOTICE names v0.15.29, commit/tree and independent adaptation. No official-Cursor/author endorsement claim. |
+| Runtime-only shipping | Literal allowlist ships built runtime, two model-visible non-user-invocable guidance skills, 57 manual model-hidden route guides, native guidance/helpers, source integrity records, pinned upstream reference and public docs/licenses. Excludes adapter tests, evidence, artifacts, operator docs, verification dumps and sourcemaps. Upstream's own tests/assets stay only as byte-identical reference, never executed. |
+| License/rights | MIT root license retains Lauren Tan attribution and adds adapter owner; original upstream MIT license preserved. NOTICE names v0.15.36, commit/tree and independent adaptation. No official-Cursor/author endorsement claim. |
 | Setup/maintenance docs | README covers requirements, registry/local install, hook consent, commands, role file, routes, limitations, security, troubleshooting and upstream refresh. fuller-stack-dev owns maintenance and GitHub issues. |
 | Optional icon | Not supplied; ClawHub uses the declared category glyph. Custom artwork is optional; if added later, ship assets/icon.png, valid PNG <=512 KiB. |
 | Honest capability/security metadata | No bundled credentials, private endpoints, obfuscated installer, remote unreviewed execution requirement, implicit publishing, telemetry or automated marketplace activity. Host tools/identity/permission gates remain authoritative; dormant automation is explicitly opt-in. |
@@ -74,7 +74,7 @@ clawhub package publish /absolute/path/to/accepted.tgz \
 
 Do not use ordinary folder/GitHub publishing for this version: that path runs
 npm pack --ignore-scripts, which discards the upstream .gitignore. Supplying our
-verified .tgz preserves all 172 source files and exact artifact identity. The CLI
+verified .tgz preserves all 573 source files and exact artifact identity. The CLI
 supports a .tgz source for publish/dry-run even though help labels it as a folder
 or GitHub source. Registry ownership, package availability and security review
 are not established by a local dry-run. Never claim readiness means published.

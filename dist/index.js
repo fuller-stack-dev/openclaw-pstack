@@ -2620,6 +2620,7 @@ var routes_default = {
     "swarm",
     "interrogate",
     "no-comments",
+    "statechart",
     "tdd",
     "benchmark-checklist",
     "figure-it-out",
@@ -2629,6 +2630,7 @@ var routes_default = {
     "maintain-formal-verification-skill",
     "recall",
     "ketchup",
+    "ketchup-video",
     "in-your-own-words",
     "sharpen",
     "bro",
@@ -2756,7 +2758,9 @@ var routes_default = {
     "ketchup",
     "poteto-help",
     "unslop",
-    "create-formal-verification-skill"
+    "create-formal-verification-skill",
+    "statechart",
+    "ketchup-video"
   ]
 };
 

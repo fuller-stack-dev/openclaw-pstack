@@ -30,7 +30,7 @@
     },
     {
       "id": "opening-a-pr-05",
-      "text": "Perform authorized native diff cleanup in place of Cursor's deslop helper before commit, then run [no-comments](workflows.md#no-comments) before review with its required independent reviewer and full accept/reject audit. A subagent author also completes [interrogate](workflows.md#interrogate) before opening. Required review remains required for a small diff; do not silently replace it with the author's own pass."
+      "text": "Perform authorized native diff cleanup in place of Cursor's deslop helper before commit, then run [no-comments](workflows.md#no-comments) before review with its required independent reviewer and full accept/reject audit. Subagent authors have no extra automatic interrogate step merely because they are subagents. An explicit interrogate requirement, contested-design trigger or other independent review gate still applies. Required review remains required for a small diff; do not silently replace it with the author's own pass."
     },
     {
       "id": "opening-a-pr-06",
@@ -50,7 +50,7 @@
     },
     {
       "id": "opening-a-pr-10",
-      "text": "Why gives the problem and approach in one to three short sentences, without SHAs or rebase genealogy. What changed gives one to three short bullets and names both sides of a rename or retarget. Scope gives one to three items on coverage and deliberate exclusions, not a path-by-path essay. Tradeoffs names only real rejected alternatives a reviewer would ask about. Blast Radius gives one or two sentences on affected users or systems and risk; if trunk is red, state the cost of leaving it red. Verification gives one to three real run paths and outcomes, never invented or unrun passes."
+      "text": "Why opens with the current user goal, then gives the problem and approach in one to three short sentences, without SHAs or rebase genealogy. What changed gives one to three short bullets and names both sides of a rename or retarget. Scope gives one to three items on coverage and deliberate exclusions, not a path-by-path essay. Tradeoffs names only real rejected alternatives a reviewer would ask about. Blast Radius gives one or two sentences on affected users or systems and risk; if trunk is red, state the cost of leaving it red. Verification gives one to three real run paths and outcomes, never invented or unrun passes."
     },
     {
       "id": "opening-a-pr-11",
@@ -62,7 +62,7 @@
     },
     {
       "id": "opening-a-pr-13",
-      "text": "Prefer narrow coherent PRs. Independent work branches from trunk; coupled work forms a base-branch chain with the root targeting trunk and each child targeting its actual parent branch at the parent's exact tip. Preserve the sole topology writer and [autopilot-stack](#autopilot-stack) restrictions; an owner cannot infer rebase or retarget authority here. Post-merge child movement follows [shipping](#shipping), not an unrequested rewrite."
+      "text": "Prefer narrow coherent PRs. Independent work branches from trunk; coupled work forms a base-branch chain with the root targeting trunk and each child targeting its actual parent branch at the parent's exact tip. Preserve one branch owner per PR and [autopilot-stack](#autopilot-stack)'s dependency-only/no-merge restrictions; an owner cannot infer rebase or retarget authority here. Post-merge child movement follows [shipping](#shipping), not an unrequested rewrite."
     },
     {
       "id": "opening-a-pr-14",

@@ -69,7 +69,7 @@
     },
     {
       "id": "multi-phase-plan-15",
-      "text": "Name the execution route and merger in How to read this: [autopilot-full](#autopilot-full) for independent PRs with merge authority, [autopilot-stack](#autopilot-stack) for coupled work or withheld landing, or [orchestrate](#orchestrate) for a standing program."
+      "text": "Name the execution route and merger in How to read this: [autopilot-full](#autopilot-full) when the run may merge, [autopilot-stack](#autopilot-stack) when the operator lands the PRs, or [orchestrate](#orchestrate) for a standing program."
     },
     {
       "id": "multi-phase-plan-16",
@@ -161,7 +161,7 @@
     },
     {
       "id": "multi-phase-plan-38",
-      "text": "No failed lane is clean."
+      "text": "Missing or failed mandatory gates still block."
     },
     {
       "id": "multi-phase-plan-39",
@@ -297,7 +297,7 @@
     },
     {
       "id": "multi-phase-plan-72",
-      "text": "- [ ] <Code-ready rebase rule for this execution route, every later head receipt, self-proof and babysit. Stack owners never rebase or retarget.>"
+      "text": "- [ ] <Owner code-ready rebase onto trunk or the real dependency parent, later head receipts, self-proof and babysit. Fix rounds rebase for conflict, trunk-caused CI or known concurrent same-file landing; merge prep retains its own rule.>"
     },
     {
       "id": "multi-phase-plan-73",
@@ -305,15 +305,15 @@
     },
     {
       "id": "multi-phase-plan-74",
-      "text": "- [ ] <Code-ready full swarm with one gates lane, ten live lanes, perf lane, and at least two audit lanes. Minor-fix new-head verifier rule.>"
+      "text": "- [ ] <Code-ready full swarm with one gates lane, ten live lanes, perf lane, and at least two audit lanes. Minor-fix new-head verifier rule and wording-only exception preserving mandatory gates.>"
     },
     {
       "id": "multi-phase-plan-75",
-      "text": "- [ ] <Root receipt audit, all lanes PASS, owner fix-forward for findings, patch-id requalification.>"
+      "text": "- [ ] <Root receipt audit, demonstrated blocking findings and mandatory gates clear, trunk regressions recorded separately, scoped owner fix-forward and patch-id requalification.>"
     },
     {
       "id": "multi-phase-plan-76",
-      "text": "- [ ] <Authorized merge rule, or root stack append and operator landing.>"
+      "text": "- [ ] <Authorized owner merge rule, or verified no-merge handoff and operator landing; stack only real dependencies.>"
     },
     {
       "id": "multi-phase-plan-77",
@@ -465,7 +465,7 @@
     },
     {
       "id": "multi-phase-plan-114",
-      "text": "- [ ] <Authorized owner merge or root append for operator landing.>"
+      "text": "- [ ] <Authorized owner merge or verified frozen handoff for operator landing.>"
     },
     {
       "id": "multi-phase-plan-115",

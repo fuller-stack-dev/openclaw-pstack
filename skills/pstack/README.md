@@ -1,9 +1,8 @@
 # Pstack plugin workflow bundle
 
 This installable openclaw-pstack bundle supplies model-visible (not user-invocable)
-pstack and poteto-mode workflow skills, 32 routes, 24 principles, 23 playbooks,
-17 role definitions, and native triage/loop/delegation guidance. Only these two
-skill roots are registered. The 172 pinned upstream files remain byte-identical,
+pstack and poteto-mode workflow skills, 34 routes, 24 principles, 23 playbooks,
+17 role definitions, and native triage/loop/delegation guidance. These two model-readable roots plus 57 model-hidden manual route guides are registered. The 573 pinned upstream files remain byte-identical,
 source-only MIT reference; never execute or independently register them.
 
 Use registered /pstack or /poteto_mode commands: on (also no arguments), off,
@@ -39,6 +38,6 @@ authorized explicit target/config and the actual native scheduler contract;
 installation creates no job, watcher or service.
 
 Integrity: openclaw pstack doctor, or python3 scripts/verify_install.py <this-dir>.
-The source manifest pins upstream v0.15.29; native-manifest.json covers changed adapter files
+The source manifest pins upstream v0.15.36; native-manifest.json covers changed adapter files
 and alias. Historical Python state helpers remain compatibility source, never active plugin state. Keep both bundled folders together.
 Implementation tests and operator-only historical records stay in the source repository, outside the shipped package. Consult the package README for installation; historical receipts never prove current installation.

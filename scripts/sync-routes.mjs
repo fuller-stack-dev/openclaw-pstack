@@ -34,8 +34,8 @@ export async function renderRoutes(root) {
     "playbooks.md": await input("native/playbooks.md"),
   };
   const names = [...routes.workflows, ...routes.playbooks];
-  if (names.length !== 55 || new Set(names).size !== 55 || names.some((name) => !/^[a-z][a-z0-9-]*$/.test(name)))
-    throw Error("Expected the reviewed 55 unique routes");
+  if (names.length !== 57 || new Set(names).size !== 57 || names.some((name) => !/^[a-z][a-z0-9-]*$/.test(name)))
+    throw Error("Expected the reviewed 57 unique routes");
   const gates = new Map();
   let gateCount = 0;
   for (const route of routes.requirementGuards) {
@@ -54,8 +54,8 @@ export async function renderRoutes(root) {
     }
     gates.set(route, [...ids]);
   }
-  // The reviewed restored contracts are a floor, never an arbitrary truncation.
-  if (gates.size < 49 || gateCount < 845) throw Error("Restored requirement coverage shrank");
+  // v0.15.36 replaces helper/topology mandates; retain the reviewed native gate floor.
+  if (gates.size < 52 || gateCount < 796) throw Error("Restored requirement coverage shrank");
   const output = new Map();
   const records = [];
   for (const route of names) {

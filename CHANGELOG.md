@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — upstream v0.15.36 integration
+
+- Preserve the exact 573-file upstream source tree, including both new artifact skills, dotfiles, modes and MIT license. Version remains 1.2.9 until a separate release freeze.
+- Add statechart and ketchup-video native guidance, literal route commands and manual discovery guides (57 routes). The renderer bundles are unchanged by this source/doc migration.
+- Port one-owner-per-PR orchestration and full-minus-merge autopilot with stacks only for actual dependencies. Preserve native authorization, independent review, CI, custody and continuation boundaries.
+- Refresh reviewed normative mappings and guards; retain removed interrogate references outside the exact mirror for old-record replay. Text coverage is not model-execution or whole-parity proof.
+- Use an explicit reserved fake identity only for the never-pushed interrogate Git fixture. Source commit identity is unaffected.
+
 ## 1.2.9 — 2026-10-28
 
 - Version-only ClawHub release to restore the listing display name to `openclaw-pstack` after older pending releases finalized. No runtime or behavior changes from 1.2.8.

@@ -28,7 +28,7 @@
       "bareRouteAliases": {
         "type": "boolean",
         "default": false,
-        "description": "Explicitly opt in to the 55 bare route names; native host collision/reserved-name checks remain authoritative. Never enables loop or other native extensions."
+        "description": "Explicitly opt in to the 57 bare route names; native host collision/reserved-name checks remain authoritative. Never enables loop or other native extensions."
       },
       "nativeWaitSeconds": {
         "type": "integer",

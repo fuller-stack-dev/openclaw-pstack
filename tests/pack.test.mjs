@@ -231,7 +231,7 @@ test("real commit archive preserves every pinned upstream file as plain ustar", 
   );
   const data = await readFile(receipt.path);
   assert.equal(receipt.sha256, createHash("sha256").update(data).digest("hex"));
-  assert.equal(receipt.upstreamFiles, 172);
+  assert.equal(receipt.upstreamFiles, 573);
   const entries = tarHeaders(data);
   for (const entry of entries) {
     assert.equal(entry.magic, "ustar");
@@ -285,7 +285,7 @@ test("real commit archive preserves every pinned upstream file as plain ustar", 
       file,
     );
   const manifest = JSON.parse(await readFile(join(skill, "source-manifest.json"), "utf8"));
-  assert.equal(manifest.fileCount, 172);
+  assert.equal(manifest.fileCount, 573);
   for (const record of manifest.files) {
     const path = "package/skills/pstack/upstream/" + record.path;
     const entry = entries.find((entry) => entry.path === path);
@@ -298,9 +298,9 @@ test("real commit archive preserves every pinned upstream file as plain ustar", 
   );
   const verified = JSON.parse(ok("python3", [join(skill, "scripts/verify_install.py"), skill]));
   assert.equal(verified.ok, true);
-  assert.equal(verified.source.files, 172);
-  assert.equal(verified.routeSkills.files, 55);
-  assert.equal(files.filter(path => path.startsWith("package/skills/routes/")).length, 55);
+  assert.equal(verified.source.files, 573);
+  assert.equal(verified.routeSkills.files, 57);
+  assert.equal(files.filter(path => path.startsWith("package/skills/routes/")).length, 57);
 });
 
 test("clean HEAD default, explicit dirty-worktree pin, and failed verification never publish bad artifacts", async (t) => {
@@ -356,7 +356,7 @@ test("clean HEAD default, explicit dirty-worktree pin, and failed verification n
     ok(process.execPath, [script, "--commit", pinned, "--out-dir", join(dir, "explicit")]),
   );
   assert.equal(explicit.commit, pinned);
-  assert.equal(explicit.upstreamFiles, 172, "uncommitted corruption was not packaged");
+  assert.equal(explicit.upstreamFiles, 573, "uncommitted corruption was not packaged");
   // Restore the earlier dirty-source probe so this commit isolates guide corruption.
   await writeFile(ignorePath, ignoreBytes);
   // External generated guides are verified too, not just native-manifest files.

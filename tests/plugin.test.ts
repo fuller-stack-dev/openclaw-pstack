@@ -439,7 +439,7 @@ describe("prefixed route continuation", () => {
   it("continues every task route through ordinary agent mode without fabricating execution", async () => {
     const h = harness();
     const names = [...h.commands.keys()].filter(name => name.startsWith("pstack-"));
-    expect(names).toHaveLength(55);
+    expect(names).toHaveLength(57);
     for (const name of names) {
       if (["pstack-poteto-help", "pstack-setup-pstack"].includes(name)) continue;
       expect(await h.command("inspect this request", {}, name)).toEqual({ continueAgent: true, suppressReply: true });

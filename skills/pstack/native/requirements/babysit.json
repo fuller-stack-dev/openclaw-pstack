@@ -27,7 +27,7 @@
     },
     {
       "id": "babysit-05",
-      "text": "Never retarget bases, rebase, submit a stack, or force-push inside babysit. Report topology changes to the sole owner. An autopilot-full owner may leave the babysit step to do its separately authorized own-branch rebase under that playbook's exact-head lease; in autopilot-stack only the root changes topology. If the fix's owning PR has already merged, the sole sanctioned creation is a separately authorized follow-up PR atop the remaining stack, never a rewrite of merged history; append that PR and drop its merged owner in the recorded queue."
+      "text": "Never retarget bases, rebase, submit a stack, or force-push inside babysit. Report topology changes to the sole owner. An autopilot-full or autopilot-stack owner may leave the babysit step to perform its separately authorized own-branch rebase under autopilot-full's exact-head lease. Unrelated babysitters never become branch writers. If the fix's owning PR has already merged, the sole sanctioned creation is a separately authorized follow-up PR atop the remaining stack, never a rewrite of merged history; append that PR and drop its merged owner in the recorded queue."
     },
     {
       "id": "babysit-06",

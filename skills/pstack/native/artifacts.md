@@ -140,6 +140,6 @@ consumer and remove consumed fixtures; never delete another owner's stage.
 Public npm-packed consumers execute both independent CLIs without source,
 node_modules or private loader paths. These tests prove artifact behavior and
 packaging, not agent story quality, real-provider inference or route completion.
-The current registered catalog still has 55 routes; adding the statechart and
-ketchup-video route entries belongs to the coherent upstream/requirements/overlay
-migration. This guide does not claim that migration or release is complete.
+The registered catalog has 57 routes, including skill-guided statechart and
+ketchup-video. Discovery and reviewed text coverage do not prove agent story
+quality, final package qualification or release readiness.

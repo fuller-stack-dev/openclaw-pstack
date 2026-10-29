@@ -1,16 +1,16 @@
 {
   "schema": 1,
   "kind": "upstream-rule-overlay",
-  "upstreamCommit": "29fa9382c9c250d134f6a2f1aa86c01c5f63119d",
+  "upstreamCommit": "c742dd61706fbacc1b95f1a20b7b988cf096ce6c",
   "extraction": "Each line of a pinned UTF-8 upstream file that contains the word must, mustn't, required or never in any letter case.",
   "files": [
     {
       "path": "README.md",
-      "sha256": "b928886260bd551b0c8f3e58617a5dc3ad8dfc1293d096b1ef81b84007532486",
+      "sha256": "7209937a990b0fee0c16702b8f9e8d75737627f99611cc04ac3a27408f6a23d3",
       "rules": [
         {
           "id": "r-6b3db03be95e747d",
-          "line": 250,
+          "line": 254,
           "map": [
             {
               "same": "r-8dbea0ede39bd56a"
@@ -987,7 +987,7 @@
     },
     {
       "path": "docs/guide/04-design.md",
-      "sha256": "cff616278303b533e617c5c4408af6d28895edbb8687d6ce99bb5dd1f6644a6c",
+      "sha256": "2421f2793303a2cb02aabac5ecdc4bfafb5e68024a28123f4f134cc7df4a5211",
       "rules": [
         {
           "id": "r-fa86e0418833a83e",
@@ -995,15 +995,6 @@
           "map": [
             {
               "same": "r-fb46836eb61f8fc0"
-            }
-          ]
-        },
-        {
-          "id": "r-92e62e7ab2a94dfd",
-          "line": 89,
-          "map": [
-            {
-              "same": "r-89cbf42f42a7676c"
             }
           ]
         },
@@ -1037,7 +1028,7 @@
     },
     {
       "path": "docs/guide/06-verify-and-ship.md",
-      "sha256": "5c16c88bf377bf5ea5ffd4cd9dc1a83f19a0415090cc4645865d16a5500d1cab",
+      "sha256": "3f761af6629969d1d7d957c6a2cdadb41f1c098c14d6bbe8c2a5d3855a4b4409",
       "rules": [
         {
           "id": "r-43b9f8f312ee5c8d",
@@ -1116,8 +1107,20 @@
           ]
         },
         {
+          "id": "r-009602be076b50df",
+          "line": 126,
+          "map": [
+            {
+              "gate": "statechart/statechart-02"
+            },
+            {
+              "gate": "statechart/statechart-08"
+            }
+          ]
+        },
+        {
           "id": "r-0d03eac46daa1715",
-          "line": 140,
+          "line": 150,
           "map": [
             {
               "same": "r-41de4a400c1bc20c"
@@ -1126,7 +1129,7 @@
         },
         {
           "id": "r-6c716d9e56721bc3",
-          "line": 150,
+          "line": 160,
           "map": [
             {
               "gate": "shipping/shipping-05"
@@ -1143,7 +1146,7 @@
     },
     {
       "path": "docs/guide/07-overnight.md",
-      "sha256": "b767a5dc5d7257efdb5cc8cfac92acfbb18fe8e023a3438339f4b45ce4a9264a",
+      "sha256": "0ec096f152aaa744cb93e581cc6bd972aa32986d00c560e94a02bc1147e972fb",
       "rules": [
         {
           "id": "r-f01ea1bb9ca75370",
@@ -1164,11 +1167,11 @@
           ]
         },
         {
-          "id": "r-b9033f7ccd4446dc",
+          "id": "r-a86b0a823c1db853",
           "line": 88,
           "map": [
             {
-              "same": "r-6e02d0293d4da1aa"
+              "gate": "orchestrate/orchestrate-01"
             }
           ]
         }
@@ -1246,7 +1249,7 @@
     },
     {
       "path": "docs/guide/10-recipes-and-pitfalls.md",
-      "sha256": "006d8282db567aeae57398d5de1f3a802af2e3ac1a1f564198c384183fca3f92",
+      "sha256": "784da0a2373e58123c4591b778909efc8d01b2b1f820b6029fa85a3fe2491fb4",
       "rules": [
         {
           "id": "r-033ab11cc77785ff",
@@ -1260,7 +1263,7 @@
         },
         {
           "id": "r-5d309e2c38ea5870",
-          "line": 167,
+          "line": 169,
           "map": [
             {
               "same": "r-89cbf42f42a7676c"
@@ -1363,6 +1366,25 @@
       ]
     },
     {
+      "path": "skills/arena/SKILL.md",
+      "sha256": "d0adeca6c9b19d43d90ed8f0484f0ddd362f05006d628b8f4cc6c9b55fa4d2b3",
+      "rules": [
+        {
+          "id": "r-9f3d3f2b341e9d40",
+          "line": 28,
+          "map": [
+            {
+              "gate": "arena/cross-judge"
+            },
+            {
+              "exclude": "cursor-harness",
+              "reason": "Cursor Task slugs, prefix-derived families, default substitution and skip-judge/unknown-parent fallbacks are not native authority. Native requires canonical current-family proof, exact configured controls and a completed independent judge; missing proof blocks."
+            }
+          ]
+        }
+      ]
+    },
+    {
       "path": "skills/automate-me/SKILL.md",
       "sha256": "30b35f3628c4fd8c11af0ada06d14cdc3b28901810caca2480f627d4d21acfbe",
       "rules": [
@@ -1421,7 +1443,7 @@
     },
     {
       "path": "skills/create-formal-verification-skill/SKILL.md",
-      "sha256": "6c934cd15a9583533ff9b7a9cad62775d7e80402d26d3ba7f74f79ea21a1d8eb",
+      "sha256": "30ef0ac27612ecd16fdc081112113221d673053cef3f8603db11932193861211",
       "rules": [
         {
           "id": "r-a53258f685dd9963",
@@ -1464,12 +1486,15 @@
             {
               "native": "workflows.md",
               "quote": "Give valid frontmatter, exact rerun command and reproducible tool version"
+            },
+            {
+              "gate": "create-formal-verification-skill/result-presentation"
             }
           ]
         },
         {
           "id": "r-8887faf01e0a1f97",
-          "line": 37,
+          "line": 39,
           "map": [
             {
               "native": "workflows.md",
@@ -1614,23 +1639,54 @@
       ]
     },
     {
-      "path": "skills/interrogate/SKILL.md",
-      "sha256": "a16dfe179005abc22a4651b82f25b0c8ab953284276efe4e6dc341958fb63647",
+      "path": "skills/ketchup-video/SKILL.md",
+      "sha256": "027aed9a01adf208aeac3a134f47d12f7c1e42d6fea03095aedc2bae58cdcfd1",
       "rules": [
         {
-          "id": "r-1e7ed7cd01d77405",
-          "line": 36,
+          "id": "r-2c51357896ee929c",
+          "line": 15,
           "map": [
             {
-              "gate": "interrogate/reviewers"
+              "gate": "ketchup-video/ketchup-video-03"
+            }
+          ]
+        },
+        {
+          "id": "r-3e99644840a040ca",
+          "line": 17,
+          "map": [
+            {
+              "gate": "ketchup-video/ketchup-video-03"
             },
             {
-              "native": "model-routing.md",
-              "quote": "Required but unavailable independent review stays blocked."
-            },
+              "gate": "ketchup-video/ketchup-video-04"
+            }
+          ]
+        },
+        {
+          "id": "r-18dfe1264d818b7c",
+          "line": 19,
+          "map": [
             {
-              "native": "model-routing.md",
-              "quote": "An unavailable saved model is an explicit blocker, not a substitute."
+              "gate": "ketchup-video/ketchup-video-03"
+            }
+          ]
+        },
+        {
+          "id": "r-eab48117b661d2f0",
+          "line": 23,
+          "map": [
+            {
+              "gate": "ketchup-video/ketchup-video-04"
+            }
+          ]
+        },
+        {
+          "id": "r-e404bb73c412ac47",
+          "line": 27,
+          "map": [
+            {
+              "gate": "ketchup-video/ketchup-video-05"
             }
           ]
         }
@@ -1891,7 +1947,7 @@
     },
     {
       "path": "skills/poteto-help/references/recipes.md",
-      "sha256": "f2d573014f72f7c798b1998b45f4360a8a83e7b8026c4ed9074e56c5a9d49338",
+      "sha256": "5323aca73a39a3b607c2bb22cd33551fe893563dfd4b104df838da010e9fc702",
       "rules": [
         {
           "id": "r-da4729659acfbd7a",
@@ -1907,11 +1963,11 @@
     },
     {
       "path": "skills/poteto-mode/SKILL.md",
-      "sha256": "2755f102e7a6d0496b429d1031a22fb353e1f3d523543367caeaae5c4ed6f544",
+      "sha256": "ee1848c973a112026f09ba12ea7a13c1654006e7bf170d1c34bf5d5816bc439b",
       "rules": [
         {
           "id": "r-067178c302dd5f5e",
-          "line": 20,
+          "line": 21,
           "map": [
             {
               "gate": "poteto-mode/conditional-triggers"
@@ -1923,7 +1979,7 @@
         },
         {
           "id": "r-508f25eac6723b17",
-          "line": 32,
+          "line": 33,
           "map": [
             {
               "gate": "poteto-mode/surface-triggers"
@@ -1935,7 +1991,7 @@
         },
         {
           "id": "r-0f031cb00697229c",
-          "line": 75,
+          "line": 76,
           "map": [
             {
               "native": "principles.md",
@@ -1945,7 +2001,7 @@
         },
         {
           "id": "r-f8a079dd7d30e639",
-          "line": 93,
+          "line": 94,
           "map": [
             {
               "gate": "poteto-mode/native-delegation"
@@ -1956,8 +2012,22 @@
           ]
         },
         {
+          "id": "r-aadb1d6da7ffc569",
+          "line": 98,
+          "map": [
+            {
+              "native": "model-routing.md",
+              "quote": "Invalid JSON/schema, unknown fields/roles/models/controls, unsupported controls or wrong panel counts are errors for new work, never silent defaults."
+            },
+            {
+              "exclude": "cursor-harness",
+              "reason": "Cursor Task slug effort/speed rewriting, error-list guessing and inherited fallback defaults are excluded. Native preserves explicit role controls and refuses unsupported selections instead of substituting a model or silently dropping controls."
+            }
+          ]
+        },
+        {
           "id": "r-714bd15400f267f1",
-          "line": 112,
+          "line": 113,
           "map": [
             {
               "gate": "poteto-mode/autonomy-trail-closure"
@@ -1966,7 +2036,7 @@
         },
         {
           "id": "r-f338e84150f2bf55",
-          "line": 113,
+          "line": 114,
           "map": [
             {
               "gate": "poteto-mode/evidence-labels"
@@ -1977,7 +2047,7 @@
     },
     {
       "path": "skills/poteto-mode/playbooks/autonomous-run.md",
-      "sha256": "6ac974fd2b09748add56493e89f578a35a6a9289e1026515878d81ef3cf129d1",
+      "sha256": "e74323411b5a760ffa7393d908d07fed420c68f8dc2aed1267505eaeadf130f2",
       "rules": [
         {
           "id": "r-e344f5ac26e37e87",
@@ -1998,7 +2068,7 @@
     },
     {
       "path": "skills/poteto-mode/playbooks/autopilot-full.md",
-      "sha256": "acf4f4a58c11045f9d3e8807d907a877e61ca6432b079f1087d7d30fc931566f",
+      "sha256": "2da35982565c6cf1dbe25f7a05ccae28f7729389aefc6dbb3e010eb883abdd19",
       "rules": [
         {
           "id": "r-ca0a55b7c41353e7",
@@ -2033,21 +2103,6 @@
           "map": [
             {
               "gate": "autopilot-full/autopilot-full-08"
-            }
-          ]
-        },
-        {
-          "id": "r-b33e691503fdb7e9",
-          "line": 16,
-          "map": [
-            {
-              "gate": "autopilot-full/autopilot-full-27"
-            },
-            {
-              "gate": "autopilot-full/autopilot-full-28"
-            },
-            {
-              "gate": "autopilot-full/autopilot-full-10"
             }
           ]
         },
@@ -2093,56 +2148,8 @@
       ]
     },
     {
-      "path": "skills/poteto-mode/playbooks/autopilot-stack.md",
-      "sha256": "c6bcb18b2ce605e77a2a2225854590a4b9a687911f79331746d91a4fe9a52e60",
-      "rules": [
-        {
-          "id": "r-8e82b35519640e7a",
-          "line": 3,
-          "map": [
-            {
-              "gate": "autopilot-stack/autopilot-stack-08"
-            },
-            {
-              "gate": "autopilot-stack/autopilot-stack-17"
-            }
-          ]
-        },
-        {
-          "id": "r-91e49b2ab8481b52",
-          "line": 5,
-          "map": [
-            {
-              "gate": "autopilot-stack/autopilot-stack-05"
-            },
-            {
-              "gate": "autopilot-stack/autopilot-stack-07"
-            },
-            {
-              "gate": "autopilot-stack/autopilot-stack-08"
-            }
-          ]
-        },
-        {
-          "id": "r-5e68c987ec12d101",
-          "line": 6,
-          "map": [
-            {
-              "gate": "autopilot-stack/autopilot-stack-06"
-            },
-            {
-              "gate": "autopilot-stack/autopilot-stack-10"
-            },
-            {
-              "gate": "autopilot-stack/autopilot-stack-13"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "path": "skills/poteto-mode/playbooks/babysit.md",
-      "sha256": "e261c1ff5581e0f8fc6c686f34de4b535f87473e77beabea7dd8323021214610",
+      "sha256": "d546a937ed800abe1d29aae8a689fb57212280fdde62fae1fc1dc7f2efd9d904",
       "rules": [
         {
           "id": "r-9b8eb71eb5017e9a",
@@ -2163,11 +2170,11 @@
           ]
         },
         {
-          "id": "r-c556f69daa5fd9ba",
+          "id": "r-fa549236ed90925b",
           "line": 10,
           "map": [
             {
-              "gate": "babysit/babysit-05"
+              "gate": "babysit/babysit-01"
             }
           ]
         },
@@ -2319,7 +2326,7 @@
     },
     {
       "path": "skills/poteto-mode/playbooks/multi-phase-plan.md",
-      "sha256": "5f239457bfdec3345c92caa06c59bf0257c662b89353f25a1c02ea942dcd00b1",
+      "sha256": "2b4fbb547e5ccfe46d1279d714eb0199d28e995f06bdc4eda4afbca9221fbbe6",
       "rules": [
         {
           "id": "r-0d197f8702c10d38",
@@ -2400,7 +2407,7 @@
     },
     {
       "path": "skills/poteto-mode/playbooks/opening-a-pr.md",
-      "sha256": "a5aef646de8b651306c2d10974623650e4a013a245aec1c00525bbe0e31bfa76",
+      "sha256": "b22b7ad7cd102b99d334f4399ae1dba78e0aaf4bee2d5241fda71753c7ce48f9",
       "rules": [
         {
           "id": "r-6357b7391193194a",
@@ -2424,212 +2431,68 @@
     },
     {
       "path": "skills/poteto-mode/playbooks/orchestrate.md",
-      "sha256": "08dce6c9e7be1d13bc6944ab9b51665f935c531437f5e088bc53d2a62099ef05",
+      "sha256": "dfd7e53e7ef844ae11394672b2f8e22ced47b977ff6e947fef837953cc95bb86",
       "rules": [
         {
-          "id": "r-57dfeba77f9fce40",
+          "id": "r-165fe2d97a430fbd",
           "line": 3,
           "map": [
             {
               "gate": "orchestrate/orchestrate-01"
-            },
-            {
-              "gate": "orchestrate/orchestrate-04"
             }
           ]
         },
         {
-          "id": "r-ce0b7b54297271b0",
+          "id": "r-541682fc8b117f0e",
           "line": 5,
           "map": [
             {
-              "gate": "orchestrate/orchestrate-22"
-            },
-            {
-              "gate": "orchestrate/orchestrate-28"
+              "gate": "orchestrate/orchestrate-02"
             }
           ]
         },
         {
-          "id": "r-6e02d0293d4da1aa",
-          "line": 15,
-          "map": [
-            {
-              "gate": "orchestrate/orchestrate-07"
-            },
-            {
-              "gate": "orchestrate/orchestrate-08"
-            },
-            {
-              "gate": "orchestrate/orchestrate-09"
-            }
-          ]
-        },
-        {
-          "id": "r-c5498693b7bce2a1",
-          "line": 16,
-          "map": [
-            {
-              "gate": "orchestrate/orchestrate-29"
-            },
-            {
-              "gate": "orchestrate/orchestrate-30"
-            }
-          ]
-        },
-        {
-          "id": "r-e5d2d52431d64cbb",
-          "line": 19,
-          "map": [
-            {
-              "gate": "orchestrate/orchestrate-29"
-            },
-            {
-              "gate": "orchestrate/orchestrate-30"
-            }
-          ]
-        },
-        {
-          "id": "r-f849577d37915fc0",
-          "line": 26,
-          "map": [
-            {
-              "gate": "orchestrate/orchestrate-16"
-            }
-          ]
-        },
-        {
-          "id": "r-4a42569c7df30a7a",
-          "line": 32,
-          "map": [
-            {
-              "gate": "orchestrate/orchestrate-35"
-            }
-          ]
-        },
-        {
-          "id": "r-42eb93618fddaf44",
-          "line": 57,
-          "map": [
-            {
-              "gate": "orchestrate/orchestrate-21"
-            },
-            {
-              "gate": "orchestrate/orchestrate-23"
-            },
-            {
-              "gate": "orchestrate/orchestrate-24"
-            },
-            {
-              "gate": "orchestrate/orchestrate-31"
-            }
-          ]
-        },
-        {
-          "id": "r-1cb6a4b1691259c8",
-          "line": 61,
+          "id": "r-4d11b893afece8d5",
+          "line": 9,
           "map": [
             {
               "gate": "orchestrate/orchestrate-03"
-            },
+            }
+          ]
+        },
+        {
+          "id": "r-160cd5c1a543cacb",
+          "line": 11,
+          "map": [
+            {
+              "gate": "orchestrate/orchestrate-06"
+            }
+          ]
+        },
+        {
+          "id": "r-5a2e3971ca86df1a",
+          "line": 12,
+          "map": [
+            {
+              "gate": "orchestrate/orchestrate-05"
+            }
+          ]
+        },
+        {
+          "id": "r-de3c6ac07f8ddb04",
+          "line": 18,
+          "map": [
             {
               "gate": "orchestrate/orchestrate-04"
             }
           ]
         },
         {
-          "id": "r-53434b09eb6407c9",
-          "line": 66,
+          "id": "r-421d207bc8c4a258",
+          "line": 23,
           "map": [
             {
-              "gate": "orchestrate/orchestrate-43"
-            }
-          ]
-        },
-        {
-          "id": "r-d27ae155735f1516",
-          "line": 71,
-          "map": [
-            {
-              "gate": "orchestrate/orchestrate-32"
-            },
-            {
-              "gate": "orchestrate/orchestrate-38"
-            }
-          ]
-        },
-        {
-          "id": "r-37252166dff202d8",
-          "line": 80,
-          "map": [
-            {
-              "gate": "orchestrate/orchestrate-42"
-            }
-          ]
-        },
-        {
-          "id": "r-db806c0f5675fcf1",
-          "line": 82,
-          "map": [
-            {
-              "gate": "orchestrate/orchestrate-40"
-            },
-            {
-              "gate": "orchestrate/orchestrate-41"
-            }
-          ]
-        },
-        {
-          "id": "r-d1d92f85ac7dd7ae",
-          "line": 92,
-          "map": [
-            {
-              "gate": "orchestrate/orchestrate-50"
-            }
-          ]
-        },
-        {
-          "id": "r-f8f71a62fbb48d58",
-          "line": 96,
-          "map": [
-            {
-              "gate": "orchestrate/orchestrate-51"
-            }
-          ]
-        },
-        {
-          "id": "r-a893e70bda81582a",
-          "line": 97,
-          "map": [
-            {
-              "gate": "orchestrate/orchestrate-30"
-            },
-            {
-              "gate": "orchestrate/orchestrate-36"
-            },
-            {
-              "gate": "orchestrate/orchestrate-52"
-            }
-          ]
-        },
-        {
-          "id": "r-933f3c1e04789068",
-          "line": 99,
-          "map": [
-            {
-              "gate": "orchestrate/orchestrate-53"
-            }
-          ]
-        },
-        {
-          "id": "r-962d391dbe35c017",
-          "line": 108,
-          "map": [
-            {
-              "gate": "orchestrate/orchestrate-57"
-            },
-            {
-              "gate": "orchestrate/orchestrate-58"
+              "gate": "orchestrate/orchestrate-10"
             }
           ]
         }
@@ -2774,7 +2637,7 @@
     },
     {
       "path": "skills/poteto-mode/scripts/check-plan.mjs",
-      "sha256": "e58c3d871b09d477be00628d69dd23ffa6c2e3a1728f5b867a841baa8e90278b",
+      "sha256": "e3d4e9ca638c6fb4a2b52c434c17c7af30da4fdd44605ccfe9906f82fe37b555",
       "rules": [
         {
           "id": "r-f7e67978ca5e175e",
@@ -2786,195 +2649,6 @@
             {
               "native": "plan-adapter.md",
               "quote": "`plan-check.mjs` checker through native tool admission"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "path": "skills/poteto-mode/scripts/orch/orch.test.ts",
-      "sha256": "5e80b416bdcd68e4067690ce857345852fd2e0db3dcf3e25607999cd55b963d2",
-      "rules": [
-        {
-          "id": "r-39401c679e3dce9f",
-          "line": 364,
-          "map": [
-            {
-              "gate": "orchestrate/orchestrate-46"
-            },
-            {
-              "gate": "orchestrate/orchestrate-18"
-            }
-          ]
-        },
-        {
-          "id": "r-16073a25418f3d65",
-          "line": 474,
-          "map": [
-            {
-              "exclude": "non-normative",
-              "reason": "Sample standing-order string in a test fixture for the source-only orch helper; it is test data, not an instruction to this agent."
-            }
-          ]
-        },
-        {
-          "id": "r-588c8d9183865a8f",
-          "line": 475,
-          "map": [
-            {
-              "same": "r-16073a25418f3d65"
-            }
-          ]
-        },
-        {
-          "id": "r-a855fd4a74192f73",
-          "line": 491,
-          "map": [
-            {
-              "same": "r-16073a25418f3d65"
-            }
-          ]
-        },
-        {
-          "id": "r-2ea0c239fc44fc2a",
-          "line": 571,
-          "map": [
-            {
-              "exclude": "source-only-code",
-              "reason": "Argument validation in the test suite of the source-only orch CLI, which is never executed (orchestrate-18); native file tools replace it (orchestrate-14)."
-            }
-          ]
-        },
-        {
-          "id": "r-8767c5f6343947d1",
-          "line": 670,
-          "map": [
-            {
-              "exclude": "source-only-code",
-              "reason": "Required-option assertion in the test suite of the source-only orch CLI, which is never executed (orchestrate-18); native file tools replace it (orchestrate-14)."
-            }
-          ]
-        },
-        {
-          "id": "r-72ef19d0b29cb317",
-          "line": 732,
-          "map": [
-            {
-              "exclude": "source-only-code",
-              "reason": "Empty-unit-id assertion in the test suite of the source-only orch CLI, which is never executed (orchestrate-18); native file tools replace it (orchestrate-14)."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "path": "skills/poteto-mode/scripts/orch/orch.ts",
-      "sha256": "47c92c57e8276616d8de94665a126bd832e748036afa8d0ffdbacb7946decb5c",
-      "rules": [
-        {
-          "id": "r-69377fe02ea0a2e2",
-          "line": 96,
-          "map": [
-            {
-              "exclude": "source-only-code",
-              "reason": "Argument validation in the source-only orch CLI, which is never executed (orchestrate-18); native file tools replace it (orchestrate-14)."
-            }
-          ]
-        },
-        {
-          "id": "r-a7401c1302352539",
-          "line": 251,
-          "map": [
-            {
-              "exclude": "non-normative",
-              "reason": "TypeScript `never` return type in source-only code, not prose."
-            }
-          ]
-        },
-        {
-          "id": "r-500eb266abb5681e",
-          "line": 253,
-          "map": [
-            {
-              "exclude": "source-only-code",
-              "reason": "Subcommand validation in the source-only orch CLI, which is never executed (orchestrate-18); native file tools replace it (orchestrate-14)."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "path": "skills/poteto-mode/scripts/orch/store.ts",
-      "sha256": "558cfda533e1ebe7c8d7842604f07e0be7618759cf129b4c2397a8e29516ecea",
-      "rules": [
-        {
-          "id": "r-4a89b26fbfa9d05a",
-          "line": 291,
-          "map": [
-            {
-              "gate": "orchestrate/orchestrate-46"
-            }
-          ]
-        },
-        {
-          "id": "r-31971b256c16cfce",
-          "line": 305,
-          "map": [
-            {
-              "exclude": "source-only-code",
-              "reason": "Empty-value validation in the source-only orch store, which is never executed (orchestrate-18); native file tools replace it (orchestrate-14)."
-            }
-          ]
-        },
-        {
-          "id": "r-c1feaf2b184ae259",
-          "line": 313,
-          "map": [
-            {
-              "exclude": "source-only-code",
-              "reason": "Empty-value validation in the source-only orch store, which is never executed (orchestrate-18); native file tools replace it (orchestrate-14)."
-            }
-          ]
-        },
-        {
-          "id": "r-25c7443e9c6b78cb",
-          "line": 320,
-          "map": [
-            {
-              "exclude": "source-only-code",
-              "reason": "Positive-integer validation in the source-only orch store, which is never executed (orchestrate-18); native file tools replace it (orchestrate-14)."
-            }
-          ]
-        },
-        {
-          "id": "r-617eefa6b7acb2d9",
-          "line": 678,
-          "map": [
-            {
-              "exclude": "source-only-code",
-              "reason": "frontier.json shape validation in the source-only orch store, which is never executed (orchestrate-18); native file tools replace it (orchestrate-14)."
-            }
-          ]
-        },
-        {
-          "id": "r-6cb49513f8679b1a",
-          "line": 1010,
-          "map": [
-            {
-              "gate": "orchestrate/orchestrate-14"
-            },
-            {
-              "gate": "opening-a-pr/opening-a-pr-12"
-            }
-          ]
-        },
-        {
-          "id": "r-3fbe0bbb9cc33d44",
-          "line": 1562,
-          "map": [
-            {
-              "exclude": "source-only-code",
-              "reason": "Duplicate --prs validation in the source-only orch store, which is never executed (orchestrate-18); native file tools replace it (orchestrate-14)."
             }
           ]
         }
@@ -3028,7 +2702,7 @@
     },
     {
       "path": "skills/poteto-mode/scripts/watch-pr/github.ts",
-      "sha256": "a605b8531468dbe4c07b93663c0993a9c11dc7e9179adde970f5c740396451d9",
+      "sha256": "7ba193190d488c8ce0982c85234ebea026e9a595703e99a3c3df0fcd640ddd18",
       "rules": [
         {
           "id": "r-415765a5fa91c15c",
@@ -3056,7 +2730,7 @@
     },
     {
       "path": "skills/poteto-mode/scripts/watch-pr/policy.ts",
-      "sha256": "f2a3e31223d05edc05e5473cc3f8f3cb9bd20c202c30c6abe7f21f0f7aee8fbb",
+      "sha256": "2d4823aeea788acab258ec60eb52e7b9e3a23a6649850af128d6ada5c33d7778",
       "rules": [
         {
           "id": "r-135bb2ff74d0865b",
@@ -3080,7 +2754,7 @@
         },
         {
           "id": "r-52891fb37547f6a1",
-          "line": 825,
+          "line": 831,
           "map": [
             {
               "exclude": "non-normative",
@@ -3143,7 +2817,7 @@
     },
     {
       "path": "skills/poteto-mode/scripts/watch-pr/types.ts",
-      "sha256": "0cac435294dc85ce1ba755e8e67f6c5ab163dfa252f2722d6e3a2d68c58fec59",
+      "sha256": "daa66c56220bae084c18cc6d3b0a2c66c0e72206d298e40973b44ee085ce16d2",
       "rules": [
         {
           "id": "r-af235fdf9f1168a6",
@@ -3159,7 +2833,7 @@
     },
     {
       "path": "skills/poteto-mode/scripts/worktree-audit.sh",
-      "sha256": "e0a94e5e5b1ff60638916e440600e15851f7b79bc1a1d1f602fde05d465e2ec0",
+      "sha256": "06be04b38346ded24ce761d373726f98cd9b9737f20ec98214e88b5f08f521b8",
       "rules": [
         {
           "id": "r-39732a75d4611a8b",
@@ -3207,11 +2881,11 @@
     },
     {
       "path": "skills/principle-explain-the-number/SKILL.md",
-      "sha256": "cd5a25f9e7cf023627ccb470dc5faa97542f29b4319496a32b839a8e1e988047",
+      "sha256": "3c84fbf9a7d9842abcfcd134010782b32092ac3d3fb4aaf9ed5732dca83aa58c",
       "rules": [
         {
           "id": "r-2e2ddb5db88987eb",
-          "line": 10,
+          "line": 11,
           "map": [
             {
               "native": "principles.md",
@@ -3409,6 +3083,24 @@
       ]
     },
     {
+      "path": "skills/reflect/SKILL.md",
+      "sha256": "9648df23cabaae99b78ed59cd93b6f35ebbf02105d228e3d0b5c3a3b3419d753",
+      "rules": [
+        {
+          "id": "r-b67306f0c79ef6c8",
+          "line": 51,
+          "map": [
+            {
+              "gate": "reflect/canonical-preview"
+            },
+            {
+              "gate": "reflect/apply-validate"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "path": "skills/reflect/references/divergent-reviewer.md",
       "sha256": "f6030d88e20e906ef5e2d9ba44cb013ce610c49c2fe2ef74c377d32e0dc9e939",
       "rules": [
@@ -3473,7 +3165,7 @@
     },
     {
       "path": "skills/setup-pstack/SKILL.md",
-      "sha256": "b45512f6ca5e96e81681984683b7472bfe892581da3a89a73cca4159438f29ed",
+      "sha256": "df8ad3638a4dca31fb4b43d58056f0299f23ad0530614166d55ef989062b41ec",
       "rules": [
         {
           "id": "r-fd73853373008769",
@@ -3484,6 +3176,15 @@
             },
             {
               "gate": "setup-pstack/validate-authorized-write"
+            }
+          ]
+        },
+        {
+          "id": "r-0bb3613e71362a5b",
+          "line": 31,
+          "map": [
+            {
+              "gate": "setup-pstack/role-table-confirmation"
             }
           ]
         },
@@ -3567,8 +3268,751 @@
       ]
     },
     {
+      "path": "skills/statechart/SKILL.md",
+      "sha256": "010b7b4532406739b1c3a426d1a45f02bb618a42561fc96b3976e064a7f8384d",
+      "rules": [
+        {
+          "id": "r-bc10747136da5868",
+          "line": 25,
+          "map": [
+            {
+              "gate": "statechart/statechart-02"
+            }
+          ]
+        },
+        {
+          "id": "r-079c49ad15950006",
+          "line": 53,
+          "map": [
+            {
+              "gate": "statechart/statechart-04"
+            }
+          ]
+        },
+        {
+          "id": "r-09e6e64535d7b9cb",
+          "line": 80,
+          "map": [
+            {
+              "gate": "statechart/statechart-08"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/statechart/scripts/backends/report.ts",
+      "sha256": "730b4048578ab0468e1581f16fec60b246e321161effb68e481efb373f0f2501",
+      "rules": [
+        {
+          "id": "r-eebbb66763057800",
+          "line": 8,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        },
+        {
+          "id": "r-baa8a66d4d14723b",
+          "line": 78,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        },
+        {
+          "id": "r-21ffdd0786a764a5",
+          "line": 138,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/statechart/scripts/frontends/value.ts",
+      "sha256": "7c54be394b7a10f60591858a0f08fb1e8dc0941df1f38ede07fbe7719ff56da0",
+      "rules": [
+        {
+          "id": "r-02429390e4438161",
+          "line": 79,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a TypeScript return/type keyword, diagnostic or test/corpus assertion, not workflow policy. Source bytes remain reference; native behavioral qualification is separate."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/statechart/scripts/frontends/view.ts",
+      "sha256": "2c0af8939321c5aaed4b6ecac8ce6a98d0e6774d8bd15d4b02fe4f406b8c9620",
+      "rules": [
+        {
+          "id": "r-c2ac5943d7009b37",
+          "line": 78,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This line is a runtime diagnostic, a test name/assertion or a corpus-model comment, not an instruction governing native agents. The source remains reference and does not establish native runtime proof."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/statechart/scripts/ir.ts",
+      "sha256": "5602beca4e4ac08421cfa07e4da989f0e75439f1d136cc923226909e771dc7ff",
+      "rules": [
+        {
+          "id": "r-114e265284351214",
+          "line": 300,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        },
+        {
+          "id": "r-68da5cfac77cdd79",
+          "line": 313,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        },
+        {
+          "id": "r-31c13d4b9bb69a08",
+          "line": 314,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/statechart/scripts/passes/annotate.ts",
+      "sha256": "dc8eeee09c3a9a0c060f32fb1d554e01bd80e5265751cdeb041ef3e19561b92a",
+      "rules": [
+        {
+          "id": "r-f372ff2a557cfc11",
+          "line": 8,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        },
+        {
+          "id": "r-157e0d239aa73cbc",
+          "line": 49,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/statechart/scripts/passes/label.ts",
+      "sha256": "b5ef402369c5e7846be1fd39165e95cbfe715fc36eb9331a0401b26523c539c9",
+      "rules": [
+        {
+          "id": "r-ca1a8a0139ff2f39",
+          "line": 11,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        },
+        {
+          "id": "r-770723c93dc6125f",
+          "line": 28,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a TypeScript return/type keyword, diagnostic or test/corpus assertion, not workflow policy. Source bytes remain reference; native behavioral qualification is separate."
+            }
+          ]
+        },
+        {
+          "id": "r-300891ebea58d857",
+          "line": 61,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a TypeScript return/type keyword, diagnostic or test/corpus assertion, not workflow policy. Source bytes remain reference; native behavioral qualification is separate."
+            }
+          ]
+        },
+        {
+          "id": "r-971efcf798fa2ae6",
+          "line": 158,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        },
+        {
+          "id": "r-6e474bb1421ed8e1",
+          "line": 171,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        },
+        {
+          "id": "r-7b42b4c87c3aef22",
+          "line": 242,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        },
+        {
+          "id": "r-19edd2ae0401334b",
+          "line": 267,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        },
+        {
+          "id": "r-bbf077e7aaeeb4b4",
+          "line": 268,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/statechart/scripts/passes/lift.ts",
+      "sha256": "8977dddc6c93bb2e3914d5b50760eb66876107ba51e2b8cf9e18611b4c40c89c",
+      "rules": [
+        {
+          "id": "r-eb4f0ee46a40c446",
+          "line": 6,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        },
+        {
+          "id": "r-7a7630106a7a050f",
+          "line": 38,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/statechart/scripts/passes/loop-check.ts",
+      "sha256": "07d459385849aa35834040bf34e279c39baba68244ec9da17c57703a6ee8e2d4",
+      "rules": [
+        {
+          "id": "r-2aba7c5fd4c995d3",
+          "line": 9,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        },
+        {
+          "id": "r-700386a3fb5ee8c0",
+          "line": 46,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/statechart/scripts/passes/paths.ts",
+      "sha256": "9af1066b007ef86cb05c5e278eef09f090f1e46eb91d356e5146edbd4fee4ec7",
+      "rules": [
+        {
+          "id": "r-83d5a2d02d82d01a",
+          "line": 6,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        },
+        {
+          "id": "r-97dd6564607b45b6",
+          "line": 27,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        },
+        {
+          "id": "r-9ad45c6a170ea365",
+          "line": 53,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/statechart/scripts/passes/reach.ts",
+      "sha256": "b52b38f926814937b733221b40bd31075a69a2fb91ecbce2164752a8684bc5d6",
+      "rules": [
+        {
+          "id": "r-2f98d91de1fdf08e",
+          "line": 7,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        },
+        {
+          "id": "r-abf45551cac2297d",
+          "line": 38,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        },
+        {
+          "id": "r-e3b944b7f43785b1",
+          "line": 47,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        },
+        {
+          "id": "r-cdb29caa12899d1e",
+          "line": 48,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        },
+        {
+          "id": "r-066c0e05bc8d3e53",
+          "line": 54,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        },
+        {
+          "id": "r-24f4f700cbf10387",
+          "line": 118,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/statechart/scripts/passes/region-check.ts",
+      "sha256": "8a6e0618740a14bb7048f6563b4324958177f4685d4d6d90364cc6245b1498b4",
+      "rules": [
+        {
+          "id": "r-7cbcac6e623c156f",
+          "line": 45,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a TypeScript return/type keyword, diagnostic or test/corpus assertion, not workflow policy. Source bytes remain reference; native behavioral qualification is separate."
+            }
+          ]
+        },
+        {
+          "id": "r-fdf8d231a6ae2dfc",
+          "line": 92,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a TypeScript return/type keyword, diagnostic or test/corpus assertion, not workflow policy. Source bytes remain reference; native behavioral qualification is separate."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/statechart/scripts/passes/regions.ts",
+      "sha256": "d740ebfdbb5ec7b4984412a635a596b43af7a77b8bcb49a1463c8afa75299f72",
+      "rules": [
+        {
+          "id": "r-477f34643556ccdc",
+          "line": 14,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        },
+        {
+          "id": "r-293891b7f0b39aa7",
+          "line": 192,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/statechart/scripts/run.ts",
+      "sha256": "f330e0a3b0a9f8181c2e52252c4a47db3f0a64f79a7cca5490263e33a5f13c72",
+      "rules": [
+        {
+          "id": "r-977f6601c59597bf",
+          "line": 26,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        },
+        {
+          "id": "r-98d3f3a316743cff",
+          "line": 392,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        },
+        {
+          "id": "r-b10c1ea95fec31d6",
+          "line": 403,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        },
+        {
+          "id": "r-87fd612508d7a12a",
+          "line": 438,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        },
+        {
+          "id": "r-5d75d9dff3a6b5f2",
+          "line": 467,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a source-code identifier named must, not an instruction to an agent. The original file remains source-only; native runtime port custody and tests are separate."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/statechart/scripts/statechart.ts",
+      "sha256": "1c653f05d0cd0f3298455701f36e3d7d1f837f93e6e642f7c20afb5d613c2d12",
+      "rules": [
+        {
+          "id": "r-ba47a717c9ffe515",
+          "line": 19,
+          "map": [
+            {
+              "native": "artifacts.md",
+              "quote": "Output must be new/empty."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/statechart/scripts/test/ConfigOracle.java",
+      "sha256": "4f3367314f0fc34e39777d40dd31f96451985b77834fd0e925716aa3b169a021",
+      "rules": [
+        {
+          "id": "r-ea9b754e44e8aeef",
+          "line": 43,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a TypeScript return/type keyword, diagnostic or test/corpus assertion, not workflow policy. Source bytes remain reference; native behavioral qualification is separate."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/statechart/scripts/test/chart.test.ts",
+      "sha256": "3f9022fcc981d17f58b5e7a9302e766241f81a477bda70c3e621d7a1d95f19c1",
+      "rules": [
+        {
+          "id": "r-4a7bda623a2d5964",
+          "line": 141,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a TypeScript return/type keyword, diagnostic or test/corpus assertion, not workflow policy. Source bytes remain reference; native behavioral qualification is separate."
+            }
+          ]
+        },
+        {
+          "id": "r-30107f600ae81c89",
+          "line": 566,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a TypeScript return/type keyword, diagnostic or test/corpus assertion, not workflow policy. Source bytes remain reference; native behavioral qualification is separate."
+            }
+          ]
+        },
+        {
+          "id": "r-6bd55e430ae067a1",
+          "line": 1139,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This line is a runtime diagnostic, a test name/assertion or a corpus-model comment, not an instruction governing native agents. The source remains reference and does not establish native runtime proof."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/statechart/scripts/test/cli.test.ts",
+      "sha256": "8a3b028dafe2065029a66242f7a3832d18058e772a0dfc1b2c170511ffee8e07",
+      "rules": [
+        {
+          "id": "r-9eefc3064e357781",
+          "line": 786,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This line is a runtime diagnostic, a test name/assertion or a corpus-model comment, not an instruction governing native agents. The source remains reference and does not establish native runtime proof."
+            }
+          ]
+        },
+        {
+          "id": "r-881c3cdf28e363d7",
+          "line": 946,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a TypeScript return/type keyword, diagnostic or test/corpus assertion, not workflow policy. Source bytes remain reference; native behavioral qualification is separate."
+            }
+          ]
+        },
+        {
+          "id": "r-7ace1b07398739b7",
+          "line": 1047,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a TypeScript return/type keyword, diagnostic or test/corpus assertion, not workflow policy. Source bytes remain reference; native behavioral qualification is separate."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/statechart/scripts/test/corpus.test.ts",
+      "sha256": "5686aa487dfec3e0a06b3c15390dbc3ab5953ced532c5eee7d5c5e2f54f492c7",
+      "rules": [
+        {
+          "id": "r-afa806e453b3b842",
+          "line": 166,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a TypeScript return/type keyword, diagnostic or test/corpus assertion, not workflow policy. Source bytes remain reference; native behavioral qualification is separate."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/statechart/scripts/test/corpus/LoginGuarded/LoginGuarded.tla",
+      "sha256": "c62583af14b40df94a4276438edecfdf482d2b185eb6b302c3db2dfe71c129e1",
+      "rules": [
+        {
+          "id": "r-93a0a6fec615e032",
+          "line": 61,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a TypeScript return/type keyword, diagnostic or test/corpus assertion, not workflow policy. Source bytes remain reference; native behavioral qualification is separate."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/statechart/scripts/test/corpus/LoginParallel/LoginParallel.tla",
+      "sha256": "8f93509fca05425c054e7ec518e9653097ac9464c98fbf426fee551f940b2e51",
+      "rules": [
+        {
+          "id": "r-89fd13ca5ba15cba",
+          "line": 61,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a TypeScript return/type keyword, diagnostic or test/corpus assertion, not workflow policy. Source bytes remain reference; native behavioral qualification is separate."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/statechart/scripts/test/corpus/MediaPlayer/MediaPlayer.tla",
+      "sha256": "ace4961900ceb44281c94879c05550123a74c5427e9fcfaf3dfb134f51c38390",
+      "rules": [
+        {
+          "id": "r-6e11587499239e72",
+          "line": 100,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a TypeScript return/type keyword, diagnostic or test/corpus assertion, not workflow policy. Source bytes remain reference; native behavioral qualification is separate."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/statechart/scripts/test/corpus/MediaPlayerFixed/MediaPlayerFixed.tla",
+      "sha256": "59c4c86bfa1f38e0a01e8675d9936558d9a3899c3de8243483e633674a6bccfc",
+      "rules": [
+        {
+          "id": "r-a56512a301f9266e",
+          "line": 97,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a TypeScript return/type keyword, diagnostic or test/corpus assertion, not workflow policy. Source bytes remain reference; native behavioral qualification is separate."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/statechart/scripts/test/corpus/MediaPlayerProps/MediaPlayer.tla",
+      "sha256": "ace4961900ceb44281c94879c05550123a74c5427e9fcfaf3dfb134f51c38390",
+      "rules": [
+        {
+          "id": "r-dac0c8ca982b12f8",
+          "line": 100,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a TypeScript return/type keyword, diagnostic or test/corpus assertion, not workflow policy. Source bytes remain reference; native behavioral qualification is separate."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/statechart/scripts/test/differential.test.ts",
+      "sha256": "d4d64a7d17b4630616e797f1b184848c2a8b7712777d9982cafee81dc6046a9f",
+      "rules": [
+        {
+          "id": "r-162ce752e87e431c",
+          "line": 120,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a TypeScript return/type keyword, diagnostic or test/corpus assertion, not workflow policy. Source bytes remain reference; native behavioral qualification is separate."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "skills/statechart/scripts/test/pipeline.test.ts",
+      "sha256": "0f091c3e6e104fd545e113ad437df8d4856618a775073a37d41050ebf663e479",
+      "rules": [
+        {
+          "id": "r-f6bafb2779c67c40",
+          "line": 263,
+          "map": [
+            {
+              "exclude": "non-normative",
+              "reason": "This is a TypeScript return/type keyword, diagnostic or test/corpus assertion, not workflow policy. Source bytes remain reference; native behavioral qualification is separate."
+            }
+          ]
+        }
+      ]
+    },
+    {
       "path": "skills/swarm/SKILL.md",
-      "sha256": "031657cb81e490f9aed5c75d6ff2a4fda35ccafbaf72be604e59481cc4080cdc",
+      "sha256": "fea6bfbbf21e067a4e2d2ebab034bc3af508118e9df1abc9d2ba040d58a6df3a",
       "rules": [
         {
           "id": "r-a0f3d6aef8623b7e",

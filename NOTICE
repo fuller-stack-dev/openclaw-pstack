@@ -3,11 +3,11 @@ OpenClaw Pstack — independent OpenClaw adaptation
 Adapter and packaging copyright (c) 2026 fuller-stack-dev, MIT.
 
 Includes pstack by Lauren Tan, copyright (c) 2026 Lauren Tan, MIT,
-from https://github.com/cursor/plugins, pstack v0.15.29,
-commit 29fa9382c9c250d134f6a2f1aa86c01c5f63119d,
-Git tree 34a0b817e5ea92375bb10f20b15cf750d4e8095a.
+from https://github.com/cursor/plugins, pstack v0.15.36,
+commit c742dd61706fbacc1b95f1a20b7b988cf096ce6c,
+Git tree 4719e1c4b4c43bac85d4206a8b41dd2899769c1c.
 
-All 172 upstream files are retained byte-identically under skills/pstack/upstream,
+All 573 upstream files are retained byte-identically under skills/pstack/upstream,
 including their original LICENSE. They are source-only reference, not executed
 or independently registered by this plugin. Native OpenClaw guidance and plugin
 packaging are adaptations maintained by fuller-stack-dev.

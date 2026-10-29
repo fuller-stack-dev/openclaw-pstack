@@ -4,13 +4,13 @@
   "files": [
     {
       "path": "ADAPTATION.md",
-      "bytes": 3730,
-      "sha256": "d6b3c508a691459e295f1da45a1330498d294fa24d16fcde081fdfce1d2477a4"
+      "bytes": 10408,
+      "sha256": "1e6df75e0f384c1a3232bc659dc84ca713d843c052eec493eef236dd29ea9dac"
     },
     {
       "path": "README.md",
-      "bytes": 3168,
-      "sha256": "89506590b075d151826863bcfafd77c0e3ca97d61ae25a0eb8c5bb65b3dfc755"
+      "bytes": 3213,
+      "sha256": "3cc9afa10262c6649cbe2f9783dc827dc0019591d6159a8476a5cf857062eb30"
     },
     {
       "path": "SKILL.md",
@@ -54,8 +54,8 @@
     },
     {
       "path": "native/artifacts.md",
-      "bytes": 8910,
-      "sha256": "d5af7560a008283b7b7d0fbcd0607aea079d35a43f9a3374a037a67d0d3c6a4a"
+      "bytes": 8886,
+      "sha256": "1477efa003a06c6970a70a8b033569d0a0f48f9507bc00acd5950df6b9e796c4"
     },
     {
       "path": "native/automation/README.md",
@@ -85,7 +85,7 @@
     {
       "path": "native/contract.md",
       "bytes": 21469,
-      "sha256": "7662f2653164ed717a90c78b1ad238e2ddf8b2674f83e85ac4fb95f4a11323bc"
+      "sha256": "6f999398996d9273caa6943e8a62f7fc12a72ac4e933c812c49dec72bb9aff91"
     },
     {
       "path": "native/delegation.md",
@@ -94,8 +94,8 @@
     },
     {
       "path": "native/interrogate-executed.md",
-      "bytes": 3293,
-      "sha256": "074e6caf91ae7ef556185c6e5c777d1c5e5736d87c6a716be289037f027cf3a9"
+      "bytes": 4064,
+      "sha256": "42fd7ff947d73cf49ed487eb455b3067591970ec75d5d94131b9b31788473254"
     },
     {
       "path": "native/legacy/interrogate/README.md",
@@ -129,8 +129,8 @@
     },
     {
       "path": "native/model-routing.md",
-      "bytes": 20378,
-      "sha256": "27589bad214bcac5d0ddeddb7064747c34a688407d30130dea499e874dfc437b"
+      "bytes": 20565,
+      "sha256": "8410d192404493fcc36dbfd0694f8b82221fc3000f4bb36bd1045c0e18e7d6f9"
     },
     {
       "path": "native/plan-adapter.md",
@@ -139,8 +139,8 @@
     },
     {
       "path": "native/playbooks.md",
-      "bytes": 95755,
-      "sha256": "1ea434ad4172f527760123314caf42bd8265c188efca253028fdc765fc7b3807"
+      "bytes": 95107,
+      "sha256": "c58c0b7ff5cd45414d8ba2e00bf3f2ff48c33b5e93436efdaf27e371cc98f1d4"
     },
     {
       "path": "native/principles.md",
@@ -154,8 +154,8 @@
     },
     {
       "path": "native/requirements/arena.json",
-      "bytes": 4572,
-      "sha256": "21bab97befc6ab5f8e192506bed199b0b8d11930fb43f5457274014417b14902"
+      "bytes": 4960,
+      "sha256": "61d09879b76d17b5f10250d84ac6d1102e66f65eb2ae90dd83e9ae448596c920"
     },
     {
       "path": "native/requirements/automate-me.json",
@@ -169,18 +169,18 @@
     },
     {
       "path": "native/requirements/autopilot-full.json",
-      "bytes": 9119,
-      "sha256": "37e81eceaea21d480d16cf11844564aa5f1efb1fe925a2a6cc988565cf9a6a3d"
+      "bytes": 9808,
+      "sha256": "27f4f4c6b4c80e70aa05608a134e94e60b8468257ed069399b9e98f92cec1ae3"
     },
     {
       "path": "native/requirements/autopilot-stack.json",
-      "bytes": 4098,
-      "sha256": "12ec5422ab2c34bc3d7ff83744cf588d0d8dd1bc9b06b9021b1fda208b329965"
+      "bytes": 2596,
+      "sha256": "6d36b9d18c3d80e30b9e464b3a40b362a681e638a03b8861c27440d537716cf4"
     },
     {
       "path": "native/requirements/babysit.json",
-      "bytes": 8680,
-      "sha256": "eb80e6028ed0a6de71fa0ffda30424de75d76aee0a8ebc903b9f2663014b728d"
+      "bytes": 8705,
+      "sha256": "4e6a59e985c100bfee6dd91e0f8bc2c557ea2c9da3692b6f7982b59c7c3e4ca9"
     },
     {
       "path": "native/requirements/benchmark-checklist.json",
@@ -244,13 +244,18 @@
     },
     {
       "path": "native/requirements/interrogate.json",
-      "bytes": 4875,
-      "sha256": "c0170728313ca9f7baa08edaa20d46ed529db4726e2ce5387b978eaaa159761e"
+      "bytes": 4569,
+      "sha256": "afc9c72c82c3fa86ede8f1bbb1bfa37fb90cfcf84460990c5f7af960a1dd1fbc"
     },
     {
       "path": "native/requirements/investigation.json",
       "bytes": 4822,
       "sha256": "fff0a59f5ff75646533c154956a3f2bb9bab4a4f4ca72da344bfabb5126f414e"
+    },
+    {
+      "path": "native/requirements/ketchup-video.json",
+      "bytes": 3530,
+      "sha256": "3ec4aa9d7ceec5ba0b8d5fcde8d2d39ab5cab72990d4d34978c36459d1428f1a"
     },
     {
       "path": "native/requirements/ketchup.json",
@@ -269,8 +274,8 @@
     },
     {
       "path": "native/requirements/multi-phase-plan.json",
-      "bytes": 18892,
-      "sha256": "216540797ebe4539cc5919c34d91233cc9d3bb6447552d7841a3a20ac9bed597"
+      "bytes": 19172,
+      "sha256": "53a03bdfc92283614087f01e8a688150756c9746e1ae8fe729d8c773562b9662"
     },
     {
       "path": "native/requirements/no-comments.json",
@@ -279,13 +284,13 @@
     },
     {
       "path": "native/requirements/opening-a-pr.json",
-      "bytes": 9969,
-      "sha256": "f53f8a968556e025424a45c9c71f0b1264e7c6f0c963dd6a04f4a4c478d049d0"
+      "bytes": 10148,
+      "sha256": "e0dae2509d8d8341fe98e09ae33b3d6f75275c16c7b1371b17f6f5ad6f0f630c"
     },
     {
       "path": "native/requirements/orchestrate.json",
-      "bytes": 11304,
-      "sha256": "5b83bd3823e957ac081332c1429beb3595298c3c0759f866fd9625af708ce460"
+      "bytes": 6585,
+      "sha256": "5716fa200d09c0cca4f67a84add784aba8eb1466f913413fac8df92b99af2d56"
     },
     {
       "path": "native/requirements/pause-safely.json",
@@ -339,8 +344,8 @@
     },
     {
       "path": "native/requirements/setup-pstack.json",
-      "bytes": 4091,
-      "sha256": "7a6317d400623963728580e925d85f93c016bd8338a27e97d547efd4429551ce"
+      "bytes": 4299,
+      "sha256": "770a608b75fc3103da6a7461823270ca606a2bb98abf5bb1cfda80b883d6e708"
     },
     {
       "path": "native/requirements/sharpen.json",
@@ -356,6 +361,11 @@
       "path": "native/requirements/show-me-your-work.json",
       "bytes": 5148,
       "sha256": "885c1a9c50d63931d68d7e59b28ae94d9e566e75b13861405208570d75d0e04c"
+    },
+    {
+      "path": "native/requirements/statechart.json",
+      "bytes": 4578,
+      "sha256": "dac6975e6b0e4d90f2f68dfe7701ee42917497da38b06674abddaf2b1633070e"
     },
     {
       "path": "native/requirements/swarm.json",
@@ -400,27 +410,27 @@
     {
       "path": "native/route-commands.md",
       "bytes": 5500,
-      "sha256": "62ab87a5316cc80df9273d59ddb0a6ea6c7b5cdbbdfeb939642a3c6d89fd9301"
+      "sha256": "04eb35c8430beaede4ac35bfc122aff38626cfa113fd0ba5c1db8ace81f2663c"
     },
     {
       "path": "native/route-skills.json",
-      "bytes": 52672,
-      "sha256": "824c959c5c69884d32532a408f88764922ce561e20fbaba6503feb49baeefd3d"
+      "bytes": 52257,
+      "sha256": "814497ffaa1a6f92fb9ff0ce336b1cf8128a1970aa2b27362d6e109948e01b12"
     },
     {
       "path": "native/routes.json",
-      "bytes": 3438,
-      "sha256": "509f5bb3fd3573deddb4b72a0f84cd81994e5b3a564987c2e32ba41c90b91c43"
+      "bytes": 3516,
+      "sha256": "8b595473d1c570a190aefa16fc72cba6386a66926f79377d086d466f60f510e3"
     },
     {
       "path": "native/semantic-overlay.json",
-      "bytes": 102534,
-      "sha256": "2d97113e5abe1602e40423d3941d7591ba43368a859dc5e2a70cfef2f70462e0"
+      "bytes": 121144,
+      "sha256": "703b802cfce396d61c3af98aa5ad9d8328d08695b0bece7472b0b0ac68fb5f6f"
     },
     {
       "path": "native/semantic-overlay.md",
-      "bytes": 141898,
-      "sha256": "c5ff79d70cf1a3a87241e7af8526eea6b45d59be8971f1224eb5b652b4938f21"
+      "bytes": 155549,
+      "sha256": "cecc0f740f4d907b41c5f3725c03ceecc77594c63c82d697bd4da0dcd612537f"
     },
     {
       "path": "native/session-mode.md",
@@ -439,8 +449,8 @@
     },
     {
       "path": "native/workflows.md",
-      "bytes": 109112,
-      "sha256": "b3aa4ab6e73bea46eab4dfa5ba3e73dd81f445c047d36cc9922baef457f06183"
+      "bytes": 116823,
+      "sha256": "b6eb706eb7a2427e8bbaac8177f0b97988590df6d6e2b20c646a57e2530c03be"
     },
     {
       "path": "native/worktree-audit-adapter.md",
@@ -494,8 +504,8 @@
     },
     {
       "path": "source-manifest.json",
-      "bytes": 49743,
-      "sha256": "8b3a38140fefcc10296899cfc892d62f4356afcdc0c8396b2def585219729415"
+      "bytes": 172291,
+      "sha256": "0bc169df64293221c7e2b9e3990ed34d7fb5c5104f762842fdeda68b2b6cb0df"
     }
   ],
   "aliasSha256": "6a5ec0be96d24e505449e2bf9bd2e3b8fe2fc3b0b4f29ee3926113aff0ee0da8",

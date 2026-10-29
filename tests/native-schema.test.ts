@@ -69,13 +69,15 @@ afterEach(async () => {
 async function saveConfig() {
   await writeFile(join(workspace, "pstack-models.json"), JSON.stringify(config));
 }
-function nativeTool(workspaceDir: string | undefined, provider = "openai") {
+function nativeTool(workspaceDir: string | undefined, provider = "openai", nativeJudge = false) {
   let factory: any;
   register(
     createTestPluginApi({
       id: "pstack",
       runtime: { state: { openKeyedStoreV2: (spec: any, opts: any) =>
-        createPluginStateKeyedStoreV2ForTests("pstack", spec, opts) } },
+        createPluginStateKeyedStoreV2ForTests("pstack", spec, opts) },
+        ...(nativeJudge ? { capabilities: ["requester-model-catalog-v1", "requester-model-family-v1"],
+          agent: { session: { getSessionEntryAsync: async () => ({ sessionId: "native-schema-incarnation" }) } } } : {}) },
       registerTool: (value: any, options: any) => {
         if (options?.names?.includes("pstack_route")) factory = value;
       },
@@ -86,6 +88,10 @@ function nativeTool(workspaceDir: string | undefined, provider = "openai") {
     sessionKey: "agent:worker:subagent:native-schema-requester",
     sessionId: "native-schema-incarnation",
     agentId: "worker",
+    // A new judge plan consumes host facts, never the model-authored parent hint.
+    ...(nativeJudge ? { activeModel: { provider: "openai", modelId: "gpt-6.1-sol", modelRef: sol.model },
+      assertInvocationCurrent() {}, runtimeContext: { models: { list: async () => ({ state: "prepared", revision: "ingress-fixture",
+        models: catalog.map(row => ({ provider: row.id.split("/")[0], id: row.id.slice(row.id.indexOf("/") + 1), name: row.id, family: row.family })) }) } } } : {}),
   });
   const execute = vi.spyOn(source, "execute");
   // The real host normalization is part of every admission, not a local copy.
@@ -121,6 +127,7 @@ async function dispatch(
   const h = options.sourceTool ? { tool: options.sourceTool, execute: vi.spyOn(options.sourceTool, "execute") } : nativeTool(
     options.missingWorkspace ? undefined : (options.workspaceDir ?? workspace),
     options.provider,
+    args.role === "arena cross-judge pool" && !args.snapshot && args.task !== undefined,
   );
   const id = "native-ingress-call";
   const events: any[] = [];

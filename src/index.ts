@@ -350,7 +350,48 @@ export function register(api: OpenClawPluginApi) {
           if (!toolContext.workspaceDir) throw Error("Requester workspace is unavailable");
           const models = (toolContext as { runtimeContext?: Invocation }).runtimeContext?.models;
           const requester = models && typeof models.list === "function" ? await readRequesterCatalog(models, { family: caps.family }) : undefined;
-          const result = await planFromWorkspace({ ...p, workspace: toolContext.workspaceDir }, { requester, hostBlind: caps.blind });
+          // Only a new judge spawn plan needs current-parent proof. Read-only inspection,
+          // unrelated roles and historical snapshots keep their compatibility behavior.
+          const judge = p.action !== "confirm" && !p.snapshot && p.role === "arena cross-judge pool" && p.task !== undefined;
+          let parent: { parentModel: string; parentFamily: string } | undefined;
+          const activeModel = () => {
+            const model = toolContext.activeModel;
+            if (!model?.provider || !model.modelId) return undefined;
+            const ref = model.provider + "/" + model.modelId;
+            if (model.modelRef !== undefined && model.modelRef !== ref) throw Error("Active model reference contradicts its native provider/model pair");
+            return ref;
+          };
+          const assertParentCurrent = async () => {
+            if (!toolContext.assertInvocationCurrent || !toolContext.sessionKey || !toolContext.sessionId)
+              throw Error("BLOCKED: different-family judge needs current host invocation and exact session metadata");
+            toolContext.assertInvocationCurrent();
+            const { agentId, entry } = await entryFor(toolContext.sessionKey);
+            if (!entry || entry.sessionId !== toolContext.sessionId || (toolContext.agentId && toolContext.agentId !== agentId))
+              throw Error("BLOCKED: different-family judge requester incarnation changed");
+            if ((entry as { liveModelSwitchPending?: boolean }).liveModelSwitchPending)
+              throw Error("BLOCKED: different-family judge parent model switch is pending");
+            toolContext.assertInvocationCurrent();
+            if (parent && activeModel() !== parent.parentModel)
+              throw Error("BLOCKED: different-family judge active model changed during preparation");
+          };
+          if (judge) {
+            await assertParentCurrent();
+            const model = activeModel();
+            const family = caps.family && requester?.state === "prepared" && requester.catalog.find(row => row.id === model)?.family;
+            if (!model || !family)
+              throw Error("BLOCKED: different-family judge needs the current-turn active model and its canonical family in a prepared host requester catalog; caller hints and stored runtime metadata are not proof");
+            if (p.parentModel !== undefined && p.parentModel !== model)
+              throw Error("Parent model contradicts current native active model");
+            if (p.parentFamily !== undefined && p.parentFamily !== family)
+              throw Error("Parent family contradicts native catalog");
+            parent = { parentModel: model, parentFamily: family };
+          }
+          const result = await planFromWorkspace({ ...p, ...parent, workspace: toolContext.workspaceDir }, { requester, hostBlind: caps.blind });
+          if (judge) {
+            await assertParentCurrent();
+            if ((result as { snapshot?: { diversity: string } }).snapshot?.diversity !== "different-family")
+              throw Error("BLOCKED: different-family judge is not established by the configured pool and current host families; no spawn arguments returned");
+          }
           return {
             content: [{ type: "text" as const, text: JSON.stringify(result) }],
             details: result,

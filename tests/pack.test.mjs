@@ -117,6 +117,9 @@ const fixtureSessions = new Map([
 ]);
 function allowedPrivacyMatch(path, kind, value) {
   if (kind === "email") {
+    // These three byte sequences in the pinned public font are glyph program data, not mail.
+    if (path === "src/artifacts/ketchup-video/assets/NotoSans-Regular.ttf" &&
+        value === ["P", "pV0.SqDZ"].join("@")) return true;
     // Reserved example domains are synthetic; the upstream SSH URL is not mail.
     if (/@example\.(?:com|org|net|test|invalid)$/i.test(value)) return true;
     return [
@@ -189,6 +192,13 @@ test("repository privacy guard rejects private data in tracked files", async (t)
   }
   await writeFile(path, "Safe again: reader@example.test\n");
   assert.deepEqual(await trackedPrivacyFindings(repo, ok, terms), [], "removing planted data clears the guard");
+  const fontPath = "src/artifacts/ketchup-video/assets/NotoSans-Regular.ttf";
+  const font = await readFile(join(root, fontPath));
+  assert.equal(createHash("sha256").update(font).digest("hex"), "b85c38ecea8a7cfb39c24e395a4007474fa5a4fc864f6ee33309eb4948d232d5");
+  assert.deepEqual(privacyFindings(fontPath, font.toString("utf8"), terms), []);
+  assert.deepEqual(privacyFindings(fontPath, font.toString("utf8") + "person@" + "private-company.io", terms), [fontPath + ": email"]);
+  assert.deepEqual(privacyFindings(fontPath, font.toString("utf8") + terms[0], terms), [fontPath + ": private identity"]);
+  assert.deepEqual(privacyFindings("other.ttf", font.toString("utf8"), terms), Array(3).fill("other.ttf: email"));
   // An exception is local to the approved fixture/value, not a path-wide bypass.
   const upstream = "skills/pstack/upstream/skills/recall/SKILL.md";
   assert.deepEqual(privacyFindings(upstream, "/" + "Users/you/proj"), []);

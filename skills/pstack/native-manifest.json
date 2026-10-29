@@ -444,8 +444,8 @@
     },
     {
       "path": "scripts/interrogate-semantics.mjs",
-      "bytes": 9416,
-      "sha256": "85bd642caeb62e24276f5788ce975354aa3d80f65d717b2ede7822ee2f96e8be"
+      "bytes": 9557,
+      "sha256": "8c765a32e4010cff4dc83856126ca141b0ace67230fae9b26557399ba1de020c"
     },
     {
       "path": "scripts/model-routing-cli.mjs",

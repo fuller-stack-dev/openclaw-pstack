@@ -9,6 +9,9 @@ import { runAgentLoop } from "host-test/agent-core";
 import { createAssistantMessageEventStream } from "host-test/llm-core";
 import { register } from "../src/index.ts";
 import { build } from "./fixtures/tool-factory.ts";
+import { envelopeSchema } from "../src/controller.ts";
+import { executedFinding, executedReviewer, frozenProof, leadFor } from "./fixtures/executed-outputs.mjs";
+import { createStructuredOutputTool, consumeSwarmStructuredOutput, peekSwarmStructuredOutput } from "host-test/structured-output";
 
 // Factory schemas at the immutable pin, not a live Gateway effective descriptor.
 // planner-spawn.test.ts verifies both captures and adjacent provenance.
@@ -112,9 +115,10 @@ async function dispatch(
     missingWorkspace?: boolean;
     provider?: string;
     block?: boolean;
+    sourceTool?: any;
   } = {},
 ) {
-  const h = nativeTool(
+  const h = options.sourceTool ? { tool: options.sourceTool, execute: vi.spyOn(options.sourceTool, "execute") } : nativeTool(
     options.missingWorkspace ? undefined : (options.workspaceDir ?? workspace),
     options.provider,
   );
@@ -679,5 +683,36 @@ describe.each(spawnSchemas)("pstack_route through native normalization and dispa
       await dispatch(request(), { missingWorkspace: true }),
       /Requester workspace is unavailable/,
     );
+  });
+});
+
+// Scripted model I/O; real host producer-schema validation and durable output callback.
+describe.each(providers)("executed child envelopes through %s host conversion and dispatch", provider => {
+  it.each(["reviewer", "lead"])("preserves %s proof and refuses missing nested required fields", async kind => {
+    const context = { frozen: frozenProof, reviewers: [0, 1].map(i => ({ slot: 'reviewers:' + i, artifactDigest: String(i).repeat(64), output: executedReviewer(i ? [] : [executedFinding()]) })) };
+    const role = kind === 'reviewer' ? 'interrogate reviewers' : 'judgment and prose';
+    const output = kind === 'reviewer' ? context.reviewers[0].output : leadFor(context);
+    const envelope = { status: 'ISSUES', evidence: ['Scripted transport fixture'], report: 'Typed proof transport only', output };
+    const runId = 'executed-ingress-' + provider + '-' + kind;
+    const persisted: any[] = [];
+    const source = createStructuredOutputTool({ runId, schema: envelopeSchema(role, { kind: 'interrogate', executedProof: true } as any), onStateChange: state => { persisted.push(state); } });
+    const [converted] = normalizeOpenAIToolSchemas({ provider,
+      modelId: provider === 'google' ? 'gemini-3.1-pro' : provider === 'anthropic' ? 'claude-opus-5-5' : 'gpt-6.1-sol',
+      modelApi: provider === 'google' ? 'google-generative-ai' : provider === 'anthropic' ? 'anthropic-messages' : 'openai-responses',
+      tools: [normalizeToolParameters(source, { modelProvider: provider })] });
+    try {
+      const missing = structuredClone(envelope);
+      const proof = kind === 'reviewer' ? missing.output.findings[0].proof : missing.output.accounting[0].rerun;
+      delete proof.frozenAfter;
+      const refused = await dispatch({ result: missing }, { sourceTool: converted });
+      expect(refused.result.isError).toBe(true);
+      expect(JSON.stringify(refused.result.content)).toContain('frozenAfter');
+      expect(peekSwarmStructuredOutput(runId)).toMatchObject({ invalidAttempts: 1, structured: undefined });
+      const good = await dispatch({ result: envelope }, { sourceTool: converted });
+      expect(good.result.isError).toBe(false);
+      expect(good.result.details).toEqual({ status: 'recorded' });
+      expect(consumeSwarmStructuredOutput(runId)).toEqual({ structured: envelope, invalidAttempts: 0 });
+      expect(persisted.at(-1)).toEqual({ structured: envelope, invalidAttempts: 0 });
+    } finally { consumeSwarmStructuredOutput(runId); }
   });
 });

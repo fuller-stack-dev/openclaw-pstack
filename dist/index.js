@@ -395,7 +395,7 @@ function checkExecuted(name, output, context, fail) {
       const target = output.accounting.find((a) => a.origin === row.duplicateOf);
       const original = findings.get(row.duplicateOf);
       if (!target || !["keep", "drop"].includes(target.disposition) || !original || row.rerun) fail("duplicate must point directly to an independently rerun keep/drop");
-      else if (!same(f.proof.repro, original.proof.repro) || f.proof.command !== original.proof.command || !same(f.proof.environment, original.proof.environment) || f.proof.expected !== original.proof.expected || f.proof.expectedExitCode !== original.proof.expectedExitCode || f.location !== original.location) fail("duplicate does not share the same repro, expectation and location");
+      else if (!same(f.proof.repro, original.proof.repro) || f.proof.command !== original.proof.command || f.proof.cwd.slice(f.proof.scratch.length) !== original.proof.cwd.slice(original.proof.scratch.length) || !same(f.proof.environment, original.proof.environment) || f.proof.expected !== original.proof.expected || f.proof.expectedExitCode !== original.proof.expectedExitCode || f.location !== original.location) fail("duplicate does not share the same repro, command, relative cwd, environment, expectation and location");
       continue;
     }
     if (!row.rerun || row.duplicateOf) {

@@ -85,6 +85,21 @@ describe('executed proof contracts and lifecycle', () => {
     expect(checkOutput('interrogate-executed-lead',output,{...context,status:'PASS'}).join()).toContain('directly');
     expect(checkOutput('interrogate-executed-lead',leadFor(context),{...context,reviewers:context.reviewers.slice(1),status:'ISSUES'}).join()).toContain('expected 2-2 items');
   });
+  it('requires the same scratch-relative cwd before skipping an exact duplicate rerun', () => {
+    const context=reviewContext();
+    context.reviewers[1].output=executedReviewer([executedFinding()]);
+    const first=context.reviewers[0].output.findings[0].proof, second=context.reviewers[1].output.findings[0].proof;
+    first.cwd=first.scratch+'/left';
+    second.scratch='/task/reviewer-b'; second.cwd=second.scratch+'/right';
+    for(const reviewer of context.reviewers)
+      expect(checkOutput('interrogate-executed-reviewer',reviewer.output,{frozen:context.frozen,status:'ISSUES'})).toEqual([]);
+    const output=leadFor(context); output.accounting[0].rerun.cwd+='/left';
+    output.accounting[1]={origin:'reviewers:1/F1',disposition:'duplicate',duplicateOf:'reviewers:0/F1',reason:'Same repro but distinct working directory'} as any;
+    expect(checkOutput('interrogate-executed-lead',output,{...context,status:'ISSUES'}).join()).toContain('relative cwd');
+    // Different absolute scratch roots are legitimate when the execution context matches.
+    second.cwd=second.scratch+'/left';
+    expect(checkOutput('interrogate-executed-lead',output,{...context,status:'ISSUES'})).toEqual([]);
+  });
   it('stores proof intact or refuses the budget; never truncates typed evidence', () => {
     const record=nativeRecord(reviewContext()), result={status:'ISSUES',evidence:['e'.repeat(4096)],report:'r'.repeat(32000),output:executedReviewer([executedFinding()])};
     expect(storedResult(result,record,64)).toEqual({...result,artifactDigest:digest(result)});

@@ -33,6 +33,7 @@ export default {
         find: "host-test/handoff-path",
         replacement: join(host, "src/infra/update-managed-service-handoff-lease.ts"),
       },
+      { find: "host-test/structured-output", replacement: join(host, "src/agents/tools/structured-output-tool.ts") },
       { find: "host-test/agent-core", replacement: join(host, "packages/agent-core/src/index.ts") },
       { find: "host-test/llm-core", replacement: join(host, "packages/llm-core/src/index.ts") },
       { find: "host-test/sessions-spawn", replacement: join(host, "src/agents/tools/sessions-spawn-tool.ts") },

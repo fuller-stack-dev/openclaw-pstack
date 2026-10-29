@@ -76,7 +76,25 @@ export function checkPlan(source, file = "plan.md") {
     const line = { n: i + 1, text };
     lines.push(line);
     if (hasAngleTag(text)) fail(line.n, "unfilled angle-bracket placeholder or HTML; use concrete Markdown evidence");
-    const prose = stripLinkTargets(text.replace(/`[^`]*`/g, ""));
+    // Index the next equal-length run once; unmatched openers must not rescan the line.
+    const runs = Array.from(text.matchAll(/`+/g), match => ({ start: match.index, length: match[0].length }));
+    const nextRun = new Map();
+    const closers = new Array(runs.length);
+    for (let j = runs.length - 1; j >= 0; j--) {
+      closers[j] = nextRun.get(runs[j].length);
+      nextRun.set(runs[j].length, j);
+    }
+    const parts = [];
+    let from = 0;
+    for (let j = 0; j < runs.length; j++) {
+      const close = closers[j];
+      if (close === undefined) continue;
+      parts.push(text.slice(from, runs[j].start));
+      from = runs[close].start + runs[close].length;
+      j = close;
+    }
+    parts.push(text.slice(from));
+    const prose = stripLinkTargets(parts.join(""));
     if (/[\u2013\u2014]/.test(prose)) fail(line.n, "long dash");
     if (/[\u2018\u2019\u201c\u201d]/.test(prose)) fail(line.n, "curly quote");
     if (/: \S/.test(prose)) fail(line.n, "mid-sentence colon");

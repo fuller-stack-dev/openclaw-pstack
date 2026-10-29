@@ -258,6 +258,31 @@ test("linear prose scanners match the original regexes exactly on exhaustive sho
   assert.equal(stripLinkTargets("see ![shot](a.png) and [doc](x.md): end"), "see  and [doc]: end");
 });
 
+test("128 KiB backtick adversaries stay within the existing scanner budget", () => {
+  // Match the supplied-source tool limit and the existing pathological-line budget.
+  const limit = 131_072;
+  const bad = ": ‘prose’ — end";
+  let unequal = "Use ";
+  for (let count = 1; unequal.length + count + 1 + bad.length <= limit; count++)
+    unequal += "`".repeat(count) + " ";
+  const punctuation = ["long dash", "curly quote", "mid-sentence colon"];
+  for (const [source, expected] of [
+    [unequal + bad, punctuation],
+    ["Use " + "`".repeat(limit - 4 - bad.length) + bad, punctuation],
+    ["Use " + "`".repeat(60_000) + bad + "`".repeat(60_001), punctuation],
+    ["Use ``" + ": ‘code’ — ` ".repeat(9_000) + "``.", []],
+    ["Use " + "`code: ‘ok’ —` ".repeat(8_000) + bad, punctuation],
+  ]) {
+    assert.ok(source.length <= limit);
+    const started = performance.now();
+    const result = checkPlan(source);
+    const elapsed = performance.now() - started;
+    assert.ok(elapsed < 1_000, "took " + elapsed + " ms");
+    assert.deepEqual(result.problems.filter(p => punctuation.includes(p.message)),
+      expected.map(message => ({ line: 1, message })));
+  }
+});
+
 test("pathological 128 KiB lines check in bounded time and still report their findings", () => {
   for (const [line, finding] of [["](".repeat(65_536), undefined], ["![".repeat(65_536), undefined], ["<".repeat(131_071) + ">", "angle-bracket"],
     ["![a](".repeat(26_214), undefined], ["<a".repeat(65_536), undefined]]) {

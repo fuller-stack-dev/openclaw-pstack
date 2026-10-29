@@ -419,8 +419,8 @@
     },
     {
       "path": "scripts/plan-check.mjs",
-      "bytes": 11931,
-      "sha256": "3ab5de92f11916ad16ed546a781082b6a5ed4e8caffec9eac7eecee35a9dfde5"
+      "bytes": 12651,
+      "sha256": "7b82453153b4584601f4502477af8ac043b8a7e01cd4b842749d860362ee0732"
     },
     {
       "path": "scripts/session_mode.py",

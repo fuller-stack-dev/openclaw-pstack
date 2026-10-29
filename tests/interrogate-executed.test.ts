@@ -141,13 +141,17 @@ describe('executed proof contracts and lifecycle', () => {
 
 it('executes a failing repro, rebuilds independent scratch from frozen archive plus patch, and checks a healthy control', async () => {
   const root=mkdtempSync(join(tmpdir(),'pstack-proof-process-'));
-  const git=(args: string[], cwd: string, input?: Buffer|string) => execFileSync('git',args,{cwd,input,encoding:'utf8',stdio:['pipe','pipe','pipe']}).trim();
+  const fixtureEnv = { ...process.env, GIT_CONFIG_NOSYSTEM: '1', GIT_CONFIG_GLOBAL: '/dev/null',
+    GIT_AUTHOR_NAME: 'Proof Fixture', GIT_AUTHOR_EMAIL: 'proof@example.invalid',
+    GIT_COMMITTER_NAME: 'Proof Fixture', GIT_COMMITTER_EMAIL: 'proof@example.invalid' };
+  const git=(args: string[], cwd: string, input?: Buffer|string) => execFileSync('git',args,{cwd,input,env:fixtureEnv,encoding:'utf8',stdio:['pipe','pipe','pipe']}).trim();
   try {
     const source=join(root,'source');mkdirSync(source);
     const healthy='export const retry = status => status >= 500;\n', broken='export const retry = status => status >= 400;\n';
     writeFileSync(join(source,'retry.mjs'),healthy);git(['init','-q'],source);git(['add','retry.mjs'],source);
-    // Never-pushed task fixture: no identity override; uses the verified managed global identity.
     git(['commit','-qm','fixture healthy retry'],source);
+    expect(git(['show','-s','--format=%an <%ae>|%cn <%ce>','HEAD'],source))
+      .toBe('Proof Fixture <proof@example.invalid>|Proof Fixture <proof@example.invalid>');
     const revision=git(['rev-parse','HEAD'],source),tree=git(['rev-parse','HEAD^{tree}'],source);
     const archive=execFileSync('git',['archive','HEAD'],{cwd:source});
     writeFileSync(join(source,'retry.mjs'),broken);const patch=execFileSync('git',['diff','--binary'],{cwd:source});

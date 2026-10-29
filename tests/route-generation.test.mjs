@@ -22,10 +22,10 @@ test("generates and read-only checks all 55 manual routes without rewriting nati
   assert.deepEqual(await syncRoutes(dir, true), { routes: 55, check: true, semanticPorting: false });
   const manifest = JSON.parse(await readFile(join(dir, "skills/pstack/native/route-skills.json"), "utf8"));
   assert.equal(manifest.files.length, 55);
-  assert.equal(manifest.restoredRequirementRoutes, 49);
-  assert.equal(manifest.restoredGates, 845);
+  assert.equal(manifest.restoredRequirementRoutes, 50);
+  assert.equal(manifest.restoredGates, 849);
   assert.equal(manifest.semanticReview, "NOT-PERFORMED-BY-THIS-GENERATOR");
-  assert.equal(manifest.files.reduce((count, record) => count + record.requirementIds.length, 0), 845);
+  assert.equal(manifest.files.reduce((count, record) => count + record.requirementIds.length, 0), 849);
   for (const file of manifest.files) {
     const text = await readFile(join(dir, "skills/routes", file.path), "utf8");
     assert.ok(text.includes("the entire " + file.route + " section"));

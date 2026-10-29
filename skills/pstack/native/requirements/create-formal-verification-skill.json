@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "route": "create-formal-verification-skill",
+  "document": "workflows.md",
+  "priority": "P2",
+  "upstream": [
+    "skills/create-formal-verification-skill/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "result-presentation",
+      "text": "For every TLA+ result, including a pass, the generated skill refers to the native [Statechart guide](artifacts.md#statechart) by name. It explains shortest broken-rule paths in the reader’s words and draws passing behavior. Do not copy statechart commands, options, versions or machine-specific paths into the generated skill or its scripts; resolve the installed guide when it runs."
+    }
+  ]
+}

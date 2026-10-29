@@ -11,13 +11,13 @@
     },
     {
       "path": "native/routes.json",
-      "bytes": 3398,
-      "sha256": "caeff9c5dcb7f82131306f96ea2d3c34417ccb14263d11f9ebdf03d25456b90c"
+      "bytes": 3438,
+      "sha256": "509f5bb3fd3573deddb4b72a0f84cd81994e5b3a564987c2e32ba41c90b91c43"
     },
     {
       "path": "native/workflows.md",
-      "bytes": 108236,
-      "sha256": "c13a9de732661dfd45dc8032672d074134d4fc19b5b2273d8d870049c5a93546"
+      "bytes": 109112,
+      "sha256": "b3aa4ab6e73bea46eab4dfa5ba3e73dd81f445c047d36cc9922baef457f06183"
     },
     {
       "path": "native/playbooks.md",
@@ -81,8 +81,8 @@
     },
     {
       "path": "native/requirements/reflect.json",
-      "bytes": 4963,
-      "sha256": "58841469999aa7e682f3395d6599ce7b098fea0882b4e66367ad531c4155f49b"
+      "bytes": 5391,
+      "sha256": "8440bfbabb6f61aa6c1fdc9273c997cbb089aaffec449ce2f5a292b99041adac"
     },
     {
       "path": "native/requirements/hillclimb.json",
@@ -211,8 +211,8 @@
     },
     {
       "path": "native/requirements/poteto-mode.json",
-      "bytes": 8540,
-      "sha256": "57693de36be2a43c128cad536f7d47b6fc22b8b64ceb2e0339b40839c1c4eec2"
+      "bytes": 8811,
+      "sha256": "2d4d39abef503a00f80b7553d00d0f4d6a8440fa2babfd6d154fd0f0bf2debf7"
     },
     {
       "path": "native/requirements/setup-pstack.json",
@@ -268,6 +268,11 @@
       "path": "native/requirements/unslop.json",
       "bytes": 1132,
       "sha256": "1f4e2502da80642b7a3d457b681d997867adb0906c009eff5eefc0ab9f90c593"
+    },
+    {
+      "path": "native/requirements/create-formal-verification-skill.json",
+      "bytes": 658,
+      "sha256": "87d5056fc86e42988c7e89c7c80ba94ad69c862cd553246e4e1063a6c503bc00"
     }
   ],
   "files": [
@@ -277,7 +282,7 @@
       "sha256": "bb071292d79d0829b7faa40ddf5f73cd950b0837703b9b22d6344690d9ed4ef8",
       "route": "poteto-mode",
       "document": "workflows.md",
-      "sectionSha256": "79074f238e9c248cf06df3fc912ffe4c5f8a33760f45638d09477e26572935e0",
+      "sectionSha256": "60fc08fd194f4efa9314e0edc9c62fbc9294fd2fbffc0c5dfea23ae7415d6f1e",
       "requirementIds": [
         "playbook-checklist",
         "conditional-triggers",
@@ -292,7 +297,8 @@
         "poteto-mode-planner",
         "poteto-mode-rerun-rejected",
         "poteto-mode-checklist",
-        "poteto-mode-claim-labels"
+        "poteto-mode-claim-labels",
+        "before-measurement"
       ]
     },
     {
@@ -576,8 +582,10 @@
       "sha256": "b615aa09497e24caeab374d155acd4ce0e77b6656edd6599c531405622a3d5fc",
       "route": "create-formal-verification-skill",
       "document": "workflows.md",
-      "sectionSha256": "0d818062d92042dea35a4b08524a9355dd6a6c681da1f4e9a74d11eadc038e12",
-      "requirementIds": []
+      "sectionSha256": "eba5a5fe4cd6a7d45f0c43b2417ac38a9671640f92618c24834919a1acc6f410",
+      "requirementIds": [
+        "result-presentation"
+      ]
     },
     {
       "path": "pstack-maintain-formal-verification-skill/SKILL.md",
@@ -742,7 +750,7 @@
       "sha256": "060b202663a126ebfb4d5f967b21bfa9e4077bf1d4c07d80f47212048ddbd107",
       "route": "reflect",
       "document": "workflows.md",
-      "sectionSha256": "e2b6f35cbbe12cff831f70db93b8dceb452f5b5bb51848018ff23146047de459",
+      "sectionSha256": "a02feed5c47d9563a4470339576be6cd65e4a74b25f86712e2c399000236b8b4",
       "requirementIds": [
         "scope",
         "parallel-lenses",
@@ -751,7 +759,9 @@
         "existing-first",
         "row-approval",
         "apply-validate",
-        "bounded-wait-resume"
+        "bounded-wait-resume",
+        "canonical-preview",
+        "no-publication"
       ]
     },
     {
@@ -1661,6 +1671,6 @@
       ]
     }
   ],
-  "restoredRequirementRoutes": 49,
-  "restoredGates": 845
+  "restoredRequirementRoutes": 50,
+  "restoredGates": 849
 }

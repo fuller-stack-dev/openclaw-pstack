@@ -2755,7 +2755,8 @@ var routes_default = {
     "bro",
     "ketchup",
     "poteto-help",
-    "unslop"
+    "unslop",
+    "create-formal-verification-skill"
   ]
 };
 

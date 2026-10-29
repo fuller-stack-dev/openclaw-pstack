@@ -37,11 +37,19 @@
     },
     {
       "id": "apply-validate",
-      "text": "Apply only approved rows using canonical ownership: trivial existing-skill edits directly, substantive edits/new skills/description tuning through installed native skill-creator and its draft/test/iterate workflow (description optimization for missed triggers). Repository facts stay in repository docs; shared guidance uses its canonical source, not installed copies. Run an available SKILL.md validator on EVERY touched skill and validate changed examples. Report applied paths/what changed, new skills, backlog actually filed versus blocked, and dropped findings/reasons. No automatic global rule, PR or publication."
+      "text": "Apply only approved rows using canonical ownership: trivial existing-skill edits directly, substantive edits/new skills/description tuning through installed native skill-creator and its draft/test/iterate workflow (description optimization for missed triggers). Repository facts stay in repository docs; shared guidance uses its canonical source, not installed copies. Run an available SKILL.md validator on EVERY touched skill and validate changed examples. Report applied paths/what changed, new skills, backlog actually filed versus blocked, and dropped findings/reasons. Reflect never opens a PR or pushes. No automatic global rule, PR or publication."
     },
     {
       "id": "bounded-wait-resume",
       "text": "For long routed phases, spawn announcing children (without `collect`; a collector is collected in the turn that spawned it) and use a short bounded native wait, then hand off pending run IDs and finish on resume under [the shared lifecycle](contract.md#collection-and-resume); never respawn accepted children or claim pending work complete."
+    },
+    {
+      "id": "canonical-preview",
+      "text": "Show the exact canonical editable destination for each proposed skill change before approval. Never edit installed plugin/cache copies; use the existing user-owned source or, only when approved and no source exists, a user-owned copy."
+    },
+    {
+      "id": "no-publication",
+      "text": "Reflect never opens a PR or pushes."
     }
   ]
 }

@@ -144,8 +144,8 @@
     },
     {
       "path": "native/principles.md",
-      "bytes": 7085,
-      "sha256": "c1fe96dde84612dccf54833e6363a04cf1ece9e4db3e604b54417b1bfcbd03f1"
+      "bytes": 7296,
+      "sha256": "43cb67ea1907fcd52c984f3375c60a97058c6bf8344ccfc6370aff1d664abb17"
     },
     {
       "path": "native/requirements/architect.json",
@@ -206,6 +206,11 @@
       "path": "native/requirements/correct.json",
       "bytes": 2956,
       "sha256": "654fc04fb8673233e39a0646cd0e4e90aca911cce5ca93457b5e48c449342966"
+    },
+    {
+      "path": "native/requirements/create-formal-verification-skill.json",
+      "bytes": 658,
+      "sha256": "87d5056fc86e42988c7e89c7c80ba94ad69c862cd553246e4e1063a6c503bc00"
     },
     {
       "path": "native/requirements/create-verification-skill.json",
@@ -299,8 +304,8 @@
     },
     {
       "path": "native/requirements/poteto-mode.json",
-      "bytes": 8540,
-      "sha256": "57693de36be2a43c128cad536f7d47b6fc22b8b64ceb2e0339b40839c1c4eec2"
+      "bytes": 8811,
+      "sha256": "2d4d39abef503a00f80b7553d00d0f4d6a8440fa2babfd6d154fd0f0bf2debf7"
     },
     {
       "path": "native/requirements/prototype.json",
@@ -319,8 +324,8 @@
     },
     {
       "path": "native/requirements/reflect.json",
-      "bytes": 4963,
-      "sha256": "58841469999aa7e682f3395d6599ce7b098fea0882b4e66367ad531c4155f49b"
+      "bytes": 5391,
+      "sha256": "8440bfbabb6f61aa6c1fdc9273c997cbb089aaffec449ce2f5a292b99041adac"
     },
     {
       "path": "native/requirements/runtime-forensics.json",
@@ -399,13 +404,13 @@
     },
     {
       "path": "native/route-skills.json",
-      "bytes": 52359,
-      "sha256": "f9d985d746d496f8629b0948702f75d66cdb378f206f20054dcf7e15a4a9bc33"
+      "bytes": 52672,
+      "sha256": "824c959c5c69884d32532a408f88764922ce561e20fbaba6503feb49baeefd3d"
     },
     {
       "path": "native/routes.json",
-      "bytes": 3398,
-      "sha256": "caeff9c5dcb7f82131306f96ea2d3c34417ccb14263d11f9ebdf03d25456b90c"
+      "bytes": 3438,
+      "sha256": "509f5bb3fd3573deddb4b72a0f84cd81994e5b3a564987c2e32ba41c90b91c43"
     },
     {
       "path": "native/semantic-overlay.json",
@@ -434,8 +439,8 @@
     },
     {
       "path": "native/workflows.md",
-      "bytes": 108236,
-      "sha256": "c13a9de732661dfd45dc8032672d074134d4fc19b5b2273d8d870049c5a93546"
+      "bytes": 109112,
+      "sha256": "b3aa4ab6e73bea46eab4dfa5ba3e73dd81f445c047d36cc9922baef457f06183"
     },
     {
       "path": "native/worktree-audit-adapter.md",

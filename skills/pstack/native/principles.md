@@ -21,7 +21,7 @@ For material uncertainty, compare two or three genuinely different designs again
 Optimize the actual user's task and the next maintainer's understanding, not implementation convenience. Every feature, control and option must be justified by the central workflow it serves; ship fewer polished features over more rough ones. **Check:** demonstrate the central user flow and its error/feedback states.
 
 ## principle-explain-the-number
-Before relying on a metric, identify the limiter, real completed work, errors, noise, repeated-run spread and end-to-end relevance. **Check:** apply the benchmark-checklist route or report inconclusive.
+Before measuring, write the result that would change a decision and the noise floor. Stop when run-to-run spread exceeds the effect. A result named only after the run does not satisfy this pre-measurement gate. Before relying on a metric, identify the limiter, real completed work, errors, noise, repeated-run spread and end-to-end relevance. **Check:** apply the benchmark-checklist route or report inconclusive.
 
 ## principle-fix-root-causes
 Reproduce, trace the first wrong decision and fix it there. A guard is valid when it handles a legitimate state, not when it conceals corruption. Do not expand to unrelated fixes. **Check:** the original repro passes and relevant bad states remain detectable.

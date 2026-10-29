@@ -63,6 +63,10 @@
     {
       "id": "poteto-mode-claim-labels",
       "text": "13. Before sending the reply, check every sentence that makes a claim: it carries its evidence or the word measured, inferred or guess. For code work the reply names the data shape it chose, such as the event type a trigger receives, and each principle that shaped a decision."
+    },
+    {
+      "id": "before-measurement",
+      "text": "Before measuring, name the decision-changing result and noise floor under principle-explain-the-number. Stop when run-to-run spread exceeds the effect; a retrospective explanation does not satisfy that gate."
     }
   ]
 }

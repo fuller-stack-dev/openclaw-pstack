@@ -17,26 +17,28 @@ its temporary source graph, target and wasm-bindgen tool. Canonical crate archiv
 are read only after checksum verification; no global toolchain/config is written.
 The ordinary build and frozen-commit pack call it only on a missing WASM cache entry.
 
-**Cold reconstruction is not yet qualified.** Integration reproduced the exact
-JS glue/facade and locked sources/compiler, but fresh builds did not reproduce
-the qualified WASM hash below. Even with identical diagnostic path sets, one
-fresh build produced 47d1b43ba731a82dbee77c22b76fd8110455ab2812cdccd63079bcea465bd846
-(2,643,145 bytes) instead of the accepted 2,642,569-byte artifact. It was rejected
-and removed, not repinned, uploaded or embedded. Cache-backed builds remain
-exact-hash-bound; a clean cache miss currently fails honestly. The release cannot
-rely on that cache as its only distribution route. Resolve reproducibility or
-qualify another exact-source-bound materialization route before release. CI keeps
-the cold build as a required failing gate, not a waived/skipped step.
+**The original cold-reconstruction defect is corrected in this recipe.** Six
+path packages previously lived outside Cargo's workspace; their absolute
+source IDs changed compiler metadata despite identical diagnostic path sets.
+The historical qualified 66da0bed artifact (2,642,569 bytes) was not reproduced
+by rejected cold outputs including 47d1b43b (2,643,145 bytes), 30d2377d and
+63ca7ab2. They were rejected/cleaned, never silently repinned.
+
+The corrected workspace-contained source layout below produced a new qualified
+WASM in two genuinely clean different-root/cache-layout builds, identical both
+before and after wasm-bindgen. The new pin is derived from this repeatability
+proof, not an unexplained drift. Frozen public packaging and CI remain the
+integrator's separate gates; the required cold check must not be skipped.
 
 ## Qualified artifact and scope
 
-The authorized path-remapped build completed with the **same 158-package lock,
+The corrected portable build completed with the **same 158-package lock,
 original renderer and facade**, Rust 1.95.0 and wasm-bindgen 0.2.92. The final
 unchanged real 20-case consumer passed 20/20. No font, renderer feature, pixel
 threshold, encoding or semantic validation policy changed.
 
-- WASM: 2,642,569 bytes; SHA256
-  `66da0bed457e785fc75ff1452577ebf4978da904a2029c949fd1e0da892e2c9d`.
+- WASM: 2,638,217 bytes; SHA256
+  `3b6e67936532d2b023f47574e0b1e88f9f259fe8e2cfba51563f53cac841d47c`.
 - Generated web glue: `candidate/index.js`, SHA256
   `8662290f6216dc40aac4e42a426172cc3732fa6f6ef728a0ef70da3a47585df5`.
 - Matching bundled facade: `candidate/index.mjs`, SHA256
@@ -57,8 +59,8 @@ artifact and compiler/sysroot binding. The source archives are:
 | Directory under source/ | Repository | Immutable revision |
 | --- | --- | --- |
 | resvg-js | thx/resvg-js | 9ca058462ac529120c8cc84ddcd6fef644cc5406 |
-| resvg | zimond/resvg | 3495d8705b302d6d266748516973606ca9657906 |
-| woff2 | yisibl/woff2-rs | 88cce4cd07da2c3f35839068c6f73672700cfc8b |
+| resvg-js/vendor/resvg | zimond/resvg | 3495d8705b302d6d266748516973606ca9657906 |
+| resvg-js/vendor/woff2 | yisibl/woff2-rs | 88cce4cd07da2c3f35839068c6f73672700cfc8b |
 
 In an empty task build directory containing the transfer files:
 
@@ -67,7 +69,7 @@ In an empty task build directory containing the transfer files:
    corresponding `source/` directory. No Git history or upstream installer is
    needed. The observed build extracted Rust files, TOML/Markdown files,
    LICENSE/COPYING files and wasm-binding.ts; full archives may contain unused
-   fixtures. In particular retain woff2/readme.md for include_str!.
+   fixtures. In particular retain resvg-js/vendor/woff2/readme.md for include_str!.
 2. Apply the only source modification:
 
    ```sh
@@ -78,7 +80,7 @@ In an empty task build directory containing the transfer files:
    ```
 
    The patch pins wasm-bindgen 0.2.92/js-sys 0.3.69 and maps the two immutable
-   source dependencies to the verified sibling directories. It changes no Rust
+   source dependencies to the verified workspace-contained vendor directories. It changes no Rust
    implementation. Do not resolve a new lock or update dependencies. Root lock
    SHA256 is `874e3f5157154975d8d26ea0c2284bcf01085455020ca2f2c0f48f50bee41329`.
 3. Set `RUST_TOOLCHAIN_DIR` to an existing verified Rust 1.95.0 toolchain
@@ -102,7 +104,7 @@ In an empty task build directory containing the transfer files:
    the private Cargo home; it must preserve the exact lock/checksums. No closure
    reselection is allowed. Offline compilation below consumes the frozen inputs.
 5. Run the following from the transfer/build root, with physical, not unresolved
-   symlink, values for the canonical/toolchain roots. All three mappings were
+   symlink, values for the canonical/toolchain roots. All four mappings are
    present in the actual compiler invocation **before** this build:
 
    ```sh
@@ -114,7 +116,7 @@ In an empty task build directory containing the transfer files:
    export GIT_CEILING_DIRECTORIES="$BUILD_ROOT:$CANONICAL_CARGO_HOME"
    unset RUSTC_WRAPPER RUSTC_WORKSPACE_WRAPPER RUSTC_BOOTSTRAP
    unset CARGO_ENCODED_RUSTFLAGS
-   export RUSTFLAGS="--remap-path-prefix=$BUILD_ROOT=/pstack-video-build --remap-path-prefix=$CANONICAL_CARGO_HOME=/cargo --remap-path-prefix=$RUST_TOOLCHAIN_DIR=/rust-toolchain"
+   export RUSTFLAGS="--remap-path-prefix=$BUILD_ROOT=/pstack-video-build --remap-path-prefix=$CARGO_HOME=/cargo --remap-path-prefix=$CANONICAL_CARGO_HOME=/cargo --remap-path-prefix=$RUST_TOOLCHAIN_DIR=/rust-toolchain"
    "$RUST_TOOLCHAIN_DIR/bin/cargo" build --locked --offline --release \
      --target wasm32-unknown-unknown --manifest-path source/resvg-js/Cargo.toml
    "$WASM_BINDGEN" target/wasm32-unknown-unknown/release/resvg_js.wasm \
@@ -133,10 +135,12 @@ In an empty task build directory containing the transfer files:
    constants in the public recipe. Generated declaration files are not needed
    for this runtime transfer.
 
-The graph and compiler are pinned; this is not a claim of cross-platform
-bit-for-bit reproducibility. A different physical cache projection can change
-stable diagnostic source paths. Verify final hygiene and actual behavior on the
-consumer artifact rather than editing binary strings.
+The graph and compiler are pinned. Two genuinely clean builds at different
+absolute roots and different Cargo cache layouts produced byte-identical
+pre-bindgen WASM, final WASM, generated glue and facade. This is not a claim of
+cross-platform reproducibility. Keep all path packages beneath the wrapper
+workspace and remap the actual private Cargo home independently of the build
+root. Verify final hygiene/behavior; never edit binary strings.
 
 ## Full closure, original notices and source availability
 
@@ -217,3 +221,37 @@ locators and original notices alongside the generated runtime. The repository
 contains the integration build/pack scripts and media pins. Temporary compiler
 outputs are consumed and removed; the hash-addressed media cache is only a build
 optimization and never substitutes for a qualified cold reconstruction route.
+
+## Portable Cargo identity correction
+
+The original qualified 66da0bed artifact passed behavioral and privacy checks,
+but the first portable cold recipe did not reproduce it. The observed rejected
+cold outputs included 47d1b43b, 30d2377d and 63ca7ab2 prefixes; they were not
+accepted by changing pins. Diagnostic path sets alone were insufficient.
+
+Cargo 1.95 path-source stable_hash removes the workspace prefix only when the
+package is under that workspace. Previously six exact-source packages (resvg,
+usvg, usvg-parser, usvg-text-layout, usvg-tree, woff2) were sibling directories
+outside resvg-js. Their absolute source identities fed compiler metadata even
+when rustc diagnostic paths were remapped. The correction is only to extract
+those same immutable sources under resvg-js/vendor and update the two relative
+patch paths. Cargo.lock, all 158 package versions, source bytes, features,
+release profile, compiler and original facade are unchanged. No git-source
+substitution, version update, binary surgery or optimizer change is needed.
+
+Two clean sequential producers at different absolute roots, one with linked
+verified archive inputs and one with copied archives plus an external Cargo
+home, produced the identical result:
+- pre-bindgen WASM: 2,961,416 bytes;
+  SHA256 30f7ac67ff916dc609bd6509d886d3cbb678e9142c2d8c0578ce63eafbf75513;
+- final WASM: 2,638,217 bytes;
+  SHA256 3b6e67936532d2b023f47574e0b1e88f9f259fe8e2cfba51563f53cac841d47c;
+- all 115 observed compiler metadata/features records and all pre/post-bindgen
+  section digests match; glue and facade retain their prior qualified hashes.
+
+The unchanged real consumer passed 20/20 on the corrected artifact. It produced
+the same known MP4 and three decoded frame hashes with thresholds 3/8/16. The
+new pin is the result of those independent clean producers, not acceptance of
+an unexplained one-off drift. The sole integrator must still run the exact
+frozen public cold build, package/import-graph and CI gates. Existing MPL
+source-availability and safer-bytes declaration qualifications above remain.

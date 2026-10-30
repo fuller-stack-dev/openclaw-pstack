@@ -3270,7 +3270,7 @@
     {
       "name": "resvg",
       "version": "0.34.1",
-      "packageId": "path:source/resvg/crates/resvg#0.34.1",
+      "packageId": "path:source/resvg-js/vendor/resvg/crates/resvg#0.34.1",
       "licenseDeclaration": "MPL-2.0",
       "repository": "https://github.com/RazrFalcon/resvg",
       "source": null,
@@ -4791,7 +4791,7 @@
     {
       "name": "usvg",
       "version": "0.34.1",
-      "packageId": "path:source/resvg/crates/usvg#0.34.1",
+      "packageId": "path:source/resvg-js/vendor/resvg/crates/usvg#0.34.1",
       "licenseDeclaration": "MPL-2.0",
       "repository": "https://github.com/RazrFalcon/resvg",
       "source": null,
@@ -4821,7 +4821,7 @@
     {
       "name": "usvg-parser",
       "version": "0.34.0",
-      "packageId": "path:source/resvg/crates/usvg-parser#0.34.0",
+      "packageId": "path:source/resvg-js/vendor/resvg/crates/usvg-parser#0.34.0",
       "licenseDeclaration": "MPL-2.0",
       "repository": "https://github.com/RazrFalcon/resvg",
       "source": null,
@@ -4851,7 +4851,7 @@
     {
       "name": "usvg-text-layout",
       "version": "0.34.0",
-      "packageId": "path:source/resvg/crates/usvg-text-layout#0.34.0",
+      "packageId": "path:source/resvg-js/vendor/resvg/crates/usvg-text-layout#0.34.0",
       "licenseDeclaration": "MPL-2.0",
       "repository": "https://github.com/RazrFalcon/resvg",
       "source": null,
@@ -4881,7 +4881,7 @@
     {
       "name": "usvg-tree",
       "version": "0.34.0",
-      "packageId": "path:source/resvg/crates/usvg-tree#0.34.0",
+      "packageId": "path:source/resvg-js/vendor/resvg/crates/usvg-tree#0.34.0",
       "licenseDeclaration": "MPL-2.0",
       "repository": "https://github.com/RazrFalcon/resvg",
       "source": null,
@@ -5233,7 +5233,7 @@
     {
       "name": "woff2",
       "version": "0.3.0",
-      "packageId": "path:source/woff2#0.3.0",
+      "packageId": "path:source/resvg-js/vendor/woff2#0.3.0",
       "licenseDeclaration": "Apache-2.0",
       "repository": "https://github.com/Cimpress-MCP/woff2-rs",
       "source": null,
@@ -7957,7 +7957,7 @@
         ]
       },
       {
-        "id": "path:source/resvg/crates/resvg#0.34.1",
+        "id": "path:source/resvg-js/vendor/resvg/crates/resvg#0.34.1",
         "dependencies": [
           "registry+https://github.com/rust-lang/crates.io-index#gif@0.12.0",
           "registry+https://github.com/rust-lang/crates.io-index#jpeg-decoder@0.3.2",
@@ -7967,7 +7967,7 @@
           "registry+https://github.com/rust-lang/crates.io-index#rgb@0.8.53",
           "registry+https://github.com/rust-lang/crates.io-index#svgtypes@0.11.0",
           "registry+https://github.com/rust-lang/crates.io-index#tiny-skia@0.10.0",
-          "path:source/resvg/crates/usvg#0.34.1"
+          "path:source/resvg-js/vendor/resvg/crates/usvg#0.34.1"
         ],
         "deps": [
           {
@@ -8052,7 +8052,7 @@
           },
           {
             "name": "usvg",
-            "pkg": "path:source/resvg/crates/usvg#0.34.1",
+            "pkg": "path:source/resvg-js/vendor/resvg/crates/usvg#0.34.1",
             "dep_kinds": [
               {
                 "kind": null,
@@ -8085,13 +8085,13 @@
           "registry+https://github.com/rust-lang/crates.io-index#pathfinder_geometry@0.5.1",
           "registry+https://github.com/rust-lang/crates.io-index#pathfinder_simd@0.5.6",
           "registry+https://github.com/rust-lang/crates.io-index#png@0.17.5",
-          "path:source/resvg/crates/resvg#0.34.1",
+          "path:source/resvg-js/vendor/resvg/crates/resvg#0.34.1",
           "registry+https://github.com/rust-lang/crates.io-index#serde@1.0.229",
           "registry+https://github.com/rust-lang/crates.io-index#serde_json@1.0.154",
           "registry+https://github.com/rust-lang/crates.io-index#svgtypes@0.14.0",
           "registry+https://github.com/rust-lang/crates.io-index#thiserror@1.0.69",
           "registry+https://github.com/rust-lang/crates.io-index#wasm-bindgen@0.2.92",
-          "path:source/woff2#0.3.0"
+          "path:source/resvg-js/vendor/woff2#0.3.0"
         ],
         "deps": [
           {
@@ -8220,7 +8220,7 @@
           },
           {
             "name": "resvg",
-            "pkg": "path:source/resvg/crates/resvg#0.34.1",
+            "pkg": "path:source/resvg-js/vendor/resvg/crates/resvg#0.34.1",
             "dep_kinds": [
               {
                 "kind": null,
@@ -8284,7 +8284,7 @@
           },
           {
             "name": "woff2",
-            "pkg": "path:source/woff2#0.3.0",
+            "pkg": "path:source/resvg-js/vendor/woff2#0.3.0",
             "dep_kinds": [
               {
                 "kind": null,
@@ -9325,14 +9325,14 @@
         "features": []
       },
       {
-        "id": "path:source/resvg/crates/usvg#0.34.1",
+        "id": "path:source/resvg-js/vendor/resvg/crates/usvg#0.34.1",
         "dependencies": [
           "registry+https://github.com/rust-lang/crates.io-index#base64@0.21.7",
           "registry+https://github.com/rust-lang/crates.io-index#log@0.4.34",
           "registry+https://github.com/rust-lang/crates.io-index#pico-args@0.5.0",
-          "path:source/resvg/crates/usvg-parser#0.34.0",
-          "path:source/resvg/crates/usvg-text-layout#0.34.0",
-          "path:source/resvg/crates/usvg-tree#0.34.0",
+          "path:source/resvg-js/vendor/resvg/crates/usvg-parser#0.34.0",
+          "path:source/resvg-js/vendor/resvg/crates/usvg-text-layout#0.34.0",
+          "path:source/resvg-js/vendor/resvg/crates/usvg-tree#0.34.0",
           "registry+https://github.com/rust-lang/crates.io-index#xmlwriter@0.1.0"
         ],
         "deps": [
@@ -9368,7 +9368,7 @@
           },
           {
             "name": "usvg_parser",
-            "pkg": "path:source/resvg/crates/usvg-parser#0.34.0",
+            "pkg": "path:source/resvg-js/vendor/resvg/crates/usvg-parser#0.34.0",
             "dep_kinds": [
               {
                 "kind": null,
@@ -9378,7 +9378,7 @@
           },
           {
             "name": "usvg_text_layout",
-            "pkg": "path:source/resvg/crates/usvg-text-layout#0.34.0",
+            "pkg": "path:source/resvg-js/vendor/resvg/crates/usvg-text-layout#0.34.0",
             "dep_kinds": [
               {
                 "kind": null,
@@ -9388,7 +9388,7 @@
           },
           {
             "name": "usvg_tree",
-            "pkg": "path:source/resvg/crates/usvg-tree#0.34.0",
+            "pkg": "path:source/resvg-js/vendor/resvg/crates/usvg-tree#0.34.0",
             "dep_kinds": [
               {
                 "kind": null,
@@ -9414,7 +9414,7 @@
         ]
       },
       {
-        "id": "path:source/resvg/crates/usvg-parser#0.34.0",
+        "id": "path:source/resvg-js/vendor/resvg/crates/usvg-parser#0.34.0",
         "dependencies": [
           "registry+https://github.com/rust-lang/crates.io-index#data-url@0.2.0",
           "registry+https://github.com/rust-lang/crates.io-index#flate2@1.1.10",
@@ -9425,7 +9425,7 @@
           "registry+https://github.com/rust-lang/crates.io-index#simplecss@0.2.2",
           "registry+https://github.com/rust-lang/crates.io-index#siphasher@0.3.11",
           "registry+https://github.com/rust-lang/crates.io-index#svgtypes@0.11.0",
-          "path:source/resvg/crates/usvg-tree#0.34.0"
+          "path:source/resvg-js/vendor/resvg/crates/usvg-tree#0.34.0"
         ],
         "deps": [
           {
@@ -9520,7 +9520,7 @@
           },
           {
             "name": "usvg_tree",
-            "pkg": "path:source/resvg/crates/usvg-tree#0.34.0",
+            "pkg": "path:source/resvg-js/vendor/resvg/crates/usvg-tree#0.34.0",
             "dep_kinds": [
               {
                 "kind": null,
@@ -9532,7 +9532,7 @@
         "features": []
       },
       {
-        "id": "path:source/resvg/crates/usvg-text-layout#0.34.0",
+        "id": "path:source/resvg-js/vendor/resvg/crates/usvg-text-layout#0.34.0",
         "dependencies": [
           "registry+https://github.com/rust-lang/crates.io-index#fontdb@0.14.1",
           "registry+https://github.com/rust-lang/crates.io-index#kurbo@0.9.5",
@@ -9541,7 +9541,7 @@
           "registry+https://github.com/rust-lang/crates.io-index#unicode-bidi@0.3.18",
           "registry+https://github.com/rust-lang/crates.io-index#unicode-script@0.5.8",
           "registry+https://github.com/rust-lang/crates.io-index#unicode-vo@0.1.0",
-          "path:source/resvg/crates/usvg-tree#0.34.0"
+          "path:source/resvg-js/vendor/resvg/crates/usvg-tree#0.34.0"
         ],
         "deps": [
           {
@@ -9616,7 +9616,7 @@
           },
           {
             "name": "usvg_tree",
-            "pkg": "path:source/resvg/crates/usvg-tree#0.34.0",
+            "pkg": "path:source/resvg-js/vendor/resvg/crates/usvg-tree#0.34.0",
             "dep_kinds": [
               {
                 "kind": null,
@@ -9630,7 +9630,7 @@
         ]
       },
       {
-        "id": "path:source/resvg/crates/usvg-tree#0.34.0",
+        "id": "path:source/resvg-js/vendor/resvg/crates/usvg-tree#0.34.0",
         "dependencies": [
           "registry+https://github.com/rust-lang/crates.io-index#kurbo@0.9.5",
           "registry+https://github.com/rust-lang/crates.io-index#rctree@0.5.0",
@@ -9972,7 +9972,7 @@
         ]
       },
       {
-        "id": "path:source/woff2#0.3.0",
+        "id": "path:source/resvg-js/vendor/woff2#0.3.0",
         "dependencies": [
           "registry+https://github.com/rust-lang/crates.io-index#bitvec@1.1.1",
           "registry+https://github.com/rust-lang/crates.io-index#brotli@3.5.0",
@@ -10385,7 +10385,7 @@
       "fresh": false
     },
     {
-      "packageId": "path:source/resvg/crates/usvg-tree#0.34.0",
+      "packageId": "path:source/resvg-js/vendor/resvg/crates/usvg-tree#0.34.0",
       "target": "usvg_tree",
       "kind": [
         "lib"
@@ -10777,7 +10777,7 @@
       "fresh": false
     },
     {
-      "packageId": "path:source/resvg/crates/usvg-text-layout#0.34.0",
+      "packageId": "path:source/resvg-js/vendor/resvg/crates/usvg-text-layout#0.34.0",
       "target": "usvg_text_layout",
       "kind": [
         "lib"
@@ -10849,7 +10849,7 @@
       "fresh": false
     },
     {
-      "packageId": "path:source/resvg/crates/usvg-parser#0.34.0",
+      "packageId": "path:source/resvg-js/vendor/resvg/crates/usvg-parser#0.34.0",
       "target": "usvg_parser",
       "kind": [
         "lib"
@@ -11009,7 +11009,7 @@
       "fresh": false
     },
     {
-      "packageId": "path:source/resvg/crates/usvg#0.34.1",
+      "packageId": "path:source/resvg-js/vendor/resvg/crates/usvg#0.34.1",
       "target": "usvg",
       "kind": [
         "lib"
@@ -11193,7 +11193,7 @@
       "fresh": false
     },
     {
-      "packageId": "path:source/woff2#0.3.0",
+      "packageId": "path:source/resvg-js/vendor/woff2#0.3.0",
       "target": "woff2",
       "kind": [
         "lib"
@@ -11225,7 +11225,7 @@
       "fresh": false
     },
     {
-      "packageId": "path:source/resvg/crates/resvg#0.34.1",
+      "packageId": "path:source/resvg-js/vendor/resvg/crates/resvg#0.34.1",
       "target": "resvg",
       "kind": [
         "lib"
@@ -11390,14 +11390,31 @@
   "unresolved": [],
   "declarationOnlyNoticeCaveat": "safer-bytes0.2.0: upstream supplies SPDX MIT declaration only, not an instantiated copyright/license file; standard MIT text retained without inventing attribution. All other omitted root licenses recovered from exact VCS revisions or original Pathfinder Apache2 grant URLs.",
   "binding": {
-    "candidateWasmSha256": "66da0bed457e785fc75ff1452577ebf4978da904a2029c949fd1e0da892e2c9d",
+    "candidateWasmSha256": "3b6e67936532d2b023f47574e0b1e88f9f259fe8e2cfba51563f53cac841d47c",
     "matchedFacadeSha256": "f8c7c51802fa7f792e94dbffd254fc47c6c4fae0b6871992d8e1b6cd50edbb77",
     "rootLockSha256": "874e3f5157154975d8d26ea0c2284bcf01085455020ca2f2c0f48f50bee41329",
     "successfulCommand": "cargo1.95.0 build --locked --offline --release --target wasm32-unknown-unknown --manifest-path source/resvg-js/Cargo.toml",
     "exitCode": 0,
     "sysrootProof": "54 installed files byte-equal official rust-std archive; compiler and std library copyright inventory equal official rustc archive; library lock/builtins license equal official rust-src archive",
-    "buildAttempt": 3,
-    "pathRemapping": "--remap-path-prefix=$BUILD_ROOT=/pstack-video-build --remap-path-prefix=$CANONICAL_CARGO_HOME=/cargo --remap-path-prefix=$RUST_TOOLCHAIN_DIR=/rust-toolchain"
+    "pathRemapping": "--remap-path-prefix=$BUILD_ROOT=/pstack-video-build --remap-path-prefix=$CARGO_HOME=/cargo --remap-path-prefix=$CANONICAL_CARGO_HOME=/cargo --remap-path-prefix=$RUST_TOOLCHAIN_DIR=/rust-toolchain",
+    "historicalQualifiedWasmSha256": "66da0bed457e785fc75ff1452577ebf4978da904a2029c949fd1e0da892e2c9d",
+    "reproducibility": {
+      "cleanIndependentProducers": 2,
+      "differentAbsoluteRoots": true,
+      "differentCargoCacheLayouts": true,
+      "preBindgen": {
+        "bytes": 2961416,
+        "sha256": "30f7ac67ff916dc609bd6509d886d3cbb678e9142c2d8c0578ce63eafbf75513"
+      },
+      "finalWasm": {
+        "bytes": 2638217,
+        "sha256": "3b6e67936532d2b023f47574e0b1e88f9f259fe8e2cfba51563f53cac841d47c"
+      },
+      "matchingGlueAndFacade": true,
+      "allCrateMetadataEqual": true,
+      "sourceLayout": "all seven path packages within source/resvg-js workspace; no package/version/feature/lock change"
+    },
+    "reason": "Cargo path-source stable_hash strips workspace prefix only for contained path packages; six sibling-source packages previously hashed absolute locations. Nesting exact sources fixes metadata identity, not just printed paths."
   },
   "immutableArchives": [
     {

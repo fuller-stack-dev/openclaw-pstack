@@ -2,7 +2,7 @@
 
 Independent MIT-licensed adaptation of **pstack by Lauren Tan** for OpenClaw.
 This is **not an official Cursor plugin**, and it does not run the Cursor runtime.
-Package: `@fuller-stack-dev/openclaw-pstack` · plugin id: `pstack` · version: `1.2.9`.
+Package: `@fuller-stack-dev/openclaw-pstack` · plugin id: `pstack` · version: `1.3.0` (release candidate).
 Maintenance owner: fuller-stack-dev; report bugs through this repository's issues.
 
 Pstack owns workflow; OpenClaw owns secure execution. The plugin supplies

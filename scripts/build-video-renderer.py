@@ -97,8 +97,10 @@ def main():
                 if marker in item.name and item.isfile():
                     installed = toolchain / "lib/rustlib/wasm32-unknown-unknown/lib" / Path(item.name).name
                     verify(installed, digest(archive.extractfile(item).read()))
+        # Cargo hashes path-source IDs relative to the root workspace only when contained.
         for name, pin in zip(("resvg-js", "resvg", "woff2"), INVENTORY["immutableArchives"]):
-            extract(fetch(pin["url"], pin["sha256"]), work / "source" / name, source_only=True)
+            destination = work / "source/resvg-js" if name == "resvg-js" else work / "source/resvg-js/vendor" / name
+            extract(fetch(pin["url"], pin["sha256"]), destination, source_only=True)
         run(["patch", "-d", work / "source/resvg-js", "-p1", "-i", SOURCE / "source.patch"], work, env)
         verify(work / "source/resvg-js/Cargo.toml", digest((SOURCE / "resvg-js.Cargo.toml").read_bytes()))
         verify(work / "source/resvg-js/wasm-binding.ts", digest((SOURCE / "candidate/wasm-binding.ts").read_bytes()))
@@ -113,7 +115,8 @@ def main():
             data = verify(existing, package["archiveSha256"]) if existing.exists() else fetch(package["sourceUrl"], package["archiveSha256"])
             (archive_dir / name).write_bytes(data)
         run([toolchain / "bin/cargo", "fetch", "--locked", "--manifest-path", "source/resvg-js/Cargo.toml"], work, env)
-        remaps = [str(work) + "=/pstack-video-build", str(canonical) + "=/cargo", str(toolchain) + "=/rust-toolchain"]
+        remaps = [str(work) + "=/pstack-video-build", env["CARGO_HOME"] + "=/cargo",
+                  str(canonical) + "=/cargo", str(toolchain) + "=/rust-toolchain"]
         for package in crates:
             name = package["name"] + "-" + package["version"]
             data = verify(archive_dir / (name + ".crate"), package["archiveSha256"])

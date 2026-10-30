@@ -1,8 +1,8 @@
 # Changelog
 
-## Unreleased — upstream v0.15.36 integration
+## 1.3.0 — release candidate (unpublished)
 
-- Preserve the exact 573-file upstream source tree, including both new artifact skills, dotfiles, modes and MIT license. Version remains 1.2.9 until a separate release freeze.
+- Preserve the exact 573-file upstream source tree, including both new artifact skills, dotfiles, modes and MIT license. Candidate version is 1.3.0; publication remains a separate gate.
 - Add statechart and ketchup-video native guidance, literal route commands and manual discovery guides (57 routes). The renderer bundles are unchanged by this source/doc migration.
 - Port one-owner-per-PR orchestration and full-minus-merge autopilot with stacks only for actual dependencies. Preserve native authorization, independent review, CI, custody and continuation boundaries.
 - Refresh reviewed normative mappings and guards; retain removed interrogate references outside the exact mirror for old-record replay. Text coverage is not model-execution or whole-parity proof.
@@ -10,6 +10,9 @@
 
 - Bind the other-family judge for new native arena/architect records at the existing lead checkpoint, atomically with lead scores, using trusted current-turn metadata and lead-time workspace config. Unknown/pending/stale metadata or an unsuitable pool refuses without writing; grounding/runners still admit, and old records retain their original snapshots. New flagged records cannot downgrade to older plugins. This proves current-parent selection, not score-text authorship.
 - Remove redundant comments and unused packed-test environment overrides; clarify whole-proof refusal versus legacy truncation and interrogate section selection. Legal attribution and non-obvious safety rationale remain.
+
+- Build video assets from hash-bound immutable source and fonts instead of tracking fonts or the binary-embedding bundle. Frozen-commit packaging includes source/input/output provenance and retains the self-contained runtime.
+- Make renderer builds independent of absolute paths by containing path dependencies under the Cargo workspace; qualify the new artifact across clean roots without changing renderer features, fonts or pixel thresholds.
 
 ## 1.2.9 — 2026-10-28
 

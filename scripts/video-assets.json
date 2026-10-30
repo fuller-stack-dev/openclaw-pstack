@@ -25,15 +25,15 @@
       "bytes": 17036
     },
     "index_bg.wasm": {
-      "sha256": "66da0bed457e785fc75ff1452577ebf4978da904a2029c949fd1e0da892e2c9d",
-      "bytes": 2642569
+      "bytes": 2638217,
+      "sha256": "3b6e67936532d2b023f47574e0b1e88f9f259fe8e2cfba51563f53cac841d47c"
     }
   },
   "sourceFiles": [
     {
       "path": "BUILD.md",
-      "bytes": 13100,
-      "sha256": "3b8b9d529bb6396d537240ca98ae4f8195c8e012bca4abdca8cdc90815c6c043"
+      "bytes": 15471,
+      "sha256": "7c5f285f623951cc74a518a511c7d7b3caddc59f3b0a37d3795426835ade7de3"
     },
     {
       "path": "Cargo.lock",
@@ -1777,8 +1777,8 @@
     },
     {
       "path": "resvg-js.Cargo.toml",
-      "bytes": 1620,
-      "sha256": "0e4fc187fe058c38f7686ed5391e331b5d0afa7f0d2fe61bf1d568f5824e81d6"
+      "bytes": 1628,
+      "sha256": "95cf80eb39679da3d6eef441c2379a0f3b201207a930eb019d74d94e23371c54"
     },
     {
       "path": "rust-library-Cargo.lock",
@@ -1787,14 +1787,14 @@
     },
     {
       "path": "source-inventory.json",
-      "bytes": 409984,
-      "sha256": "c8793206ee7928fbb65100c88aa64750267c1a2bc0f6c72695d2738011b37e3b"
+      "bytes": 411519,
+      "sha256": "8175d2b46041ea2f410731ea48c97756a93caf11162df24fb4fc1fd3c4bba025"
     },
     {
       "path": "source.patch",
-      "bytes": 662,
-      "sha256": "20fff952fd780c60880cdd65b85701526110c844697efca8fccb50855a3f59c2"
+      "bytes": 670,
+      "sha256": "cb430f7348f1e980ff50ebfceab0b6bf882f57b84ff7fe2991bbd47d24e6db25"
     }
   ],
-  "bundleSha256": "0b26b4b945c38c41c46ea0318d8129d2bddfb15f77efff582eca86aad28f67ca"
+  "bundleSha256": "2b94b11a1298d7be40b25dd04636338c9e3f26117fd3abb623d2c8cd0f427be0"
 }

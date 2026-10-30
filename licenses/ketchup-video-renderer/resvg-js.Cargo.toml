@@ -57,5 +57,5 @@ opt-level = 3
 codegen-units = 1
 
 [patch.crates-io]
-resvg = { path = "../resvg/crates/resvg" }
-woff2 = { path = "../woff2" }
+resvg = { path = "vendor/resvg/crates/resvg" }
+woff2 = { path = "vendor/woff2" }

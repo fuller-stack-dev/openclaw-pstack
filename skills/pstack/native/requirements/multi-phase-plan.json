@@ -265,7 +265,7 @@
     },
     {
       "id": "multi-phase-plan-64",
-      "text": "- [ ] Use `pstack_route` and emitted native `sessions_spawn` arguments for one owner per PR with its full lifecycle and standing orders."
+      "text": "- [ ] Use `pstack_route` and emitted native `sessions_spawn` arguments for one owner per PR with the full lifecycle named by the execution playbook."
     },
     {
       "id": "multi-phase-plan-65",

@@ -16,13 +16,13 @@
     },
     {
       "path": "native/workflows.md",
-      "bytes": 116823,
-      "sha256": "b6eb706eb7a2427e8bbaac8177f0b97988590df6d6e2b20c646a57e2530c03be"
+      "bytes": 117340,
+      "sha256": "a63f2a045f3f752d9a346b843cb680b6a300aea70e9556299afbe441448bf252"
     },
     {
       "path": "native/playbooks.md",
-      "bytes": 95107,
-      "sha256": "c58c0b7ff5cd45414d8ba2e00bf3f2ff48c33b5e93436efdaf27e371cc98f1d4"
+      "bytes": 95284,
+      "sha256": "16436b8a194ed01adf5383eb9cf5e2636747e8e4e22eef5a59808d7348463be8"
     },
     {
       "path": "native/requirements/no-comments.json",
@@ -31,8 +31,8 @@
     },
     {
       "path": "native/requirements/arena.json",
-      "bytes": 4960,
-      "sha256": "61d09879b76d17b5f10250d84ac6d1102e66f65eb2ae90dd83e9ae448596c920"
+      "bytes": 5472,
+      "sha256": "18abffbffcbdd53ed87e4db9188c97e514ac9324e8ac1612156de78a8fd628b5"
     },
     {
       "path": "native/requirements/architect.json",
@@ -56,8 +56,8 @@
     },
     {
       "path": "native/requirements/autopilot-stack.json",
-      "bytes": 2596,
-      "sha256": "6d36b9d18c3d80e30b9e464b3a40b362a681e638a03b8861c27440d537716cf4"
+      "bytes": 2761,
+      "sha256": "23a30972edf9dab70999c5ba930a1bbdd2c18e332779e7022a1e149693875883"
     },
     {
       "path": "native/requirements/autonomous-run.json",
@@ -141,8 +141,8 @@
     },
     {
       "path": "native/requirements/multi-phase-plan.json",
-      "bytes": 19172,
-      "sha256": "53a03bdfc92283614087f01e8a688150756c9746e1ae8fe729d8c773562b9662"
+      "bytes": 19184,
+      "sha256": "39ff3928387c8242274b93faab28c70dc7cb03fc87f99e482497ee871ede73ef"
     },
     {
       "path": "native/requirements/how.json",
@@ -281,8 +281,8 @@
     },
     {
       "path": "native/requirements/ketchup-video.json",
-      "bytes": 3530,
-      "sha256": "3ec4aa9d7ceec5ba0b8d5fcde8d2d39ab5cab72990d4d34978c36459d1428f1a"
+      "bytes": 3535,
+      "sha256": "0f58ee080819a4b6c46aab656325f736120e995bf128ada067a22c7708d01f84"
     }
   ],
   "files": [
@@ -434,7 +434,7 @@
       "sha256": "e8459b8e348363f40fbc1431ffba7b9b1fdcb7b173de6800be79c671e37cd61e",
       "route": "arena",
       "document": "workflows.md",
-      "sectionSha256": "05f1b72a748a259303ed11a21ad493e80ecbbae61e994c7fd73880e62cc05135",
+      "sectionSha256": "ce15f979dcc2308212e5fde421901cff9d92407eeda45771200c5c70c0a86845",
       "requirementIds": [
         "frame",
         "fan-out",
@@ -663,7 +663,7 @@
       "sha256": "00aa6c73b1c4f6bf612477a8071a17ce87f03fc4e6fad9dee91bbae73d9a7fbe",
       "route": "ketchup-video",
       "document": "workflows.md",
-      "sectionSha256": "e7547d1f506e21935b1915beb599d5f5ace8b025db333b26cf84804078c3fb56",
+      "sectionSha256": "d0d826efa9c1f330fc9dd0f2243a23a985d50f576b0b9e41356c9656128cb7e2",
       "requirementIds": [
         "ketchup-video-01",
         "ketchup-video-02",
@@ -1403,7 +1403,7 @@
       "sha256": "7ef48af5281a38c659973a2c83d8e18f2f3053449955d88996967ccad4128bb3",
       "route": "autopilot-stack",
       "document": "playbooks.md",
-      "sectionSha256": "9b80f11e895bd4dda1acc2d4ea90149ebea2c59df0313d78029134d6f6a0293d",
+      "sectionSha256": "1c34d81148a08cf0700fd8767249825e5cae5d4d6aa25ae50a440083c1ef689f",
       "requirementIds": [
         "autopilot-stack-01",
         "autopilot-stack-02",
@@ -1476,7 +1476,7 @@
       "sha256": "b64e37fb046727d9917d0477039d5259966965778d0885122b588364919a1ad7",
       "route": "multi-phase-plan",
       "document": "playbooks.md",
-      "sectionSha256": "ae0a4a13b95773e273f0961effcc7c8f45200de728b637b88b57267b543432ae",
+      "sectionSha256": "ca522a4aff297f24f0040176dd33310418eef28d7b3d7059d247d82440b31714",
       "requirementIds": [
         "multi-phase-plan-01",
         "multi-phase-plan-02",

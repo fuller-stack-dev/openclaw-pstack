@@ -12,7 +12,7 @@
   "gates": [
     {
       "id": "autopilot-stack-01",
-      "text": "Run [autopilot-full](#autopilot-full) without merging. Inherit its ownership, artifact proof, review, CI, custody, countersign and stop gates. Choose this route when the operator lands the PRs, whether the work is independent or dependent."
+      "text": "Run [autopilot-full](#autopilot-full) without merging. Inherit its ownership, artifact proof, review, CI, custody, countersign and stop gates. Choose this route when the operator lands the PRs, whether the work is independent or dependent. Where this route differs, it wins: there is no merge or merge prep, and a dependent PR's code-ready and fix-round rebases target its actual parent instead of trunk."
     },
     {
       "id": "autopilot-stack-02",

@@ -129,8 +129,8 @@
     },
     {
       "path": "native/model-routing.md",
-      "bytes": 20565,
-      "sha256": "8410d192404493fcc36dbfd0694f8b82221fc3000f4bb36bd1045c0e18e7d6f9"
+      "bytes": 21135,
+      "sha256": "b8ce65aace7b7564f250a967d1c4281092c284f232d1e0840e3ad597fb96922f"
     },
     {
       "path": "native/plan-adapter.md",
@@ -139,8 +139,8 @@
     },
     {
       "path": "native/playbooks.md",
-      "bytes": 95107,
-      "sha256": "c58c0b7ff5cd45414d8ba2e00bf3f2ff48c33b5e93436efdaf27e371cc98f1d4"
+      "bytes": 95284,
+      "sha256": "16436b8a194ed01adf5383eb9cf5e2636747e8e4e22eef5a59808d7348463be8"
     },
     {
       "path": "native/principles.md",
@@ -154,8 +154,8 @@
     },
     {
       "path": "native/requirements/arena.json",
-      "bytes": 4960,
-      "sha256": "61d09879b76d17b5f10250d84ac6d1102e66f65eb2ae90dd83e9ae448596c920"
+      "bytes": 5472,
+      "sha256": "18abffbffcbdd53ed87e4db9188c97e514ac9324e8ac1612156de78a8fd628b5"
     },
     {
       "path": "native/requirements/automate-me.json",
@@ -174,8 +174,8 @@
     },
     {
       "path": "native/requirements/autopilot-stack.json",
-      "bytes": 2596,
-      "sha256": "6d36b9d18c3d80e30b9e464b3a40b362a681e638a03b8861c27440d537716cf4"
+      "bytes": 2761,
+      "sha256": "23a30972edf9dab70999c5ba930a1bbdd2c18e332779e7022a1e149693875883"
     },
     {
       "path": "native/requirements/babysit.json",
@@ -254,8 +254,8 @@
     },
     {
       "path": "native/requirements/ketchup-video.json",
-      "bytes": 3530,
-      "sha256": "3ec4aa9d7ceec5ba0b8d5fcde8d2d39ab5cab72990d4d34978c36459d1428f1a"
+      "bytes": 3535,
+      "sha256": "0f58ee080819a4b6c46aab656325f736120e995bf128ada067a22c7708d01f84"
     },
     {
       "path": "native/requirements/ketchup.json",
@@ -274,8 +274,8 @@
     },
     {
       "path": "native/requirements/multi-phase-plan.json",
-      "bytes": 19172,
-      "sha256": "53a03bdfc92283614087f01e8a688150756c9746e1ae8fe729d8c773562b9662"
+      "bytes": 19184,
+      "sha256": "39ff3928387c8242274b93faab28c70dc7cb03fc87f99e482497ee871ede73ef"
     },
     {
       "path": "native/requirements/no-comments.json",
@@ -415,7 +415,7 @@
     {
       "path": "native/route-skills.json",
       "bytes": 52257,
-      "sha256": "814497ffaa1a6f92fb9ff0ce336b1cf8128a1970aa2b27362d6e109948e01b12"
+      "sha256": "38e87df91d0dd599327be941f0f2feec7a83ccc1170a8317d0fad56d70257e83"
     },
     {
       "path": "native/routes.json",
@@ -449,8 +449,8 @@
     },
     {
       "path": "native/workflows.md",
-      "bytes": 116823,
-      "sha256": "b6eb706eb7a2427e8bbaac8177f0b97988590df6d6e2b20c646a57e2530c03be"
+      "bytes": 117340,
+      "sha256": "a63f2a045f3f752d9a346b843cb680b6a300aea70e9556299afbe441448bf252"
     },
     {
       "path": "native/worktree-audit-adapter.md",

@@ -253,7 +253,7 @@ Requires an explicit bounded queue and authority for each external action. Own t
 
 
 ## autopilot-stack
-Run [autopilot-full](#autopilot-full) without merging. Inherit its ownership, artifact proof, review, CI, custody, countersign and stop gates. Choose this route when the operator lands the PRs, whether the work is independent or dependent.
+Run [autopilot-full](#autopilot-full) without merging. Inherit its ownership, artifact proof, review, CI, custody, countersign and stop gates. Choose this route when the operator lands the PRs, whether the work is independent or dependent. Where this route differs, it wins: there is no merge or merge prep, and a dependent PR's code-ready and fix-round rebases target its actual parent instead of trunk.
 
 1. Stop at verified and green on each current head, report merge-ready and hand the PRs to the operator. Do not merge or arm auto-merge. After handoff nobody pushes without the operator's go. Every audit or authorized loop tick names this route and its no-merge rule. Re-read both routes at each audit and refresh finished-owner records from actual state.
 2. Stack a PR only when it builds on another PR. Independent PRs branch from trunk. A dependent PR targets its actual parent's branch; the root targets trunk. Each PR's sole owner performs its separately authorized own-branch rebase onto that parent (or trunk for a root), with the exact-head lease and custody rules from autopilot-full. The coordinator sequences dependencies but never becomes a second branch writer.
@@ -332,7 +332,7 @@ Tests alone are not sufficient verification. A PR is verified only when its unit
 - [ ] Propagate the operator's hold as zero-writes to every owner and leaf.
 
 ### Spawn owners
-- [ ] Use `pstack_route` and emitted native `sessions_spawn` arguments for one owner per PR with its full lifecycle and standing orders.
+- [ ] Use `pstack_route` and emitted native `sessions_spawn` arguments for one owner per PR with the full lifecycle named by the execution playbook.
 - [ ] <Concrete dependency graph and branching order.>
 - [ ] <Exclusive file boundaries per PR.>
 - [ ] <Interaction-changing PR ids requiring screenshots and video review.>

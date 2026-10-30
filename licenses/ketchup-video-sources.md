@@ -1,8 +1,11 @@
 # Ketchup-video bundled sources
 
 The renderer is a new locked source build, not the historical npm WASM.
-Its qualified WASM SHA256 is
-66da0bed457e785fc75ff1452577ebf4978da904a2029c949fd1e0da892e2c9d.
+Its current qualified WASM digest and byte length are recorded in the shipped
+[source inventory](ketchup-video-renderer/source-inventory.json), under
+`binding.reproducibility.finalWasm`; `binding.candidateWasmSha256` identifies
+the same artifact. The build and qualification scope are documented in
+[BUILD.md](ketchup-video-renderer/BUILD.md).
 The exact resvg-js source, immutable resvg/woff2 revisions, dependency-only patch,
 158-package lock, original facade Source Code Form, compiler/sysroot inventory
 and original component notices are in [ketchup-video-renderer](ketchup-video-renderer/BUILD.md).

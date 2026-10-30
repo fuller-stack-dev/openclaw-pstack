@@ -3,7 +3,7 @@
 ## 1.3.0 — release candidate (unpublished)
 
 - Preserve the exact 573-file upstream source tree, including both new artifact skills, dotfiles, modes and MIT license. Candidate version is 1.3.0; publication remains a separate gate.
-- Add statechart and ketchup-video native guidance, literal route commands and manual discovery guides (57 routes). The renderer bundles are unchanged by this source/doc migration.
+- Add statechart and ketchup-video native guidance, literal route commands and manual discovery guides (57 routes).
 - Port one-owner-per-PR orchestration and full-minus-merge autopilot with stacks only for actual dependencies. Preserve native authorization, independent review, CI, custody and continuation boundaries.
 - Refresh reviewed normative mappings and guards; retain removed interrogate references outside the exact mirror for old-record replay. Text coverage is not model-execution or whole-parity proof.
 - Use an explicit reserved fake identity only for the never-pushed interrogate Git fixture. Source commit identity is unaffected.

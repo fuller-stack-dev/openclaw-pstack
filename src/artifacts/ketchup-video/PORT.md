@@ -131,8 +131,12 @@ MIT license and upstream attribution when integrating. No publication is implied
 
 Bundled renderer: newly source-built resvg-js from immutable revision
 9ca058462ac529120c8cc84ddcd6fef644cc5406 with the retained dependency-only
-source patch and exact 158-package lock. Qualified WASM SHA256:
-66da0bed457e785fc75ff1452577ebf4978da904a2029c949fd1e0da892e2c9d.
+source patch and exact 158-package lock. The current qualified WASM digest
+and byte length are authoritative in the shipped
+[source inventory](../../../licenses/ketchup-video-renderer/source-inventory.json),
+under `binding.reproducibility.finalWasm` and `binding.candidateWasmSha256`.
+See the [build recipe](../../../licenses/ketchup-video-renderer/BUILD.md) for
+qualification scope.
 The original facade Source Code Form, patch, root/sysroot locks, immutable
 source locators, build recipe and original notices ship under
 licenses/ketchup-video-renderer. MPL applies to its covered source, not all
@@ -158,4 +162,4 @@ Parent inspection/independent review; sole-writer integration and full touched-
 test audit; public package build/import-graph and frozen-pack execution; actual
 route invocation/window/calls/media attachment; license release audit; supported
 platform qualification. This artifact alone does not complete production parity.
-Source provenance and remaining cold-reconstruction qualification are in licenses/ketchup-video-renderer/BUILD.md; the historical npm binary is not used.
+Source provenance and the qualified cold-reconstruction scope are in licenses/ketchup-video-renderer/BUILD.md; the historical npm binary is not used.

@@ -45,6 +45,39 @@ Every native workflow record that 1.1 creates carries `stagesVersion: 2`, and th
 
 If a session is already wedged, reinstall 1.1, cancel that workflow, and downgrade again (follow-up P3-37).
 
+## Derived media and source binding
+
+Git retains reviewable source, immutable input URLs/digests, original notices,
+the renderer source patch, exact root/sysroot locks and recipe. The two TTF files
+and binary-embedding dist/ketchup-video.mjs are ignored build outputs. The other
+three runtime bundles remain tracked. Install/runtime behavior is unchanged:
+the published archive is self-contained, with no Rust, build or network step at
+install time. FFmpeg remains an existing runtime prerequisite for video use.
+
+Builds need Node, Python 3, esbuild 0.28.2 and a verified media cache, or the pinned
+Rust 1.95.0 aarch64-Darwin toolchain with rust-src and wasm32-unknown-unknown.
+Set RUST_TOOLCHAIN_DIR for an existing toolchain; the script does not install it.
+On a cold build it verifies public source archives, exact locked crates and the
+installed WASM sysroot against the official archive, compiles with at most three
+jobs, then verifies the pinned wasm-bindgen tool, matching glue/facade and WASM.
+No historical npm renderer fallback is allowed. See the renderer BUILD.md for
+the current cold-reconstruction limitation; a digest mismatch is a hard refusal.
+
+PSTACK_VIDEO_CACHE chooses a hash-addressed build cache (default
+~/.cache/pstack/video-assets); every read is hash-checked. PSTACK_VIDEO_OFFLINE=1
+refuses missing inputs rather than fetching. A poisoned entry fails, never
+silently refetches or substitutes. Normal frozen dependency installation uses
+the repository lock and the canonical package store where supported.
+
+scripts/pack.mjs still archives the exact requested Git commit, then executes
+THAT archive's media recipe/pins with the version-checked build tool. It never
+copies a dirty local bundle, source file or node_modules tree. The final bundle
+must match its committed output pin. dist/ketchup-video.build.json binds the
+source commit, source/input digests, tool version and generated output hash;
+the printed pack receipt binds that manifest and output to the final tarball
+SHA256. The extracted doctor, plain ustar layout, original modes/dotfiles,
+573-source inventory, no-links/duplicate checks and no-overwrite rule remain.
+
 ## Exact future commands
 
 From a clean reviewed commit in this repository:

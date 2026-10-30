@@ -8,6 +8,9 @@
 - Refresh reviewed normative mappings and guards; retain removed interrogate references outside the exact mirror for old-record replay. Text coverage is not model-execution or whole-parity proof.
 - Use an explicit reserved fake identity only for the never-pushed interrogate Git fixture. Source commit identity is unaffected.
 
+- Bind the other-family judge for new native arena/architect records at the existing lead checkpoint, atomically with lead scores, using trusted current-turn metadata and lead-time workspace config. Unknown/pending/stale metadata or an unsuitable pool refuses without writing; grounding/runners still admit, and old records retain their original snapshots. New flagged records cannot downgrade to older plugins. This proves current-parent selection, not score-text authorship.
+- Remove redundant comments and unused packed-test environment overrides; clarify whole-proof refusal versus legacy truncation and interrogate section selection. Legal attribution and non-obvious safety rationale remain.
+
 ## 1.2.9 — 2026-10-28
 
 - Version-only ClawHub release to restore the listing display name to `openclaw-pstack` after older pending releases finalized. No runtime or behavior changes from 1.2.8.

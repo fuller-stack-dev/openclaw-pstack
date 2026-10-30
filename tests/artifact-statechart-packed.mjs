@@ -24,10 +24,10 @@ try {
     assert.ok(fs.statSync(path.join(pkg, file)).isFile());
   assert.ok(!fs.existsSync(path.join(pkg, "src")));
   assert.ok(!fs.existsSync(path.join(pkg, "node_modules")));
-  // Reuse behavioral cases from outside the source checkout: no personal graph or loaders.
+  // Run the packed CLI outside the checkout without inherited module paths or loader hooks.
   fs.copyFileSync(path.join(root, "tests/artifact-statechart.test.mjs"), path.join(stage, "consumer.test.mjs"));
   const env = { ...process.env, STATECHART_CLI: path.join(pkg, "dist/statechart.mjs") };
-  for (const key of ["NODE_PATH", "NODE_OPTIONS", "PELE_MODULE", "ESBUILD_MODULE", "TSX_TSCONFIG_PATH"])
+  for (const key of ["NODE_PATH", "NODE_OPTIONS", "TSX_TSCONFIG_PATH"])
     delete env[key];
   console.log(run(process.execPath, ["--test", path.join(stage, "consumer.test.mjs")], env, stage));
   console.log(JSON.stringify({ package: metadata.name, version: metadata.version, integrity: result[0].integrity, files: result[0].entryCount, sourceFree: true }));

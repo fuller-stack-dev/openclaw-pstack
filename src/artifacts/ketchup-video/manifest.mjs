@@ -38,7 +38,6 @@ export async function boundedFile(path, max) {
   }
 }
 export function words(s) {
-  // Count punctuation tokens too; never discount labels or infer prior knowledge.
   return s
     .trim()
     .split(/\s+/u)

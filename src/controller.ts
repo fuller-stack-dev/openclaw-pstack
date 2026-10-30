@@ -83,10 +83,10 @@ function ranWith(view: View, slot: string) {
  * families the host catalog reported for the selected models ("unknown" when it reported none).
  */
 export function diversityLines(record: RecordV1, view: View) {
-  const families = new Map(record.setup.catalog.map(c => [c.id, c.family]));
+  const families = new Map(view.catalog.map(c => [c.id, c.family]));
   return Object.values(view.currentSnapshots).map(id => view.snapshots[id]!).filter(s => s.diversity !== "not-applicable").map(s =>
     s.role + " = " + s.diversity + " (" + s.selections.map(x => (x.model ?? "inherited") + ": " + (x.model ? families.get(x.model) ?? "family unknown" : "the parent's family")).join(", ") +
-    (s.poolIndex !== null && s.diversity === "unverified" ? "; compared with the parent model, which this controller does not know" : "") + ")");
+    (s.poolIndex !== null && view.judge ? "; compared with lead " + view.judge.parentModel + ": " + view.judge.parentFamily : s.poolIndex !== null && s.diversity === "unverified" ? "; compared with the parent model, which this controller does not know" : "") + ")");
 }
 const reports = (view: View, prefix: string) => Object.entries(view.attempts).filter(([slot]) => slot.startsWith(prefix + ":")).map(([slot, a]) => {
   const last = a.at(-1)!;
@@ -100,7 +100,8 @@ const VERBATIM = "Your report is delivered to the user verbatim as the result of
 
 /**
  * Sections the controller requires in each verbatim deliverable, by kind and role, matched as
- * heading or label lines. A missing one fails the controller's check and earns one correction.
+ * heading or label lines; interrogate instead uses its frozen semantics selector below.
+ * A missing one fails the controller's check and earns one correction.
  */
 const REQUIRED_SECTIONS: Record<string, string[]> = {
   "how/how explainer": ["Overview", "How It Works", "Where Things Live"],
@@ -336,7 +337,8 @@ export function deliverable(record: RecordV1, view: View): string | undefined {
 }
 
 /**
- * Stores a child result within the room left in the ledger. Each settling child gets an even
+ * Executed interrogate stores the complete proof or refuses; none of its fields are truncated.
+ * Other records store a child result within the room left in the ledger. Each settling child gets an even
  * share of the remaining bytes (2 to 16 KiB, or up to 96 KiB for the deliverable child) for
  * its report and evidence, measured as the ledger stores them and cut only on code-point
  * boundaries. A `reserve` keeps room for a deliverable still to come. Anything cut is marked,
@@ -632,7 +634,7 @@ export async function runNative(deps: ControllerDeps, start: RecordV1): Promise<
 }
 
 /**
- * Fresh snapshots for every role, resolved over the host requester catalog and workspace
+ * Fresh snapshots except the new comparison judge (bound at lead), resolved over the host requester catalog and workspace
  * config, and the host profile pinned for each read-only role this instance registered.
  */
 export async function nativeSetup(kind: Kind, task: string, options: Options, owner: Owner, catalog: Setup["catalog"], profiles: HostProfiles): Promise<Setup & { task: string }> {
@@ -641,11 +643,11 @@ export async function nativeSetup(kind: Kind, task: string, options: Options, ow
     const host = profiles.get(panelProfileFor(role, { kind, executedProof: kind === "interrogate" ? true : undefined }) ?? "");
     if (host && !host.ownsOutputSchema) pins[role] = { id: host.id, instructionsSha256: host.instructionsSha256 };
   }
-  for (const role of rolesFor(kind, options))
+  for (const role of rolesFor(kind, options).filter(role => !LEAD_FIRST_KINDS.includes(kind) || role !== "arena cross-judge pool"))
     snapshots.push(((await planFromWorkspace({ workspace: owner.workspace, role }, { requester: { state: "prepared", catalog } })) as { snapshot: Snapshot }).snapshot);
   const used = new Set(snapshots.flatMap(s => s.selections.map((x: { model?: string }) => x.model)).filter(Boolean));
   return { kind, ...(kind === "interrogate" ? { executedProof: true as const } : {}), task, taskDigest: digest(task), sourceDigest: digest(["pstack-native-workspace", owner.workspace]), snapshots, catalog: catalog.filter(c => used.has(c.id)), options,
-    ...(Object.keys(pins).length ? { profiles: pins } : {}), stagesVersion: 2, ...(LEAD_FIRST_KINDS.includes(kind) ? { leadFirst: true as const } : {}) };
+    ...(Object.keys(pins).length ? { profiles: pins } : {}), stagesVersion: 2, ...(LEAD_FIRST_KINDS.includes(kind) ? { leadFirst: true as const, parentJudge: true as const } : {}) };
 }
 
 /** Parses the leading option word of a native command; the rest is the task. */
@@ -714,7 +716,7 @@ function leadContext(record: RecordV1, view: View): string[] {
   const prefix = record.setup.kind === "arena" ? "candidates:" : "designs:";
   const labels = Object.entries(view.attempts).filter(([slot, a]) => slot.startsWith(prefix) && !slot.endsWith(":previous") && a.at(-1)?.result && a.at(-1)!.result!.status !== "BLOCKED" && !a.at(-1)!.rejected).map(([slot]) => "`" + slot + "`");
   if (view.phase === "lead") return ["Lead scores first. Read every usable candidate end to end and score each criterion 1-5 yourself, under its label verbatim (" + labels.join(", ") +
-    "), then record them as the `lead-scores` gate. The controller spawns the judge only after this checkpoint is recorded: you cannot see the judge's scores before yours are in the record, the judge never sees yours, and the record keeps yours unchanged."];
+    "), then record them as the `lead-scores` gate. The controller spawns the judge only after this checkpoint is recorded: you cannot see the judge's scores before yours are in the record, the judge never sees yours, and the record keeps yours unchanged." + (record.setup.parentJudge ? " This advance binds your current-turn native model and canonical family to the other-family judge selected from workspace config at lead time. Missing proof refuses the write and leaves this checkpoint retryable; do not supply a judge binding yourself." : "")];
   if (view.phase === "compare" && view.evidence.lead?.["lead-scores"]) return ["Your lead scores, recorded before the judge ran (the judge never saw them):\n" + data(view.evidence.lead["lead-scores"]) +
     "\nCompare them with the judge's criterion by criterion. Report each disagreement and how you resolved it; agreement is evidence, not a vote, and your recorded scores stay as recorded."];
   return [];

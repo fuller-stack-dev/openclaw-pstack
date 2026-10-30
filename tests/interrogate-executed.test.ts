@@ -96,7 +96,6 @@ describe('executed proof contracts and lifecycle', () => {
     const output=leadFor(context); output.accounting[0].rerun.cwd+='/left';
     output.accounting[1]={origin:'reviewers:1/F1',disposition:'duplicate',duplicateOf:'reviewers:0/F1',reason:'Same repro but distinct working directory'} as any;
     expect(checkOutput('interrogate-executed-lead',output,{...context,status:'ISSUES'}).join()).toContain('relative cwd');
-    // Different absolute scratch roots are legitimate when the execution context matches.
     second.cwd=second.scratch+'/left';
     expect(checkOutput('interrogate-executed-lead',output,{...context,status:'ISSUES'})).toEqual([]);
   });

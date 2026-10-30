@@ -2912,10 +2912,11 @@ function validateSources(sources) {
   if (!sources.some((x) => x.category === "source-control" && x.disposition === "available")) throw Error("Source-control investigation BLOCKED; use the documented trivial exception outside this controller");
 }
 function validateSetup(s, native = false) {
-  fields(s, ["kind", "taskDigest", "sourceDigest", "snapshots", "catalog", "options", "executedProof", ...native ? ["task", "profiles", "stagesVersion", "correction", "leadFirst"] : []], "setup");
+  fields(s, ["kind", "taskDigest", "sourceDigest", "snapshots", "catalog", "options", "executedProof", ...native ? ["task", "profiles", "stagesVersion", "correction", "leadFirst", "parentJudge"] : []], "setup");
   if (s.executedProof !== void 0 && (s.executedProof !== true || s.kind !== "interrogate")) throw Error("executedProof belongs only to interrogate");
   if (s.stagesVersion !== void 0 && s.stagesVersion !== 2) throw Error("Unsupported native stages version");
   if (s.leadFirst !== void 0 && (s.leadFirst !== true || s.stagesVersion !== 2 || s.correction || !LEAD_FIRST_KINDS.includes(s.kind))) throw Error("leadFirst belongs only to a version-2 arena or architect record");
+  if (s.parentJudge !== void 0 && (s.parentJudge !== true || !native || !s.leadFirst || s.stagesVersion !== 2 || s.correction || !LEAD_FIRST_KINDS.includes(s.kind))) throw Error("parentJudge belongs only to a new native lead-first arena or architect record");
   if (s.correction !== void 0) {
     const c = s.correction;
     fields(c, ["workflowId", "slot", "runId", "artifactDigest", "report", "errors", "by", "proofContext"], "correction");
@@ -2951,13 +2952,15 @@ function validateSetup(s, native = false) {
   if (!Array.isArray(s.snapshots) || s.snapshots.length > 8 || !Array.isArray(s.catalog)) throw Error("Invalid routing snapshots");
   const required = new Set(stages(s).flatMap((x) => x.jobs.map((j) => j.role)));
   if (deferred) required.add(s.kind === "swarm" ? "swarm workers" : "why investigators");
+  const expected = new Set(required);
+  if (s.parentJudge) expected.delete("arena cross-judge pool");
   const found = /* @__PURE__ */ new Set();
   for (const snapshot of s.snapshots) {
     validateSnapshot(snapshot, s.catalog);
-    if (!required.has(snapshot.role) || found.has(snapshot.role)) throw Error("Unexpected or duplicate snapshot role");
+    if (!expected.has(snapshot.role) || found.has(snapshot.role)) throw Error("Unexpected or duplicate snapshot role");
     found.add(snapshot.role);
   }
-  if (found.size !== required.size) throw Error("Every workflow role needs an immutable routing snapshot");
+  if (found.size !== expected.size) throw Error("Every workflow role needs an immutable routing snapshot");
   if (s.profiles !== void 0) {
     if (!s.profiles || typeof s.profiles !== "object" || Array.isArray(s.profiles) || !Object.keys(s.profiles).length) throw Error("Invalid profile pins");
     for (const [role2, pin] of Object.entries(s.profiles)) {
@@ -3042,6 +3045,28 @@ function validateResult(r, job, view, native, setup, previous) {
   }
   if (job.slice && (r.sha !== job.slice.sha || r.method !== job.slice.method)) throw Error("Swarm result SHA/method mismatch; record rejection, retry the slice once, then report the coverage gap");
 }
+function bindJudge(view, judge) {
+  fields(judge, ["parentModel", "parentFamily", "snapshot", "catalog"], "judge binding");
+  const binding = judge;
+  text(binding.parentModel, "judge parent model", 512);
+  text(binding.parentFamily, "judge parent family", 64);
+  const snapshot = validateSnapshot(binding.snapshot, binding.catalog);
+  const selected = snapshot.selections[0]?.model;
+  const parent = binding.catalog.find((row) => row.id === binding.parentModel), child = binding.catalog.find((row) => row.id === selected);
+  const canonical3 = (family) => !!family && family.length <= 64 && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(family);
+  if (view.judge || snapshot.role !== "arena cross-judge pool" || snapshot.diversity !== "different-family" || !selected || !canonical3(binding.parentFamily) || parent?.family !== binding.parentFamily || !canonical3(child?.family) || child?.family === binding.parentFamily)
+    throw Error("Invalid different-family judge binding");
+  if (binding.catalog.length !== 2) throw Error("Judge catalog must contain exactly its parent and selected model");
+  for (const row of binding.catalog) {
+    const old = view.catalog.find((c) => c.id === row.id);
+    if (old && digest(old) !== digest(row)) throw Error("Judge catalog conflicts with recorded model facts: " + row.id);
+    if (!old) view.catalog.push(clone2(row));
+  }
+  const id = digest(snapshot);
+  view.snapshots[id] = snapshot;
+  view.currentSnapshots[snapshot.role] = id;
+  view.judge = clone2(binding);
+}
 var NATIVE_ONLY = ["dispatch", "abandon", "configure", "schedule", "decide"];
 function workflowView(record) {
   fields(record, ["version", "id", "owner", "setup", "events"], "workflow record");
@@ -3081,9 +3106,9 @@ function workflowView(record) {
     options,
     needsConfigure: pending
   };
-  for (const snapshot of record.setup.snapshots) {
-    const pin = record.setup.profiles?.[snapshot.role];
-    view.enforcement[snapshot.role] = !pin ? "prompt" : profileKeepsShell(pin.id) ? "host-profile-shell" : "host-profile";
+  for (const role2 of /* @__PURE__ */ new Set([...record.setup.snapshots.map((s) => s.role), ...Object.keys(record.setup.profiles ?? {}), ...record.setup.parentJudge ? ["arena cross-judge pool"] : []])) {
+    const pin = record.setup.profiles?.[role2];
+    view.enforcement[role2] = !pin ? "prompt" : profileKeepsShell(pin.id) ? "host-profile-shell" : "host-profile";
   }
   for (const snapshot of record.setup.snapshots) {
     const id = digest(snapshot);
@@ -3123,7 +3148,7 @@ function workflowView(record) {
       collect: ["slot", "runId", "result", ...native ? ["selection"] : []],
       reject: ["slot", "runId", "reason", ...native ? ["selection"] : []],
       retry: ["slot", "reason"],
-      advance: ["evidence"],
+      advance: ["evidence", "judge"],
       wait: ["timeoutSeconds"],
       resume: [],
       block: ["reason"],
@@ -3238,6 +3263,9 @@ function workflowView(record) {
       }
       case "advance": {
         active();
+        const binding = native && record.setup.parentJudge && stage.name === "lead";
+        if (binding) bindJudge(view, e.judge);
+        else if (e.judge !== void 0) throw Error("Judge binding belongs only to a parentJudge lead advance");
         if (pending) throw Error("Configure the deferred " + deferred + " before advancing");
         if (native && stage.approval) throw Error("A native approval stage advances only through an authenticated /pstack resume decision");
         const gaps = native && record.setup.kind === "swarm" && stage.name === "workers";
@@ -3526,7 +3554,7 @@ async function sweepWorkflows(store, current, cursor = "") {
   return { removed, lookupFailed, cursor: rows.length === WORKFLOW_RETENTION.sweepBatch ? rows.at(-1).key + "\0" : "" };
 }
 var atCapacity = (error) => error?.code === "PLUGIN_STATE_LIMIT_EXCEEDED" || /reached its \d+-row limit/.test(String(error));
-function registerWorkflowTool(api, ownerFor, incarnation) {
+function registerWorkflowTool(api, ownerFor, incarnation, planJudge) {
   let sweepCursor = "";
   async function makeRoom(store) {
     let count = await store.count();
@@ -3539,7 +3567,7 @@ function registerWorkflowTool(api, ownerFor, incarnation) {
       if (count < WORKFLOW_RETENTION.maxEntries) return;
     }
   }
-  api.registerTool((ctx) => ({
+  api.registerTool({ contextVersion: 2, create: (ctx) => ({
     name: "pstack_workflow",
     label: "Pstack workflow ledger",
     description: "CAS workflow reducers and tagged spawn planning. Agent-created records are agent-attested; native controller records (version 2) are written by /pstack commands and accept only parent framing, checkpoint gates, blockers or cancellation here. Does not spawn, collect, approve, wait or schedule. Read before retrying a conflict.",
@@ -3567,11 +3595,25 @@ function registerWorkflowTool(api, ownerFor, incarnation) {
       if (action === "create" || action === "apply") {
         if (!assertCurrent) throw Error("BLOCKED: current invocation authority is unavailable; workflow mutation requires the native lifecycle guard");
         if (!Number.isSafeInteger(p.revision) || (action === "create" ? p.revision !== 0 : p.revision < 1)) throw Error("Explicit expected workflow revision required (create=0)");
-        const change = action === "create" ? p.setup : p.event;
+        let change = action === "create" ? p.setup : p.event;
+        let judgeCurrent;
         if (action === "apply") {
+          if (change && Object.hasOwn(change, "judge")) throw Error("Judge binding is host-owned; agent-supplied binding fields are forbidden");
           const current2 = await store.lookup(workflowKey(owner, p.workflowId));
           assertCurrent();
-          if (current2 !== void 0) assertAgentEvent(ownedRecord(current2, owner, p.workflowId), change);
+          if (current2 !== void 0) {
+            const record2 = ownedRecord(current2, owner, p.workflowId), event = change;
+            const previous = record2.events.find((e) => e.id === event.id);
+            if (event.type === "advance" && previous?.type === "advance" && previous.judge) change = { ...event, judge: previous.judge };
+            else {
+              assertAgentEvent(record2, event);
+              if (record2.setup.parentJudge && event.type === "advance" && workflowView(record2).phase === "lead") {
+                const prepared = await planJudge(ctx, owner.workspace);
+                change = { ...event, judge: prepared.judge };
+                judgeCurrent = prepared.assertCurrent;
+              }
+            }
+          }
         }
         if (action === "create") {
           try {
@@ -3583,11 +3625,14 @@ function registerWorkflowTool(api, ownerFor, incarnation) {
         }
         try {
           return reply2(await mutateWorkflow(
-            { observe: (key) => store.observe(key), apply: (key, comparison, value2) => store.compareAndApply(
-              key,
-              comparison,
-              { operation: "update", action: "set", value: JSON.parse(JSON.stringify(value2)), ...terminal(value2) ? { ttlMs: WORKFLOW_RETENTION.terminalTtlMs } : {} }
-            ) },
+            { observe: (key) => store.observe(key), apply: async (key, comparison, value2) => {
+              await judgeCurrent?.();
+              return store.compareAndApply(
+                key,
+                comparison,
+                { operation: "update", action: "set", value: JSON.parse(JSON.stringify(value2)), ...terminal(value2) ? { ttlMs: WORKFLOW_RETENTION.terminalTtlMs } : {} }
+              );
+            } },
             owner,
             p.workflowId,
             p.revision,
@@ -3638,7 +3683,7 @@ function registerWorkflowTool(api, ownerFor, incarnation) {
         notice: "Call the first-class native tool, then append its actual accepted IDs. This plan is not admission or execution evidence."
       });
     }
-  }), { names: ["pstack_workflow"] });
+  }) }, { names: ["pstack_workflow"] });
 }
 function assertAgentEvent(record, event) {
   if (record.version !== 2) return;
@@ -3870,8 +3915,8 @@ function ranWith(view, slot) {
   return (model ? "model `" + model + "`" : "the requester's inherited model (not reported by the host)") + (thinking2 ? ", thinking " + thinking2 : "");
 }
 function diversityLines(record, view) {
-  const families = new Map(record.setup.catalog.map((c) => [c.id, c.family]));
-  return Object.values(view.currentSnapshots).map((id) => view.snapshots[id]).filter((s) => s.diversity !== "not-applicable").map((s) => s.role + " = " + s.diversity + " (" + s.selections.map((x) => (x.model ?? "inherited") + ": " + (x.model ? families.get(x.model) ?? "family unknown" : "the parent's family")).join(", ") + (s.poolIndex !== null && s.diversity === "unverified" ? "; compared with the parent model, which this controller does not know" : "") + ")");
+  const families = new Map(view.catalog.map((c) => [c.id, c.family]));
+  return Object.values(view.currentSnapshots).map((id) => view.snapshots[id]).filter((s) => s.diversity !== "not-applicable").map((s) => s.role + " = " + s.diversity + " (" + s.selections.map((x) => (x.model ?? "inherited") + ": " + (x.model ? families.get(x.model) ?? "family unknown" : "the parent's family")).join(", ") + (s.poolIndex !== null && view.judge ? "; compared with lead " + view.judge.parentModel + ": " + view.judge.parentFamily : s.poolIndex !== null && s.diversity === "unverified" ? "; compared with the parent model, which this controller does not know" : "") + ")");
 }
 var reports = (view, prefix) => Object.entries(view.attempts).filter(([slot]) => slot.startsWith(prefix + ":")).map(([slot, a]) => {
   const last = a.at(-1);
@@ -4407,7 +4452,7 @@ async function nativeSetup(kind, task, options, owner, catalog, profiles) {
     const host = profiles.get(panelProfileFor(role2, { kind, executedProof: kind === "interrogate" ? true : void 0 }) ?? "");
     if (host && !host.ownsOutputSchema) pins[role2] = { id: host.id, instructionsSha256: host.instructionsSha256 };
   }
-  for (const role2 of rolesFor(kind, options))
+  for (const role2 of rolesFor(kind, options).filter((role3) => !LEAD_FIRST_KINDS.includes(kind) || role3 !== "arena cross-judge pool"))
     snapshots.push((await planFromWorkspace({ workspace: owner.workspace, role: role2 }, { requester: { state: "prepared", catalog } })).snapshot);
   const used = new Set(snapshots.flatMap((s) => s.selections.map((x) => x.model)).filter(Boolean));
   return {
@@ -4421,7 +4466,7 @@ async function nativeSetup(kind, task, options, owner, catalog, profiles) {
     options,
     ...Object.keys(pins).length ? { profiles: pins } : {},
     stagesVersion: 2,
-    ...LEAD_FIRST_KINDS.includes(kind) ? { leadFirst: true } : {}
+    ...LEAD_FIRST_KINDS.includes(kind) ? { leadFirst: true, parentJudge: true } : {}
   };
 }
 function parseNativeTask(kind, args) {
@@ -4488,7 +4533,7 @@ function leadContext(record, view) {
   if (!record.setup.leadFirst || view.status !== "active") return [];
   const prefix = record.setup.kind === "arena" ? "candidates:" : "designs:";
   const labels = Object.entries(view.attempts).filter(([slot, a]) => slot.startsWith(prefix) && !slot.endsWith(":previous") && a.at(-1)?.result && a.at(-1).result.status !== "BLOCKED" && !a.at(-1).rejected).map(([slot]) => "`" + slot + "`");
-  if (view.phase === "lead") return ["Lead scores first. Read every usable candidate end to end and score each criterion 1-5 yourself, under its label verbatim (" + labels.join(", ") + "), then record them as the `lead-scores` gate. The controller spawns the judge only after this checkpoint is recorded: you cannot see the judge's scores before yours are in the record, the judge never sees yours, and the record keeps yours unchanged."];
+  if (view.phase === "lead") return ["Lead scores first. Read every usable candidate end to end and score each criterion 1-5 yourself, under its label verbatim (" + labels.join(", ") + "), then record them as the `lead-scores` gate. The controller spawns the judge only after this checkpoint is recorded: you cannot see the judge's scores before yours are in the record, the judge never sees yours, and the record keeps yours unchanged." + (record.setup.parentJudge ? " This advance binds your current-turn native model and canonical family to the other-family judge selected from workspace config at lead time. Missing proof refuses the write and leaves this checkpoint retryable; do not supply a judge binding yourself." : "")];
   if (view.phase === "compare" && view.evidence.lead?.["lead-scores"]) return ["Your lead scores, recorded before the judge ran (the judge never saw them):\n" + data(view.evidence.lead["lead-scores"]) + "\nCompare them with the judge's criterion by criterion. Report each disagreement and how you resolved it; agreement is evidence, not a vote, and your recorded scores stay as recorded."];
   return [];
 }
@@ -4988,6 +5033,49 @@ function register(api) {
       };
     }
   });
+  async function planParentJudge(ctx, request) {
+    const activeModel = () => {
+      const model = ctx.activeModel;
+      if (!model?.provider || !model.modelId) return void 0;
+      const ref = model.provider + "/" + model.modelId;
+      if (model.modelRef !== void 0 && model.modelRef !== ref) throw Error("Active model reference contradicts its native provider/model pair");
+      return ref;
+    };
+    const parentModel = activeModel();
+    const assertCurrent = async () => {
+      if (!ctx.assertInvocationCurrent || !ctx.sessionKey || !ctx.sessionId)
+        throw Error("BLOCKED: different-family judge needs current host invocation and exact session metadata");
+      ctx.assertInvocationCurrent();
+      const { agentId, entry: entry2 } = await entryFor(ctx.sessionKey);
+      if (!entry2 || entry2.sessionId !== ctx.sessionId || ctx.agentId && ctx.agentId !== agentId)
+        throw Error("BLOCKED: different-family judge requester incarnation changed");
+      if (entry2.liveModelSwitchPending)
+        throw Error("BLOCKED: different-family judge parent model switch is pending");
+      ctx.assertInvocationCurrent();
+      if (activeModel() !== parentModel) throw Error("BLOCKED: different-family judge active model changed during preparation");
+    };
+    await assertCurrent();
+    const models = ctx.runtimeContext?.models;
+    const requester = models && typeof models.list === "function" ? await readRequesterCatalog(models, { family: caps.family }) : void 0;
+    await assertCurrent();
+    const parentFamily = caps.family && requester?.state === "prepared" && requester.catalog.find((row) => row.id === parentModel)?.family;
+    if (!parentModel || !parentFamily)
+      throw Error("BLOCKED: different-family judge needs the current-turn active model and its canonical family in a prepared host requester catalog; caller hints and stored runtime metadata are not proof");
+    if (request.parentModel !== void 0 && request.parentModel !== parentModel) throw Error("Parent model contradicts current native active model");
+    if (request.parentFamily !== void 0 && request.parentFamily !== parentFamily) throw Error("Parent family contradicts native catalog");
+    const result = await planFromWorkspace({ ...request, parentModel, parentFamily }, { requester, hostBlind: caps.blind });
+    await assertCurrent();
+    const snapshot = "snapshot" in result ? result.snapshot : void 0;
+    if (snapshot?.diversity !== "different-family")
+      throw Error("BLOCKED: different-family judge is not established by the configured pool and current host families; no spawn arguments returned");
+    const selected = snapshot.selections[0]?.model;
+    return { result, assertCurrent, judge: {
+      parentModel,
+      parentFamily,
+      snapshot,
+      catalog: requester.catalog.filter((row) => row.id === parentModel || row.id === selected)
+    } };
+  }
   api.registerTool(
     {
       contextVersion: 2,
@@ -5000,48 +5088,9 @@ function register(api) {
         execute: async (_id, params) => {
           const p = params;
           if (!toolContext.workspaceDir) throw Error("Requester workspace is unavailable");
-          const models = toolContext.runtimeContext?.models;
-          const requester = models && typeof models.list === "function" ? await readRequesterCatalog(models, { family: caps.family }) : void 0;
           const judge = p.action !== "confirm" && !p.snapshot && p.role === "arena cross-judge pool" && p.task !== void 0;
-          let parent;
-          const activeModel = () => {
-            const model = toolContext.activeModel;
-            if (!model?.provider || !model.modelId) return void 0;
-            const ref = model.provider + "/" + model.modelId;
-            if (model.modelRef !== void 0 && model.modelRef !== ref) throw Error("Active model reference contradicts its native provider/model pair");
-            return ref;
-          };
-          const assertParentCurrent = async () => {
-            if (!toolContext.assertInvocationCurrent || !toolContext.sessionKey || !toolContext.sessionId)
-              throw Error("BLOCKED: different-family judge needs current host invocation and exact session metadata");
-            toolContext.assertInvocationCurrent();
-            const { agentId, entry: entry2 } = await entryFor(toolContext.sessionKey);
-            if (!entry2 || entry2.sessionId !== toolContext.sessionId || toolContext.agentId && toolContext.agentId !== agentId)
-              throw Error("BLOCKED: different-family judge requester incarnation changed");
-            if (entry2.liveModelSwitchPending)
-              throw Error("BLOCKED: different-family judge parent model switch is pending");
-            toolContext.assertInvocationCurrent();
-            if (parent && activeModel() !== parent.parentModel)
-              throw Error("BLOCKED: different-family judge active model changed during preparation");
-          };
-          if (judge) {
-            await assertParentCurrent();
-            const model = activeModel();
-            const family = caps.family && requester?.state === "prepared" && requester.catalog.find((row) => row.id === model)?.family;
-            if (!model || !family)
-              throw Error("BLOCKED: different-family judge needs the current-turn active model and its canonical family in a prepared host requester catalog; caller hints and stored runtime metadata are not proof");
-            if (p.parentModel !== void 0 && p.parentModel !== model)
-              throw Error("Parent model contradicts current native active model");
-            if (p.parentFamily !== void 0 && p.parentFamily !== family)
-              throw Error("Parent family contradicts native catalog");
-            parent = { parentModel: model, parentFamily: family };
-          }
-          const result = await planFromWorkspace({ ...p, ...parent, workspace: toolContext.workspaceDir }, { requester, hostBlind: caps.blind });
-          if (judge) {
-            await assertParentCurrent();
-            if (result.snapshot?.diversity !== "different-family")
-              throw Error("BLOCKED: different-family judge is not established by the configured pool and current host families; no spawn arguments returned");
-          }
+          const models = toolContext.runtimeContext?.models;
+          const result = judge ? (await planParentJudge(toolContext, { ...p, workspace: toolContext.workspaceDir })).result : await planFromWorkspace({ ...p, workspace: toolContext.workspaceDir }, { requester: models && typeof models.list === "function" ? await readRequesterCatalog(models, { family: caps.family }) : void 0, hostBlind: caps.blind });
           return {
             content: [{ type: "text", text: JSON.stringify(result) }],
             details: result
@@ -5055,7 +5104,12 @@ function register(api) {
   registerBriefTool(api, root, profiles);
   registerTrailTool(api, trailOptions(api.pluginConfig));
   registerWorktreeAuditTool(api);
-  registerWorkflowTool(api, ownerFor, async (sessionKey) => (await entryFor(sessionKey)).entry?.sessionId);
+  registerWorkflowTool(
+    api,
+    ownerFor,
+    async (sessionKey) => (await entryFor(sessionKey)).entry?.sessionId,
+    (ctx, workspace) => planParentJudge(ctx, { role: "arena cross-judge pool", workspace })
+  );
   registerSpawnGuard(api, ownerFor, async (params, ctx) => {
     if (!ctx.sessionKey || /:subagent:/.test(ctx.sessionKey)) return void 0;
     const { entry: entry2 } = await entryFor(ctx.sessionKey);

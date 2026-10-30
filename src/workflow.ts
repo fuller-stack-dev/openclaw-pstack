@@ -26,7 +26,7 @@ export type ProfilePin = { id: string; instructionsSha256: string };
  * later child briefs from the task, every child of a pinned role must spawn under that profile,
  * and records created before version 2 keep the stage sequence they were admitted with.
  */
-export type Setup = { kind: Kind; taskDigest: string; sourceDigest: string; snapshots: Snapshot[]; catalog: Catalog; options: Options; task?: string; profiles?: Record<string, ProfilePin>; stagesVersion?: 2; correction?: Correction; leadFirst?: true; executedProof?: true };
+export type Setup = { kind: Kind; taskDigest: string; sourceDigest: string; snapshots: Snapshot[]; catalog: Catalog; options: Options; task?: string; profiles?: Record<string, ProfilePin>; stagesVersion?: 2; correction?: Correction; leadFirst?: true; executedProof?: true; parentJudge?: true };
 /**
  * Native arena and architect records from 1.2.3 (`leadFirst`): the lead records its own scores in a
  * `lead` checkpoint before the controller spawns the judge, so the judge's scores cannot shape them.
@@ -58,12 +58,14 @@ export type Result = {
   /** Native records only: the child's own report text, kept for the parent's checkpoint work. */
   report?: string;
 };
+/** New native comparisons bind the lead scorer and judge once, in the lead advance. */
+export type JudgeBinding = { parentModel: string; parentFamily: string; snapshot: Snapshot; catalog: Catalog };
 export type Event =
   | { id: string; type: "accept"; slot: string; runId: string; childSessionKey: string; snapshotId: string; requestId?: string; selection?: Receipt }
   | { id: string; type: "collect"; slot: string; runId: string; result: Result; selection?: Receipt }
   | { id: string; type: "reject"; slot: string; runId: string; reason: string; selection?: Receipt }
   | { id: string; type: "retry"; slot: string; reason: string }
-  | { id: string; type: "advance"; evidence: Record<string, string> }
+  | { id: string; type: "advance"; evidence: Record<string, string>; judge?: JudgeBinding }
   | { id: string; type: "wait"; timeoutSeconds: number }
   | { id: string; type: "resume" }
   | { id: string; type: "block"; reason: string }
@@ -102,7 +104,7 @@ export type View = {
   evidenceSource: Record<string, "controller" | "agent-attested" | "user-command">;
   /** Native records: the one correction of a slot, with the errors that caused it and the failed run. */
   corrections: Record<string, { reason: string; runId: string }>;
-  stageKind: "jobs" | "checkpoint" | "approval" | "none"; options: Options; needsConfigure: boolean;
+  stageKind: "jobs" | "checkpoint" | "approval" | "none"; options: Options; needsConfigure: boolean; judge?: JudgeBinding;
 };
 const clone = <T>(v: T): T => JSON.parse(JSON.stringify(v));
 export function digest(v: unknown): string {
@@ -186,10 +188,11 @@ function validateSources(sources: unknown) {
 }
 /** Native records may leave swarm slices or why sources to a configure event during framing. */
 export function validateSetup(s: Setup, native = false) {
-  fields(s, ["kind", "taskDigest", "sourceDigest", "snapshots", "catalog", "options", "executedProof", ...(native ? ["task", "profiles", "stagesVersion", "correction", "leadFirst"] : [])], "setup");
+  fields(s, ["kind", "taskDigest", "sourceDigest", "snapshots", "catalog", "options", "executedProof", ...(native ? ["task", "profiles", "stagesVersion", "correction", "leadFirst", "parentJudge"] : [])], "setup");
   if (s.executedProof !== undefined && (s.executedProof !== true || s.kind !== "interrogate")) throw Error("executedProof belongs only to interrogate");
   if (s.stagesVersion !== undefined && s.stagesVersion !== 2) throw Error("Unsupported native stages version");
   if (s.leadFirst !== undefined && (s.leadFirst !== true || s.stagesVersion !== 2 || s.correction || !LEAD_FIRST_KINDS.includes(s.kind))) throw Error("leadFirst belongs only to a version-2 arena or architect record");
+  if (s.parentJudge !== undefined && (s.parentJudge !== true || !native || !s.leadFirst || s.stagesVersion !== 2 || s.correction || !LEAD_FIRST_KINDS.includes(s.kind))) throw Error("parentJudge belongs only to a new native lead-first arena or architect record");
   if (s.correction !== undefined) {
     const c = s.correction;
     fields(c, ["workflowId", "slot", "runId", "artifactDigest", "report", "errors", "by", "proofContext"], "correction");
@@ -218,13 +221,15 @@ export function validateSetup(s: Setup, native = false) {
   if (!Array.isArray(s.snapshots) || s.snapshots.length > 8 || !Array.isArray(s.catalog)) throw Error("Invalid routing snapshots");
   const required = new Set(stages(s).flatMap(x => x.jobs.map(j => j.role)));
   if (deferred) required.add(s.kind === "swarm" ? "swarm workers" : "why investigators");
+  const expected = new Set(required);
+  if (s.parentJudge) expected.delete("arena cross-judge pool");
   const found = new Set();
   for (const snapshot of s.snapshots) {
     validateSnapshot(snapshot, s.catalog);
-    if (!required.has(snapshot.role) || found.has(snapshot.role)) throw Error("Unexpected or duplicate snapshot role");
+    if (!expected.has(snapshot.role) || found.has(snapshot.role)) throw Error("Unexpected or duplicate snapshot role");
     found.add(snapshot.role);
   }
-  if (found.size !== required.size) throw Error("Every workflow role needs an immutable routing snapshot");
+  if (found.size !== expected.size) throw Error("Every workflow role needs an immutable routing snapshot");
   if (s.profiles !== undefined) {
     if (!s.profiles || typeof s.profiles !== "object" || Array.isArray(s.profiles) || !Object.keys(s.profiles).length) throw Error("Invalid profile pins");
     for (const [role, pin] of Object.entries(s.profiles)) {
@@ -318,6 +323,27 @@ function validateResult(r: Result, job: Job, view: View, native: boolean, setup:
   }
   if (job.slice && (r.sha !== job.slice.sha || r.method !== job.slice.method)) throw Error("Swarm result SHA/method mismatch; record rejection, retry the slice once, then report the coverage gap");
 }
+/** Replay validates the binding before any downstream dispatch; recorded catalog facts never overwrite earlier ones. */
+function bindJudge(view: View, judge: JudgeBinding | undefined) {
+  fields(judge, ["parentModel", "parentFamily", "snapshot", "catalog"], "judge binding");
+  const binding = judge as JudgeBinding;
+  text(binding.parentModel, "judge parent model", 512); text(binding.parentFamily, "judge parent family", 64);
+  const snapshot = validateSnapshot(binding.snapshot, binding.catalog) as Snapshot;
+  const selected = snapshot.selections[0]?.model;
+  const parent = binding.catalog.find(row => row.id === binding.parentModel), child = binding.catalog.find(row => row.id === selected);
+  const canonical = (family: string | undefined) => !!family && family.length <= 64 && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(family);
+  if (view.judge || snapshot.role !== "arena cross-judge pool" || snapshot.diversity !== "different-family" || !selected ||
+      !canonical(binding.parentFamily) || parent?.family !== binding.parentFamily || !canonical(child?.family) || child?.family === binding.parentFamily)
+    throw Error("Invalid different-family judge binding");
+  if (binding.catalog.length !== 2) throw Error("Judge catalog must contain exactly its parent and selected model");
+  for (const row of binding.catalog) {
+    const old = view.catalog.find(c => c.id === row.id);
+    if (old && digest(old) !== digest(row)) throw Error("Judge catalog conflicts with recorded model facts: " + row.id);
+    if (!old) view.catalog.push(clone(row));
+  }
+  const id = digest(snapshot);
+  view.snapshots[id] = snapshot; view.currentSnapshots[snapshot.role] = id; view.judge = clone(binding);
+}
 const NATIVE_ONLY = ["dispatch", "abandon", "configure", "schedule", "decide"];
 export function workflowView(record: RecordV1): View {
   fields(record, ["version", "id", "owner", "setup", "events"], "workflow record");
@@ -331,9 +357,9 @@ export function workflowView(record: RecordV1): View {
   let pos = 0;
   const view: View = { assurance: native ? "deterministic" : "agent-attested", executor: native ? "native" : "agent", revision: 1, phase: sequence[0]!.name, status: sequence[0]!.approval ? "awaiting-user" : "active", jobs: sequence[0]!.jobs, gates: sequence[0]!.gates, catalog: clone(record.setup.catalog), attempts: {}, evidence: {}, snapshots: {}, currentSnapshots: {}, supersessions: [], blockers: [], next: "",
     dispatches: {}, enforcement: {}, schedules: [], decisions: [], evidenceSource: {}, corrections: {}, stageKind: "none", options, needsConfigure: pending };
-  for (const snapshot of record.setup.snapshots) {
-    const pin = record.setup.profiles?.[snapshot.role];
-    view.enforcement[snapshot.role] = !pin ? "prompt" : profileKeepsShell(pin.id) ? "host-profile-shell" : "host-profile";
+  for (const role of new Set([...record.setup.snapshots.map(s => s.role), ...Object.keys(record.setup.profiles ?? {}), ...(record.setup.parentJudge ? ["arena cross-judge pool"] : [])])) {
+    const pin = record.setup.profiles?.[role];
+    view.enforcement[role] = !pin ? "prompt" : profileKeepsShell(pin.id) ? "host-profile-shell" : "host-profile";
   }
   for (const snapshot of record.setup.snapshots) {
     const id = digest(snapshot); view.snapshots[id] = clone(snapshot); view.currentSnapshots[snapshot.role] = id;
@@ -357,7 +383,7 @@ export function workflowView(record: RecordV1): View {
     const eventFields: Record<Event["type"], string[]> = {
       accept: ["slot", "runId", "childSessionKey", "snapshotId", ...(native ? ["requestId", "selection"] : [])],
       collect: ["slot", "runId", "result", ...(native ? ["selection"] : [])], reject: ["slot", "runId", "reason", ...(native ? ["selection"] : [])],
-      retry: ["slot", "reason"], advance: ["evidence"], wait: ["timeoutSeconds"], resume: [], block: ["reason"], unblock: ["evidence"], cancel: ["reason"], supersede: ["snapshotId", "snapshot", "catalog", "instruction"],
+      retry: ["slot", "reason"], advance: ["evidence", "judge"], wait: ["timeoutSeconds"], resume: [], block: ["reason"], unblock: ["evidence"], cancel: ["reason"], supersede: ["snapshotId", "snapshot", "catalog", "instruction"],
       dispatch: ["slot", "requestId", "snapshotId", "profile", "by"], abandon: ["slot", "requestId", "reason"], configure: ["options"],
       schedule: ["jobId", "requestId", "atMs", "deadlineAtMs", "maxRuns", "survivesRestart", "instance"], decide: ["decision", "by", "notes"],
     };
@@ -454,6 +480,9 @@ export function workflowView(record: RecordV1): View {
       }
       case "advance": {
         active();
+        const binding = native && record.setup.parentJudge && stage.name === "lead";
+        if (binding) bindJudge(view, e.judge);
+        else if (e.judge !== undefined) throw Error("Judge binding belongs only to a parentJudge lead advance");
         if (pending) throw Error("Configure the deferred " + deferred + " before advancing");
         if (native && stage.approval) throw Error("A native approval stage advances only through an authenticated /pstack resume decision");
         // A native swarm slice that also failed its one retry becomes a recorded coverage gap, never a pass.

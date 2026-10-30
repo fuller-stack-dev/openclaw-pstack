@@ -123,7 +123,7 @@ function honest(child: Child) {
  * One registered plugin instance; pass an earlier harness's key to model a restart of the same session.
  * `profiles` is the host's optional S5 registration method: absent, or one that refuses some ids.
  */
-function harness(capabilities: string[] = CAPABILITIES, sessionKey = "agent:worker:dashboard:native-" + ++serial,
+function harness(capabilities: string[] = [...CAPABILITIES, "requester-model-family-v1"], sessionKey = "agent:worker:dashboard:native-" + ++serial,
   profiles: { method?: false; refuse?: string[] } = {}) {
   const commands = new Map<string, any>(), hooks = new Map<string, any>(), tools: any[] = [], registered: any[] = [], warnings: string[] = [];
   const entry = vi.fn(async ({ sessionKey: key }: any) => key === sessionKey ? { sessionId, spawnedWorkspaceDir: workspace } : undefined);
@@ -146,12 +146,13 @@ function harness(capabilities: string[] = CAPABILITIES, sessionKey = "agent:work
   } as any);
   register(api);
   const native = new FakeNative();
-  const runtimeContext = (over: any = {}) => ({ subagents: native.subagents(), models: { list: async () => ({ revision: "r1", state: "prepared", models: catalogRows }) }, scheduledTurns: native.scheduledTurns(), ...over });
+  const runtimeContext = (over: any = {}) => ({ subagents: native.subagents(), models: { list: async () => ({ revision: "r1", state: "prepared", models: catalogRows.map((row, i) => ({ ...row, family: i ? "openai" : "anthropic" })) }) }, scheduledTurns: native.scheduledTurns(), ...over });
   const run = (name: string, args: string, over: any = {}) => commands.get(name).handler({
     senderId: "operator-1", isAuthorizedSender: true, gatewayClientScopes: ["operator.write"], channel: "webchat", agentId: "worker",
     sessionKey, sessionId, args, commandBody: "/" + name + " " + args, config, runtimeContext: runtimeContext(over.runtime), ...over.ctx,
   });
-  const toolContext = { sessionKey, sessionId, agentId: "worker", workspaceDir: workspace, assertInvocationCurrent() {} };
+  const toolContext = { sessionKey, sessionId, agentId: "worker", workspaceDir: workspace, assertInvocationCurrent() {},
+    activeModel: { provider: "fixture", modelId: "alpha", modelRef: ALPHA }, runtimeContext: runtimeContext() };
   const tool = (name: string, ctx: any = toolContext) => tools.map(t => build(t, ctx)).find(t => t.name === name);
   const workflow = (params: any) => tool("pstack_workflow").execute("call", params);
   const get = async (workflowId: string) => (await workflow({ action: "get", workflowId })).details;
@@ -852,7 +853,7 @@ describe("1.1 controller parity on the 1.0.0 rerun scenarios", () => {
     expect(only.native.log.map(line => line.replace(/pw-[a-z0-9]{12}/, "<id>"))).toEqual(["spawn <id>:grounding:how:1", "collect run-1"]);
     expect(handed.text).toContain("1 child(ren) still running");
     const id = idOf(handed.text);
-    expect((await only.get(id)).record.setup.snapshots.map((s: any) => s.role)).toEqual(["how explainer", "architect runners", "arena cross-judge pool"]);
+    expect((await only.get(id)).record.setup.snapshots.map((s: any) => s.role)).toEqual(["how explainer", "architect runners"]);
     only.native.respond = honest;
     const occurrence = await only.run("pstack", "resume " + id, unattended);
     expect(occurrence.text).toContain("phase lead, status active");

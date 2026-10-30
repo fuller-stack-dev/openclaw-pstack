@@ -4,7 +4,7 @@ import type { OpenClawPluginApi, OpenClawPluginToolContext } from "openclaw/plug
 import { buildSpawnArgs } from "../skills/pstack/scripts/model-routing.mjs";
 import { contractFor, outputInstruction } from "../skills/pstack/scripts/output-contracts.mjs";
 import { validateJsonSchemaValue } from "openclaw/plugin-sdk/json-schema-runtime";
-import { digest, judgeCandidates, workflowKey, workflowView, ownedRecord, mutateWorkflow, text, type Owner, type RecordV1, type Setup, type Event } from "./workflow.js";
+import { digest, judgeCandidates, workflowKey, workflowView, ownedRecord, mutateWorkflow, text, type Owner, type RecordV1, type Setup, type Event, type JudgeBinding } from "./workflow.js";
 import { spawnTag, parseSpawnTag, checkSpawnRecord } from "./spawn-guard.js";
 import type { Store } from "./state.js";
 import type { YieldDecision } from "./yield-guard.js";
@@ -66,7 +66,8 @@ export async function sweepWorkflows(store: Store, current: IncarnationResolver,
   return { removed, lookupFailed, cursor: rows.length === WORKFLOW_RETENTION.sweepBatch ? rows.at(-1)!.key + "\0" : "" };
 }
 const atCapacity = (error: unknown) => (error as { code?: string })?.code === "PLUGIN_STATE_LIMIT_EXCEEDED" || /reached its \d+-row limit/.test(String(error));
-export function registerWorkflowTool(api: OpenClawPluginApi, ownerFor: OwnerResolver, incarnation: IncarnationResolver) {
+export type JudgePlanner = (ctx: OpenClawPluginToolContext, workspace: string) => Promise<{ judge: JudgeBinding; assertCurrent: () => Promise<void> }>;
+export function registerWorkflowTool(api: OpenClawPluginApi, ownerFor: OwnerResolver, incarnation: IncarnationResolver, planJudge: JudgePlanner) {
   let sweepCursor = "";
   /** Bounded best-effort retention; a committed create never depends on it succeeding. */
   async function makeRoom(store: Store) {
@@ -81,18 +82,18 @@ export function registerWorkflowTool(api: OpenClawPluginApi, ownerFor: OwnerReso
       if (count < WORKFLOW_RETENTION.maxEntries) return;
     }
   }
-  api.registerTool((ctx) => ({
+  api.registerTool({ contextVersion: 2, create: (ctx: OpenClawPluginToolContext) => ({
     name: "pstack_workflow", label: "Pstack workflow ledger",
     description: "CAS workflow reducers and tagged spawn planning. Agent-created records are agent-attested; native controller records (version 2) are written by /pstack commands and accept only parent framing, checkpoint gates, blockers or cancellation here. Does not spawn, collect, approve, wait or schedule. Read before retrying a conflict.",
     parameters: workflowParameters,
     // Preserve original values before native coercion. The execute boundary
     // validates again and the reducer rejects malformed nested data as data.
-    prepareArguments: (args) => {
+    prepareArguments: (args: unknown) => {
       const checked = validateJsonSchemaValue({ schema: workflowParameters, value: args });
       if (!checked.ok) throw Error("Invalid pstack_workflow arguments: " + checked.errors.slice(0, 4).map(x => x.text).join("; "));
       return args as Record<string, unknown>;
     },
-    execute: async (_id, params) => {
+    execute: async (_id: string, params: unknown) => {
       const p = params as Record<string, unknown>;
       const checked = validateJsonSchemaValue({ schema: workflowParameters, value: p });
       if (!checked.ok) throw Error("Invalid workflow arguments");
@@ -107,18 +108,35 @@ export function registerWorkflowTool(api: OpenClawPluginApi, ownerFor: OwnerReso
       if (action === "create" || action === "apply") {
         if (!assertCurrent) throw Error("BLOCKED: current invocation authority is unavailable; workflow mutation requires the native lifecycle guard");
         if (!Number.isSafeInteger(p.revision) || (action === "create" ? p.revision !== 0 : (p.revision as number) < 1)) throw Error("Explicit expected workflow revision required (create=0)");
-        const change = (action === "create" ? p.setup : p.event) as Setup | Event;
+        let change = (action === "create" ? p.setup : p.event) as Setup | Event;
+        let judgeCurrent: (() => Promise<void>) | undefined;
         if (action === "apply") {
+          if (change && Object.hasOwn(change, "judge")) throw Error("Judge binding is host-owned; agent-supplied binding fields are forbidden");
           const current = await store.lookup(workflowKey(owner, p.workflowId)); assertCurrent();
-          if (current !== undefined) assertAgentEvent(ownedRecord(current, owner, p.workflowId), change as Event);
+          if (current !== undefined) {
+            const record = ownedRecord(current, owner, p.workflowId), event = change as Event;
+            const previous = record.events.find(e => e.id === event.id);
+            // An identical replay reuses the recorded binding; mutateWorkflow still compares the whole event.
+            if (event.type === "advance" && previous?.type === "advance" && previous.judge) change = { ...event, judge: previous.judge };
+            else {
+              assertAgentEvent(record, event);
+              if (record.setup.parentJudge && event.type === "advance" && workflowView(record).phase === "lead") {
+                const prepared = await planJudge(ctx, owner.workspace);
+                change = { ...event, judge: prepared.judge }; judgeCurrent = prepared.assertCurrent;
+              }
+            }
+          }
         }
         if (action === "create") {
           try { await makeRoom(store); } catch (error) { api.logger.warn("Pstack workflow retention unavailable: " + String(error)); }
           assertCurrent();
         }
         try {
-          return reply(await mutateWorkflow({ observe: key => store.observe(key), apply: (key, comparison, value) => store.compareAndApply(key, comparison,
-            { operation: "update", action: "set", value: JSON.parse(JSON.stringify(value)), ...(terminal(value) ? { ttlMs: WORKFLOW_RETENTION.terminalTtlMs } : {}) }) },
+          return reply(await mutateWorkflow({ observe: key => store.observe(key), apply: async (key, comparison, value) => {
+            await judgeCurrent?.();
+            return store.compareAndApply(key, comparison,
+              { operation: "update", action: "set", value: JSON.parse(JSON.stringify(value)), ...(terminal(value) ? { ttlMs: WORKFLOW_RETENTION.terminalTtlMs } : {}) });
+          } },
           owner, p.workflowId, p.revision as number, change, assertCurrent));
         } catch (error) {
           if (!atCapacity(error)) throw error;
@@ -150,7 +168,7 @@ export function registerWorkflowTool(api: OpenClawPluginApi, ownerFor: OwnerReso
       return reply({ assurance: "agent-attested", workflowId: record.id, revision: view.revision,
         slot: job.id, snapshotId, outputContract: contractFor(job.role, record.setup)?.name ?? null, ...(candidates ? { candidates } : {}), spawnArgs: selected, notice: "Call the first-class native tool, then append its actual accepted IDs. This plan is not admission or execution evidence." });
     },
-  }), { names: ["pstack_workflow"] });
+  }) } as unknown as Parameters<OpenClawPluginApi["registerTool"]>[0], { names: ["pstack_workflow"] });
 }
 /**
  * On a native record the agent supplies only parent work: framing options, checkpoint

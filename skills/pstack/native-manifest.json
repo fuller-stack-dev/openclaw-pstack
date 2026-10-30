@@ -4,8 +4,8 @@
   "files": [
     {
       "path": "ADAPTATION.md",
-      "bytes": 10408,
-      "sha256": "1e6df75e0f384c1a3232bc659dc84ca713d843c052eec493eef236dd29ea9dac"
+      "bytes": 10586,
+      "sha256": "03e0576c93bb13f2f3c6846c6bba15cddf57a45aae152fc516ead41b0c8ef362"
     },
     {
       "path": "README.md",
@@ -434,8 +434,8 @@
     },
     {
       "path": "native/session-mode.md",
-      "bytes": 15006,
-      "sha256": "87a86f40c81330c22b115fdd8b4449ef4b9fe378abcb9b05df06336989f2ba17"
+      "bytes": 16853,
+      "sha256": "fcec8ea166ea52fcebe9cf19334e57f9cff0acc798bd70d2db27826423f02d98"
     },
     {
       "path": "native/trail-adapter.md",

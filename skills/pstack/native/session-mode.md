@@ -136,8 +136,8 @@ route stays skill-guided and continues the agent. A host or requester without th
 grant never starts a native workflow.
 
 A native command reads the requester catalog (S2; one retry on a rejected read, and a
-pending catalog blocks the start), resolves every role from the workspace pstack-models.json
-over it, and creates a version 2 record in the workflow store. Parent work (framing,
+pending catalog blocks the start), validates the entire workspace pstack-models.json and
+resolves every role except the new comparison judge described below, then creates a version 2 record in the workflow store. Parent work (framing,
 checkpoints, comparison, synthesis) continues the agent with the record's context injected
 by before_prompt_build; the agent records those gates with pstack_workflow, which accepts
 only configure, checkpoint advance, block and cancel on a native record. Child phases run
@@ -164,6 +164,33 @@ incarnation. Optional leading words choose architect intent (`design-only`, `che
 default, `implement`) and how complexity (`simple` default, `complex[=2-4]`). Swarm slices
 and why source dispositions are parent framing, recorded once with pstack_workflow
 configure.
+
+### Lead-time judge selection
+
+New native arena/architect records carry immutable `parentJudge: true` with
+`leadFirst` and stages version 2. Admission validates the whole config and pins
+all applicable profiles, including the judge's, but leaves only its routing
+snapshot unresolved. Grounding and runners need no command-time active model.
+At the existing `lead` checkpoint, `pstack_workflow apply advance` uses its
+version-2 host tool context to read the current-turn active model and prepared
+requester catalog's canonical family. It resolves the judge pool from the current
+workspace config **at lead time**, not admission, requiring a known other family.
+The scorer, family, selected snapshot and both catalog rows are written atomically
+with the lead scores in the same CAS advance event. These are current-parent
+metadata facts, not proof of who originally authored the supplied score text.
+
+Agent-supplied bindings are forbidden. Missing/unknown family, pending catalog or
+model switch, stale incarnation/invocation, conflicting catalog facts, same-family
+or inherited-only pool, failed gate or CAS conflict refuses without a write or
+spawn. The lead stays retryable and the current owner can cancel normally. A
+scheduled resume before lead does nothing; after binding it dispatches the recorded
+selection without rereading defaults. Replay validates the binding, and the existing
+profile, dispatch, permission and selection-receipt checks still apply.
+
+Records without `parentJudge` retain their admission-time snapshots and original
+stages/behavior; no records are rewritten. An older plugin cannot read the new flag,
+so unfinished new records are not downgrade-compatible. Tool context v2 is already
+required by pstack_route; no new host SDK or event/stage/store is introduced.
 
 `/pstack resume [workflow id] [approve [notes] | revise <notes> | cancel [reason]]`
 continues from the record. Each collection waits at most `nativeWaitSeconds` (default 20,

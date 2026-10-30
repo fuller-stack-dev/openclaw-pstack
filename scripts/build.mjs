@@ -23,7 +23,6 @@ const gateway = await build({
   metafile: true,
 });
 
-// Inspect the complete gateway graph, not only the artifact entry's graph.
 const inputs = Object.keys(gateway.metafile.inputs);
 if (inputs.some(p => p.split("/").some(part => ["artifacts", "pele", "rastermill", "@resvg", "resvg-wasm"].includes(part))))
   throw Error("Artifact/render dependency leaked into gateway bundle");

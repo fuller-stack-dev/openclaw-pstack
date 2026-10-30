@@ -252,7 +252,12 @@ export async function render(file, target, signal) {
   const availableDiskBytes = disk.bavail * disk.bsize;
   const requiredDiskBytes = workingBudget + conservativeMovie;
   const freeRamBytes = freemem();
-  if (availableDiskBytes < requiredDiskBytes || freeRamBytes < workingBudget)
+  const processAvailableMemoryBytes = process.availableMemory();
+  if (
+    availableDiskBytes < requiredDiskBytes ||
+    !Number.isFinite(processAvailableMemoryBytes) ||
+    processAvailableMemoryBytes < workingBudget
+  )
     throw Error(
       "Insufficient current disk/RAM for bounded video work: " +
         JSON.stringify({
@@ -262,7 +267,7 @@ export async function render(file, target, signal) {
           requiredRamBytes: workingBudget,
           platform: process.platform,
           totalRamBytes: totalmem(),
-          processAvailableMemoryBytes: process.availableMemory(),
+          processAvailableMemoryBytes,
         }),
     );
   const lock = out + ".ketchup-lock";

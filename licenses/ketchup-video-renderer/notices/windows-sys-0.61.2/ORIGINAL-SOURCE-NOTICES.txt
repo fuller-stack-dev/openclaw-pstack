@@ -1,0 +1,131 @@
+SOURCE src/Windows/Win32/Devices/Dvd/mod.rs:175 (original notice block)
+pub const DVD_COPYRIGHTED: u32 = 64u32;
+
+SOURCE src/Windows/Win32/Devices/Dvd/mod.rs:178 (original notice block)
+pub struct DVD_COPYRIGHT_DESCRIPTOR {
+
+SOURCE src/Windows/Win32/Devices/Dvd/mod.rs:179 (original notice block)
+    pub CopyrightProtectionType: u8,
+
+SOURCE src/Windows/Win32/Devices/Dvd/mod.rs:185 (original notice block)
+pub struct DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR {
+
+SOURCE src/Windows/Win32/Devices/Dvd/mod.rs:186 (original notice block)
+    pub Anonymous: DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR_0,
+
+SOURCE src/Windows/Win32/Devices/Dvd/mod.rs:189 (original notice block)
+impl Default for DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR {
+
+SOURCE src/Windows/Win32/Devices/Dvd/mod.rs:196 (original notice block)
+pub union DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR_0 {
+
+SOURCE src/Windows/Win32/Devices/Dvd/mod.rs:197 (original notice block)
+    pub Dvdrom: DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR_0_0,
+
+SOURCE src/Windows/Win32/Devices/Dvd/mod.rs:198 (original notice block)
+    pub DvdRecordable_Version1: DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR_0_1,
+
+SOURCE src/Windows/Win32/Devices/Dvd/mod.rs:199 (original notice block)
+    pub Dvdram: DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR_0_2,
+
+SOURCE src/Windows/Win32/Devices/Dvd/mod.rs:200 (original notice block)
+    pub DvdRecordable: DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR_0_3,
+
+SOURCE src/Windows/Win32/Devices/Dvd/mod.rs:203 (original notice block)
+impl Default for DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR_0 {
+
+SOURCE src/Windows/Win32/Devices/Dvd/mod.rs:210 (original notice block)
+pub struct DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR_0_1 {
+
+SOURCE src/Windows/Win32/Devices/Dvd/mod.rs:215 (original notice block)
+pub struct DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR_0_3 {
+
+SOURCE src/Windows/Win32/Devices/Dvd/mod.rs:220 (original notice block)
+pub struct DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR_0_2 {
+
+SOURCE src/Windows/Win32/Devices/Dvd/mod.rs:225 (original notice block)
+pub struct DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR_0_0 {
+
+SOURCE src/Windows/Win32/Devices/Dvd/mod.rs:228 (original notice block)
+pub const DVD_COPYRIGHT_MASK: u32 = 64u32;
+
+SOURCE src/Windows/Win32/Devices/Dvd/mod.rs:506 (original notice block)
+pub const DVD_NOT_COPYRIGHTED: u32 = 0u32;
+
+SOURCE src/Windows/Win32/Devices/Dvd/mod.rs:664 (original notice block)
+pub const DvdCopyrightDescriptor: DVD_STRUCTURE_FORMAT = 1i32;
+
+SOURCE src/Windows/Win32/Devices/PortableDevices/mod.rs:247 (original notice block)
+pub const NAME_GenericObj_Copyright: windows_sys::core::PCWSTR = windows_sys::core::w!("Copyright");
+
+SOURCE src/Windows/Win32/Devices/PortableDevices/mod.rs:924 (original notice block)
+pub const WPD_MEDIA_COPYRIGHT: super::super::Foundation::PROPERTYKEY = super::super::Foundation::PROPERTYKEY { fmtid: windows_sys::core::GUID::from_u128(0x2ed8ba05_0ad3_42dc_b0d0_bc95ac396ac8), pid: 4 };
+
+SOURCE src/Windows/Win32/Globalization/mod.rs:2071 (original notice block)
+    pub pszCopyright: windows_sys::core::PWSTR,
+
+SOURCE src/Windows/Win32/Globalization/mod.rs:4615 (original notice block)
+pub const U_COPYRIGHT_STRING_LENGTH: u32 = 128u32;
+
+SOURCE src/Windows/Win32/Graphics/GdiPlus/mod.rs:1896 (original notice block)
+pub const PropertyTagCopyright: u32 = 33432u32;
+
+SOURCE src/Windows/Win32/Graphics/GdiPlus/mod.rs:2077 (original notice block)
+pub const PropertyTagThumbnailCopyRight: u32 = 20539u32;
+
+SOURCE src/Windows/Win32/Media/Audio/mod.rs:200 (original notice block)
+    pub szCopyright: [i8; 80],
+
+SOURCE src/Windows/Win32/Media/Audio/mod.rs:227 (original notice block)
+    pub szCopyright: [u16; 80],
+
+SOURCE src/Windows/Win32/Media/Audio/mod.rs:237 (original notice block)
+pub const ACMDRIVERDETAILS_COPYRIGHT_CHARS: u32 = 80u32;
+
+SOURCE src/Windows/Win32/Media/KernelStreaming/mod.rs:543 (original notice block)
+    pub fCopyrighted: windows_sys::core::BOOL,
+
+SOURCE src/Windows/Win32/Media/KernelStreaming/mod.rs:5334 (original notice block)
+pub const KS_DVD_COPYRIGHTED: u32 = 64u32;
+
+SOURCE src/Windows/Win32/Media/KernelStreaming/mod.rs:5335 (original notice block)
+pub const KS_DVD_COPYRIGHT_MASK: u32 = 64u32;
+
+SOURCE src/Windows/Win32/Media/KernelStreaming/mod.rs:5336 (original notice block)
+pub const KS_DVD_NOT_COPYRIGHTED: u32 = 0u32;
+
+SOURCE src/Windows/Win32/Media/Multimedia/mod.rs:197 (original notice block)
+pub const ACM_MPEG_COPYRIGHT: u32 = 2u32;
+
+SOURCE src/Windows/Win32/Media/Multimedia/mod.rs:335 (original notice block)
+pub const AVIFILEINFO_COPYRIGHTED: u32 = 131072u32;
+
+SOURCE src/Windows/Win32/Media/Multimedia/mod.rs:2718 (original notice block)
+pub const MCI_INFO_COPYRIGHT: i32 = 8192i32;
+
+SOURCE src/Windows/Win32/Media/Multimedia/mod.rs:3084 (original notice block)
+pub const MCI_SEQ_STATUS_COPYRIGHT: i32 = 16396i32;
+
+SOURCE src/Windows/Win32/Media/WindowsMediaFormat/mod.rs:859 (original notice block)
+pub const g_wszWMCopyright: windows_sys::core::PCWSTR = windows_sys::core::w!("Copyright");
+
+SOURCE src/Windows/Win32/Media/WindowsMediaFormat/mod.rs:860 (original notice block)
+pub const g_wszWMCopyrightURL: windows_sys::core::PCWSTR = windows_sys::core::w!("CopyrightURL");
+
+SOURCE src/Windows/Win32/Media/WindowsMediaFormat/mod.rs:948 (original notice block)
+pub const g_wszWMProviderCopyright: windows_sys::core::PCWSTR = windows_sys::core::w!("WM/ProviderCopyright");
+
+SOURCE src/Windows/Win32/Security/Cryptography/Certificates/mod.rs:1789 (original notice block)
+pub const wszCMM_PROP_COPYRIGHT: windows_sys::core::PCWSTR = windows_sys::core::w!("Copyright");
+
+SOURCE src/Windows/Win32/System/Com/StructuredStorage/mod.rs:516 (original notice block)
+pub const PIDMSI_COPYRIGHT: i32 = 11i32;
+
+SOURCE src/Windows/Win32/System/Ioctl/mod.rs:2155 (original notice block)
+    pub CopyrightInfo: [u16; 34],
+
+SOURCE src/Windows/Win32/UI/Controls/mod.rs:6798 (original notice block)
+pub const TMT_COPYRIGHT: THEME_PROPERTY_SYMBOL_ID = 605u32;
+
+SOURCE src/Windows/Win32/UI/Input/Ime/mod.rs:899 (original notice block)
+    pub szCopyright: [i8; 128],

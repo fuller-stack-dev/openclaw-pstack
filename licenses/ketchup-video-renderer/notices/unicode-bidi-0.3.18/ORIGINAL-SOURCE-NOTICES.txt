@@ -1,0 +1,193 @@
+SOURCE src/char_data/mod.rs (original leading notice)
+// Copyright 2015 The Servo Project Developers. See the
+// COPYRIGHT file at the top-level directory of this distribution.
+//
+// Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
+// http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
+// <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
+// option. This file may not be copied, modified, or distributed
+// except according to those terms.
+
+//! Accessor for `Bidi_Class` property from Unicode Character Database (UCD)
+
+
+SOURCE src/data_source.rs (original leading notice)
+// Copyright 2015 The Servo Project Developers. See the
+// COPYRIGHT file at the top-level directory of this distribution.
+//
+// Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
+// http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
+// <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
+// option. This file may not be copied, modified, or distributed
+// except according to those terms.
+
+
+SOURCE src/deprecated.rs (original leading notice)
+// Copyright 2015 The Servo Project Developers. See the
+// COPYRIGHT file at the top-level directory of this distribution.
+//
+// Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
+// http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
+// <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
+// option. This file may not be copied, modified, or distributed
+// except according to those terms.
+
+//! This module holds deprecated assets only.
+
+
+SOURCE src/explicit.rs (original leading notice)
+// Copyright 2015 The Servo Project Developers. See the
+// COPYRIGHT file at the top-level directory of this distribution.
+//
+// Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
+// http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
+// <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
+// option. This file may not be copied, modified, or distributed
+// except according to those terms.
+
+//! 3.3.2 Explicit Levels and Directions
+//!
+//! <http://www.unicode.org/reports/tr9/#Explicit_Levels_and_Directions>
+
+
+SOURCE src/format_chars.rs (original leading notice)
+// Copyright 2017 The Servo Project Developers. See the
+// COPYRIGHT file at the top-level directory of this distribution.
+//
+// Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
+// http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
+// <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
+// option. This file may not be copied, modified, or distributed
+// except according to those terms.
+
+//! Directional Formatting Characters
+//!
+//! <http://www.unicode.org/reports/tr9/#Directional_Formatting_Characters>
+
+// == Implicit ==
+/// ARABIC LETTER MARK
+
+SOURCE src/implicit.rs (original leading notice)
+// Copyright 2015 The Servo Project Developers. See the
+// COPYRIGHT file at the top-level directory of this distribution.
+//
+// Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
+// http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
+// <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
+// option. This file may not be copied, modified, or distributed
+// except according to those terms.
+
+//! 3.3.4 - 3.3.6. Resolve implicit levels and types.
+
+
+SOURCE src/level.rs (original leading notice)
+// Copyright 2017 The Servo Project Developers. See the
+// COPYRIGHT file at the top-level directory of this distribution.
+//
+// Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
+// http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
+// <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
+// option. This file may not be copied, modified, or distributed
+// except according to those terms.
+
+//! Bidi Embedding Level
+//!
+//! See [`Level`](struct.Level.html) for more details.
+//!
+//! <http://www.unicode.org/reports/tr9/#BD2>
+
+
+SOURCE src/lib.rs (original leading notice)
+// Copyright 2015 The Servo Project Developers. See the
+// COPYRIGHT file at the top-level directory of this distribution.
+//
+// Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
+// http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
+// <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
+// option. This file may not be copied, modified, or distributed
+// except according to those terms.
+
+//! This crate implements the [Unicode Bidirectional Algorithm][tr9] for display of mixed
+//! right-to-left and left-to-right text.  It is written in safe Rust, compatible with the
+//! current stable release.
+//!
+//! ## Example
+//!
+//! ```rust
+//! # #[cfg(feature = "hardcoded-data")] {
+//! use unicode_bidi::BidiInfo;
+//!
+//! // This example text is defined using `concat!` because some browsers
+//! // and text editors have trouble displaying bidi strings.
+//! let text = concat![
+//!   "א",
+//!   "ב",
+//!   "ג",
+//!   "a",
+//!   "b",
+//!   "c",
+//! ];
+//!
+//! // Resolve embedding levels within the text.  Pass `None` to detect the
+//! // paragraph level automatically.
+//! let bidi_info = BidiInfo::new(&text, None);
+//!
+//! // This paragraph has embedding level 1 because its first strong character is RTL.
+//! assert_eq!(bidi_info.paragraphs.len(), 1);
+//! let para = &bidi_info.paragraphs[0];
+//! assert_eq!(para.level.number(), 1);
+//! assert_eq!(para.level.is_rtl(), true);
+//!
+//! // Re-ordering is done after wrapping each paragraph into a sequence of
+//! // lines. For this example, I'll just use a single line that spans the
+//! // entire paragraph.
+//! let line = para.range.clone();
+//!
+//! let display = bidi_info.reorder_line(para, line);
+//! assert_eq!(display, concat![
+//!   "a",
+//!   "b",
+//!   "c",
+//!   "ג",
+//!   "ב",
+//!   "א",
+//! ]);
+//! # } // feature = "hardcoded-data"
+//! ```
+//!
+//! # Features
+//!
+//! - `std`: Enabled by default, but can be disabled to make `unicode_bidi`
+//!   `#![no_std]` + `alloc` compatible.
+//! - `hardcoded-data`: Enabled by default. Includes hardcoded Unicode bidi data and more convenient APIs.
+//! - `serde`: Adds [`serde::Serialize`] and [`serde::Deserialize`]
+//!   implementations to relevant types.
+//!
+//! [tr9]: <http://www.unicode.org/reports/tr9/>
+
+
+SOURCE src/prepare.rs (original leading notice)
+// Copyright 2015 The Servo Project Developers. See the
+// COPYRIGHT file at the top-level directory of this distribution.
+//
+// Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
+// http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
+// <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
+// option. This file may not be copied, modified, or distributed
+// except according to those terms.
+
+//! 3.3.3 Preparations for Implicit Processing
+//!
+//! <http://www.unicode.org/reports/tr9/#Preparations_for_Implicit_Processing>
+
+
+SOURCE src/utf16.rs (original leading notice)
+// Copyright 2023 The Mozilla Foundation. See the
+// COPYRIGHT file at the top-level directory of this distribution.
+//
+// Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
+// http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
+// <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
+// option. This file may not be copied, modified, or distributed
+// except according to those terms.
+

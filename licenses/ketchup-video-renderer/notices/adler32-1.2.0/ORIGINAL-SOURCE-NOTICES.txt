@@ -1,0 +1,2 @@
+SOURCE src/lib.rs:22 (original notice block)
+  Copyright (C) 1995-2013 Jean-loup Gailly and Mark Adler

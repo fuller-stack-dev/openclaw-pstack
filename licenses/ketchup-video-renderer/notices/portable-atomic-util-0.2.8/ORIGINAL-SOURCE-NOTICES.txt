@@ -1,0 +1,50 @@
+SOURCE build.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+// The rustc-cfg emitted by the build script are *not* public API.
+
+
+SOURCE src/arc.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+// This module is based on alloc::sync::Arc.
+//
+// The code has been adjusted to work with stable Rust (and optionally support some unstable features).
+//
+// Source: https://github.com/rust-lang/rust/blob/1.93.0/library/alloc/src/sync.rs
+//
+// Copyright & License of the original code:
+// - https://github.com/rust-lang/rust/blob/1.93.0/COPYRIGHT
+// - https://github.com/rust-lang/rust/blob/1.93.0/LICENSE-APACHE
+// - https://github.com/rust-lang/rust/blob/1.93.0/LICENSE-MIT
+
+
+SOURCE src/lib.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+/*!
+
+SOURCE src/task.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! Types and Traits for working with asynchronous tasks.
+
+// This module is based on alloc::task::Wake.
+//
+// The code has been adjusted to work with stable Rust.
+//
+// Source: https://github.com/rust-lang/rust/blob/1.84.0/library/alloc/src/task.rs.
+//
+// Copyright & License of the original code:
+// - https://github.com/rust-lang/rust/blob/1.84.0/COPYRIGHT
+// - https://github.com/rust-lang/rust/blob/1.84.0/LICENSE-APACHE
+// - https://github.com/rust-lang/rust/blob/1.84.0/LICENSE-MIT
+
+
+SOURCE src/utils.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/arc.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+

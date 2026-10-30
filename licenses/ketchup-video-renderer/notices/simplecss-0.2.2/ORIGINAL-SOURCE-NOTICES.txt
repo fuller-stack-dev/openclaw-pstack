@@ -1,0 +1,71 @@
+SOURCE examples/parse.rs (original leading notice)
+// Copyright 2019 the SimpleCSS Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! Parse
+
+
+SOURCE examples/select.rs (original leading notice)
+// Copyright 2019 the SimpleCSS Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! Select
+
+
+SOURCE src/lib.rs (original leading notice)
+// Copyright 2016 the SimpleCSS Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+/*!
+
+SOURCE src/selector.rs (original leading notice)
+// Copyright 2019 the SimpleCSS Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE src/stream.rs (original leading notice)
+// Copyright 2016 the SimpleCSS Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/declaration_tokenizer.rs (original leading notice)
+// Copyright 2019 the SimpleCSS Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! Declaration Tokenizer
+
+
+SOURCE tests/select.rs (original leading notice)
+// Copyright 2019 the SimpleCSS Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! Select
+
+
+SOURCE tests/selector_tokenizer.rs (original leading notice)
+// Copyright 2019 the SimpleCSS Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! Selector Tokenizer
+
+
+SOURCE tests/specificity.rs (original leading notice)
+// Copyright 2019 the SimpleCSS Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! Specificity
+
+
+SOURCE tests/stylesheet.rs (original leading notice)
+// Copyright 2019 the SimpleCSS Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! Stylesheet
+
+
+SOURCE tests/warnings.rs (original leading notice)
+// Copyright 2019 the SimpleCSS Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! Warnings
+

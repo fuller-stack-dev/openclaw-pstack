@@ -1,0 +1,3 @@
+SOURCE src/lib.rs (original leading notice)
+// Copyright 2019 Octavian Oncescu
+

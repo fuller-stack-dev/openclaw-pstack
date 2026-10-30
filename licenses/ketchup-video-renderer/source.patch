@@ -1,0 +1,21 @@
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -30,8 +30,8 @@
+ mimalloc = { version = "0.1", features = ["local_dynamic_tls"] }
+ 
+ [target.'cfg(target_arch = "wasm32")'.dependencies]
+-wasm-bindgen = "0.2.87"
+-js-sys = "0.3.64"
++wasm-bindgen = "=0.2.92"
++js-sys = "=0.3.69"
+ resvg = { version = "0.34.0", default-features = false, features = [
+     "raster-images",
+     "text",
+@@ -57,5 +57,5 @@
+ codegen-units = 1
+ 
+ [patch.crates-io]
+-resvg = { git = "https://github.com/zimond/resvg", rev = "3495d870" }
+-woff2 = { git="https://github.com/yisibl/woff2-rs", branch="fix-total-compressed-size" }
++resvg = { path = "../resvg/crates/resvg" }
++woff2 = { path = "../woff2" }

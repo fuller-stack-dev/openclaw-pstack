@@ -1,0 +1,118 @@
+SOURCE src/dash.rs (original leading notice)
+// Copyright 2014 Google Inc.
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// This module is a mix of SkDashPath, SkDashPathEffect, SkContourMeasure and SkPathMeasure.
+
+
+SOURCE src/f32x2_t.rs (original leading notice)
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/f32x4_t.rs (original leading notice)
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// Right now, there are no visible benefits of using SIMD for f32x4. So we don't.
+
+SOURCE src/floating_point.rs (original leading notice)
+// Copyright 2006 The Android Open Source Project
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/lib.rs (original leading notice)
+// Copyright 2006 The Android Open Source Project
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+//! A [tiny-skia](https://github.com/RazrFalcon/tiny-skia) Bezier path implementation.
+//!
+//! Provides a memory-efficient Bezier path container, path builder, path stroker and path dasher.
+//!
+//! Also provides some basic geometry types, but they will be moved to an external crate eventually.
+//!
+//! Note that all types use single precision floats (`f32`), just like [Skia](https://skia.org/).
+
+
+SOURCE src/path.rs (original leading notice)
+// Copyright 2006 The Android Open Source Project
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/path_builder.rs (original leading notice)
+// Copyright 2006 The Android Open Source Project
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// NOTE: this is not SkPathBuilder, but rather a reimplementation of SkPath.
+
+
+SOURCE src/path_geometry.rs (original leading notice)
+// Copyright 2006 The Android Open Source Project
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+//! A collection of functions to work with Bezier paths.
+//!
+//! Mainly for internal use. Do not rely on it!
+
+
+SOURCE src/rect.rs (original leading notice)
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/scalar.rs (original leading notice)
+// Copyright 2006 The Android Open Source Project
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/size.rs (original leading notice)
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/stroker.rs (original leading notice)
+// Copyright 2008 The Android Open Source Project
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// Based on SkStroke.cpp
+
+
+SOURCE src/transform.rs (original leading notice)
+// Copyright 2006 The Android Open Source Project
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+

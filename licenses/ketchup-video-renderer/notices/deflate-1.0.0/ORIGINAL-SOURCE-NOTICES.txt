@@ -1,0 +1,6 @@
+SOURCE src/bitstream.rs (original leading notice)
+// This was originally based on code from: https://github.com/nwin/lzw
+// Copyright (c) 2015 nwin
+// which is under both Apache 2.0 and MIT
+
+//! This module provides a bit writer

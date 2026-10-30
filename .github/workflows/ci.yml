@@ -7,8 +7,9 @@ permissions:
   contents: read
 jobs:
   portable:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
+    # The renderer tool hashes qualify the aarch64 Darwin source-build lane.
+    runs-on: macos-15
+    timeout-minutes: 20
     env:
       PYTHONDONTWRITEBYTECODE: "1"
     steps:
@@ -21,7 +22,14 @@ jobs:
         with:
           python-version: "3.x"
       - run: npm ci --ignore-scripts --legacy-peer-deps
+      - name: Prepare pinned build-only Rust toolchain on the disposable runner
+        run: rustup toolchain install 1.95.0 --profile minimal --component rust-src --target wasm32-unknown-unknown
+      - name: Cold renderer source reconstruction (no opaque artifact download)
+        run: PSTACK_ESBUILD=$(node -p 'require.resolve("esbuild")') python3 scripts/build-video-renderer.py --cache "$HOME/.cache/pstack/video-assets"
       - run: npm run build
+      - name: Prepare external video test driver on the disposable runner
+        run: command -v ffmpeg && command -v ffprobe || brew install ffmpeg
+      - run: node --test tests/artifact-video-pack.test.mjs
       - name: Require the committed runtime to match the build
         run: git diff --exit-code -- dist/index.js
       - run: node scripts/sync-routes.mjs --check

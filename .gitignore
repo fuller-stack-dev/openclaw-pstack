@@ -4,3 +4,8 @@ node_modules/
 /artifacts/
 # Raw diagnostic runs may contain host configuration and prompts.
 evidence/
+
+# Derived media: materialized from immutable source pins at build/pack time.
+/dist/ketchup-video.mjs
+/dist/ketchup-video.build.json
+/src/artifacts/ketchup-video/assets/*.ttf

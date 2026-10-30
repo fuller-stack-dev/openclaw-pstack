@@ -12,26 +12,28 @@ function run(command, args, env = process.env, cwd = root) {
   return p.stdout;
 }
 try {
-  const result = JSON.parse(run("npm", ["pack", "--ignore-scripts", "--json", "--pack-destination", stage]));
-  const tar = path.join(stage, result[0].filename);
+  const result = JSON.parse(run(process.execPath, ["scripts/pack.mjs", "--commit", "HEAD", "--out-dir", stage]));
+  const tar = result.path;
   const unpack = path.join(stage, "unpack"); fs.mkdirSync(unpack);
   run("tar", ["-xzf", tar, "-C", unpack]);
   const pkg = path.join(unpack, "package");
   const metadata = JSON.parse(fs.readFileSync(path.join(pkg, "package.json")));
   assert.equal(metadata.name, "@fuller-stack-dev/openclaw-pstack");
-  assert.equal(metadata.devDependencies["@resvg/resvg-wasm"], "2.6.2");
+  const provenance = JSON.parse(fs.readFileSync(path.join(pkg, "dist/ketchup-video.build.json")));
+  assert.equal(provenance.sourceCommit, result.commit);
+  assert.equal(provenance.output.sha256, result.media.outputSha256);
   for (const file of ["dist/ketchup-video.mjs", "licenses/ketchup-video-MPL-2.0.txt", "licenses/ketchup-video-OFL.txt", "licenses/ketchup-video-sources.md"])
     assert.ok(fs.statSync(path.join(pkg, file)).isFile());
   assert.ok(!fs.existsSync(path.join(pkg, "src")));
   assert.ok(!fs.existsSync(path.join(pkg, "node_modules")));
-  // Reuse behavioral cases from outside the source checkout: no personal graph or loaders.
+  // Execute the packed CLI outside the checkout without source loaders or dependencies.
   fs.copyFileSync(path.join(root, "tests/artifact-video.test.mjs"), path.join(stage, "consumer.test.mjs"));
   const env = { ...process.env, PSTACK_VIDEO_CLI: path.join(pkg, "dist/ketchup-video.mjs") };
-  for (const key of ["NODE_PATH", "NODE_OPTIONS", "PELE_MODULE", "ESBUILD_MODULE", "TSX_TSCONFIG_PATH", "PSTACK_RESVG", "PSTACK_ESBUILD", "PSTACK_KEEP_PROOF", "NODE_TEST_CONTEXT"])
+  for (const key of ["NODE_PATH", "NODE_OPTIONS", "PELE_MODULE", "ESBUILD_MODULE", "TSX_TSCONFIG_PATH", "PSTACK_RESVG", "PSTACK_ESBUILD", "PSTACK_KEEP_PROOF", "NODE_TEST_CONTEXT", "PSTACK_VIDEO_CACHE", "PSTACK_VIDEO_OFFLINE", "PSTACK_SOURCE_COMMIT"])
     delete env[key];
   const output = run(process.execPath, ["--test", path.join(stage, "consumer.test.mjs")], env, stage);
   assert.match(output, /CALIBRATION/);
   assert.match(output, /CAPTION_MUTATION/);
   console.log(output);
-  console.log(JSON.stringify({ package: metadata.name, version: metadata.version, integrity: result[0].integrity, files: result[0].entryCount, sourceFree: true }));
+  console.log(JSON.stringify({ package: metadata.name, version: metadata.version, sha256: result.sha256, commit: result.commit, sourceFree: true }));
 } finally { fs.rmSync(stage, { recursive: true, force: true }); }

@@ -8,19 +8,19 @@ This directory is the native implementation source; it is not loaded into the Ga
 
 ## Build and execution
 
-Package runtime requires Node >=24.16.0; node22 is only the build target. Uses public @resvg/resvg-wasm **2.6.2**, esbuild **0.28.2** at
+Package runtime requires Node >=24.16.0; node22 is only the build target. Uses the locked source-built resvg-js renderer and esbuild **0.28.2** at
 build time, and a qualified local ffmpeg/ffprobe at runtime. No browser, NAPI,
 private host SDK, system fonts, provider call, network fetch or upload is used.
 
-The package pins public build dependencies and embeds the two font buffers and WASM.
-Run `node scripts/build.mjs` from the repository root. Runtime commands:
+The package embeds the two font buffers and source-built WASM; they are generated outputs, not tracked binary source. Build-time materialization validates exact pins and cache bytes; see `docs/publishing.md` and `licenses/ketchup-video-renderer/BUILD.md`.
+Run `node scripts/build.mjs` from the repository root with the documented build prerequisites. Runtime commands:
 
     node dist/ketchup-video.mjs doctor
     node dist/ketchup-video.mjs render manifest.json new-or-empty-output
     node dist/ketchup-video.mjs verify manifest.json output
     node --test tests/artifact-video-pack.test.mjs
 
-The packed test runs the actual public npm package outside the source checkout with no node_modules or private loaders. The independent artifact entry is never imported by dist/index.js. Normal native agent exec policy owns execution. PSTACK_FFMPEG and PSTACK_FFPROBE are trusted operator executable paths, never manifest options.
+The packed test runs the actual public frozen-commit package outside the source checkout with no node_modules or private loaders. The independent artifact entry is never imported by dist/index.js. Normal native agent exec policy owns execution. PSTACK_FFMPEG and PSTACK_FFPROBE are trusted operator executable paths, never manifest options.
 
 ## Closed manifest v1
 
@@ -129,16 +129,17 @@ Native code is original implementation for Pstack;
 the source-only upstream behavior is MIT-licensed. Preserve the public package's
 MIT license and upstream attribution when integrating. No publication is implied by source integration.
 
-Bundled renderer: @resvg/resvg-wasm 2.6.2, repository yisibl/resvg-js,
-source tag v2.6.2, MPL-2.0. Unmodified public WASM SHA256:
-22bf6e9f9a100d972da0411a69c5ba504367fc1fa87b3b64e3f35e53926d2d70.
-Corresponding Source Code Form is available at
-https://github.com/yisibl/resvg-js/tree/v2.6.2 and the exact published JS/WASM
-package at https://registry.npmjs.org/@resvg/resvg-wasm/-/resvg-wasm-2.6.2.tgz.
-The MPL text is assets/MPL-2.0.txt; keep it and this source notice alongside the
-bundle. Renderer source has not been modified. The bundle's original module
-notices are retained. Review transitive compiled-WASM notices in the public
-package's release-license audit before publication; this is not a legal opinion.
+Bundled renderer: newly source-built resvg-js from immutable revision
+9ca058462ac529120c8cc84ddcd6fef644cc5406 with the retained dependency-only
+source patch and exact 158-package lock. Qualified WASM SHA256:
+66da0bed457e785fc75ff1452577ebf4978da904a2029c949fd1e0da892e2c9d.
+The original facade Source Code Form, patch, root/sysroot locks, immutable
+source locators, build recipe and original notices ship under
+licenses/ketchup-video-renderer. MPL applies to its covered source, not all
+components; retain MIT/OFL/Apache/LLVM and other component terms separately.
+safer-bytes has an MIT declaration but no instantiated upstream copyright
+notice; the retained declaration and standard text do not invent an author.
+Historical npm WASM provenance is not asserted. This is not a legal opinion.
 
 Fonts: Copyright 2018 The Noto Project Authors, SIL Open Font License 1.1.
 Two unmodified font files from notofonts/noto-fonts revision
@@ -154,7 +155,7 @@ is not distributed in this artifact.
 ## Remaining release gates
 
 Parent inspection/independent review; sole-writer integration and full touched-
-test audit; public package build/import-graph and npm-pack execution; actual
+test audit; public package build/import-graph and frozen-pack execution; actual
 route invocation/window/calls/media attachment; license release audit; supported
 platform qualification. This artifact alone does not complete production parity.
-The detailed partial compiled-WASM audit is in licenses/ketchup-video-sources.md. Its missing build lock/SBOM remains a publication gate.
+Source provenance and remaining cold-reconstruction qualification are in licenses/ketchup-video-renderer/BUILD.md; the historical npm binary is not used.

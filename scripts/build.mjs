@@ -35,4 +35,4 @@ const artifact = await build({
 });
 console.log(JSON.stringify({ gatewayInputs: inputs, artifactInputs: Object.keys(artifact.metafile.inputs), outputs: Object.keys(artifact.metafile.outputs) }));
 
-await import("./build-video.mjs");
+await (await import("./build-video.mjs")).buildVideo();

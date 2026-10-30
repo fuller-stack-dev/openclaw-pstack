@@ -1,0 +1,168 @@
+SOURCE src/lib.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+/*!
+
+SOURCE tests/auxiliary/mod.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/compiletest.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/drop_order.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+// Refs: https://doc.rust-lang.org/reference/destructors.html
+
+
+SOURCE tests/expand/default/enum.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/expand/default/struct.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/expand/multifields/enum.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/expand/multifields/struct.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/expand/naming/enum-all.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/expand/naming/enum-mut.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/expand/naming/enum-none.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/expand/naming/enum-ref.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/expand/naming/struct-all.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/expand/naming/struct-mut.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/expand/naming/struct-none.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/expand/naming/struct-ref.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/expand/not_unpin/enum.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/expand/not_unpin/struct.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/expand/pinned_drop/enum.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/expand/pinned_drop/struct.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/expand/pub/enum.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/expand/pub/struct.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/expandtest.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/include/basic.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+// default pin_project! is completely safe.
+
+
+SOURCE tests/proper_unpin.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/test.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/ui/not_unpin/conflict-unpin.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/ui/not_unpin/negative_impls_stable.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+// https://github.com/taiki-e/pin-project/issues/340#issuecomment-2428002670
+
+
+SOURCE tests/ui/pin_project/conflict-drop.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/ui/pin_project/conflict-unpin.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/ui/pin_project/invalid-bounds.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/ui/pin_project/invalid.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/ui/pin_project/negative_impls_stable.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+// https://github.com/taiki-e/pin-project/issues/340#issuecomment-2428002670
+
+
+SOURCE tests/ui/pin_project/overlapping_lifetime_names.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/ui/pin_project/overlapping_unpin_struct.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/ui/pin_project/packed.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/ui/pin_project/unpin_sneaky.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/ui/pin_project/unsupported.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/ui/pinned_drop/call-drop-inner.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE tests/ui/pinned_drop/conditional-drop-impl.rs (original leading notice)
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+

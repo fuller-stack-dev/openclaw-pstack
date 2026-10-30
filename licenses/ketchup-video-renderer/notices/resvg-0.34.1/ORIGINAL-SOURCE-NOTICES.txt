@@ -1,0 +1,153 @@
+SOURCE src/clip.rs (original leading notice)
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+
+SOURCE src/filter/box_blur.rs (original leading notice)
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+// Based on https://github.com/fschutt/fastblur
+
+
+SOURCE src/filter/color_matrix.rs (original leading notice)
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+
+SOURCE src/filter/component_transfer.rs (original leading notice)
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+
+SOURCE src/filter/composite.rs (original leading notice)
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+
+SOURCE src/filter/convolve_matrix.rs (original leading notice)
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+
+SOURCE src/filter/displacement_map.rs (original leading notice)
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+
+SOURCE src/filter/iir_blur.rs (original leading notice)
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+// An IIR blur.
+//
+// Based on http://www.getreuer.info/home/gaussianiir
+//
+// Licensed under 'Simplified BSD License'.
+//
+//
+// Implements the fast Gaussian convolution algorithm of Alvarez and Mazorra,
+// where the Gaussian is approximated by a cascade of first-order infinite
+// impulsive response (IIR) filters.  Boundaries are handled with half-sample
+// symmetric extension.
+//
+// Gaussian convolution is approached as approximating the heat equation and
+// each timestep is performed with an efficient recursive computation.  Using
+// more steps yields a more accurate approximation of the Gaussian.  A
+// reasonable default value for `numsteps` is 4.
+//
+// Reference:
+// Alvarez, Mazorra, "Signal and Image Restoration using Shock Filters and
+// Anisotropic Diffusion," SIAM J. on Numerical Analysis, vol. 31, no. 2,
+// pp. 590-605, 1994.
+
+// TODO: Blurs right and bottom sides twice for some reason.
+
+
+SOURCE src/filter/lighting.rs (original leading notice)
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+
+SOURCE src/filter/mod.rs (original leading notice)
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+
+SOURCE src/filter/morphology.rs (original leading notice)
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+
+SOURCE src/filter/turbulence.rs (original leading notice)
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+
+SOURCE src/geom.rs (original leading notice)
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+/// Fits the current rect into the specified bounds.
+
+SOURCE src/image.rs (original leading notice)
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+
+SOURCE src/lib.rs (original leading notice)
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+/*!
+
+SOURCE src/main.rs (original leading notice)
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+
+SOURCE src/mask.rs (original leading notice)
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+
+SOURCE src/paint_server.rs (original leading notice)
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+
+SOURCE src/path.rs (original leading notice)
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+
+SOURCE src/render.rs (original leading notice)
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+
+SOURCE src/tree.rs (original leading notice)
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+

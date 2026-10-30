@@ -1,0 +1,413 @@
+SOURCE benches/cubic_arclen.rs (original leading notice)
+// Copyright 2018 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! Benchmarks of cubic arclength approaches.
+
+
+SOURCE benches/quad_arclen.rs (original leading notice)
+// Copyright 2018 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! Benchmarks of quadratic arclength approaches.
+
+// TODO: organize so there's less cut'n'paste from arclen_accuracy example.
+
+
+SOURCE benches/quartic.rs (original leading notice)
+// Copyright 2022 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! Benchmarks of the quartic equation solver.
+
+
+SOURCE benches/rect_expand.rs (original leading notice)
+// Copyright 2020 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE examples/arclen_accuracy.rs (original leading notice)
+// Copyright 2018 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! A test program to plot the error of arclength approximation.
+
+// Lots of stuff is commented out or was just something to try.
+
+SOURCE examples/circle.rs (original leading notice)
+// Copyright 2019 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! Example of circle
+
+
+SOURCE examples/cubic_arclen.rs (original leading notice)
+// Copyright 2018 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! Research testbed for arclengths of cubic Bézier segments.
+
+// Lots of stuff is commented out or was just something to try.
+
+SOURCE examples/ellipse.rs (original leading notice)
+// Copyright 2020 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! Example of ellipse
+
+
+SOURCE examples/fit_poly.rs (original leading notice)
+// Copyright 2022 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! A test case for the cubic Bézier path simplifier, generating a very
+//! efficient and accurate SVG file to plot a quartic polynomial. This
+//! file was used to generate the image for the Wikipedia article on
+//! quartic polynomials.
+
+
+SOURCE examples/moment.rs (original leading notice)
+// Copyright 2022 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! Test case for checking whether numeric and analytic computations of
+//! moments for cubic Béziers match each other.
+
+
+SOURCE examples/offset.rs (original leading notice)
+// Copyright 2022 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! A simple example to show an offset curve of a cubic Bézier segment.
+
+
+SOURCE examples/quad_intersect.rs (original leading notice)
+// Copyright 2022 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! Test case that demonstrates quadratic/quadratic intersection using
+//! new quartic solver.
+
+
+SOURCE examples/simplify.rs (original leading notice)
+// Copyright 2022 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! Test case showing simplification of a Bézier path. In this case, the
+//! source path is a simple mathematical function, but it should work for
+//! more general cases as well.
+
+
+SOURCE examples_save/stroke.rs (original leading notice)
+// Copyright 2023 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE src/affine.rs (original leading notice)
+// Copyright 2018 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! Affine transforms.
+
+
+SOURCE src/arc.rs (original leading notice)
+// Copyright 2019 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! An ellipse arc.
+
+
+SOURCE src/bezpath.rs (original leading notice)
+// Copyright 2018 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! Bézier paths (up to cubic).
+
+
+SOURCE src/circle.rs (original leading notice)
+// Copyright 2019 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! Implementation of circle shape.
+
+
+SOURCE src/common.rs (original leading notice)
+// Copyright 2018 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! Common mathematical operations
+
+
+SOURCE src/cubicbez.rs (original leading notice)
+// Copyright 2018 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! Cubic Bézier segments.
+
+
+SOURCE src/ellipse.rs (original leading notice)
+// Copyright 2020 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! Implementation of ellipse shape.
+
+
+SOURCE src/fit.rs (original leading notice)
+// Copyright 2022 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! An implementation of cubic Bézier curve fitting based on a quartic
+//! solver making signed area and moment match the source curve.
+
+
+SOURCE src/insets.rs (original leading notice)
+// Copyright 2019 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! A description of the distances between the edges of two rectangles.
+
+
+SOURCE src/lib.rs (original leading notice)
+// Copyright 2018 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! 2D geometry, with a focus on curves.
+//!
+//! The kurbo library contains data structures and algorithms for curves and
+//! vector paths. It was designed to serve the needs of 2D graphics applications,
+//! but it is intended to be general enough to be useful for other applications.
+//! It can be used as "vocabulary types" for representing curves and paths, and
+//! also contains a number of computational geometry methods.
+//!
+//! # Examples
+//!
+//! Basic UI-style geometry:
+//! ```
+//! use kurbo::{Insets, Point, Rect, Size, Vec2};
+//!
+//! let pt = Point::new(10.0, 10.0);
+//! let vector = Vec2::new(5.0, -5.0);
+//! let pt2 = pt + vector;
+//! assert_eq!(pt2, Point::new(15.0, 5.0));
+//!
+//! let rect = Rect::from_points(pt, pt2);
+//! assert_eq!(rect, Rect::from_origin_size((10.0, 5.0), (5.0, 5.0)));
+//!
+//! let insets = Insets::uniform(1.0);
+//! let inset_rect = rect - insets;
+//! assert_eq!(inset_rect.size(), Size::new(3.0, 3.0));
+//! ```
+//!
+//! Finding the closest position on a [`Shape`]'s perimeter to a [`Point`]:
+//!
+//! ```
+//! use kurbo::{Circle, ParamCurve, ParamCurveNearest, Point, Shape};
+//!
+//! const DESIRED_ACCURACY: f64 = 0.1;
+//!
+//! /// Given a shape and a point, returns the closest position on the shape's
+//! /// perimeter, or `None` if the shape is malformed.
+//! fn closest_perimeter_point(shape: impl Shape, pt: Point) -> Option<Point> {
+//!     let mut best: Option<(Point, f64)> = None;
+//!     for segment in shape.path_segments(DESIRED_ACCURACY) {
+//!         let nearest = segment.nearest(pt, DESIRED_ACCURACY);
+//!         if best.map(|(_, best_d)| nearest.distance_sq < best_d).unwrap_or(true) {
+//!             best = Some((segment.eval(nearest.t), nearest.distance_sq))
+//!         }
+//!     }
+//!     best.map(|(point, _)| point)
+//! }
+//!
+//! let circle = Circle::new((5.0, 5.0), 5.0);
+//! let hit_point = Point::new(5.0, -2.0);
+//! let expectation = Point::new(5.0, 0.0);
+//! let hit = closest_perimeter_point(circle, hit_point).unwrap();
+//! assert!(hit.distance(expectation) <= DESIRED_ACCURACY);
+//! ```
+//!
+//! # Features
+//!
+//! This crate either uses the standard library or the [`libm`] crate for
+//! math functionality. The `std` feature is enabled by default, but can be
+//! disabled, as long as the `libm` feature is enabled. This is useful for
+//! `no_std` environments. However, note that the `libm` crate is not as
+//! efficient as the standard library, and that this crate still uses the
+//! `alloc` crate regardless.
+//!
+//! [`Piet`]: https://docs.rs/piet
+//! [`Druid`]: https://docs.rs/druid
+//! [`libm`]: https://docs.rs/libm
+
+
+SOURCE src/line.rs (original leading notice)
+// Copyright 2018 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! Lines.
+
+
+SOURCE src/mindist.rs (original leading notice)
+// Copyright 2021 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! Minimum distance between two Bézier curves
+//!
+//! This implements the algorithm in "Computing the minimum distance between
+//! two Bézier curves", Chen et al., *Journal of Computational and Applied
+//! Mathematics* 229(2009), 294-301
+
+
+SOURCE src/offset.rs (original leading notice)
+// Copyright 2022 The Kurbo Authors
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+//! Computation of offset curves of cubic Béziers, based on a curve fitting
+//! approach.
+//!
+//! See the [Parallel curves of cubic Béziers] blog post for a discussion of how
+//! this algorithm works and what kind of results can be expected. In general, it
+//! is expected to perform much better than most published algorithms. The number
+//! of curve segments needed to attain a given accuracy scales as O(n^6) with
+//! accuracy.
+//!
+//! In general, to compute the offset curve (also known as parallel curve) of
+//! a cubic Bézier segment, create a [`CubicOffset`] struct with the curve
+//! segment and offset, then use [`fit_to_bezpath`] or [`fit_to_bezpath_opt`]
+//! depending on how much time to spend optimizing the resulting path.
+//!
+//! [`fit_to_bezpath`]: crate::fit_to_bezpath
+//! [`fit_to_bezpath_opt`]: crate::fit_to_bezpath_opt
+//! [Parallel curves of cubic Béziers]: https://raphlinus.github.io/curves/2022/09/09/parallel-beziers.html
+
+SOURCE src/param_curve.rs (original leading notice)
+// Copyright 2018 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! A trait for curves parametrized by a scalar.
+
+
+SOURCE src/point.rs (original leading notice)
+// Copyright 2019 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! A 2D point.
+
+
+SOURCE src/quadbez.rs (original leading notice)
+// Copyright 2018 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! Quadratic Bézier segments.
+
+
+SOURCE src/quadspline.rs (original leading notice)
+// Copyright 2021 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! Quadratic Bézier splines.
+
+SOURCE src/rect.rs (original leading notice)
+// Copyright 2019 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! A rectangle.
+
+
+SOURCE src/rounded_rect.rs (original leading notice)
+// Copyright 2019 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! A rectangle with rounded corners.
+
+
+SOURCE src/rounded_rect_radii.rs (original leading notice)
+// Copyright 2021 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! A description of the radii for each corner of a rounded rectangle.
+
+
+SOURCE src/shape.rs (original leading notice)
+// Copyright 2019 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! A generic trait for shapes.
+
+
+SOURCE src/simplify.rs (original leading notice)
+// Copyright 2022 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! Simplification of a Bézier path.
+//!
+//! This module is currently experimental.
+//!
+//! The methods in this module create a `SimplifyBezPath` object, which can then
+//! be fed to [`fit_to_bezpath`] or [`fit_to_bezpath_opt`] depending on the degree
+//! of optimization desired.
+//!
+//! The implementation uses a number of techniques to achieve high performance and
+//! accuracy. The parameter (generally written `t`) evenly divides the curve segments
+//! in the original, so sampling can be done in constant time. The derivatives are
+//! computed analytically, as that is straightforward with Béziers.
+//!
+//! The areas and moments are computed analytically (using Green's theorem), and
+//! the prefix sum is stored. Thus, it is possible to analytically compute the area
+//! and moment of any subdivision of the curve, also in constant time, by taking
+//! the difference of two stored prefix sum values, then fixing up the subsegments.
+//!
+//! A current limitation (hoped to be addressed in the future) is that non-regular
+//! cubic segments may have tangents computed incorrectly. This can easily happen,
+//! for example when setting a control point equal to an endpoint.
+//!
+//! In addition, this method does not report corners (adjoining segments where the
+//! tangents are not continuous). It is not clear whether it's best to handle such
+//! cases here, or in client code.
+//!
+//! [`fit_to_bezpath`]: crate::fit_to_bezpath
+//! [`fit_to_bezpath_opt`]: crate::fit_to_bezpath_opt
+
+
+SOURCE src/size.rs (original leading notice)
+// Copyright 2019 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! A 2D size.
+
+
+SOURCE src/stroke.rs (original leading notice)
+// Copyright 2023 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+
+SOURCE src/svg.rs (original leading notice)
+// Copyright 2018 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! SVG path representation.
+
+
+SOURCE src/translate_scale.rs (original leading notice)
+// Copyright 2019 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! A transformation that includes both scale and translation.
+
+
+SOURCE src/vec2.rs (original leading notice)
+// Copyright 2018 the Kurbo Authors
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
+//! A simple 2D vector.
+

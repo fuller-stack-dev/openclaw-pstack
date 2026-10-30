@@ -8,6 +8,7 @@
     "dist/statechart.mjs",
     "dist/statechart-worker.mjs",
     "dist/ketchup-video.mjs",
+    "dist/ketchup-video.build.json",
     "licenses",
     "skills/poteto-mode/SKILL.md",
     "skills/routes",
@@ -104,8 +105,7 @@
     "node": ">=24.16.0"
   },
   "devDependencies": {
-    "esbuild": "0.28.2",
-    "@resvg/resvg-wasm": "2.6.2"
+    "esbuild": "0.28.2"
   },
   "peerDependenciesMeta": {
     "openclaw": {

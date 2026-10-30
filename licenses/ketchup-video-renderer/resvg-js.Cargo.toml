@@ -1,0 +1,61 @@
+[package]
+authors = ["yisibl <percyley@qq.com>"]
+edition = "2021"
+license = "MPL-2.0"
+name = "resvg-js"
+version = "1.0.0"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+env_logger = "0.11.0"
+log = "0.4"
+
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+svgtypes = "0.14.0"
+thiserror = "1.0.37"
+png = "=0.17.5"
+pathfinder_geometry = "0.5.1"
+pathfinder_content = { version = "0.5.0", default-features = false }
+pathfinder_simd = { version = "0.5.2", features = ["pf-no-simd"] }
+futures = "0.3.21"
+woff2 = "0.3.0"
+
+[target.'cfg(not(any(target_os = "linux", target_family = "wasm")))'.dependencies]
+mimalloc = "0.1"
+
+[target.'cfg(target_os = "linux")'.dependencies]
+mimalloc = { version = "0.1", features = ["local_dynamic_tls"] }
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen = "=0.2.92"
+js-sys = "=0.3.69"
+resvg = { version = "0.34.0", default-features = false, features = [
+    "raster-images",
+    "text",
+] }
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+napi = { version = "2.16.0", features = ["serde-json", "async"] }
+napi-derive = "2.16.0"
+resvg = { version = "0.34.0", default-features = false, features = [
+    "raster-images",
+    "text",
+    "system-fonts",
+] }
+
+[build-dependencies]
+napi-build = "2"
+
+[profile.release]
+lto = true    # Enable Link Time Optimization
+opt-level = 3
+# Setting this to 1 may improve the performance of generated code, but may be slower to compile.
+# https://doc.rust-lang.org/rustc/codegen-options/index.html#codegen-units
+codegen-units = 1
+
+[patch.crates-io]
+resvg = { path = "../resvg/crates/resvg" }
+woff2 = { path = "../woff2" }

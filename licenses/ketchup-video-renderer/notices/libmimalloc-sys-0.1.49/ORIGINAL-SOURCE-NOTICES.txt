@@ -1,0 +1,320 @@
+SOURCE c_src/mimalloc/v2/include/mimalloc/atomic.h:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2024 Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/include/mimalloc/internal.h:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2023, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/include/mimalloc/prim.h:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2024, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/include/mimalloc/track.h:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2023, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/include/mimalloc/types.h:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2024, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/include/mimalloc-new-delete.h:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2020 Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/include/mimalloc-override.h:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2020 Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/include/mimalloc-stats.h:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2025, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/include/mimalloc.h:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2026, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/src/alloc-aligned.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2021, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/src/alloc-override.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2026, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/src/alloc-posix.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2021, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/src/alloc.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2024, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/src/arena-abandon.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2019-2024, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/src/arena.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2019-2024, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/src/bitmap.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2019-2023 Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/src/bitmap.h:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2019-2023 Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/src/free.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2024, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/src/heap.c:1 (original notice block)
+/*----------------------------------------------------------------------------
+Copyright (c) 2018-2021, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/src/init.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2022, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/src/libc.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2023, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/src/options.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2021, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/src/os.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2025, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/src/page-queue.c:1 (original notice block)
+/*----------------------------------------------------------------------------
+Copyright (c) 2018-2024, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/src/page.c:1 (original notice block)
+/*----------------------------------------------------------------------------
+Copyright (c) 2018-2024, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/src/prim/emscripten/prim.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2025, Microsoft Research, Daan Leijen, Alon Zakai
+
+SOURCE c_src/mimalloc/v2/src/prim/osx/alloc-override-zone.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2022, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/src/prim/osx/prim.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2023, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/src/prim/prim.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2023, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/src/prim/unix/prim.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2025, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/src/prim/wasi/prim.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2023, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/src/prim/windows/etw.h (original leading notice)
+//**********************************************************************`
+//* This is an include file generated by Message Compiler.             *`
+//*                                                                    *`
+//* Copyright (c) Microsoft Corporation. All Rights Reserved.          *`
+//**********************************************************************`
+
+SOURCE c_src/mimalloc/v2/src/prim/windows/prim.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2023, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/src/random.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2019-2021, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/src/segment-map.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2019-2023, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/src/segment.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2024, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/src/static.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2020, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v2/src/stats.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2021, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/include/mimalloc/atomic.h:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2024 Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/include/mimalloc/bits.h:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2019-2024 Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/include/mimalloc/internal.h:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2025, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/include/mimalloc/prim.h:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2025, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/include/mimalloc/track.h:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2023, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/include/mimalloc/types.h:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2025, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/include/mimalloc-new-delete.h:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2020 Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/include/mimalloc-override.h:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2020 Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/include/mimalloc-stats.h:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2024-2025, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/include/mimalloc.h:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2026, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/src/alloc-aligned.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2025, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/src/alloc-override.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2026, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/src/alloc-posix.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2021, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/src/alloc.c:2 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2025, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/src/arena-meta.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2019-2024, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/src/arena.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2019-2025, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/src/bitmap.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2019-2024 Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/src/bitmap.h:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2019-2024 Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/src/free.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2025, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/src/heap.c:1 (original notice block)
+/*----------------------------------------------------------------------------
+Copyright (c) 2018-2025, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/src/init.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2025, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/src/libc.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2024, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/src/options.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2025, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/src/os.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2025, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/src/page-map.c:1 (original notice block)
+/*----------------------------------------------------------------------------
+Copyright (c) 2023-2025, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/src/page-queue.c:1 (original notice block)
+/*----------------------------------------------------------------------------
+Copyright (c) 2018-2024, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/src/page.c:1 (original notice block)
+/*----------------------------------------------------------------------------
+Copyright (c) 2018-2024, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/src/prim/emscripten/prim.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2025, Microsoft Research, Daan Leijen, Alon Zakai
+
+SOURCE c_src/mimalloc/v3/src/prim/osx/alloc-override-zone.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2022, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/src/prim/osx/prim.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2023, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/src/prim/prim.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2023, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/src/prim/unix/prim.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2025, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/src/prim/wasi/prim.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2023, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/src/prim/windows/etw.h (original leading notice)
+//**********************************************************************`
+//* This is an include file generated by Message Compiler.             *`
+//*                                                                    *`
+//* Copyright (c) Microsoft Corporation. All Rights Reserved.          *`
+//**********************************************************************`
+
+SOURCE c_src/mimalloc/v3/src/prim/windows/prim.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2023, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/src/random.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2019-2021, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/src/static.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2020, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/src/stats.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2018-2025, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/src/theap.c:1 (original notice block)
+/*----------------------------------------------------------------------------
+Copyright (c) 2018-2025, Microsoft Research, Daan Leijen
+
+SOURCE c_src/mimalloc/v3/src/threadlocal.c:1 (original notice block)
+/* ----------------------------------------------------------------------------
+Copyright (c) 2019-2026, Microsoft Research, Daan Leijen
+
+SOURCE src/lib.rs:2 (original notice block)
+// Copyright 2019 Octavian Oncescu

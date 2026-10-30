@@ -1,11 +1,21 @@
 # Ketchup-video bundled sources
 
-Unmodified @resvg/resvg-wasm 2.6.2 (MPL-2.0): corresponding Source Code Form at https://github.com/yisibl/resvg-js/tree/v2.6.2; published JS/WASM at https://registry.npmjs.org/@resvg/resvg-wasm/-/resvg-wasm-2.6.2.tgz. WASM SHA256 22bf6e9f9a100d972da0411a69c5ba504367fc1fa87b3b64e3f35e53926d2d70. Full MPL is ketchup-video-MPL-2.0.txt.
+The renderer is a new locked source build, not the historical npm WASM.
+Its qualified WASM SHA256 is
+66da0bed457e785fc75ff1452577ebf4978da904a2029c949fd1e0da892e2c9d.
+The exact resvg-js source, immutable resvg/woff2 revisions, dependency-only patch,
+158-package lock, original facade Source Code Form, compiler/sysroot inventory
+and original component notices are in [ketchup-video-renderer](ketchup-video-renderer/BUILD.md).
+Those files ship with the package; their source locators are immutable public URLs.
+They do not imply that every locked host/other-target dependency is linked.
+MPL-covered source, the plugin MIT, fonts OFL and individual Apache/LLVM/other
+component terms stay distinct. The safer-bytes MIT-declaration-only qualification
+is retained. These are technical records, not a compliance guarantee.
 
-Unmodified Noto Sans Regular and Noto Sans Math Regular, Copyright 2018 The Noto Project Authors, SIL OFL 1.1: https://github.com/notofonts/noto-fonts/tree/ffebf8c1ee449e544955a7e813c54f9b73848eac. Full OFL is ketchup-video-OFL.txt. Font hashes are pinned in scripts/build-video.mjs. No proprietary system fonts. FFmpeg is an external operator-provided tool, not distributed.
-
-## Compiled-WASM audit, 2026-10-29
-
-Inspected the actual published package and its pinned WASM, plus the complete Git tree and Cargo.toml at tag v2.6.2 (commit 9ca058462ac529120c8cc84ddcd6fef644cc5406). The npm package contains JS/WASM/types but no transitive license inventory. That source tree has no Cargo.lock. Cargo.toml includes registry version ranges, a resvg git patch at 3495d870 and a woff2 git patch using a mutable branch. The actual WASM contains paths identifying woff2 revision 88cce4c and some registry crate versions; strings are incomplete evidence, not a complete dependency bill of materials.
-
-The complete compiled dependency closure and corresponding notices therefore remain UNVERIFIED. Do not infer the closure by resolving those ranges today, treat MPL as covering all dependencies, or claim legal compliance from this partial audit. Publication requires the producer build lock/SBOM and corresponding license texts, or independently qualified source-build provenance for the distributed WASM. This records a source-provenance gap, not a legal opinion.
+The unmodified Noto Sans Regular and Noto Sans Math Regular fonts are from
+notofonts/noto-fonts revision ffebf8c1ee449e544955a7e813c54f9b73848eac,
+Copyright 2018 The Noto Project Authors, SIL OFL 1.1. The full license is
+ketchup-video-OFL.txt. Immutable download URLs, bytes and SHA256 pins are in
+scripts/video-assets.json in the source repository. Build-time downloads are
+verified before embedding; no system fonts or runtime download is used.
+FFmpeg is an existing external operator tool, not distributed here.

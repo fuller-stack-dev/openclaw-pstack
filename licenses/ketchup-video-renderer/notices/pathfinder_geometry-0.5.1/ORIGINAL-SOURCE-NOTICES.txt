@@ -1,0 +1,125 @@
+SOURCE src/angle.rs (original leading notice)
+// pathfinder/geometry/src/angle.rs
+//
+// Copyright © 2020 The Pathfinder Project Developers.
+//
+// Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
+// http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
+// <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
+// option. This file may not be copied, modified, or distributed
+// except according to those terms.
+
+//! Angle utilities.
+
+
+SOURCE src/lib.rs (original leading notice)
+// pathfinder/geometry/src/lib.rs
+//
+// Copyright © 2019 The Pathfinder Project Developers.
+//
+// Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
+// http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
+// <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
+// option. This file may not be copied, modified, or distributed
+// except according to those terms.
+
+//! Basic geometry and linear algebra primitives, optimized with SIMD.
+
+
+SOURCE src/line_segment.rs (original leading notice)
+// pathfinder/geometry/src/basic/line_segment.rs
+//
+// Copyright © 2019 The Pathfinder Project Developers.
+//
+// Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
+// http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
+// <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
+// option. This file may not be copied, modified, or distributed
+// except according to those terms.
+
+//! Line segment types, optimized with SIMD.
+
+
+SOURCE src/rect.rs (original leading notice)
+// pathfinder/geometry/src/basic/rect.rs
+//
+// Copyright © 2019 The Pathfinder Project Developers.
+//
+// Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
+// http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
+// <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
+// option. This file may not be copied, modified, or distributed
+// except according to those terms.
+
+//! 2D axis-aligned rectangles, optimized with SIMD.
+
+
+SOURCE src/transform2d.rs (original leading notice)
+// pathfinder/geometry/src/basic/transform2d.rs
+//
+// Copyright © 2019 The Pathfinder Project Developers.
+//
+// Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
+// http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
+// <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
+// option. This file may not be copied, modified, or distributed
+// except according to those terms.
+
+//! 2D affine transforms.
+
+
+SOURCE src/transform3d.rs (original leading notice)
+// pathfinder/geometry/src/basic/transform3d.rs
+//
+// Copyright © 2019 The Pathfinder Project Developers.
+//
+// Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
+// http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
+// <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
+// option. This file may not be copied, modified, or distributed
+// except according to those terms.
+
+//! 3D transforms that can be applied to paths.
+
+
+SOURCE src/unit_vector.rs (original leading notice)
+// pathfinder/geometry/src/unit_vector.rs
+//
+// Copyright © 2019 The Pathfinder Project Developers.
+//
+// Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
+// http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
+// <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
+// option. This file may not be copied, modified, or distributed
+// except according to those terms.
+
+//! A utility module that allows unit vectors to be treated like angles.
+
+
+SOURCE src/util.rs (original leading notice)
+// pathfinder/geometry/src/util.rs
+//
+// Copyright © 2019 The Pathfinder Project Developers.
+//
+// Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
+// http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
+// <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
+// option. This file may not be copied, modified, or distributed
+// except according to those terms.
+
+//! Various utilities.
+
+
+SOURCE src/vector.rs (original leading notice)
+// pathfinder/geometry/src/basic/point.rs
+//
+// Copyright © 2019 The Pathfinder Project Developers.
+//
+// Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
+// http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
+// <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
+// option. This file may not be copied, modified, or distributed
+// except according to those terms.
+
+//! A SIMD-optimized point type.
+

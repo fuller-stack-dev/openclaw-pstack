@@ -1,0 +1,15 @@
+Verbatim [package] declaration from the checksum-verified safer-bytes0.2.0 crate:
+
+[package]
+name = "safer-bytes"
+version = "0.2.0"
+edition = "2018"
+description = "safe, non-panicking wrappers around the 'bytes' crate"
+license = "MIT"
+repository = "https://github.com/danieleades/safer-bytes"
+keywords = ["buffers", "zero-copy", "io"]
+categories = ["network-programming", "data-structures"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+The exact crate and recorded Git tree supply no LICENSE or copyright notice. The MIT declaration is preserved; the accompanying file is the unmodified SPDX standard MIT text, not an invented upstream copyright attribution. No placeholder has been filled with an unrelated name.

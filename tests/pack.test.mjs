@@ -291,7 +291,9 @@ test("real commit archive preserves every pinned upstream file as plain ustar", 
     assert.ok(bytes.length < 50 * 1024 * 1024, "ClawPack per-file bound");
     assert.deepEqual(privacyFindings(relative, bytes.toString("utf8")), [], "packed privacy: " + relative);
     if (relative.startsWith("skills/pstack/upstream/")) continue;
-    assert.doesNotMatch(relative, /(^|\/)(tests|evidence|artifacts|verification|operators)(\/|$)|\.map$/, "no internal dumps or adapter tests");
+    if (relative === "licenses/ketchup-video-renderer/notices/fontdb-0.14.1/tests/fonts/LICENSE.txt")
+      assert.equal(createHash("sha256").update(bytes).digest("hex"), originalNotices.get(relative), "original source-fixture license only");
+    else assert.doesNotMatch(relative, /(^|\/)(tests|evidence|artifacts|verification|operators)(\/|$)|\.map$/, "no internal dumps or adapter tests");
   }
   assert.ok(unpacked < 50 * 1024 * 1024, "ClawPack combined byte bound");
   assert.ok((await readFile(join(packageRoot, "package.json"))).length < 256 * 1024);

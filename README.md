@@ -111,17 +111,17 @@ prompt-enforced: a brief constraint plus inherited tool policy.
 
 ## Install
 
-**Not published yet.** The following registry command is for after the owner
-chooses to publish and ClawHub verification makes the release available:
+**1.3.0 is a release candidate.** Use the following registry command only after
+ClawHub verification makes version 1.3.0 available:
 
 ```sh
-openclaw plugins install clawhub:@fuller-stack-dev/openclaw-pstack@1.2.5
+openclaw plugins install clawhub:@fuller-stack-dev/openclaw-pstack@1.3.0
 ```
 
 For a reviewed local artifact, install the exact tarball printed by `npm run pack`:
 
 ```sh
-openclaw plugins install npm-pack:/absolute/path/openclaw-pstack-1.2.5-COMMIT.tgz --force
+openclaw plugins install npm-pack:/absolute/path/openclaw-pstack-1.3.0-COMMIT.tgz --force
 ```
 
 The local-source trust gate requires `--force` **only after reviewing that exact

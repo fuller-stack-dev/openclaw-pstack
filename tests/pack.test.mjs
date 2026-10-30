@@ -221,6 +221,30 @@ test("repository privacy guard rejects private data in tracked files", async (t)
   assert.deepEqual(privacyFindings("docs/" + terms[0] + ".md", "", terms), ["docs/" + terms[0] + ".md: private identity"]);
 });
 
+test("cold pack preserves caller Rustup discovery while isolating HOME", async (t) => {
+  const { dir, run, ok } = await scratch(t);
+  const bin = join(dir, "bin"), log = join(dir, "rustup.json"), home = join(dir, "caller-home");
+  await mkdir(bin); await mkdir(home);
+  // Stop only at the external tool boundary: real pack -> frozen build -> Python -> rustup.
+  await writeFile(join(bin, "rustup"), "#!/usr/bin/env node\n" +
+    "require('node:fs').writeFileSync(process.env.RUSTUP_PROBE, JSON.stringify({args:process.argv.slice(2),home:process.env.HOME,rustup:process.env.RUSTUP_HOME,leak:process.env.OPENCLAW_PROBE}));process.exit(73);\n", { mode: 0o755 });
+  for (const inherited of [false, true]) {
+    const env = { ...process.env, HOME: home, PATH: bin + ":" + process.env.PATH,
+      PSTACK_VIDEO_CACHE: join(dir, "empty-cache"), PSTACK_ESBUILD: createRequire(import.meta.url).resolve("esbuild"),
+      RUSTUP_PROBE: log, OPENCLAW_PROBE: "must-not-cross-pack" };
+    delete env.RUST_TOOLCHAIN_DIR; delete env.PSTACK_VIDEO_OFFLINE; delete env.RUSTUP_HOME;
+    if (inherited) env.RUSTUP_HOME = join(dir, "custom-rustup");
+    const result = run(process.execPath, [join(root, "scripts/pack.mjs"), "--commit", ok("git", ["rev-parse", "HEAD"]).trim(), "--out-dir", join(dir, "out")], { env });
+    assert.notEqual(result.status, 0, "probe stops before compiler work");
+    const observed = JSON.parse(await readFile(log, "utf8"));
+    assert.deepEqual(observed.args, ["which", "--toolchain", "1.95.0", "rustc"]);
+    assert.notEqual(observed.home, home, "build HOME remains private");
+    assert.equal(observed.leak, undefined, "host state environment is stripped");
+    assert.equal(observed.rustup, inherited ? env.RUSTUP_HOME : join(home, ".rustup"));
+    await rm(log);
+  }
+});
+
 test("real commit archive preserves every pinned upstream file as plain ustar", async (t) => {
   const { dir, ok } = await scratch(t);
   const sha = ok("git", ["rev-parse", "HEAD"]).trim();

@@ -28,6 +28,7 @@ async function main() {
   Object.assign(env, {
     PSTACK_VIDEO_CACHE: resolve(process.env.PSTACK_VIDEO_CACHE || join(homedir(), ".cache/pstack/video-assets")),
     PSTACK_ESBUILD: process.env.PSTACK_ESBUILD || createRequire(import.meta.url).resolve("esbuild"),
+    RUSTUP_HOME: resolve(process.env.RUSTUP_HOME || join(homedir(), ".rustup")),
     HOME: join(dir, "home"),
     TMPDIR: join(dir, "tmp"),
     COPYFILE_DISABLE: "1",

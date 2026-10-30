@@ -5066,9 +5066,10 @@ function register(api) {
     const result = await planFromWorkspace({ ...request, parentModel, parentFamily }, { requester, hostBlind: caps.blind });
     await assertCurrent();
     const snapshot = "snapshot" in result ? result.snapshot : void 0;
-    if (snapshot?.diversity !== "different-family")
-      throw Error("BLOCKED: different-family judge is not established by the configured pool and current host families; no spawn arguments returned");
-    const selected = snapshot.selections[0]?.model;
+    const selected = snapshot?.selections[0]?.model;
+    const selectedFamily = requester.catalog.find((row) => row.id === selected)?.family;
+    if (snapshot?.diversity !== "different-family" || !selectedFamily || selectedFamily === parentFamily)
+      throw Error("BLOCKED: different-family judge is not established by the retained selection and current host families; no spawn arguments returned");
     return { result, assertCurrent, judge: {
       parentModel,
       parentFamily,
@@ -5088,7 +5089,8 @@ function register(api) {
         execute: async (_id, params) => {
           const p = params;
           if (!toolContext.workspaceDir) throw Error("Requester workspace is unavailable");
-          const judge = p.action !== "confirm" && !p.snapshot && p.role === "arena cross-judge pool" && p.task !== void 0;
+          const saved = p.snapshot;
+          const judge = p.action !== "confirm" && p.task !== void 0 && (saved ? saved.role === "arena cross-judge pool" && saved.diversity === "different-family" : p.role === "arena cross-judge pool");
           const models = toolContext.runtimeContext?.models;
           const result = judge ? (await planParentJudge(toolContext, { ...p, workspace: toolContext.workspaceDir })).result : await planFromWorkspace({ ...p, workspace: toolContext.workspaceDir }, { requester: models && typeof models.list === "function" ? await readRequesterCatalog(models, { family: caps.family }) : void 0, hostBlind: caps.blind });
           return {

@@ -16,6 +16,7 @@ const first = "transport/family-a-model", second = "transport/family-b-model";
 const rows = [{ provider: "transport", id: "family-a-model", name: "A", family: "family-a" },
   { provider: "transport", id: "family-b-model", name: "B", family: "family-b" }];
 const schema = { type: "object", properties: { task: { type: "string" }, model: { type: "string" } } };
+const saved = { version: 1, role: "arena cross-judge pool", source: "config", selections: [{ model: second }], poolIndex: 1, diversity: "different-family" };
 const request = { role: "arena cross-judge pool", task: "Judge the frozen candidate packages", spawnSchema: schema };
 beforeEach(async () => {
   workspace = await mkdtemp(join(process.env.TMPDIR!, "parent-model-"));
@@ -63,7 +64,7 @@ it("rejects forged parent facts rather than using them to choose the same family
   await expect(h.call({ ...request, parentFamily: "family-b" })).rejects.toThrow(/parent.*contradicts/i);
   expect(h.state).not.toHaveBeenCalled();
 });
-it.each(["active-model", "family", "capability", "catalog", "pending-catalog", "guard", "session"])("blocks only the required new judge when %s metadata is unavailable", async missing => {
+it.each(["active-model", "family", "capability", "catalog", "pending-catalog", "guard", "session"].flatMap(missing => [false, true].map(resume => ({ missing, resume }))))("blocks required judge when $missing metadata is unavailable (resume=$resume)", async ({ missing, resume }) => {
   const h = harness();
   if (missing === "active-model") delete h.context.activeModel;
   if (missing === "guard") delete h.context.assertInvocationCurrent;
@@ -72,7 +73,7 @@ it.each(["active-model", "family", "capability", "catalog", "pending-catalog", "
   if (missing === "family") h.list.mockResolvedValue({ state: "prepared", revision: "unknown", models: rows.map(({ family, ...row }) => row) } as any);
   if (missing === "capability") h.registerFactory([]);
   if (missing === "catalog") delete h.context.runtimeContext;
-  await expect(h.call({ ...request, parentModel: first, parentFamily: "family-a", catalog: rows.map(row => ({ id: row.provider + "/" + row.id, family: row.family })) })).rejects.toThrow(/BLOCKED.*different-family/);
+  await expect(h.call({ ...request, ...(resume ? { snapshot: saved } : {}), parentModel: first, parentFamily: "family-a", catalog: rows.map(row => ({ id: row.provider + "/" + row.id, family: row.family })) })).rejects.toThrow(/BLOCKED.*different-family/);
   const ordinary = await h.call({ role: "bug-fix", task: "Fix a bounded parser", spawnSchema: schema });
   expect(ordinary.details.snapshot.selections).toEqual([{}]);
   expect(h.state).not.toHaveBeenCalled();
@@ -84,7 +85,7 @@ it("refuses a same-family pool and an inherited-only pool", async () => {
   await rm(join(workspace, "pstack-models.json"));
   await expect(h.call()).rejects.toThrow(/BLOCKED.*different-family/);
 });
-it.each(["reset", "switch", "retired"])("rejects %s during awaited catalog preparation", async change => {
+it.each(["reset", "switch", "retired"].flatMap(change => [false, true].map(resume => ({ change, resume }))))("rejects $change during awaited catalog preparation (resume=$resume)", async ({ change, resume }) => {
   const h = harness();
   h.list.mockImplementation(async () => {
     if (change === "reset") h.session.sessionId = "two";
@@ -92,7 +93,7 @@ it.each(["reset", "switch", "retired"])("rejects %s during awaited catalog prepa
     if (change === "retired") h.retire();
     return { state: "prepared", revision: "changed", models: structuredClone(rows) };
   });
-  await expect(h.call()).rejects.toThrow(/incarnation|switch|retired/);
+  await expect(h.call({ ...request, ...(resume ? { snapshot: saved } : {}) })).rejects.toThrow(/incarnation|switch|retired/);
   expect(h.state).not.toHaveBeenCalled();
 });
 it("refuses stale incarnation after the config read and does not accept modelRef contradictions", async () => {
@@ -152,5 +153,49 @@ it("retains historical judge snapshots without reselection on a metadata-poor ol
   expect(result.details.snapshot).toEqual(snapshot);
   expect(result.details.spawnArgs[0].model).toBe(first);
   expect(h.entry).not.toHaveBeenCalled();
+  expect(h.state).not.toHaveBeenCalled();
+});
+
+it.each(["taskless", "crafted"])("requires native proof for a %s snapshot claiming different-family", async origin => {
+  const h = harness();
+  h.registerFactory([]); delete h.context.runtimeContext;
+  const catalog = rows.map(row => ({ id: row.provider + "/" + row.id, family: row.family }));
+  const snapshot = origin === "taskless" ? (await h.call({ role: request.role, parentModel: first, parentFamily: "family-a", catalog })).details.snapshot : saved;
+  expect(snapshot.diversity).toBe("different-family");
+  // Resume accepts the role carried by the snapshot, even when the request omits it.
+  await expect(h.call({ task: request.task, spawnSchema: schema, snapshot, catalog })).rejects.toThrow(/BLOCKED.*different-family/);
+  expect(h.state).not.toHaveBeenCalled();
+});
+it.each(["same", "unknown", "opposite"])("rechecks a saved selection against current %s family without reselection", async family => {
+  const h = harness();
+  h.list.mockResolvedValue({ state: "prepared", revision: "fresh", models: [rows[0], { ...rows[1], family: family === "same" ? "family-a" : family === "unknown" ? undefined : "family-b" }] } as any);
+  // New configuration must not replace the retained member.
+  await writeFile(join(workspace, "pstack-models.json"), JSON.stringify({ version: 1, presets: {}, roles: { [request.role]: [{ model: first }, { model: first }] } }));
+  const result = h.call({ ...request, snapshot: saved });
+  if (family === "opposite") {
+    const plan = await result;
+    expect(plan.details.snapshot).toEqual(saved);
+    expect(plan.details.spawnArgs[0].model).toBe(second);
+  } else await expect(result).rejects.toThrow(/BLOCKED.*different-family/);
+  expect(h.state).not.toHaveBeenCalled();
+});
+
+it.runIf(process.env.PSTACK_HOST_PIN === "openclaw-host-main.json")("retains the judge with families produced by the pinned main catalog and SDK projection", async () => {
+  const host = process.env.PSTACK_TEST_HOST_SOURCE!;
+  const { createBundledStaticCatalogModelResolver } = await import(join(host, "src/agents/embedded-agent-runner/model.static-catalog.ts"));
+  const { projectRequesterModelCatalog } = await import(join(host, "src/gateway/server-methods/requester-model-catalog-projection.ts"));
+  const resolve = createBundledStaticCatalogModelResolver({ includeRuntimeDiscovery: true });
+  const models = [{ provider: "openai", id: "gpt-5.5" }, { provider: "anthropic", id: "claude-opus-5-5" }]
+    .map(row => ({ ...resolve({ provider: row.provider, modelId: row.id }), ...row, available: true }));
+  expect(models.map(row => row.family)).toEqual(["openai", "anthropic"]);
+  const h = harness();
+  const parent = models[0].provider + "/" + models[0].id, judge = models[1].provider + "/" + models[1].id;
+  h.context.activeModel = { provider: models[0].provider, modelId: models[0].id, modelRef: parent };
+  h.list.mockResolvedValue(projectRequesterModelCatalog({ models }) as any);
+  const snapshot = { ...saved, selections: [{ model: judge }] };
+  await writeFile(join(workspace, "pstack-models.json"), JSON.stringify({ version: 1, presets: {}, roles: { [request.role]: [{ model: parent }, { model: judge }] } }));
+  const result = await h.call({ ...request, snapshot });
+  expect(result.details.snapshot).toEqual(snapshot);
+  expect(result.details.spawnArgs[0].model).toBe(judge);
   expect(h.state).not.toHaveBeenCalled();
 });

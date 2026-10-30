@@ -368,9 +368,10 @@ export function register(api: OpenClawPluginApi) {
     const result = await planFromWorkspace({ ...request, parentModel, parentFamily }, { requester, hostBlind: caps.blind });
     await assertCurrent();
     const snapshot = "snapshot" in result ? result.snapshot as Snapshot : undefined;
-    if (snapshot?.diversity !== "different-family")
-      throw Error("BLOCKED: different-family judge is not established by the configured pool and current host families; no spawn arguments returned");
-    const selected = snapshot.selections[0]?.model;
+    const selected = snapshot?.selections[0]?.model;
+    const selectedFamily = requester!.catalog.find(row => row.id === selected)?.family;
+    if (snapshot?.diversity !== "different-family" || !selectedFamily || selectedFamily === parentFamily)
+      throw Error("BLOCKED: different-family judge is not established by the retained selection and current host families; no spawn arguments returned");
     return { result, assertCurrent, judge: { parentModel, parentFamily, snapshot,
       catalog: requester!.catalog.filter(row => row.id === parentModel || row.id === selected) } };
   }
@@ -388,8 +389,10 @@ export function register(api: OpenClawPluginApi) {
         execute: async (_id: string, params: unknown) => {
           const p = params as Record<string, unknown>;
           if (!toolContext.workspaceDir) throw Error("Requester workspace is unavailable");
-          // Only new judge planning requires the current scorer; inspection and saved snapshots stay compatible.
-          const judge = p.action !== "confirm" && !p.snapshot && p.role === "arena cross-judge pool" && p.task !== undefined;
+          // A saved diversity claim is not current proof. Legacy unverified continuations stay compatible.
+          const saved = p.snapshot as Snapshot | undefined;
+          const judge = p.action !== "confirm" && p.task !== undefined &&
+            (saved ? saved.role === "arena cross-judge pool" && saved.diversity === "different-family" : p.role === "arena cross-judge pool");
           const models = (toolContext as { runtimeContext?: Invocation }).runtimeContext?.models;
           const result = judge ? (await planParentJudge(toolContext, { ...p, workspace: toolContext.workspaceDir })).result
             : await planFromWorkspace({ ...p, workspace: toolContext.workspaceDir }, { requester: models && typeof models.list === "function" ? await readRequesterCatalog(models, { family: caps.family }) : undefined, hostBlind: caps.blind });

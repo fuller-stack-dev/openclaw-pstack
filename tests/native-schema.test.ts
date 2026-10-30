@@ -69,7 +69,7 @@ afterEach(async () => {
 async function saveConfig() {
   await writeFile(join(workspace, "pstack-models.json"), JSON.stringify(config));
 }
-function nativeTool(workspaceDir: string | undefined, provider = "openai", nativeJudge = false) {
+function nativeTool(workspaceDir: string | undefined, provider = "openai", nativeJudge = false, parentModel = sol.model) {
   let factory: any;
   register(
     createTestPluginApi({
@@ -88,8 +88,8 @@ function nativeTool(workspaceDir: string | undefined, provider = "openai", nativ
     sessionKey: "agent:worker:subagent:native-schema-requester",
     sessionId: "native-schema-incarnation",
     agentId: "worker",
-    // A new judge plan consumes host facts, never the model-authored parent hint.
-    ...(nativeJudge ? { activeModel: { provider: "openai", modelId: "gpt-6.1-sol", modelRef: sol.model },
+    // Judge planning/resumption consumes host facts, never the model-authored parent hint.
+    ...(nativeJudge ? { activeModel: { provider: parentModel.split("/")[0], modelId: parentModel.slice(parentModel.indexOf("/") + 1), modelRef: parentModel },
       assertInvocationCurrent() {}, runtimeContext: { models: { list: async () => ({ state: "prepared", revision: "ingress-fixture",
         models: catalog.map(row => ({ provider: row.id.split("/")[0], id: row.id.slice(row.id.indexOf("/") + 1), name: row.id, family: row.family })) }) } } } : {}),
   });
@@ -122,12 +122,14 @@ async function dispatch(
     provider?: string;
     block?: boolean;
     sourceTool?: any;
+    parentModel?: string;
   } = {},
 ) {
   const h = options.sourceTool ? { tool: options.sourceTool, execute: vi.spyOn(options.sourceTool, "execute") } : nativeTool(
     options.missingWorkspace ? undefined : (options.workspaceDir ?? workspace),
     options.provider,
-    args.role === "arena cross-judge pool" && !args.snapshot && args.task !== undefined,
+    args.role === "arena cross-judge pool" && args.task !== undefined,
+    options.parentModel,
   );
   const id = "native-ingress-call";
   const events: any[] = [];
@@ -361,7 +363,8 @@ describe.each(spawnSchemas)("pstack_route through native normalization and dispa
         { ...saved("arena runners", [sol, opus], null, "different-family"), source: "override" },
       ],
     ])("admits %s with exact controls and snapshot", async (_name, extra, expected) => {
-      const result = accepted(await dispatch(request(extra), { provider }));
+      const result = accepted(await dispatch(request(extra), { provider,
+        parentModel: _name === "resume pool index 0" ? opus.model : sol.model }));
       expect(result.snapshot).toEqual(expected);
       expect(result.spawnArgs).toHaveLength(expected.selections.length);
       for (const [index, args] of result.spawnArgs.entries()) {

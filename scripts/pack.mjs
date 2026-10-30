@@ -1,8 +1,10 @@
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { constants } from "node:fs";
-import { cp, copyFile, mkdir, mkdtemp, readFile, rm } from "node:fs/promises";
+import { cp, copyFile, mkdir, mkdtemp, readFile, rm, lstat, readdir } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
+import { createRequire } from "node:module";
+import { homedir } from "node:os";
 
 const root = resolve(import.meta.dirname, "..");
 
@@ -24,6 +26,9 @@ async function main() {
   const env = { ...process.env };
   for (const key of Object.keys(env)) if (key.startsWith("OPENCLAW_")) delete env[key];
   Object.assign(env, {
+    PSTACK_VIDEO_CACHE: resolve(process.env.PSTACK_VIDEO_CACHE || join(homedir(), ".cache/pstack/video-assets")),
+    PSTACK_ESBUILD: process.env.PSTACK_ESBUILD || createRequire(import.meta.url).resolve("esbuild"),
+    RUSTUP_HOME: resolve(process.env.RUSTUP_HOME || join(homedir(), ".rustup")),
     HOME: join(dir, "home"),
     TMPDIR: join(dir, "tmp"),
     COPYFILE_DISABLE: "1",
@@ -34,7 +39,7 @@ async function main() {
       cwd: root,
       env,
       encoding: "utf8",
-      timeout: 120000,
+      timeout: 600000,
       maxBuffer: 64 * 1024 * 1024,
       ...options,
     });
@@ -94,9 +99,34 @@ async function main() {
       )
     )
       throw Error("package.json files must be literal relative files/directories.");
+    await regularTree(stage);
+    // The only derived package bytes come from this frozen commit's recipe/pins.
+    run(process.execPath, [join(stage, "scripts/build-video.mjs")], {
+      cwd: stage, env: { ...env, PSTACK_SOURCE_COMMIT: sha },
+    });
+    const media = JSON.parse(await readFile(join(stage, "dist/ketchup-video.build.json"), "utf8"));
+    const pins = JSON.parse(await readFile(join(stage, "scripts/video-assets.json"), "utf8"));
+    const hash = bytes => createHash("sha256").update(bytes).digest("hex");
+    if (media.sourceCommit !== sha || media.output.path !== "dist/ketchup-video.mjs" ||
+        media.output.sha256 !== pins.bundleSha256 ||
+        hash(await readFile(join(stage, media.output.path))) !== media.output.sha256)
+      throw Error("Derived media source/output binding mismatch");
+    for (const [path, expected] of Object.entries(media.inputs)) {
+      if (path.startsWith("verified-media:")) continue;
+      if (!/^[A-Za-z0-9_.-]+(?:\/[A-Za-z0-9_.-]+)*$/.test(path) || path.split("/").some(p => p === "." || p === "..")) throw Error("Invalid build input path");
+      if (hash(await readFile(join(stage, path))) !== expected) throw Error("Mixed source build input: " + path);
+    }
+    async function regularTree(path) {
+      const stat = await lstat(path);
+      if (stat.isDirectory()) for (const name of await readdir(path)) await regularTree(join(path, name));
+      else if (!stat.isFile() || stat.isSymbolicLink()) throw Error("Non-regular package input: " + path);
+    }
     const packaged = join(dir, "archive/package");
     await mkdir(packaged, { mode: 0o755 });
-    for (const file of new Set(["package.json", ...metadata.files])) {
+    const packageFiles = ["package.json", ...metadata.files];
+    if (new Set(packageFiles).size !== packageFiles.length || packageFiles.some(a => packageFiles.some(b => a !== b && a.startsWith(b + "/")))) throw Error("Duplicate/overlapping package entries");
+    for (const file of packageFiles) {
+      await regularTree(join(stage, file));
       await mkdir(dirname(join(packaged, file)), { recursive: true });
       await cp(join(stage, file), join(packaged, file), {
         recursive: true,
@@ -129,7 +159,7 @@ async function main() {
     // Never replace an artifact already associated with an acceptance receipt.
     await copyFile(pending, path, constants.COPYFILE_EXCL);
     console.log(
-      JSON.stringify({ path, sha256, commit: sha, upstreamFiles: verified.source.files }),
+      JSON.stringify({ path, sha256, commit: sha, upstreamFiles: verified.source.files, media: { manifestSha256: hash(await readFile(join(stage, "dist/ketchup-video.build.json"))), outputSha256: media.output.sha256, sourceCommit: media.sourceCommit } }),
     );
   } finally {
     await rm(dir, { recursive: true, force: true });

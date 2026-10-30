@@ -423,13 +423,13 @@ class SemanticOverlayIntegrityTests(unittest.TestCase):
     def test_shipped_overlay_maps_every_rule_without_modification(self):
         before = self.overlay_path.read_bytes()
         result = self.check()
-        self.assertEqual((result['kind'], result['files'], result['rules']), ('reviewed-text-coverage', 93, 328))
+        self.assertEqual((result['kind'], result['files'], result['rules']), ('reviewed-text-coverage', 117, 363))
         self.assertEqual(result['gateTargets'] + result['nativeTargets'] + result['sameTargets'] + result['exclusions'],
                          sum(len(r['map']) for f in self.overlay()['files'] for r in f['rules']))
         self.assertEqual(self.overlay_path.read_bytes(), before)
 
     def test_full_doctor_reports_overlay(self):
-        self.assertEqual(verifier.verify(self.root)['overlay']['rules'], 328)
+        self.assertEqual(verifier.verify(self.root)['overlay']['rules'], 363)
 
     def test_unmapped_or_undisposed_rule_fails(self):
         self.expect(lambda o: next(f for f in o['files'] if f['path'] == 'skills/technical-writing/SKILL.md')['rules'].pop(),
@@ -508,4 +508,4 @@ class SemanticOverlayIntegrityTests(unittest.TestCase):
 
     def test_npm_relocated_gitignore_is_still_read(self):
         (self.root / 'upstream/.gitignore').rename(self.root / 'upstream/.npmignore')
-        self.assertEqual(self.check()['rules'], 328)
+        self.assertEqual(self.check()['rules'], 363)

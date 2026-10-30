@@ -11,7 +11,7 @@ try {
   const require = createRequire(resolve(process.env.OPENCLAW_SOURCE, "package.json"));
   ({ build } = require("esbuild"));
 }
-await build({
+const gateway = await build({
   entryPoints: ["src/index.ts"],
   outfile: "dist/index.js",
   bundle: true,
@@ -20,4 +20,19 @@ await build({
   target: "node24",
   external: ["openclaw/*"],
   sourcemap: false,
+  metafile: true,
 });
+
+const inputs = Object.keys(gateway.metafile.inputs);
+if (inputs.some(p => p.split("/").some(part => ["artifacts", "pele", "rastermill", "@resvg", "resvg-wasm"].includes(part))))
+  throw Error("Artifact/render dependency leaked into gateway bundle");
+const artifact = await build({
+  entryPoints: { statechart: "src/artifacts/statechart/statechart.ts", "statechart-worker": "src/artifacts/statechart/worker.ts" },
+  outdir: "dist", outExtension: { ".js": ".mjs" }, bundle: true,
+  format: "esm", platform: "node", target: "node24", metafile: true,
+  legalComments: "inline",
+  banner: { js: "/*! Native statechart port; notices: licenses/statechart-MIT.txt and licenses/pele.txt. */" },
+});
+console.log(JSON.stringify({ gatewayInputs: inputs, artifactInputs: Object.keys(artifact.metafile.inputs), outputs: Object.keys(artifact.metafile.outputs) }));
+
+await (await import("./build-video.mjs")).buildVideo();

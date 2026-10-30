@@ -1,0 +1,363 @@
+SOURCE src/alpha_runs.rs (original leading notice)
+// Copyright 2006 The Android Open Source Project
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/blitter.rs (original leading notice)
+// Copyright 2006 The Android Open Source Project
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/color.rs (original leading notice)
+// Copyright 2006 The Android Open Source Project
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/edge.rs (original leading notice)
+// Copyright 2006 The Android Open Source Project
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/edge_builder.rs (original leading notice)
+// Copyright 2011 Google Inc.
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/edge_clipper.rs (original leading notice)
+// Copyright 2009 The Android Open Source Project
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/fixed_point.rs (original leading notice)
+// Copyright 2006 The Android Open Source Project
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// Skia uses fixed points pretty chaotically, therefore we cannot use
+// strongly typed wrappers. Which is unfortunate.
+
+
+SOURCE src/geom.rs (original leading notice)
+// Copyright 2006 The Android Open Source Project
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/line_clipper.rs (original leading notice)
+// Copyright 2011 Google Inc.
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/mask.rs (original leading notice)
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/math.rs (original leading notice)
+// Copyright 2006 The Android Open Source Project
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/painter.rs (original leading notice)
+// Copyright 2006 The Android Open Source Project
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/path64/cubic64.rs (original leading notice)
+// Copyright 2012 Google Inc.
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/path64/line_cubic_intersections.rs (original leading notice)
+// Copyright 2012 Google Inc.
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+/*
+
+SOURCE src/path64/mod.rs (original leading notice)
+// Copyright 2012 Google Inc.
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/path64/point64.rs (original leading notice)
+// Copyright 2012 Google Inc.
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/path64/quad64.rs (original leading notice)
+// Copyright 2012 Google Inc.
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/path_geometry.rs (original leading notice)
+// Copyright 2006 The Android Open Source Project
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/pipeline/blitter.rs (original leading notice)
+// Copyright 2016 Google Inc.
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/pipeline/highp.rs (original leading notice)
+// Copyright 2018 Google Inc.
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+/*!
+
+SOURCE src/pipeline/lowp.rs (original leading notice)
+// Copyright 2018 Google Inc.
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+/*!
+
+SOURCE src/pipeline/mod.rs (original leading notice)
+// Copyright 2016 Google Inc.
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+/*!
+
+SOURCE src/pixmap.rs (original leading notice)
+// Copyright 2006 The Android Open Source Project
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/scan/hairline.rs (original leading notice)
+// Copyright 2006 The Android Open Source Project
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/scan/hairline_aa.rs (original leading notice)
+// Copyright 2011 The Android Open Source Project
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/scan/mod.rs (original leading notice)
+// Copyright 2011 The Android Open Source Project
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/scan/path.rs (original leading notice)
+// Copyright 2006 The Android Open Source Project
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/scan/path_aa.rs (original leading notice)
+// Copyright 2006 The Android Open Source Project
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/shaders/gradient.rs (original leading notice)
+// Copyright 2006 The Android Open Source Project
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/shaders/linear_gradient.rs (original leading notice)
+// Copyright 2006 The Android Open Source Project
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/shaders/mod.rs (original leading notice)
+// Copyright 2006 The Android Open Source Project
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/shaders/pattern.rs (original leading notice)
+// Copyright 2006 The Android Open Source Project
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/shaders/radial_gradient.rs (original leading notice)
+// Copyright 2006 The Android Open Source Project
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/wide/f32x16_t.rs (original leading notice)
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+
+SOURCE src/wide/f32x4_t.rs (original leading notice)
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// Based on https://github.com/Lokathor/wide (Zlib)
+
+
+SOURCE src/wide/f32x8_t.rs (original leading notice)
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// Based on https://github.com/Lokathor/wide (Zlib)
+
+
+SOURCE src/wide/i32x4_t.rs (original leading notice)
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// Based on https://github.com/Lokathor/wide (Zlib)
+
+
+SOURCE src/wide/i32x8_t.rs (original leading notice)
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// Based on https://github.com/Lokathor/wide (Zlib)
+
+
+SOURCE src/wide/mod.rs (original leading notice)
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// This module was written from scratch, therefore there is no Google copyright.
+
+// f32x16, i32x16 and u32x16 are implemented as [Tx8; 2] and not as [T; 16].
+// This way we still can use some SIMD.
+//
+// We doesn't use #[inline] that much in this module.
+// The compiler will inline most of the methods automatically.
+// The only exception is U16x16, were we have to force inlining,
+// otherwise the performance will be horrible.
+
+
+SOURCE src/wide/u16x16_t.rs (original leading notice)
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// No need to use explicit 256bit AVX2 SIMD.
+// `-C target-cpu=native` will autovectorize it better than us.
+// Not even sure why explicit instructions are so slow...
+//
+// On ARM AArch64 we can actually get up to 2x performance boost by using SIMD.
+//
+// We also have to inline all the methods. They are pretty large,
+// but without the inlining the performance is plummeting.
+
+
+SOURCE src/wide/u32x4_t.rs (original leading notice)
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// Based on https://github.com/Lokathor/wide (Zlib)
+
+
+SOURCE src/wide/u32x8_t.rs (original leading notice)
+// Copyright 2020 Yevhenii Reizner
+//
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// Based on https://github.com/Lokathor/wide (Zlib)
+

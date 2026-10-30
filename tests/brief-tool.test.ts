@@ -9,6 +9,7 @@ import { createTestPluginApi } from "openclaw/plugin-sdk/plugin-test-api";
 import { register } from "../src/index.ts";
 import { commentReview, delegateResult, judgeOutput } from "./fixtures/panel-outputs.mjs";
 import { build } from "./fixtures/tool-factory.ts";
+import { executedFinding, executedReviewer, frozenProof, leadFor } from "./fixtures/executed-outputs.mjs";
 
 const root = resolve(import.meta.dirname, "..");
 function registrations() {
@@ -222,5 +223,32 @@ for (const provider of ["openai", "anthropic", "google"])
       const refused = await ingress(normalized, bad);
       expect(refused.isError).toBe(true);
       expect(JSON.stringify(refused.content)).toContain("Invalid pstack_brief");
+    }
+  });
+
+for (const provider of ['openai', 'anthropic', 'google'])
+  it('checks new executed reviewer/lead reports through scripted ' + provider + ' ingress', async () => {
+    const [normalized] = normalizeOpenAIToolSchemas({ provider,
+      modelId: provider === 'google' ? 'gemini-3.1-pro' : provider === 'anthropic' ? 'claude-opus-5-5' : 'gpt-6.1-sol',
+      modelApi: provider === 'google' ? 'google-generative-ai' : provider === 'anthropic' ? 'anthropic-messages' : 'openai-responses',
+      tools: [normalizeToolParameters(tool(), { modelProvider: provider })] });
+    const context = { frozen: frozenProof, reviewers: [0, 1].map(i => ({ slot: 'reviewers:' + i, artifactDigest: String(i).repeat(64), output: executedReviewer(i ? [] : [executedFinding()]) })) };
+    for (const kind of ['reviewer', 'lead']) {
+      const output = kind === 'reviewer' ? context.reviewers[0].output : leadFor(context);
+      const args = { action: 'check', contract: 'interrogate-executed-' + kind, status: 'ISSUES', ...context, output: structuredClone(output) };
+      const good = await ingress(normalized, args);
+      expect(good.isError).toBe(false);
+      expect(good.details).toMatchObject({ status: 'PASS', errors: [], assurance: 'agent-attested' });
+      const invalid = structuredClone(args);
+      const proof = kind === 'reviewer' ? invalid.output.findings[0].proof : invalid.output.accounting[0].rerun;
+      proof.frozenAfter.tree = '0'.repeat(40);
+      const drift = await ingress(normalized, invalid);
+      expect(drift.isError).toBe(false);
+      expect(drift.details.status).toBe('ISSUES');
+      expect(drift.details.errors.join()).toContain('source drift');
+      delete proof.frozenAfter;
+      const missing = await ingress(normalized, invalid);
+      expect(missing.details.status).toBe('ISSUES');
+      expect(missing.details.errors.join()).toContain('frozenAfter');
     }
   });

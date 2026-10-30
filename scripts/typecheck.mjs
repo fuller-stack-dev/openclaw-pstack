@@ -49,6 +49,11 @@ try {
   const file = join(dir, "tsconfig.json");
   await writeFile(file, JSON.stringify(config));
   r = spawnSync(join(host, "node_modules/.bin/tsc"), ["-p", file], { cwd: root, stdio: "inherit" });
+  if (r.status !== 0) throw Error("Plugin typecheck failed");
+  // The reviewed port retains its own strict compiler contract, without weakening the gateway's indexed-access checks.
+  const artifactFile = join(dir, "artifact.json");
+  await writeFile(artifactFile, JSON.stringify({ extends: join(root, "src/artifacts/statechart/tsconfig.json"), compilerOptions: { typeRoots: [join(host, "node_modules/@types")] } }));
+  r = spawnSync(join(host, "node_modules/.bin/tsc"), ["-p", artifactFile], { cwd: root, stdio: "inherit" });
   process.exitCode = r.status ?? 1;
 } finally {
   cleanup();

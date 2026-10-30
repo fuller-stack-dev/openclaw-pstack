@@ -1,0 +1,14 @@
+SOURCE src/lib.rs:11 (original notice block)
+Copyright (c) 2014 The Piston Developers
+
+SOURCE src/lib.rs:20 (original notice block)
+The above copyright notice and this permission notice shall be included in
+
+SOURCE src/lib.rs:26 (original notice block)
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+
+SOURCE src/lib.rs:34 (original notice block)
+Copyright (c) 1994 Anthony Dekker
+
+SOURCE src/lib.rs:49 (original notice block)
+that this copyright notice remain intact.

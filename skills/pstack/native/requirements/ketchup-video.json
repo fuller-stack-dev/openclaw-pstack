@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "route": "ketchup-video",
+  "document": "workflows.md",
+  "priority": "P1",
+  "upstream": [
+    "skills/ketchup-video/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "ketchup-video-01",
+      "text": "Read [ketchup](#ketchup) and the complete [Ketchup video guide](artifacts.md#ketchup-video). The window starts at the last real user message immediately before this invocation, not before an earlier ketchup report. Resolve actual message/invocation IDs and current factual artifacts; worker receipts are not user messages. Rendering outside the repository is the only added write scope, not permission to publish, upload to providers or change production."
+    },
+    {
+      "id": "ketchup-video-02",
+      "text": "1. Privately write one takeaway sentence and one line per slide. Use screenshots, recordings, diffs and data the work actually produced, never chat claims as evidence. Drop any slide that adds no understanding and use at most ten. Keep every still-waiting user-only call, including older ones; name agent-owned remaining work separately."
+    },
+    {
+      "id": "ketchup-video-03",
+      "text": "2. Give each slide one point in an evolving connected picture with stable colors/shapes, plain labels on what they name and arrows/highlights where useful. Never make a bullet deck, status list, table or disconnected boxes. Never repeat a fact across slides or in the reply text. Show each requested outcome as done, running, failed or not checked, including bugs found/fixed. Work waiting on the user is not done. Disclose missing screenshots and name the visible change; never invent numbers or uncaptured screens."
+    },
+    {
+      "id": "ketchup-video-04",
+      "text": "3. Give each slide one roughly ten-word caption explaining its meaning, not reading labels. Keep it in the same-height otherwise-empty strip below the picture, readable at chat size and covering nothing. Use factual PNG inputs and complete added-label declarations under the guide's existing manifest schema; no new renderer fields or synthetic evidence."
+    },
+    {
+      "id": "ketchup-video-05",
+      "text": "4. Render one silent landscape video from slides, never by screen-recording the renderer. The full slide sits above the burned-in subtitle strip for its whole hold, with motion between slides. Hold for at least one second per three newly added subtitle/label words, excluding transitions and screenshot text; count all first-slide words and changed labels. The native renderer conservatively counts the full caption/declared labels each time and preserves evidence edges by letterboxing rather than cropping."
+    },
+    {
+      "id": "ketchup-video-06",
+      "text": "5. Verify the actual file by decoding and matching frames to slide rasters, not a still-frame detector. Inspect one decoded frame per slide at chat size for caption readability, overlap, evidence and story. Compare measured holds with all added words, repair failures, rerender and recheck before delivery. CLI success cannot prove factual inputs, complete declarations or a good story. Clean only consumed owned fixtures."
+    },
+    {
+      "id": "ketchup-video-07",
+      "text": "**Reply.** Ketchup's opening sentence, the video attached through the supported media mechanism, one line of work left the agent can do, then every waiting call. Option names match the video; do not repeat its facts. If rendering or attachment fails, give one truthful failure line and only the calls. No fabricated embed or success claim."
+    }
+  ]
+}

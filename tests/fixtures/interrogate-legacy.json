@@ -1,0 +1,670 @@
+{
+  "provenance": {
+    "adapterCommit": "ed3e203a58aed4a377b431736b508286fb6b615f",
+    "note": "Frozen before executed-proof migration. Synthetic host-boundary receipts; never model or execution proof."
+  },
+  "profile": {
+    "id": "panel-reviewer",
+    "description": "Read-only pstack panel reviewer (shell kept for read-only inspection)",
+    "instructionsFile": "skills/pstack/native/agents/panel-reviewer.md",
+    "tools": {
+      "deny": [
+        "write",
+        "edit",
+        "apply_patch",
+        "sessions",
+        "sessions_create",
+        "sessions_spawn",
+        "sessions_send",
+        "conversations_send",
+        "conversations_turn",
+        "subagents",
+        "create_goal",
+        "update_goal",
+        "skill_workshop",
+        "personal_instructions",
+        "ask_user",
+        "github_publish",
+        "secrets",
+        "group:automation",
+        "group:messaging",
+        "group:nodes",
+        "group:ui",
+        "group:media",
+        "group:plugins"
+      ]
+    }
+  },
+  "profileDigest": "167df839577a9bbf5f7e80b56f9e45e3ef8d0b327c21bab68fe3ddc0da2423b7",
+  "reviewerContract": {
+    "name": "interrogate-reviewer",
+    "schema": {
+      "description": "One independent read-only reviewer. The lead, not the reviewer, assigns the four verdict buckets.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "findings",
+        "lenses",
+        "testAssessment"
+      ],
+      "properties": {
+        "findings": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 64,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "severity",
+              "title",
+              "location",
+              "mechanism",
+              "evidence",
+              "inference"
+            ],
+            "properties": {
+              "severity": {
+                "type": "string",
+                "enum": [
+                  "critical",
+                  "warning",
+                  "nit"
+                ]
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 256
+              },
+              "location": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 512
+              },
+              "mechanism": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2048
+              },
+              "evidence": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              "suggestion": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2048
+              },
+              "inference": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "lenses": {
+          "type": "array",
+          "minItems": 7,
+          "maxItems": 7,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "lens",
+              "disposition",
+              "note"
+            ],
+            "properties": {
+              "lens": {
+                "type": "string",
+                "enum": [
+                  "correctness-and-edge-paths",
+                  "idempotency-and-concurrency",
+                  "root-cause",
+                  "structural-integrity",
+                  "behavioral-verification",
+                  "complexity",
+                  "security"
+                ]
+              },
+              "disposition": {
+                "type": "string",
+                "enum": [
+                  "covered",
+                  "not-applicable"
+                ]
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1024
+              }
+            }
+          }
+        },
+        "testAssessment": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        }
+      }
+    }
+  },
+  "referenceDigests": {
+    "reviewer-prompt.md": "f6005cc2b535006fca97a96c5bfda49df57312eedf1ffd8d1aaaf3eb33817c25",
+    "rubric.md": "0f9c6bdb0b96e26dbde5f6407f417e0c02f54080e7a1268d8994f3c3ec6c5ac0",
+    "code-quality-review.md": "79162fda183eafd40d51661fbb5e151c7ba250f89e506ba17f5bd135dcbd50a8",
+    "lead-judgment.md": "355f5195a76bc75a655125292369f2a8231a2b61fabe5188d8f1386060922b87"
+  },
+  "v1": {
+    "pendingEvents": 4,
+    "record": {
+      "version": 1,
+      "id": "pw-legacy000001",
+      "owner": {
+        "sessionKey": "agent:fixture:dashboard:legacy",
+        "sessionId": "legacy-incarnation",
+        "workspace": "/fixture/workspace"
+      },
+      "setup": {
+        "kind": "interrogate",
+        "taskDigest": "3a66a55c9a755cd561b8597c4a31498244799806fe3c5c43debabf4e1ca520af",
+        "sourceDigest": "57560d99f0baa463c6ccb1c46992470478649dce45bdf9568edea5f0c1dd4a3d",
+        "snapshots": [
+          {
+            "version": 1,
+            "role": "interrogate reviewers",
+            "source": "inherit",
+            "selections": [
+              {},
+              {}
+            ],
+            "poolIndex": null,
+            "diversity": "not-established"
+          }
+        ],
+        "catalog": [],
+        "options": {}
+      },
+      "events": [
+        {
+          "id": "old-1",
+          "type": "advance",
+          "evidence": {
+            "intent": "frozen intent",
+            "frozen-head": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "rubric": "legacy rubric"
+          }
+        },
+        {
+          "id": "old-2",
+          "type": "accept",
+          "slot": "reviewers:0",
+          "runId": "legacy-reviewers:0",
+          "childSessionKey": "agent:fixture:subagent:legacy-reviewers:0",
+          "snapshotId": "1449ac4aedf007ce767a64de96272ec2ed7697184d2e94f119df635b07f24d4b"
+        },
+        {
+          "id": "old-3",
+          "type": "accept",
+          "slot": "reviewers:1",
+          "runId": "legacy-reviewers:1",
+          "childSessionKey": "agent:fixture:subagent:legacy-reviewers:1",
+          "snapshotId": "1449ac4aedf007ce767a64de96272ec2ed7697184d2e94f119df635b07f24d4b"
+        },
+        {
+          "id": "old-4",
+          "type": "collect",
+          "slot": "reviewers:0",
+          "runId": "legacy-reviewers:0",
+          "result": {
+            "status": "PASS",
+            "artifactDigest": "e7152abb5e9fe53dc046a6917c3a841f035527d2d3bad0382031f9f967311da4",
+            "evidence": [
+              "legacy evidence"
+            ],
+            "output": {
+              "findings": [],
+              "lenses": [
+                {
+                  "lens": "correctness-and-edge-paths",
+                  "disposition": "covered",
+                  "note": "Traced callers"
+                },
+                {
+                  "lens": "idempotency-and-concurrency",
+                  "disposition": "covered",
+                  "note": "Traced callers"
+                },
+                {
+                  "lens": "root-cause",
+                  "disposition": "covered",
+                  "note": "Traced callers"
+                },
+                {
+                  "lens": "structural-integrity",
+                  "disposition": "covered",
+                  "note": "Traced callers"
+                },
+                {
+                  "lens": "behavioral-verification",
+                  "disposition": "covered",
+                  "note": "Traced callers"
+                },
+                {
+                  "lens": "complexity",
+                  "disposition": "not-applicable",
+                  "note": "No such surface in this diff"
+                },
+                {
+                  "lens": "security",
+                  "disposition": "not-applicable",
+                  "note": "No such surface in this diff"
+                }
+              ],
+              "testAssessment": "Tests assert observable outcomes and the failure path."
+            }
+          }
+        },
+        {
+          "id": "old-5",
+          "type": "collect",
+          "slot": "reviewers:1",
+          "runId": "legacy-reviewers:1",
+          "result": {
+            "status": "PASS",
+            "artifactDigest": "f61e618851d447de4693d0d1fd1ff3f89bac83a435474e82257f2e810366c0fa",
+            "evidence": [
+              "legacy evidence"
+            ],
+            "output": {
+              "findings": [],
+              "lenses": [
+                {
+                  "lens": "correctness-and-edge-paths",
+                  "disposition": "covered",
+                  "note": "Traced callers"
+                },
+                {
+                  "lens": "idempotency-and-concurrency",
+                  "disposition": "covered",
+                  "note": "Traced callers"
+                },
+                {
+                  "lens": "root-cause",
+                  "disposition": "covered",
+                  "note": "Traced callers"
+                },
+                {
+                  "lens": "structural-integrity",
+                  "disposition": "covered",
+                  "note": "Traced callers"
+                },
+                {
+                  "lens": "behavioral-verification",
+                  "disposition": "covered",
+                  "note": "Traced callers"
+                },
+                {
+                  "lens": "complexity",
+                  "disposition": "not-applicable",
+                  "note": "No such surface in this diff"
+                },
+                {
+                  "lens": "security",
+                  "disposition": "not-applicable",
+                  "note": "No such surface in this diff"
+                }
+              ],
+              "testAssessment": "Tests assert observable outcomes and the failure path."
+            }
+          }
+        },
+        {
+          "id": "old-6",
+          "type": "advance",
+          "evidence": {}
+        },
+        {
+          "id": "old-7",
+          "type": "advance",
+          "evidence": {
+            "all-findings-four-buckets": "all accounted",
+            "model-attributed-agreement-map": "both reviewers",
+            "source-validation": "read scoped source"
+          }
+        }
+      ]
+    }
+  },
+  "v2": {
+    "pendingEvents": 6,
+    "record": {
+      "version": 2,
+      "id": "pw-legacy000002",
+      "owner": {
+        "sessionKey": "agent:fixture:dashboard:legacy",
+        "sessionId": "legacy-incarnation",
+        "workspace": "/fixture/workspace"
+      },
+      "setup": {
+        "kind": "interrogate",
+        "taskDigest": "3a66a55c9a755cd561b8597c4a31498244799806fe3c5c43debabf4e1ca520af",
+        "sourceDigest": "57560d99f0baa463c6ccb1c46992470478649dce45bdf9568edea5f0c1dd4a3d",
+        "snapshots": [
+          {
+            "version": 1,
+            "role": "interrogate reviewers",
+            "source": "inherit",
+            "selections": [
+              {},
+              {}
+            ],
+            "poolIndex": null,
+            "diversity": "not-established"
+          },
+          {
+            "version": 1,
+            "role": "judgment and prose",
+            "source": "inherit",
+            "selections": [
+              {}
+            ],
+            "poolIndex": null,
+            "diversity": "not-applicable"
+          }
+        ],
+        "catalog": [],
+        "options": {},
+        "task": "Review the frozen legacy implementation",
+        "stagesVersion": 2,
+        "profiles": {
+          "interrogate reviewers": {
+            "id": "panel-reviewer",
+            "instructionsSha256": "167df839577a9bbf5f7e80b56f9e45e3ef8d0b327c21bab68fe3ddc0da2423b7"
+          },
+          "judgment and prose": {
+            "id": "panel-reviewer",
+            "instructionsSha256": "167df839577a9bbf5f7e80b56f9e45e3ef8d0b327c21bab68fe3ddc0da2423b7"
+          }
+        }
+      },
+      "events": [
+        {
+          "id": "old-1",
+          "type": "advance",
+          "evidence": {
+            "intent": "frozen intent",
+            "frozen-head": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "rubric": "legacy rubric"
+          }
+        },
+        {
+          "id": "old-2",
+          "type": "dispatch",
+          "slot": "reviewers:0",
+          "requestId": "old-reviewers:0",
+          "snapshotId": "1449ac4aedf007ce767a64de96272ec2ed7697184d2e94f119df635b07f24d4b",
+          "profile": {
+            "id": "panel-reviewer",
+            "instructionsSha256": "167df839577a9bbf5f7e80b56f9e45e3ef8d0b327c21bab68fe3ddc0da2423b7"
+          },
+          "by": "fixture-owner"
+        },
+        {
+          "id": "old-3",
+          "type": "accept",
+          "slot": "reviewers:0",
+          "runId": "legacy-reviewers:0",
+          "childSessionKey": "agent:fixture:subagent:legacy-reviewers:0",
+          "snapshotId": "1449ac4aedf007ce767a64de96272ec2ed7697184d2e94f119df635b07f24d4b",
+          "requestId": "old-reviewers:0",
+          "selection": {
+            "requested": {},
+            "resolved": {}
+          }
+        },
+        {
+          "id": "old-4",
+          "type": "dispatch",
+          "slot": "reviewers:1",
+          "requestId": "old-reviewers:1",
+          "snapshotId": "1449ac4aedf007ce767a64de96272ec2ed7697184d2e94f119df635b07f24d4b",
+          "profile": {
+            "id": "panel-reviewer",
+            "instructionsSha256": "167df839577a9bbf5f7e80b56f9e45e3ef8d0b327c21bab68fe3ddc0da2423b7"
+          },
+          "by": "fixture-owner"
+        },
+        {
+          "id": "old-5",
+          "type": "accept",
+          "slot": "reviewers:1",
+          "runId": "legacy-reviewers:1",
+          "childSessionKey": "agent:fixture:subagent:legacy-reviewers:1",
+          "snapshotId": "1449ac4aedf007ce767a64de96272ec2ed7697184d2e94f119df635b07f24d4b",
+          "requestId": "old-reviewers:1",
+          "selection": {
+            "requested": {},
+            "resolved": {}
+          }
+        },
+        {
+          "id": "old-6",
+          "type": "collect",
+          "slot": "reviewers:0",
+          "runId": "legacy-reviewers:0",
+          "result": {
+            "status": "PASS",
+            "artifactDigest": "e7152abb5e9fe53dc046a6917c3a841f035527d2d3bad0382031f9f967311da4",
+            "evidence": [
+              "legacy evidence"
+            ],
+            "output": {
+              "findings": [],
+              "lenses": [
+                {
+                  "lens": "correctness-and-edge-paths",
+                  "disposition": "covered",
+                  "note": "Traced callers"
+                },
+                {
+                  "lens": "idempotency-and-concurrency",
+                  "disposition": "covered",
+                  "note": "Traced callers"
+                },
+                {
+                  "lens": "root-cause",
+                  "disposition": "covered",
+                  "note": "Traced callers"
+                },
+                {
+                  "lens": "structural-integrity",
+                  "disposition": "covered",
+                  "note": "Traced callers"
+                },
+                {
+                  "lens": "behavioral-verification",
+                  "disposition": "covered",
+                  "note": "Traced callers"
+                },
+                {
+                  "lens": "complexity",
+                  "disposition": "not-applicable",
+                  "note": "No such surface in this diff"
+                },
+                {
+                  "lens": "security",
+                  "disposition": "not-applicable",
+                  "note": "No such surface in this diff"
+                }
+              ],
+              "testAssessment": "Tests assert observable outcomes and the failure path."
+            },
+            "report": "## Intent\nNo findings in the bounded legacy review.\n\n## Reviewers\nNo findings in the bounded legacy review.\n\n## Act on\nNo findings in the bounded legacy review.\n\n## Consider\nNo findings in the bounded legacy review.\n\n## Noted\nNo findings in the bounded legacy review.\n\n## Dismissed\nNo findings in the bounded legacy review.\n\n## Agreement Map\nNo findings in the bounded legacy review."
+          }
+        },
+        {
+          "id": "old-7",
+          "type": "collect",
+          "slot": "reviewers:1",
+          "runId": "legacy-reviewers:1",
+          "result": {
+            "status": "PASS",
+            "artifactDigest": "f61e618851d447de4693d0d1fd1ff3f89bac83a435474e82257f2e810366c0fa",
+            "evidence": [
+              "legacy evidence"
+            ],
+            "output": {
+              "findings": [],
+              "lenses": [
+                {
+                  "lens": "correctness-and-edge-paths",
+                  "disposition": "covered",
+                  "note": "Traced callers"
+                },
+                {
+                  "lens": "idempotency-and-concurrency",
+                  "disposition": "covered",
+                  "note": "Traced callers"
+                },
+                {
+                  "lens": "root-cause",
+                  "disposition": "covered",
+                  "note": "Traced callers"
+                },
+                {
+                  "lens": "structural-integrity",
+                  "disposition": "covered",
+                  "note": "Traced callers"
+                },
+                {
+                  "lens": "behavioral-verification",
+                  "disposition": "covered",
+                  "note": "Traced callers"
+                },
+                {
+                  "lens": "complexity",
+                  "disposition": "not-applicable",
+                  "note": "No such surface in this diff"
+                },
+                {
+                  "lens": "security",
+                  "disposition": "not-applicable",
+                  "note": "No such surface in this diff"
+                }
+              ],
+              "testAssessment": "Tests assert observable outcomes and the failure path."
+            },
+            "report": "## Intent\nNo findings in the bounded legacy review.\n\n## Reviewers\nNo findings in the bounded legacy review.\n\n## Act on\nNo findings in the bounded legacy review.\n\n## Consider\nNo findings in the bounded legacy review.\n\n## Noted\nNo findings in the bounded legacy review.\n\n## Dismissed\nNo findings in the bounded legacy review.\n\n## Agreement Map\nNo findings in the bounded legacy review."
+          }
+        },
+        {
+          "id": "old-8",
+          "type": "advance",
+          "evidence": {}
+        },
+        {
+          "id": "old-9",
+          "type": "dispatch",
+          "slot": "lead:0",
+          "requestId": "old-lead:0",
+          "snapshotId": "edfec5cccf79751acb3f95a0a74ed7e926f9c8e70bf657ce1f47e68ae59d44d3",
+          "profile": {
+            "id": "panel-reviewer",
+            "instructionsSha256": "167df839577a9bbf5f7e80b56f9e45e3ef8d0b327c21bab68fe3ddc0da2423b7"
+          },
+          "by": "fixture-owner"
+        },
+        {
+          "id": "old-10",
+          "type": "accept",
+          "slot": "lead:0",
+          "runId": "legacy-lead:0",
+          "childSessionKey": "agent:fixture:subagent:legacy-lead:0",
+          "snapshotId": "edfec5cccf79751acb3f95a0a74ed7e926f9c8e70bf657ce1f47e68ae59d44d3",
+          "requestId": "old-lead:0",
+          "selection": {
+            "requested": {},
+            "resolved": {}
+          }
+        },
+        {
+          "id": "old-11",
+          "type": "collect",
+          "slot": "lead:0",
+          "runId": "legacy-lead:0",
+          "result": {
+            "status": "PASS",
+            "artifactDigest": "0eb5b2c86fdf6a59a9155a5d5747a166694ff8a0b1ae56a9174a7e3a15854d7c",
+            "evidence": [
+              "legacy evidence"
+            ],
+            "report": "## Intent\nNo findings in the bounded legacy review.\n\n## Reviewers\nNo findings in the bounded legacy review.\n\n## Act on\nNo findings in the bounded legacy review.\n\n## Consider\nNo findings in the bounded legacy review.\n\n## Noted\nNo findings in the bounded legacy review.\n\n## Dismissed\nNo findings in the bounded legacy review.\n\n## Agreement Map\nNo findings in the bounded legacy review."
+          }
+        },
+        {
+          "id": "old-12",
+          "type": "advance",
+          "evidence": {}
+        }
+      ]
+    }
+  },
+  "correction": {
+    "version": 2,
+    "id": "pw-correct00001",
+    "owner": {
+      "sessionKey": "agent:fixture:dashboard:legacy",
+      "sessionId": "legacy-incarnation",
+      "workspace": "/fixture/workspace"
+    },
+    "setup": {
+      "kind": "interrogate",
+      "taskDigest": "3a66a55c9a755cd561b8597c4a31498244799806fe3c5c43debabf4e1ca520af",
+      "sourceDigest": "57560d99f0baa463c6ccb1c46992470478649dce45bdf9568edea5f0c1dd4a3d",
+      "snapshots": [
+        {
+          "version": 1,
+          "role": "judgment and prose",
+          "source": "inherit",
+          "selections": [
+            {}
+          ],
+          "poolIndex": null,
+          "diversity": "not-applicable"
+        }
+      ],
+      "catalog": [],
+      "options": {},
+      "task": "Review the frozen legacy implementation",
+      "stagesVersion": 2,
+      "profiles": {
+        "judgment and prose": {
+          "id": "panel-reviewer",
+          "instructionsSha256": "167df839577a9bbf5f7e80b56f9e45e3ef8d0b327c21bab68fe3ddc0da2423b7"
+        }
+      },
+      "correction": {
+        "workflowId": "pw-legacy000002",
+        "slot": "lead:0",
+        "runId": "legacy-lead:0",
+        "artifactDigest": "0eb5b2c86fdf6a59a9155a5d5747a166694ff8a0b1ae56a9174a7e3a15854d7c",
+        "report": "## Intent\nNo findings in the bounded legacy review.\n\n## Reviewers\nNo findings in the bounded legacy review.\n\n## Act on\nNo findings in the bounded legacy review.\n\n## Consider\nNo findings in the bounded legacy review.\n\n## Noted\nNo findings in the bounded legacy review.\n\n## Dismissed\nNo findings in the bounded legacy review.\n\n## Agreement Map\nNo findings in the bounded legacy review.",
+        "errors": "The legacy report omitted a source constraint",
+        "by": "fixture-owner"
+      }
+    },
+    "events": []
+  },
+  "nativeAdmissionV2": {
+    "provenance": "Synthetic receipts with the normal v2 admission profile shape from controller.nativeSetup and panelProfileFor at 0d3c845a8c3c0e143167253a3b4cad7cb0d12027: reviewers pinned, judgment and prose unprofiled. Existing v2 remains the broader supported synthetic pinned-lead case.",
+    "profiles": {
+      "interrogate reviewers": {
+        "id": "panel-reviewer",
+        "instructionsSha256": "167df839577a9bbf5f7e80b56f9e45e3ef8d0b327c21bab68fe3ddc0da2423b7"
+      }
+    }
+  }
+}

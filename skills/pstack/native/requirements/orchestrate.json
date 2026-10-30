@@ -12,259 +12,51 @@
   "gates": [
     {
       "id": "orchestrate-01",
-      "text": "Own the program, not its code."
+      "text": "Own the program, not its code. Reuse its existing responsible coordinator; never create a competing dispatcher or resume held work. Work one agent can finish in its session budget uses [autonomous-run](#autonomous-run); a bespoke ambitious run uses [figure-it-out](workflows.md#figure-it-out)."
     },
     {
       "id": "orchestrate-02",
-      "text": "Reuse its existing responsible coordinator; never create a competing dispatcher or resume held work."
+      "text": "1. Use available native tools and the existing task/project record. Keep only the goal, units, owners, accepted runs, current heads, evidence, decisions and next actions needed to resume. Do not create helper scripts, a parallel store, polling loops, mandatory queue files or a status-relay service. Reuse an authorized PR/CI event subscription when available; otherwise name the missing watch capability and retain an explicit resume handoff. Native controller CAS, continuation and accepted collection remain intact. Dependency evidence belongs in kickoffs and collected results, not repeated status relays or routine Main wakes."
     },
     {
       "id": "orchestrate-03",
-      "text": "Frame a countable done predicate, unit count, rough effort, tracks, expected stacks, and wall-clock budget."
+      "text": "2. Assign exactly one owner per PR through pstack_route and native sessions_spawn. Only that owner writes, pushes, rebases or retargets its branch and carries it through separately authorized landing. The coordinator never authors implementation code; fixes and conflicts return to owners. Closing or retargeting a base can orphan dependent PRs, so its owner acts only on the coordinator's explicit scoped call and existing authority. Inspect actual forge topology before coordinating changes; no second root topology writer."
     },
     {
       "id": "orchestrate-04",
-      "text": "If one agent could finish within that budget, collapse to [autonomous-run](#autonomous-run) immediately: work in the current session with plain scoped workers only where useful, inline verification where independence is not required, and no program ledger or pilot ceremony."
+      "text": "3. Use a fresh worker for independent work. Each kickoff includes the current goal, exact revision, writable and forbidden paths, forbidden actions, acceptance command/expected output or driver/artifact, routing controls and every required upstream report in full. Workers cannot read sibling context implicitly. If evidence cannot be named, the unit is not scoped. Prefer an authorized isolated remote environment when available; local-only runtime/auth/data needs justify local work. Never call a local child cloud or install a provider by implication."
     },
     {
       "id": "orchestrate-05",
-      "text": "The collapse rule does not depend on another document being available."
+      "text": "4. Continue an existing worker only for follow-up on the same work or because new work requires its built state, checkout, unpublished edits or running process. Preserve custody and use supported native continuation/fork controls only. Never message an idle worker merely to check it; inspect status and side effects read-only. A replacement takes custody and fences the former writer before writes."
     },
     {
       "id": "orchestrate-06",
-      "text": "A contested decomposition or one-way door uses [arena](workflows.md#arena) before the pilot."
+      "text": "5. Use a sub-coordinator only for an area with many parallel workers. It owns their briefs and returns one evidence-linked rollup, not raw reports. Stop at three levels (coordinator, sub-coordinator, workers), or the host's stricter limit. Keep a rolling window of about ten workers per coordinator within actual resource/concurrency limits; refill as work completes, not after a whole batch. Sample kickoffs while work runs and correct failed instructions before more dispatch."
     },
     {
       "id": "orchestrate-07",
-      "text": "For a real program the coordinator writes no implementation code."
+      "text": "6. Pilot one unit through kickoff, owner, independent verifier and authorized delivery before fan-out. For near-identical cheap units the first ordinary unit is the pilot. Every PR still gets a verifier other than its author on a verified different model family. Resolve it with pstack_route, spawn and collect through native tools. Missing canonical family, independent verification or collection is BLOCKED, never an inline substitute. Merge only with the verifier's pass covering the current head and all separate review, CI and authority gates."
     },
     {
       "id": "orchestrate-08",
-      "text": "Code changes, conflict resolution, and chain rebases are delegated units."
+      "text": "7. Read each diff or artifact, not only the summary. Green CI is an input, not the verdict; behavioral work needs matching-surface evidence beyond typecheck. A new head needs a new applicable verdict. Send scope drift or unnecessary growth back to its owner; keep only fixes blocking the program and park the rest. Before reporting a PR, read its live state and checks through authorized forge tools, not a stale report. Account for every spawned worker as done, replaced or explicitly absorbed with remaining coverage named."
     },
     {
       "id": "orchestrate-09",
-      "text": "Clean integration of an already verified commit may be authorized bookkeeping, never permission to repair code."
+      "text": "8. Diagnose stalls by pushes, PR activity and other actual side effects, not status prose. Retry by cause: smaller scope after context/memory limits, the same kickoff after connection loss, or an explicitly available routed alternative after a tool error. At most two retries; then drop the unit and replan. Stop/replace through native custody controls. Reconcile late results against the current PR/head before giving unique findings to a fresh worker. Never replay an uncertain external write or cancelled input."
     },
     {
       "id": "orchestrate-10",
-      "text": "Use native `pstack_route` plus emitted `sessions_spawn` arguments for workers, and collect through accepted native tools."
+      "text": "9. Ask only for a genuine irreversible, safety, product/preference decision or a dead end surviving replan. Resolve authorized rebase mechanics, CI flakes and review triage yourself; do not ask whether to keep going. Preserve explicit operator gates and stops. Before closing, reconcile every accepted child, inspect delivered artifacts and audit the existing [show-me-your-work](workflows.md#show-me-your-work) trail with its independent different-family review. Missing history or review is a named close blocker."
     },
     {
       "id": "orchestrate-11",
-      "text": "Missing required independent phases are BLOCKED, never silently absorbed as parent implementation."
+      "text": "10. When pstack_brief rejects a delegate contract, give one fresh routed correction child the exact errors, required paths and existing evidence. A one-shot collector cannot be resumed by message; that refusal is not the result. A second invalid report is a failed unit with its coverage gap retained. Never replace failed independent work with parent prose."
     },
     {
       "id": "orchestrate-12",
-      "text": "Prefer isolated authorized remote workers when needed and available; a local child is not a cloud machine."
-    },
-    {
-      "id": "orchestrate-13",
-      "text": "Keep one task-owned durable program directory, not a new service or live plugin store."
-    },
-    {
-      "id": "orchestrate-14",
-      "text": "Native file tools replace the source-only orchestration helper."
-    },
-    {
-      "id": "orchestrate-15",
-      "text": "Give every artifact one writer."
-    },
-    {
-      "id": "orchestrate-16",
-      "text": "Maintain `preferences.md` numbered standing orders, append-only `overview.md`, `units.tsv` with id/track/state/branch/PR/head/brief, computed `frontier.json`, `ledger.tsv`, completion pointers in `inbox/`, human gates in `gates.md`, a [show-me-your-work](workflows.md#show-me-your-work) trail, and `status.md` derived from tables at each drain."
-    },
-    {
-      "id": "orchestrate-17",
-      "text": "Without durable artifact access, program custody is BLOCKED."
-    },
-    {
-      "id": "orchestrate-18",
-      "text": "Never execute upstream orchestration scripts."
-    },
-    {
-      "id": "orchestrate-19",
-      "text": "Write standing orders before the first spawn."
-    },
-    {
-      "id": "orchestrate-20",
-      "text": "Every spawn and authorized continuation carries them verbatim plus goal, exclusive write scope and forbidden paths, exact source and dependency reports, checkable acceptance, verification commands or control driver, timebox, prohibitions, and report shape."
-    },
-    {
-      "id": "orchestrate-21",
-      "text": "Missing fields mean refuse-to-spawn."
-    },
-    {
-      "id": "orchestrate-22",
-      "text": "A cheap one-command unit may collapse the template but keeps goal, scope, command, and report."
-    },
-    {
-      "id": "orchestrate-23",
-      "text": "Relay upstream context, not just ordering."
-    },
-    {
-      "id": "orchestrate-24",
-      "text": "Fresh replacements get consolidated directives and prior evidence; never interrupt-chain a stale brief or replay cancelled inputs."
-    },
-    {
-      "id": "orchestrate-25",
-      "text": "Existing native owner/incarnation policy governs continuations."
-    },
-    {
-      "id": "orchestrate-26",
-      "text": "Pilot one unit through brief, work, verification, integration, ledger, and authorized delivery before scaling."
-    },
-    {
-      "id": "orchestrate-27",
-      "text": "Fix the contract from evidence."
-    },
-    {
-      "id": "orchestrate-28",
-      "text": "For cheap near-identical units, the first ordinary unit is the pilot and has inline checks; expensive, novel, or high-blast-radius units need an independent different-family verifier."
-    },
-    {
-      "id": "orchestrate-29",
-      "text": "Sub-coordinators exist only when one coordinator cannot drain the track."
-    },
-    {
-      "id": "orchestrate-30",
-      "text": "Keep nesting and concurrency within native limits and use a rolling window rather than blocking batches."
-    },
-    {
-      "id": "orchestrate-31",
-      "text": "Audit one sampled brief per track per wave alongside work; a failed brief stops its next refill and repairs the track instructions."
-    },
-    {
-      "id": "orchestrate-32",
-      "text": "Treat completions as queued pointers, not interruptions or inline diff reviews."
-    },
-    {
-      "id": "orchestrate-33",
-      "text": "Drain after critical sections, track rollups, an authorized frontier event, and before reporting."
-    },
-    {
-      "id": "orchestrate-34",
-      "text": "Snapshot the pending batch; later arrivals wait."
-    },
-    {
-      "id": "orchestrate-35",
-      "text": "Classify each result as landed, needs-verify, failed, zombie, or noise, update units and ledger, derive status, recompute ready work, then refill."
-    },
-    {
-      "id": "orchestrate-36",
-      "text": "Account for every child as arrived, replaced, abandoned, or explicitly absorbed with its coverage gap recorded."
-    },
-    {
-      "id": "orchestrate-37",
-      "text": "Do not silently redo missing work."
-    },
-    {
-      "id": "orchestrate-38",
-      "text": "Review is a separate scoped unit when needed."
-    },
-    {
-      "id": "orchestrate-39",
-      "text": "Keep exactly one topology writer per stack in the standing orders."
-    },
-    {
-      "id": "orchestrate-40",
-      "text": "Workers never rebase, retarget, merge, or close PRs."
-    },
-    {
-      "id": "orchestrate-41",
-      "text": "Babysitters use one immutable frontier generation and report conflicts to that writer."
-    },
-    {
-      "id": "orchestrate-42",
-      "text": "Recompute the ordered PRs, branches, exact head SHAs, generation, and lowest unmerged PR after every merge or stack mutation from real forge data; missing PRs are errors, not guessed order."
-    },
-    {
-      "id": "orchestrate-43",
-      "text": "Integrate continuously from the first verified unit, keep the frontier green, and stop new dispatch around 70 percent of the budget to deliver verified work."
-    },
-    {
-      "id": "orchestrate-44",
-      "text": "Publication is still separately gated by [shipping](#shipping)."
-    },
-    {
-      "id": "orchestrate-45",
-      "text": "A retro watcher exists only through an explicitly authorized native owner/watch lifecycle."
-    },
-    {
-      "id": "orchestrate-46",
-      "text": "Key verification ledger rows by PR and exact head SHA with `live-ui-verified`, `unit-test-verified`, `type-check-only`, `verifier-blocked`, or `verifier-failed`."
-    },
-    {
-      "id": "orchestrate-47",
-      "text": "Cheap deterministic checks may be worker-run with receipt spot-checks; judgment-heavy, expensive, or high-blast-radius checks need an independent different-family verifier."
-    },
-    {
-      "id": "orchestrate-48",
-      "text": "CI is an input, not a verdict."
-    },
-    {
-      "id": "orchestrate-49",
-      "text": "Behavioral work needs more than type-check-only, blocked never passes, failures produce fix units, and a new head invalidates its row until reverified."
-    },
-    {
-      "id": "orchestrate-50",
-      "text": "Externalize branches, receipts, and verdicts promptly through authorized storage or publication, not at the end."
-    },
-    {
-      "id": "orchestrate-51",
-      "text": "Probe liveness read-only from actual side effects and native status, never resume merely to check."
-    },
-    {
-      "id": "orchestrate-52",
-      "text": "Retry cap-hit or OOM with smaller scope, network loss with the same scope, tool error with an available explicitly routed alternative, unknown failure once; at most two retries, then abandon and replan."
-    },
-    {
-      "id": "orchestrate-53",
-      "text": "Reconcile late results against current frontier and ledger before salvaging unique findings."
-    },
-    {
-      "id": "orchestrate-54",
-      "text": "Tree-wide bad acceptance or dead infrastructure stops refills while its cause is fixed."
-    },
-    {
-      "id": "orchestrate-55",
-      "text": "Bound coordinator tool retries too and leave a durable exact-resume handoff on repeated failure."
-    },
-    {
-      "id": "orchestrate-56",
-      "text": "On restart reconcile real native child state, standing orders, units, frontier, branches, and receipts before continuation; do not assume a remote worker died or resurrect a cancelled child."
-    },
-    {
-      "id": "orchestrate-57",
-      "text": "Route around human gates recorded with decision, options, and recommendation."
-    },
-    {
-      "id": "orchestrate-58",
-      "text": "Fix only discoveries blocking the frontier; park unrelated follow-ups."
-    },
-    {
-      "id": "orchestrate-59",
-      "text": "At close reconcile every spawn to a terminal state, verify the predicate and each landed exact-head verdict, audit the trail against scoped native history, and resolve its mandatory different-family reviewer through `pstack_route` and native `sessions_spawn`."
-    },
-    {
-      "id": "orchestrate-60",
-      "text": "Missing history or independent review is a BLOCKED close gate."
-    },
-    {
-      "id": "orchestrate-61",
-      "text": "Encode recurring corrections in the standing orders or brief template and preserve the program record."
-    },
-    {
-      "id": "orchestrate-62",
-      "text": "**Reply.** Table-derived predicate count, track deliveries, frontier PRs and SHAs, verdict summary, abandoned units and reasons, human gates, program directory, and trail path."
-    },
-    {
-      "id": "orchestrate-63",
-      "text": "A drain status gives counts, changes, and open gates; routine notifications stay with the owning session, not Main."
-    },
-    {
-      "id": "orchestrate-rerun-rejected",
-      "text": "11. When the `pstack_brief` check rejects a delegate's report, for example over a `contractRead` entry that names a section such as `workflows.md#orchestrate` instead of the exact path, rerun the delegate once as a fresh `sessions_spawn` child from the same plan, with the check's exact error and the exact required paths in its task. A collector child refuses a same-owner correction, so that refusal never ends the unit; only a second rejection marks it failed in the ledger."
+      "text": "**Reply.** What landed against the goal, each PR's live state, head, verdict and link, dropped work and reasons, remaining owned work, genuine user decisions and the existing trail pointer. No helper-shaped ledger ceremony or new watcher."
     }
   ]
 }

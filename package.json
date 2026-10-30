@@ -1,10 +1,15 @@
 {
   "name": "@fuller-stack-dev/openclaw-pstack",
-  "version": "1.2.9",
+  "version": "1.3.0",
   "description": "Exact-session workflow mode, role routing, and source-attributed pstack guidance for OpenClaw",
   "license": "MIT",
   "files": [
     "dist/index.js",
+    "dist/statechart.mjs",
+    "dist/statechart-worker.mjs",
+    "dist/ketchup-video.mjs",
+    "dist/ketchup-video.build.json",
+    "licenses",
     "skills/poteto-mode/SKILL.md",
     "skills/routes",
     "skills/pstack/SKILL.md",
@@ -21,6 +26,7 @@
     "skills/pstack/scripts/session_mode.py",
     "skills/pstack/scripts/plan-check.mjs",
     "skills/pstack/scripts/output-contracts.mjs",
+    "skills/pstack/scripts/interrogate-semantics.mjs",
     "skills/pstack/scripts/verify_install.py",
     "openclaw.plugin.json",
     "README.md",
@@ -46,7 +52,9 @@
     "sync:routes": "node scripts/sync-routes.mjs",
     "test:routes": "node --test tests/route-generation.test.mjs",
     "sync:overlay": "node scripts/sync-overlay.mjs",
-    "test:overlay": "node --test tests/semantic-overlay.test.mjs"
+    "test:overlay": "node --test tests/semantic-overlay.test.mjs",
+    "test:statechart": "node tests/artifact-statechart-packed.mjs",
+    "test:video": "node --test tests/artifact-video-pack.test.mjs"
   },
   "peerDependencies": {
     "openclaw": ">=2026.10.5"
@@ -103,5 +111,8 @@
     "openclaw": {
       "optional": true
     }
+  },
+  "dependencies": {
+    "pele": "1.9.0"
   }
 }

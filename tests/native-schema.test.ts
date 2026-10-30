@@ -9,6 +9,9 @@ import { runAgentLoop } from "host-test/agent-core";
 import { createAssistantMessageEventStream } from "host-test/llm-core";
 import { register } from "../src/index.ts";
 import { build } from "./fixtures/tool-factory.ts";
+import { envelopeSchema } from "../src/controller.ts";
+import { executedFinding, executedReviewer, frozenProof, leadFor } from "./fixtures/executed-outputs.mjs";
+import { createStructuredOutputTool, consumeSwarmStructuredOutput, peekSwarmStructuredOutput } from "host-test/structured-output";
 
 // Factory schemas at the immutable pin, not a live Gateway effective descriptor.
 // planner-spawn.test.ts verifies both captures and adjacent provenance.
@@ -66,13 +69,15 @@ afterEach(async () => {
 async function saveConfig() {
   await writeFile(join(workspace, "pstack-models.json"), JSON.stringify(config));
 }
-function nativeTool(workspaceDir: string | undefined, provider = "openai") {
+function nativeTool(workspaceDir: string | undefined, provider = "openai", nativeJudge = false, parentModel = sol.model) {
   let factory: any;
   register(
     createTestPluginApi({
       id: "pstack",
       runtime: { state: { openKeyedStoreV2: (spec: any, opts: any) =>
-        createPluginStateKeyedStoreV2ForTests("pstack", spec, opts) } },
+        createPluginStateKeyedStoreV2ForTests("pstack", spec, opts) },
+        ...(nativeJudge ? { capabilities: ["requester-model-catalog-v1", "requester-model-family-v1"],
+          agent: { session: { getSessionEntryAsync: async () => ({ sessionId: "native-schema-incarnation" }) } } } : {}) },
       registerTool: (value: any, options: any) => {
         if (options?.names?.includes("pstack_route")) factory = value;
       },
@@ -83,6 +88,10 @@ function nativeTool(workspaceDir: string | undefined, provider = "openai") {
     sessionKey: "agent:worker:subagent:native-schema-requester",
     sessionId: "native-schema-incarnation",
     agentId: "worker",
+    // Judge planning/resumption consumes host facts, never the model-authored parent hint.
+    ...(nativeJudge ? { activeModel: { provider: parentModel.split("/")[0], modelId: parentModel.slice(parentModel.indexOf("/") + 1), modelRef: parentModel },
+      assertInvocationCurrent() {}, runtimeContext: { models: { list: async () => ({ state: "prepared", revision: "ingress-fixture",
+        models: catalog.map(row => ({ provider: row.id.split("/")[0], id: row.id.slice(row.id.indexOf("/") + 1), name: row.id, family: row.family })) }) } } } : {}),
   });
   const execute = vi.spyOn(source, "execute");
   // The real host normalization is part of every admission, not a local copy.
@@ -112,11 +121,15 @@ async function dispatch(
     missingWorkspace?: boolean;
     provider?: string;
     block?: boolean;
+    sourceTool?: any;
+    parentModel?: string;
   } = {},
 ) {
-  const h = nativeTool(
+  const h = options.sourceTool ? { tool: options.sourceTool, execute: vi.spyOn(options.sourceTool, "execute") } : nativeTool(
     options.missingWorkspace ? undefined : (options.workspaceDir ?? workspace),
     options.provider,
+    args.role === "arena cross-judge pool" && args.task !== undefined,
+    options.parentModel,
   );
   const id = "native-ingress-call";
   const events: any[] = [];
@@ -350,7 +363,8 @@ describe.each(spawnSchemas)("pstack_route through native normalization and dispa
         { ...saved("arena runners", [sol, opus], null, "different-family"), source: "override" },
       ],
     ])("admits %s with exact controls and snapshot", async (_name, extra, expected) => {
-      const result = accepted(await dispatch(request(extra), { provider }));
+      const result = accepted(await dispatch(request(extra), { provider,
+        parentModel: _name === "resume pool index 0" ? opus.model : sol.model }));
       expect(result.snapshot).toEqual(expected);
       expect(result.spawnArgs).toHaveLength(expected.selections.length);
       for (const [index, args] of result.spawnArgs.entries()) {
@@ -679,5 +693,36 @@ describe.each(spawnSchemas)("pstack_route through native normalization and dispa
       await dispatch(request(), { missingWorkspace: true }),
       /Requester workspace is unavailable/,
     );
+  });
+});
+
+// Scripted model I/O; real host producer-schema validation and durable output callback.
+describe.each(providers)("executed child envelopes through %s host conversion and dispatch", provider => {
+  it.each(["reviewer", "lead"])("preserves %s proof and refuses missing nested required fields", async kind => {
+    const context = { frozen: frozenProof, reviewers: [0, 1].map(i => ({ slot: 'reviewers:' + i, artifactDigest: String(i).repeat(64), output: executedReviewer(i ? [] : [executedFinding()]) })) };
+    const role = kind === 'reviewer' ? 'interrogate reviewers' : 'judgment and prose';
+    const output = kind === 'reviewer' ? context.reviewers[0].output : leadFor(context);
+    const envelope = { status: 'ISSUES', evidence: ['Scripted transport fixture'], report: 'Typed proof transport only', output };
+    const runId = 'executed-ingress-' + provider + '-' + kind;
+    const persisted: any[] = [];
+    const source = createStructuredOutputTool({ runId, schema: envelopeSchema(role, { kind: 'interrogate', executedProof: true } as any), onStateChange: state => { persisted.push(state); } });
+    const [converted] = normalizeOpenAIToolSchemas({ provider,
+      modelId: provider === 'google' ? 'gemini-3.1-pro' : provider === 'anthropic' ? 'claude-opus-5-5' : 'gpt-6.1-sol',
+      modelApi: provider === 'google' ? 'google-generative-ai' : provider === 'anthropic' ? 'anthropic-messages' : 'openai-responses',
+      tools: [normalizeToolParameters(source, { modelProvider: provider })] });
+    try {
+      const missing = structuredClone(envelope);
+      const proof = kind === 'reviewer' ? missing.output.findings[0].proof : missing.output.accounting[0].rerun;
+      delete proof.frozenAfter;
+      const refused = await dispatch({ result: missing }, { sourceTool: converted });
+      expect(refused.result.isError).toBe(true);
+      expect(JSON.stringify(refused.result.content)).toContain('frozenAfter');
+      expect(peekSwarmStructuredOutput(runId)).toMatchObject({ invalidAttempts: 1, structured: undefined });
+      const good = await dispatch({ result: envelope }, { sourceTool: converted });
+      expect(good.result.isError).toBe(false);
+      expect(good.result.details).toEqual({ status: 'recorded' });
+      expect(consumeSwarmStructuredOutput(runId)).toEqual({ structured: envelope, invalidAttempts: 0 });
+      expect(persisted.at(-1)).toEqual({ structured: envelope, invalidAttempts: 0 });
+    } finally { consumeSwarmStructuredOutput(runId); }
   });
 });

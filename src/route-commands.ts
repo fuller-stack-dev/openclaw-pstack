@@ -1,7 +1,7 @@
 import { join } from "node:path";
 import routes from "../skills/pstack/native/routes.json";
 
-/** Only the reviewed 55 routes; principles/extensions are not command aliases. */
+/** Only the reviewed workflow/playbook routes; principles/extensions are not command aliases. */
 export const ROUTES: readonly string[] = Object.freeze([...routes.workflows, ...routes.playbooks]);
 export type RouteName = string;
 

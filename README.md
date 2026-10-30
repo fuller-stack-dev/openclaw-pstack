@@ -2,13 +2,13 @@
 
 Independent MIT-licensed adaptation of **pstack by Lauren Tan** for OpenClaw.
 This is **not an official Cursor plugin**, and it does not run the Cursor runtime.
-Package: `@fuller-stack-dev/openclaw-pstack` · plugin id: `pstack` · version: `1.2.5`.
+Package: `@fuller-stack-dev/openclaw-pstack` · plugin id: `pstack` · version: `1.3.0` (release candidate).
 Maintenance owner: fuller-stack-dev; report bugs through this repository's issues.
 
 Pstack owns workflow; OpenClaw owns secure execution. The plugin supplies
-exact-session opt-in, 17-role model planning, 32 workflow routes, 24 principles
-and 23 playbooks. It registers two model-readable guidance skills, 55 manual-only
-route skills, `/pstack` and `/poteto_mode` plus 55 literal `pstack-` route
+exact-session opt-in, 17-role model planning, 34 workflow routes, 24 principles
+and 23 playbooks. It registers two model-readable guidance skills, 57 manual-only
+route skills, `/pstack` and `/poteto_mode` plus 57 literal `pstack-` route
 commands, read-only pstack_route, pstack_plan_check and pstack_brief, pstack_workflow,
 operator-opt-in pstack_trail and pstack_worktree_audit, and before_prompt_build plus
 narrowly matched before_tool_call hooks.
@@ -111,17 +111,17 @@ prompt-enforced: a brief constraint plus inherited tool policy.
 
 ## Install
 
-**Not published yet.** The following registry command is for after the owner
-chooses to publish and ClawHub verification makes the release available:
+**1.3.0 is a release candidate.** Use the following registry command only after
+ClawHub verification makes version 1.3.0 available:
 
 ```sh
-openclaw plugins install clawhub:@fuller-stack-dev/openclaw-pstack@1.2.5
+openclaw plugins install clawhub:@fuller-stack-dev/openclaw-pstack@1.3.0
 ```
 
 For a reviewed local artifact, install the exact tarball printed by `npm run pack`:
 
 ```sh
-openclaw plugins install npm-pack:/absolute/path/openclaw-pstack-1.2.5-COMMIT.tgz --force
+openclaw plugins install npm-pack:/absolute/path/openclaw-pstack-1.3.0-COMMIT.tgz --force
 ```
 
 The local-source trust gate requires `--force` **only after reviewing that exact
@@ -161,7 +161,7 @@ live session's active prompt. Verify an ordinary active follow-up separately.
 | `/pstack <task>` | Validate, activate, continue through the ordinary host agent |
 | `/poteto_mode …` | Alias with the same state and authority |
 | `/pstack migrate` | Owner-only online legacy import; see migration notes below |
-| `/pstack-<route> [request]` | Select one of 55 routes; task routes use the same authorized exact-session mode |
+| `/pstack-<route> [request]` | Select one of 57 routes; task routes use the same authorized exact-session mode |
 | `/pstack-architect`, `-arena`, `-interrogate`, `-swarm`, `-how`, `-why`, `-reflect` | Native controller on a capable host (see above); skill-guided otherwise. Optional leading `design-only`/`checkpoint`/`implement` and `how-why`/`how-only`/`greenfield` (architect, either order) or `simple`/`complex[=2-4]` (how) |
 | `/pstack resume [id] [approve [notes] \| revise <notes> \| correct <errors> \| cancel]` | Continue, decide or cancel the session's native workflow; never downgrades to v1. `correct` asks for one corrected deliverable: reflect's rows at approval, or the delivered result of a completed how, why or interrogate workflow (named by id) |
 | `/pstack-poteto-help` / `/pstack-setup-pstack` | The agent answers your question read-only, from the native sources and current host facts: no activation, config writes, jobs or task execution. Static help only when the invocation cannot continue the agent |
@@ -173,7 +173,7 @@ limitation elsewhere; neither activates. Multiword tasks such as
 `/pstack architect a parser design` work as ordinary skill-guided tasks.
 Plain-language mentions, skill attachments, children and new/reset incarnations
 do not inherit or enable sticky mode. The original pstack/poteto-mode guidance
-skills remain model-readable and non-user-invocable. The 55 generated route skills
+skills remain model-readable and non-user-invocable. The 57 generated route skills
 are explicitly user-invocable but hidden from model auto-selection. At the pinned
 host, picker command names are sanitized to underscores (and can be truncated or
 deconflicted). The literal `/pstack-architect` spelling is supplied by native plugin
@@ -181,7 +181,7 @@ command registration, not by pretending frontmatter preserves hyphens.
 
 Bare route names are **off by default**. An operator can explicitly opt in with
 `plugins.entries.pstack.config.bareRouteAliases=true` under normal configuration
-authority. Only the reviewed 55 route names are requested; no `loop` alias or
+authority. Only the reviewed 57 route names are requested; no `loop` alias or
 reserved ownership is requested. Native core-name and existing-plugin collision
 checks remain authoritative and never overwrite the incumbent. Inspect registration
 diagnostics after opt-in. This is not a command-runtime/subagent capability grant.
@@ -224,11 +224,11 @@ Both are skill-guided ordinary-agent paths, except the literal commands of the
 seven native controllers on a capable host.
 `help` aliases `poteto-help`; `setup` aliases `setup-pstack`.
 
-- **Workflows (32):** poteto-mode, poteto-help, setup-pstack, how, why, teach,
-  blast-radius, architect, arena, swarm, interrogate, no-comments, tdd,
+- **Workflows (34):** poteto-mode, poteto-help, setup-pstack, how, why, teach,
+  blast-radius, architect, arena, swarm, interrogate, no-comments, statechart, tdd,
   benchmark-checklist, figure-it-out, create-verification-skill,
   maintain-verification-skill, create-formal-verification-skill,
-  maintain-formal-verification-skill, recall, ketchup, in-your-own-words, sharpen,
+  maintain-formal-verification-skill, recall, ketchup, ketchup-video, in-your-own-words, sharpen,
   bro, unslop, technical-writing, typescript-best-practices, show-me-your-work,
   automate-me, reflect, correct, make-bot-ui.
 - **Playbooks (23):** investigation, bug-fix, perf-issue, hillclimb,
@@ -248,6 +248,13 @@ Read the chosen [workflow](skills/pstack/native/workflows.md),
 [automation guide](skills/pstack/native/automation/README.md) in full before use.
 Sharpen rewrites a prompt but never executes it. Formal-verification routes require
 project-owned code mapping, explicit bounds and real mutation evidence.
+Statechart checks bounded TLA+ behavior and presents reader-visible paths;
+ketchup-video renders factual slide evidence, then requires decoded-frame and
+caption inspection. Both use separate ordinary-exec [artifact CLIs](skills/pstack/native/artifacts.md),
+not Gateway rendering or new native controllers. Autopilot-stack is full without
+merging, with stacks only for real dependencies. Current-parent family evidence
+for new native architect/arena command admission remains a separate open capability
+decision; the qualified tool path and historical continuations are not that proof.
 
 ## Security model and limitations
 
@@ -276,9 +283,9 @@ project-owned code mapping, explicit bounds and real mutation evidence.
   agent-attested phase evidence and does not spawn, collect, approve, wait or
   schedule. No broad `reply_dispatch` hook or trusted-official-only model-catalog
   fallback.
-- All 172 files in `skills/pstack/upstream` are pinned, source-only MIT reference.
+- All 573 files in `skills/pstack/upstream` are pinned, source-only MIT reference.
   Their scripts/tests/agent definitions are neither executed nor registered.
-  Only the three manifest roots load (two base skills and 55 manual route guides).
+  Only the three manifest roots load (two base skills and 57 manual route guides).
   The original source includes scripts targeting other runtimes; their presence does not advertise native support.
 - Optional loop/event builders require separately authorized targets, existing
   non-main owners, explicit budgets/deadlines and verified tools/connectors.
@@ -430,8 +437,8 @@ reviewed future command and external readiness gates. No workflow publishes.
 ## License and attribution
 
 MIT; see [LICENSE](LICENSE) and [NOTICE](NOTICE). Vendored pstack is Lauren Tan's
-MIT work from `cursor/plugins` v0.15.29 at
-`29fa9382c9c250d134f6a2f1aa86c01c5f63119d`. Its original license is preserved in
+MIT work from `cursor/plugins` v0.15.36 at
+`c742dd61706fbacc1b95f1a20b7b988cf096ce6c`. Its original license is preserved in
 `skills/pstack/upstream/LICENSE`. Adaptation and maintenance belong to
 fuller-stack-dev, with no claim of endorsement by Cursor or the upstream author.
 

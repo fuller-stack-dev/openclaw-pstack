@@ -8,7 +8,8 @@ import { createOpenClawTestState } from "openclaw/plugin-sdk/test-state";
 import { createPluginStateKeyedStoreV2ForTests, resetPluginStateStoreForTests } from "openclaw/plugin-sdk/plugin-state-test-runtime";
 import { register } from "../src/index.ts";
 import { build } from "./fixtures/tool-factory.ts";
-import { reviewerOutput, finding, architectOutput, judgeOutput, arenaOutput } from "./fixtures/panel-outputs.mjs";
+import { executedFrame, executedReviewer as reviewerOutput, executedFinding as finding, leadFor, contextFromBrief } from "./fixtures/executed-outputs.mjs";
+import { architectOutput, judgeOutput, arenaOutput } from "./fixtures/panel-outputs.mjs";
 import { LEDGER_BUDGET, digest, mutateWorkflow } from "../src/workflow.ts";
 import { WORKFLOW_RETENTION } from "../src/workflow-tool.ts";
 import { fitPrefix, storedResult } from "../src/controller.ts";
@@ -92,7 +93,7 @@ class FakeNative {
 }
 /** Deliverable reports with every section the controller requires of that kind. */
 const SECTIONED = {
-  interrogate: "## Intent\nThe change must keep its behaviour.\n\n## Reviewers\n- A (alpha): 0 findings\n- B (astra): 0 findings\n\n## Act on\nNone.\n\n## Consider\nNone.\n\n## Noted\nNone.\n\n## Dismissed\nNone.\n\n## Agreement Map\nBoth reviewers found nothing.",
+  interrogate: "## Findings\nNone.\n\n## Dropped\nNone.\n\n## Intent\nThe change must keep its behaviour.\n\n## Reviewers\n- A (alpha): 0 findings\n- B (astra): 0 findings\n\n## Act on\nNone.\n\n## Consider\nNone.\n\n## Noted\nNone.\n\n## Dismissed\nNone.\n\n## Agreement Map\nBoth reviewers found nothing.",
   how: "## Overview\nThe module does one thing.\n\n## How It Works\nIt calls the sender.\n\n## Where Things Live\nsrc/queue.ts",
   why: "## The Question\nWhy?\n\n## What We Found\nNothing direct.\n\n## What We Don't Know\nThe intent.\n\n## Sources Consulted\n- git: log\n\n## Confidence Summary\nUnknown.",
   reflect: "## Accepted\n| A1 | x |\n\n## Rejected\n| R1 | y |\n\n## Backlog\n| B1 | z |",
@@ -101,6 +102,10 @@ const ok = (output?: unknown, status = "PASS", extra = {}) => ({ status: "done",
 /** Valid structured results for whatever role the controller spawned. */
 function honest(child: Child) {
   const slot = /slot ([a-z]+:[a-z0-9-]+)/.exec(child.params.task)![1]!;
+  if (slot === "lead:0") {
+    const output = leadFor(contextFromBrief(child.params.task));
+    return ok(output, output.accounting.length ? "ISSUES" : "PASS", {report: SECTIONED.interrogate});
+  }
   if (slot.startsWith("reviewers")) return ok(reviewerOutput());
   if (slot.startsWith("designs")) return ok(architectOutput(slot === "designs:0" ? "message pipeline" : "immutable events"));
   if (slot.startsWith("candidates")) return ok(arenaOutput());
@@ -118,7 +123,7 @@ function honest(child: Child) {
  * One registered plugin instance; pass an earlier harness's key to model a restart of the same session.
  * `profiles` is the host's optional S5 registration method: absent, or one that refuses some ids.
  */
-function harness(capabilities: string[] = CAPABILITIES, sessionKey = "agent:worker:dashboard:native-" + ++serial,
+function harness(capabilities: string[] = [...CAPABILITIES, "requester-model-family-v1"], sessionKey = "agent:worker:dashboard:native-" + ++serial,
   profiles: { method?: false; refuse?: string[] } = {}) {
   const commands = new Map<string, any>(), hooks = new Map<string, any>(), tools: any[] = [], registered: any[] = [], warnings: string[] = [];
   const entry = vi.fn(async ({ sessionKey: key }: any) => key === sessionKey ? { sessionId, spawnedWorkspaceDir: workspace } : undefined);
@@ -141,12 +146,13 @@ function harness(capabilities: string[] = CAPABILITIES, sessionKey = "agent:work
   } as any);
   register(api);
   const native = new FakeNative();
-  const runtimeContext = (over: any = {}) => ({ subagents: native.subagents(), models: { list: async () => ({ revision: "r1", state: "prepared", models: catalogRows }) }, scheduledTurns: native.scheduledTurns(), ...over });
+  const runtimeContext = (over: any = {}) => ({ subagents: native.subagents(), models: { list: async () => ({ revision: "r1", state: "prepared", models: catalogRows.map((row, i) => ({ ...row, family: i ? "openai" : "anthropic" })) }) }, scheduledTurns: native.scheduledTurns(), ...over });
   const run = (name: string, args: string, over: any = {}) => commands.get(name).handler({
     senderId: "operator-1", isAuthorizedSender: true, gatewayClientScopes: ["operator.write"], channel: "webchat", agentId: "worker",
     sessionKey, sessionId, args, commandBody: "/" + name + " " + args, config, runtimeContext: runtimeContext(over.runtime), ...over.ctx,
   });
-  const toolContext = { sessionKey, sessionId, agentId: "worker", workspaceDir: workspace, assertInvocationCurrent() {} };
+  const toolContext = { sessionKey, sessionId, agentId: "worker", workspaceDir: workspace, assertInvocationCurrent() {},
+    activeModel: { provider: "fixture", modelId: "alpha", modelRef: ALPHA }, runtimeContext: runtimeContext() };
   const tool = (name: string, ctx: any = toolContext) => tools.map(t => build(t, ctx)).find(t => t.name === name);
   const workflow = (params: any) => tool("pstack_workflow").execute("call", params);
   const get = async (workflowId: string) => (await workflow({ action: "get", workflowId })).details;
@@ -166,7 +172,7 @@ function harness(capabilities: string[] = CAPABILITIES, sessionKey = "agent:work
   };
   return { key: sessionKey, commands, hooks, tools, native, run, tool, workflow, get, advance, prompt, workflowId, guard, registered, warnings, writeEvent };
 }
-const frame = { intent: "Parser must reject unterminated strings", "frozen-head": "a".repeat(40), rubric: "correctness, failure paths" };
+const frame = executedFrame;
 /** Lead-first arena and architect records: the parent records its own scores for every usable candidate, then resumes so the controller runs the judge. */
 async function lead(h: ReturnType<typeof harness>, id: string) {
   const { view } = await h.get(id);
@@ -193,8 +199,8 @@ describe("native interrogate on a capable host", () => {
     expect(h.native.log).toEqual(["spawn " + id + ":reviewers:0:1", "spawn " + id + ":reviewers:1:1", "collect run-1,run-2", "spawn " + id + ":lead:0:1", "collect run-3"]);
     const [a, b] = h.native.children;
     expect([a!.params.model, a!.params.thinking, b!.params.model, b!.params.fastMode]).toEqual([ALPHA, "high", ASTRA, true]);
-    expect(a!.params.outputSchema.properties.output).toEqual(contractFor("interrogate reviewers")!.schema);
-    expect([a!.params.profile, b!.params.profile]).toEqual(["panel-reviewer", "panel-reviewer"]);
+    expect(a!.params.outputSchema.properties.output).toEqual(contractFor("interrogate-executed-reviewer")!.schema);
+    expect([a!.params.profile, b!.params.profile]).toEqual(["interrogate-adversary", "interrogate-adversary"]);
     expect(a!.params.task).toContain("Parser must reject unterminated strings");
     const { record, view } = await h.get(id);
     expect(record.version).toBe(2);
@@ -225,7 +231,7 @@ describe("native interrogate on a capable host", () => {
     const id = await h.workflowId();
     await h.advance(id, frame);
     h.native.respond = (child) => child.runId === "run-2" ? ok(reviewerOutput([finding("critical")]), "PASS") : honest(child);
-    expect((await h.run("pstack", "resume")).text).toContain("PASS cannot carry critical or warning findings");
+    expect((await h.run("pstack", "resume")).text).toContain("PASS cannot carry executed findings");
     expect((await h.get(id)).view.attempts["reviewers:1"][0].rejected).toContain("Invalid result");
   });
 
@@ -443,7 +449,7 @@ describe("architect approval and the downgrade rule", () => {
     expect(capable.commands.get("pstack-bug-fix").runtimeCapabilities).toBeUndefined();
     const manifest = JSON.parse(await readFile(new URL("../openclaw.plugin.json", import.meta.url), "utf8"));
     expect(manifest.contracts).toMatchObject({ commandRuntimeCapabilities: ["subagents", "scheduledTurns"], sessionScheduledTurns: ["requester-command"],
-      subagentProfiles: ["comment-sicko", "poteto-agent", "panel-reviewer", "panel-judge"] });
+      subagentProfiles: ["comment-sicko", "poteto-agent", "panel-reviewer", "panel-judge", "interrogate-adversary"] });
   });
 });
 
@@ -511,9 +517,9 @@ describe("routing over the requester catalog and the spawn guard", () => {
 });
 
 describe("narrow-only host subagent profiles (S5)", () => {
-  it("registers the four profiles only where the host advertises the capability and offers the method", async () => {
+  it("registers the five profiles only where the host advertises the capability and offers the method", async () => {
     const h = harness();
-    expect(h.registered.map(p => p.id)).toEqual(["comment-sicko", "poteto-agent", "panel-reviewer", "panel-judge"]);
+    expect(h.registered.map(p => p.id)).toEqual(["comment-sicko", "poteto-agent", "panel-reviewer", "panel-judge", "interrogate-adversary"]);
     for (const profile of h.registered) {
       // Narrow-only: exactly the host's accepted fields, package-relative instructions that exist.
       expect(Object.keys(profile).sort()).toEqual(["description", "id", "instructionsFile", "tools", ...(profile.outputSchema ? ["outputSchema"] : [])].sort());
@@ -524,7 +530,7 @@ describe("narrow-only host subagent profiles (S5)", () => {
     const byId = Object.fromEntries(h.registered.map(p => [p.id, p]));
     expect(byId["comment-sicko"].outputSchema).toEqual(contractFor("comment-sicko")!.schema);
     expect(byId["panel-reviewer"].outputSchema).toBeUndefined();
-    for (const id of ["comment-sicko", "panel-reviewer", "panel-judge"])
+    for (const id of ["comment-sicko", "panel-reviewer", "panel-judge", "interrogate-adversary"])
       expect(byId[id].tools.deny).toEqual(expect.arrayContaining(["write", "edit", "apply_patch", "sessions_spawn", "group:plugins"]));
     expect(byId["panel-reviewer"].tools.deny).not.toContain("group:runtime");
     expect(byId["panel-judge"].tools.deny).toContain("group:runtime");
@@ -571,7 +577,7 @@ describe("narrow-only host subagent profiles (S5)", () => {
     expect(h.native.children).toHaveLength(3);
     for (const child of h.native.children) {
       expect(child.params.profile).toBeUndefined();
-      expect(child.params.task).toContain("read-only is prompt-enforced");
+      expect(child.params.task).toContain("Scratch-only shell writes and safe reproduction are prompt-enforced");
     }
     expect((await h.get(id)).view.enforcement).toEqual({ "interrogate reviewers": "prompt", "judgment and prose": "prompt" });
   });
@@ -581,17 +587,17 @@ describe("narrow-only host subagent profiles (S5)", () => {
     await h.run("pstack-interrogate", "Review");
     const id = await h.workflowId();
     await h.advance(id, frame);
-    // A reload whose registration of panel-reviewer was refused: the record keeps its pin.
-    const reloaded = harness(CAPABILITIES, h.key, { refuse: ["panel-reviewer"] });
-    expect(reloaded.registered.map(p => p.id)).toEqual(["comment-sicko", "poteto-agent", "panel-judge"]);
-    expect(reloaded.warnings.join("\n")).toContain("Pstack host profile panel-reviewer was not registered; its roles stay prompt-enforced");
+    // A reload whose registration of interrogate-adversary was refused: the record keeps its pin.
+    const reloaded = harness(CAPABILITIES, h.key, { refuse: ["interrogate-adversary"] });
+    expect(reloaded.registered.map(p => p.id)).toEqual(["comment-sicko", "poteto-agent", "panel-reviewer", "panel-judge"]);
+    expect(reloaded.warnings.join("\n")).toContain("Pstack host profile interrogate-adversary was not registered; its roles stay prompt-enforced");
     const reply = await reloaded.run("pstack", "resume");
-    expect(reply.text).toContain("Host profile `panel-reviewer`");
+    expect(reply.text).toContain("Host profile `interrogate-adversary`");
     expect(reply.text).toContain("not spawning with weaker tool enforcement");
     expect(reloaded.native.log).toEqual([]);
     expect((await reloaded.get(id)).view.status).toBe("blocked");
     // New workflows on that instance are simply prompt-enforced for the unregistered profile.
-    const fresh = harness(CAPABILITIES, undefined, { refuse: ["panel-reviewer"] });
+    const fresh = harness(CAPABILITIES, undefined, { refuse: ["interrogate-adversary"] });
     await fresh.run("pstack-interrogate", "Review");
     expect((await fresh.get(await fresh.workflowId())).view.enforcement).toEqual({ "interrogate reviewers": "prompt", "judgment and prose": "prompt" });
   });
@@ -688,7 +694,7 @@ describe("review round 1: ledger budget, routing at collection, reconcile author
     const { record } = await h.get(await h.workflowId());
     const full = { status: "PASS", report: "short report", evidence: Array.from({ length: 20 }, (_, n) => "e" + n + ":" + "x".repeat(3990)) };
     // 64 children still settling share the room: evidence is cut to a quarter of the share.
-    const stored = storedResult(full, record, 64);
+    const stored = storedResult(full, { ...record, setup: { ...record.setup, executedProof: undefined } }, 64);
     expect(stored.artifactDigest).toBe(digest(full));
     expect(stored.report).toBe("short report");
     expect(stored.evidence.at(-1)).toMatch(/^\[pstack: \d+ more evidence entries not stored; artifactDigest covers the full result\]$/);
@@ -776,11 +782,11 @@ describe("review round 1: ledger budget, routing at collection, reconcile author
     const h = harness();
     await h.run("pstack-interrogate", "Review");
     const id = await h.workflowId();
-    expect((await h.get(id)).view.enforcement).toEqual({ "interrogate reviewers": "host-profile-shell", "judgment and prose": "prompt" });
-    expect((await h.prompt()).prependContext).toContain("interrogate reviewers = host profile `panel-reviewer` (shell kept; read-only shell use prompt-enforced)");
+    expect((await h.get(id)).view.enforcement).toEqual({ "interrogate reviewers": "host-profile-shell", "judgment and prose": "host-profile-shell" });
+    expect((await h.prompt()).prependContext).toContain("interrogate reviewers = host profile `interrogate-adversary` (shell kept; scratch-only writes prompt-enforced)");
     await h.advance(id, frame);
     await h.run("pstack", "resume");
-    expect(h.native.children[0]!.params.task).toContain("The shell remains, so read-only is prompt-enforced for shell use: do not create, change or delete files");
+    expect(h.native.children[0]!.params.task).toContain("Scratch-only shell writes and safe reproduction are prompt-enforced, not a filesystem sandbox");
   });
 
   it("P3-25: a grant of subagents without the requester catalog stays v1 and creates nothing", async () => {
@@ -847,7 +853,7 @@ describe("1.1 controller parity on the 1.0.0 rerun scenarios", () => {
     expect(only.native.log.map(line => line.replace(/pw-[a-z0-9]{12}/, "<id>"))).toEqual(["spawn <id>:grounding:how:1", "collect run-1"]);
     expect(handed.text).toContain("1 child(ren) still running");
     const id = idOf(handed.text);
-    expect((await only.get(id)).record.setup.snapshots.map((s: any) => s.role)).toEqual(["how explainer", "architect runners", "arena cross-judge pool"]);
+    expect((await only.get(id)).record.setup.snapshots.map((s: any) => s.role)).toEqual(["how explainer", "architect runners"]);
     only.native.respond = honest;
     const occurrence = await only.run("pstack", "resume " + id, unattended);
     expect(occurrence.text).toContain("phase lead, status active");
@@ -868,12 +874,12 @@ describe("1.1 controller parity on the 1.0.0 rerun scenarios", () => {
     await h.run("pstack-interrogate", "Adversarially review the uncommitted isRetryable change and its new test before I commit it. Read-only.");
     const id = await h.workflowId();
     await h.advance(id, frame);
-    const verdict = "## Intent\nisRetryable must not retry client errors.\n\n## Reviewers\n- A (alpha): 1 finding\n- B (astra): 1 finding\n\n## Act on\n- [A, B] 400 is classified retryable (src/retry.ts:12)\n\n## Consider\nNone.\n\n## Noted\nNone.\n\n## Dismissed\nNone.\n\n## Agreement Map\n1 shared finding, no contradictions.";
-    h.native.respond = (child) => slotOf(child) === "lead:0" ? ok(undefined, "ISSUES", { report: verdict }) : honest(child);
+    const verdict = "## Intent\nCheck client error classification.\n\n## Findings\nNone: both reviewers tested the fixture.\n\n## Dropped\nNone.";
+    h.native.respond = (child) => slotOf(child) === "lead:0" ? ok(leadFor(contextFromBrief(child.params.task)), "PASS", { report: verdict }) : honest(child);
     const reply = await h.run("pstack", "resume");
     expect(h.native.children.map(slotOf)).toEqual(["reviewers:0", "reviewers:1", "lead:0"]);
     const lead = h.native.children[2]!;
-    expect([lead.params.model, lead.params.fastMode, lead.params.profile]).toEqual([ASTRA, true, undefined]);
+    expect([lead.params.model, lead.params.fastMode, lead.params.profile]).toEqual([ASTRA, true, "interrogate-adversary"]);
     expect(lead.params.task).toContain("role `judgment and prose`");
     expect(lead.params.task).toContain("Parser must reject unterminated strings");
     expect(lead.params.task).toContain("### reviewers:0 (model `" + ALPHA + "`, thinking high)\nComplete report for the parent.\n\nStructured output:");
@@ -882,7 +888,7 @@ describe("1.1 controller parity on the 1.0.0 rerun scenarios", () => {
     const stored = view.attempts["lead:0"][0].result;
     expect(stored.report).toBe(verdict);
     expect(reply.continueAgent).toBeUndefined();
-    expect(reply.text).toContain("**Interrogate lead verdict**, delivered verbatim from the independent child: slot `lead:0`, role `judgment and prose`, model `" + ASTRA + "`, run `run-3`, status ISSUES, artifactDigest `" + stored.artifactDigest + "`.\n\n" +
+    expect(reply.text).toContain("**Interrogate lead verdict**, delivered verbatim from the independent child: slot `lead:0`, role `judgment and prose`, model `" + ASTRA + "`, run `run-3`, status PASS, artifactDigest `" + stored.artifactDigest + "`.\n\n" +
       "If a claim in this report is wrong, `/pstack resume " + id + " correct <what is wrong>` runs one correction child under the same routing and delivers its report.\n\n" + quoted(verdict));
     expect(view).toMatchObject({ phase: "complete", status: "completed", evidenceSource: { reviewers: "controller", lead: "controller" } });
   });
@@ -1040,7 +1046,7 @@ describe("1.1 controller parity on the 1.0.0 rerun scenarios", () => {
     const { record } = await h.get(await h.workflowId());
     const full = { status: "PASS", report: "😀".repeat(15000), evidence: ["log: " + "😀".repeat(2000), "src/a.ts:1"] };
     for (const pending of [1, 3, 7, 64]) {
-      const stored = storedResult(full, record, pending);
+      const stored = storedResult(full, { ...record, setup: { ...record.setup, executedProof: undefined } }, pending);
       expect(Buffer.byteLength(JSON.stringify(stored))).toBeLessThanOrEqual(16 * 1024 + 256);
       expect(loneSurrogate.test(stored.report + stored.evidence.join(""))).toBe(false);
       expect(stored.report).toMatch(/\n\[pstack: report truncated to \d+ of 30000 characters; artifactDigest [a-f0-9]{64} covers the full result\]$/);
@@ -1112,7 +1118,7 @@ describe("H-2 canonical model families and H-1 complete collector results", () =
     h.native.respond = honest;
     await h.run("pstack", "resume", { runtime });
     const lead = h.native.children.find(child => child.requestId.includes(":lead:0:"))!;
-    expect(lead.params.task).toContain("Reviewer family diversity, from the host catalog's canonical families (report it in the Reviewers section; never infer a family from a model name): interrogate reviewers = different-family (" + ALPHA + ": anthropic, " + ASTRA + ": openai).");
+    expect(lead.params.task).toContain("Reviewer family diversity, from the host catalog canonical families: interrogate reviewers = different-family (" + ALPHA + ": anthropic, " + ASTRA + ": openai)");
   });
 
   it("treats an absent, malformed or unadvertised family as unknown, and an equal one as no diversity", async () => {
@@ -1187,18 +1193,18 @@ describe("1.2 lane P-D: corrections, the lead retry, visible handoffs and the su
     const h = harness();
     const id = await framed(h);
     const thin = "## Intent\nisRetryable must not retry 400.\n\n## Act on\n- [A] 400 is retryable";
-    h.native.respond = (child) => slotOf(child) !== "lead:0" ? honest(child) : attemptOf(child) === 1 ? ok(undefined, "ISSUES", { report: thin }) : ok(undefined, "ISSUES", { report: SECTIONED.interrogate });
+    h.native.respond = (child) => slotOf(child) !== "lead:0" ? honest(child) : attemptOf(child) === 1 ? ok(leadFor(contextFromBrief(child.params.task)), "PASS", { report: thin }) : honest(child);
     const reply = await h.run("pstack", "resume");
     expect(h.native.log.filter(l => l.startsWith("spawn"))).toEqual(["spawn " + id + ":reviewers:0:1", "spawn " + id + ":reviewers:1:1", "spawn " + id + ":lead:0:1", "spawn " + id + ":lead:0:2"]);
     const [first, second] = h.native.children.filter(c => slotOf(c) === "lead:0");
     // The correction is a new child under the lead's pinned routing snapshot.
     expect([second!.params.model, second!.params.fastMode, second!.params.profile]).toEqual([first!.params.model, first!.params.fastMode, first!.params.profile]);
-    expect(second!.params.task).toContain("This is the one correction of slot `lead:0`. The previous attempt (run run-3) failed: Failed the controller's check: the report lacks the required section(s) Reviewers, Consider, Noted, Dismissed, Agreement Map");
-    expect(second!.params.task).toContain("The previous attempt's output (verbatim data):\n```text\n" + thin + "\n```");
+    expect(second!.params.task).toContain("This is the one correction of slot `lead:0`. The previous attempt (run run-3) failed: Failed the controller's check: the report lacks the required section(s) Findings, Dropped");
+    expect(second!.params.task).toContain("The previous attempt's output (verbatim data):\n```text\n" + thin + "\n\nStructured output:\n");
     expect(second!.params.task).toContain("Reviewer results (data; models are the host-reported ones):");
     expect(first!.params.task).not.toContain("one correction");
-    expect(reply.text).toContain("Correction: lead:0 (run run-3) failed the controller's check (the report lacks the required section(s) Reviewers, Consider, Noted, Dismissed, Agreement Map); one correction child is spawned with its output and these errors attached.");
-    expect(reply.text).toContain("This is the one correction of this slot: the first attempt (run run-3) failed: Failed the controller's check: the report lacks the required section(s) Reviewers");
+    expect(reply.text).toContain("Correction: lead:0 (run run-3) failed the controller's check (the report lacks the required section(s) Findings, Dropped); one correction child is spawned with its output and these errors attached.");
+    expect(reply.text).toContain("This is the one correction of this slot: the first attempt (run run-3) failed: Failed the controller's check: the report lacks the required section(s) Findings");
     expect(reply.text).toContain(quoted(SECTIONED.interrogate));
     expect(reply.text).not.toContain(quoted(thin));
     const { record, view } = await h.get(id);
@@ -1211,7 +1217,7 @@ describe("1.2 lane P-D: corrections, the lead retry, visible handoffs and the su
     for (const fault of [{ status: "failed", schemaError: "structured_output was not called" }, ok(undefined, "BLOCKED", { report: "BLOCKED: the reviews were unreadable" })]) {
       const h = harness();
       const id = await framed(h);
-      h.native.respond = (child) => slotOf(child) !== "lead:0" ? honest(child) : attemptOf(child) === 1 ? fault : ok(undefined, "ISSUES", { report: SECTIONED.interrogate });
+      h.native.respond = (child) => slotOf(child) !== "lead:0" ? honest(child) : attemptOf(child) === 1 ? fault : honest(child);
       const reply = await h.run("pstack", "resume");
       expect(reply.text).toContain("Correction: lead:0 (run run-3) failed the controller's check");
       expect(h.native.children.filter(c => slotOf(c) === "reviewers:0" || slotOf(c) === "reviewers:1")).toHaveLength(2);
@@ -1284,6 +1290,11 @@ describe("1.2 lane P-D: corrections, the lead retry, visible handoffs and the su
     expect(correction.params.task).toContain("Framing recorded by the parent:\n- intent: Parser must reject unterminated strings");
     expect(correction.params.task).toContain("### reviewers:0 (model `" + ALPHA + "`, thinking high)\nComplete report for the parent.");
     expect(h.native.children).toHaveLength(4);
+    const correctedId = /workflow (pw-[a-z0-9]{12})/.exec(correction.params.task)![1]!;
+    const corrected = (await h.get(correctedId)).record;
+    expect(corrected.setup.executedProof).toBe(true);
+    expect(corrected.setup.correction.proofContext.reviewers).toHaveLength(2);
+    expect(corrected.setup.profiles["judgment and prose"].id).toBe("interrogate-adversary");
   });
 
   it("refuses a correction with nothing delivered, and while another native workflow is in progress", async () => {

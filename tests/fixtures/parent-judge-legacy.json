@@ -1,0 +1,733 @@
+{
+  "sourceHead": "c2f20aed9529f9c8c965bc529638e2f1d95788c0",
+  "records": {
+    "arena": {
+      "version": 2,
+      "id": "pw-legacyjudge1",
+      "owner": {
+        "sessionKey": "agent:fixture:dashboard:legacy-judge",
+        "sessionId": "legacy-one",
+        "workspace": "/fixture/workspace"
+      },
+      "setup": {
+        "kind": "arena",
+        "task": "Legacy bounded comparison",
+        "taskDigest": "ab75d4f2876e10d136215263c8938736826412ad5ff69c1893e2ea4fff1466b3",
+        "sourceDigest": "c93485825ead0030c4e0ec3805de45c5fc61de626ea2e2900ee426df0c8c4b71",
+        "snapshots": [
+          {
+            "version": 1,
+            "role": "arena runners",
+            "source": "inherit",
+            "selections": [
+              {},
+              {}
+            ],
+            "poolIndex": null,
+            "diversity": "not-established"
+          },
+          {
+            "version": 1,
+            "role": "arena cross-judge pool",
+            "source": "inherit",
+            "selections": [
+              {}
+            ],
+            "poolIndex": 0,
+            "diversity": "unverified"
+          }
+        ],
+        "catalog": [],
+        "options": {},
+        "stagesVersion": 2,
+        "leadFirst": true
+      },
+      "events": [
+        {
+          "id": "e0",
+          "type": "advance",
+          "evidence": {
+            "task-and-isolation": "Frozen fixture",
+            "rubric-3-to-6": "correctness,boundary,extensibility"
+          }
+        },
+        {
+          "id": "e1",
+          "type": "dispatch",
+          "slot": "candidates:0",
+          "requestId": "candidates:0",
+          "snapshotId": "76397f4da380b4e9ac9eb7b6c789a41300f9e4c514ec656bc9ee69eb18ec4f13"
+        },
+        {
+          "id": "e2",
+          "type": "accept",
+          "slot": "candidates:0",
+          "runId": "candidates:0",
+          "requestId": "candidates:0",
+          "childSessionKey": "agent:fixture:subagent:candidates:0",
+          "snapshotId": "76397f4da380b4e9ac9eb7b6c789a41300f9e4c514ec656bc9ee69eb18ec4f13",
+          "selection": {
+            "requested": {},
+            "resolved": {}
+          }
+        },
+        {
+          "id": "e3",
+          "type": "collect",
+          "slot": "candidates:0",
+          "runId": "candidates:0",
+          "result": {
+            "status": "PASS",
+            "artifactDigest": "4d5319c57fe4bb9bccba906e5354fcb6c268aadd75a2c9aa5ed34e0a51e7d201",
+            "evidence": [
+              "Frozen synthetic fixture"
+            ],
+            "output": {
+              "artifactPath": "/task/candidates/a/patch.diff",
+              "rationale": "Smallest boundary that keeps the invariant in one place.",
+              "alternatives": [
+                {
+                  "approach": "Patch every caller",
+                  "whyRejected": "Duplicates the invariant"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "e4",
+          "type": "dispatch",
+          "slot": "candidates:1",
+          "requestId": "candidates:1",
+          "snapshotId": "76397f4da380b4e9ac9eb7b6c789a41300f9e4c514ec656bc9ee69eb18ec4f13"
+        },
+        {
+          "id": "e5",
+          "type": "accept",
+          "slot": "candidates:1",
+          "runId": "candidates:1",
+          "requestId": "candidates:1",
+          "childSessionKey": "agent:fixture:subagent:candidates:1",
+          "snapshotId": "76397f4da380b4e9ac9eb7b6c789a41300f9e4c514ec656bc9ee69eb18ec4f13",
+          "selection": {
+            "requested": {},
+            "resolved": {}
+          }
+        },
+        {
+          "id": "e6",
+          "type": "collect",
+          "slot": "candidates:1",
+          "runId": "candidates:1",
+          "result": {
+            "status": "PASS",
+            "artifactDigest": "1c6ae61fb66b9cf3c08e096591047d435ad257f86e141fb4833e807b036cb410",
+            "evidence": [
+              "Frozen synthetic fixture"
+            ],
+            "output": {
+              "artifactPath": "/task/candidates/a/patch.diff",
+              "rationale": "Smallest boundary that keeps the invariant in one place.",
+              "alternatives": [
+                {
+                  "approach": "Patch every caller",
+                  "whyRejected": "Duplicates the invariant"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "e7",
+          "type": "advance",
+          "evidence": {}
+        }
+      ]
+    },
+    "architect": {
+      "version": 2,
+      "id": "pw-legacyjudge1",
+      "owner": {
+        "sessionKey": "agent:fixture:dashboard:legacy-judge",
+        "sessionId": "legacy-one",
+        "workspace": "/fixture/workspace"
+      },
+      "setup": {
+        "kind": "architect",
+        "task": "Legacy bounded comparison",
+        "taskDigest": "ab75d4f2876e10d136215263c8938736826412ad5ff69c1893e2ea4fff1466b3",
+        "sourceDigest": "c93485825ead0030c4e0ec3805de45c5fc61de626ea2e2900ee426df0c8c4b71",
+        "snapshots": [
+          {
+            "version": 1,
+            "role": "architect runners",
+            "source": "inherit",
+            "selections": [
+              {},
+              {}
+            ],
+            "poolIndex": null,
+            "diversity": "not-established"
+          },
+          {
+            "version": 1,
+            "role": "arena cross-judge pool",
+            "source": "inherit",
+            "selections": [
+              {}
+            ],
+            "poolIndex": 0,
+            "diversity": "unverified"
+          }
+        ],
+        "catalog": [],
+        "options": {
+          "intent": "design-only",
+          "grounding": "greenfield"
+        },
+        "stagesVersion": 2,
+        "leadFirst": true
+      },
+      "events": [
+        {
+          "id": "e0",
+          "type": "advance",
+          "evidence": {
+            "how": "Grounded fixture",
+            "rationale-constraints": "No live work"
+          }
+        },
+        {
+          "id": "e1",
+          "type": "dispatch",
+          "slot": "designs:0",
+          "requestId": "designs:0",
+          "snapshotId": "de004679de457e5a44c5a30dbc8e606b9baa654d6c0874b35af8d3407ef31097"
+        },
+        {
+          "id": "e2",
+          "type": "accept",
+          "slot": "designs:0",
+          "runId": "designs:0",
+          "requestId": "designs:0",
+          "childSessionKey": "agent:fixture:subagent:designs:0",
+          "snapshotId": "de004679de457e5a44c5a30dbc8e606b9baa654d6c0874b35af8d3407ef31097",
+          "selection": {
+            "requested": {},
+            "resolved": {}
+          }
+        },
+        {
+          "id": "e3",
+          "type": "collect",
+          "slot": "designs:0",
+          "runId": "designs:0",
+          "result": {
+            "status": "PASS",
+            "artifactDigest": "4a4fce03b4929d224aa95f8eea2de9fb30b19291380e89e1a55157a3d68c3732",
+            "evidence": [
+              "Frozen synthetic fixture"
+            ],
+            "output": {
+              "packagePath": "/task/designs/designs-0/README.md",
+              "usage": {
+                "readme": "Callers queue an edit and await its receipt.",
+                "callSites": [
+                  "editor.save(doc)",
+                  "sync.flush(queue)"
+                ]
+              },
+              "shape": {
+                "summary": "designs:0",
+                "publicSurface": [
+                  "save(doc): Receipt"
+                ],
+                "modules": [
+                  {
+                    "name": "queue",
+                    "responsibility": "Orders pending edits for designs:0"
+                  }
+                ]
+              },
+              "rationale": {
+                "problem": "Edits race",
+                "usage": "save then await",
+                "shape": "designs:0",
+                "synthesisDecision": "Base designs:0",
+                "tradeoffsAccepted": "One more hop",
+                "alternativesConsidered": [
+                  {
+                    "shape": "shared mutable cache",
+                    "whyLost": "Callers must know lock order"
+                  }
+                ],
+                "openQuestionsAndRisks": "Backpressure sizing",
+                "nextImplementationStep": "Type the receipt"
+              }
+            }
+          }
+        },
+        {
+          "id": "e4",
+          "type": "dispatch",
+          "slot": "designs:1",
+          "requestId": "designs:1",
+          "snapshotId": "de004679de457e5a44c5a30dbc8e606b9baa654d6c0874b35af8d3407ef31097"
+        },
+        {
+          "id": "e5",
+          "type": "accept",
+          "slot": "designs:1",
+          "runId": "designs:1",
+          "requestId": "designs:1",
+          "childSessionKey": "agent:fixture:subagent:designs:1",
+          "snapshotId": "de004679de457e5a44c5a30dbc8e606b9baa654d6c0874b35af8d3407ef31097",
+          "selection": {
+            "requested": {},
+            "resolved": {}
+          }
+        },
+        {
+          "id": "e6",
+          "type": "collect",
+          "slot": "designs:1",
+          "runId": "designs:1",
+          "result": {
+            "status": "PASS",
+            "artifactDigest": "2b4260a160b9e91141593a00b76e676372d133ff0127f1a593bb865d07f05966",
+            "evidence": [
+              "Frozen synthetic fixture"
+            ],
+            "output": {
+              "packagePath": "/task/designs/designs-1/README.md",
+              "usage": {
+                "readme": "Callers queue an edit and await its receipt.",
+                "callSites": [
+                  "editor.save(doc)",
+                  "sync.flush(queue)"
+                ]
+              },
+              "shape": {
+                "summary": "designs:1",
+                "publicSurface": [
+                  "save(doc): Receipt"
+                ],
+                "modules": [
+                  {
+                    "name": "queue",
+                    "responsibility": "Orders pending edits for designs:1"
+                  }
+                ]
+              },
+              "rationale": {
+                "problem": "Edits race",
+                "usage": "save then await",
+                "shape": "designs:1",
+                "synthesisDecision": "Base designs:1",
+                "tradeoffsAccepted": "One more hop",
+                "alternativesConsidered": [
+                  {
+                    "shape": "shared mutable cache",
+                    "whyLost": "Callers must know lock order"
+                  }
+                ],
+                "openQuestionsAndRisks": "Backpressure sizing",
+                "nextImplementationStep": "Type the receipt"
+              }
+            }
+          }
+        },
+        {
+          "id": "e7",
+          "type": "advance",
+          "evidence": {}
+        }
+      ]
+    },
+    "preLead": {
+      "version": 2,
+      "id": "pw-legacyjudge1",
+      "owner": {
+        "sessionKey": "agent:fixture:dashboard:legacy-judge",
+        "sessionId": "legacy-one",
+        "workspace": "/fixture/workspace"
+      },
+      "setup": {
+        "kind": "arena",
+        "task": "Legacy bounded comparison",
+        "taskDigest": "ab75d4f2876e10d136215263c8938736826412ad5ff69c1893e2ea4fff1466b3",
+        "sourceDigest": "c93485825ead0030c4e0ec3805de45c5fc61de626ea2e2900ee426df0c8c4b71",
+        "snapshots": [
+          {
+            "version": 1,
+            "role": "arena runners",
+            "source": "inherit",
+            "selections": [
+              {},
+              {}
+            ],
+            "poolIndex": null,
+            "diversity": "not-established"
+          },
+          {
+            "version": 1,
+            "role": "arena cross-judge pool",
+            "source": "inherit",
+            "selections": [
+              {}
+            ],
+            "poolIndex": 0,
+            "diversity": "unverified"
+          }
+        ],
+        "catalog": [],
+        "options": {},
+        "stagesVersion": 2
+      },
+      "events": [
+        {
+          "id": "e0",
+          "type": "advance",
+          "evidence": {
+            "task-and-isolation": "Frozen fixture",
+            "rubric-3-to-6": "correctness,boundary,extensibility"
+          }
+        },
+        {
+          "id": "e1",
+          "type": "dispatch",
+          "slot": "candidates:0",
+          "requestId": "candidates:0",
+          "snapshotId": "76397f4da380b4e9ac9eb7b6c789a41300f9e4c514ec656bc9ee69eb18ec4f13"
+        },
+        {
+          "id": "e2",
+          "type": "accept",
+          "slot": "candidates:0",
+          "runId": "candidates:0",
+          "requestId": "candidates:0",
+          "childSessionKey": "agent:fixture:subagent:candidates:0",
+          "snapshotId": "76397f4da380b4e9ac9eb7b6c789a41300f9e4c514ec656bc9ee69eb18ec4f13",
+          "selection": {
+            "requested": {},
+            "resolved": {}
+          }
+        },
+        {
+          "id": "e3",
+          "type": "collect",
+          "slot": "candidates:0",
+          "runId": "candidates:0",
+          "result": {
+            "status": "PASS",
+            "artifactDigest": "4d5319c57fe4bb9bccba906e5354fcb6c268aadd75a2c9aa5ed34e0a51e7d201",
+            "evidence": [
+              "Frozen synthetic fixture"
+            ],
+            "output": {
+              "artifactPath": "/task/candidates/a/patch.diff",
+              "rationale": "Smallest boundary that keeps the invariant in one place.",
+              "alternatives": [
+                {
+                  "approach": "Patch every caller",
+                  "whyRejected": "Duplicates the invariant"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "e4",
+          "type": "dispatch",
+          "slot": "candidates:1",
+          "requestId": "candidates:1",
+          "snapshotId": "76397f4da380b4e9ac9eb7b6c789a41300f9e4c514ec656bc9ee69eb18ec4f13"
+        },
+        {
+          "id": "e5",
+          "type": "accept",
+          "slot": "candidates:1",
+          "runId": "candidates:1",
+          "requestId": "candidates:1",
+          "childSessionKey": "agent:fixture:subagent:candidates:1",
+          "snapshotId": "76397f4da380b4e9ac9eb7b6c789a41300f9e4c514ec656bc9ee69eb18ec4f13",
+          "selection": {
+            "requested": {},
+            "resolved": {}
+          }
+        },
+        {
+          "id": "e6",
+          "type": "collect",
+          "slot": "candidates:1",
+          "runId": "candidates:1",
+          "result": {
+            "status": "PASS",
+            "artifactDigest": "1c6ae61fb66b9cf3c08e096591047d435ad257f86e141fb4833e807b036cb410",
+            "evidence": [
+              "Frozen synthetic fixture"
+            ],
+            "output": {
+              "artifactPath": "/task/candidates/a/patch.diff",
+              "rationale": "Smallest boundary that keeps the invariant in one place.",
+              "alternatives": [
+                {
+                  "approach": "Patch every caller",
+                  "whyRejected": "Duplicates the invariant"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "e7",
+          "type": "advance",
+          "evidence": {}
+        }
+      ]
+    },
+    "v1": {
+      "version": 1,
+      "id": "pw-legacyjudge1",
+      "owner": {
+        "sessionKey": "agent:fixture:dashboard:legacy-judge",
+        "sessionId": "legacy-one",
+        "workspace": "/fixture/workspace"
+      },
+      "setup": {
+        "kind": "arena",
+        "taskDigest": "ab75d4f2876e10d136215263c8938736826412ad5ff69c1893e2ea4fff1466b3",
+        "sourceDigest": "c93485825ead0030c4e0ec3805de45c5fc61de626ea2e2900ee426df0c8c4b71",
+        "snapshots": [
+          {
+            "version": 1,
+            "role": "arena runners",
+            "source": "inherit",
+            "selections": [
+              {},
+              {}
+            ],
+            "poolIndex": null,
+            "diversity": "not-established"
+          },
+          {
+            "version": 1,
+            "role": "arena cross-judge pool",
+            "source": "inherit",
+            "selections": [
+              {}
+            ],
+            "poolIndex": 0,
+            "diversity": "unverified"
+          }
+        ],
+        "catalog": [],
+        "options": {}
+      },
+      "events": [
+        {
+          "id": "e0",
+          "type": "advance",
+          "evidence": {
+            "task-and-isolation": "Frozen fixture",
+            "rubric-3-to-6": "correctness,boundary,extensibility"
+          }
+        },
+        {
+          "id": "e2",
+          "type": "accept",
+          "slot": "candidates:0",
+          "runId": "candidates:0",
+          "childSessionKey": "agent:fixture:subagent:candidates:0",
+          "snapshotId": "76397f4da380b4e9ac9eb7b6c789a41300f9e4c514ec656bc9ee69eb18ec4f13"
+        },
+        {
+          "id": "e3",
+          "type": "collect",
+          "slot": "candidates:0",
+          "runId": "candidates:0",
+          "result": {
+            "status": "PASS",
+            "artifactDigest": "4d5319c57fe4bb9bccba906e5354fcb6c268aadd75a2c9aa5ed34e0a51e7d201",
+            "evidence": [
+              "Frozen synthetic fixture"
+            ],
+            "output": {
+              "artifactPath": "/task/candidates/a/patch.diff",
+              "rationale": "Smallest boundary that keeps the invariant in one place.",
+              "alternatives": [
+                {
+                  "approach": "Patch every caller",
+                  "whyRejected": "Duplicates the invariant"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "e5",
+          "type": "accept",
+          "slot": "candidates:1",
+          "runId": "candidates:1",
+          "childSessionKey": "agent:fixture:subagent:candidates:1",
+          "snapshotId": "76397f4da380b4e9ac9eb7b6c789a41300f9e4c514ec656bc9ee69eb18ec4f13"
+        },
+        {
+          "id": "e6",
+          "type": "collect",
+          "slot": "candidates:1",
+          "runId": "candidates:1",
+          "result": {
+            "status": "PASS",
+            "artifactDigest": "1c6ae61fb66b9cf3c08e096591047d435ad257f86e141fb4833e807b036cb410",
+            "evidence": [
+              "Frozen synthetic fixture"
+            ],
+            "output": {
+              "artifactPath": "/task/candidates/a/patch.diff",
+              "rationale": "Smallest boundary that keeps the invariant in one place.",
+              "alternatives": [
+                {
+                  "approach": "Patch every caller",
+                  "whyRejected": "Duplicates the invariant"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "e7",
+          "type": "advance",
+          "evidence": {}
+        }
+      ]
+    },
+    "howCorrection": {
+      "version": 2,
+      "id": "pw-legacyjudge1",
+      "owner": {
+        "sessionKey": "agent:fixture:dashboard:legacy-judge",
+        "sessionId": "legacy-one",
+        "workspace": "/fixture/workspace"
+      },
+      "setup": {
+        "kind": "how",
+        "task": "Legacy correction",
+        "taskDigest": "394825262a114341cebac4dbfe17c21ff575bcc40fc09168438d7b966a458589",
+        "sourceDigest": "c93485825ead0030c4e0ec3805de45c5fc61de626ea2e2900ee426df0c8c4b71",
+        "snapshots": [
+          {
+            "version": 1,
+            "role": "how explainer",
+            "source": "inherit",
+            "selections": [
+              {}
+            ],
+            "poolIndex": null,
+            "diversity": "not-applicable"
+          }
+        ],
+        "catalog": [],
+        "options": {
+          "complexity": "simple"
+        },
+        "stagesVersion": 2,
+        "correction": {
+          "workflowId": "pw-oldsource001",
+          "slot": "explainer:0",
+          "runId": "legacy-run",
+          "artifactDigest": "5cada7d158df7d5d2f211af6f0f652e095e9f6ed1f2f2da0bd61ecab7e8ee74f",
+          "report": "Original report",
+          "errors": "Correct one statement",
+          "by": "fixture"
+        }
+      },
+      "events": []
+    },
+    "whyCorrection": {
+      "version": 2,
+      "id": "pw-legacyjudge1",
+      "owner": {
+        "sessionKey": "agent:fixture:dashboard:legacy-judge",
+        "sessionId": "legacy-one",
+        "workspace": "/fixture/workspace"
+      },
+      "setup": {
+        "kind": "why",
+        "task": "Legacy correction",
+        "taskDigest": "394825262a114341cebac4dbfe17c21ff575bcc40fc09168438d7b966a458589",
+        "sourceDigest": "c93485825ead0030c4e0ec3805de45c5fc61de626ea2e2900ee426df0c8c4b71",
+        "snapshots": [
+          {
+            "version": 1,
+            "role": "why synthesizer",
+            "source": "inherit",
+            "selections": [
+              {}
+            ],
+            "poolIndex": null,
+            "diversity": "not-applicable"
+          }
+        ],
+        "catalog": [],
+        "options": {
+          "sources": [
+            {
+              "id": "s0",
+              "category": "source-control",
+              "disposition": "available",
+              "reason": "Scoped fixture"
+            },
+            {
+              "id": "s1",
+              "category": "issues",
+              "disposition": "unavailable",
+              "reason": "Scoped fixture"
+            },
+            {
+              "id": "s2",
+              "category": "documents",
+              "disposition": "unavailable",
+              "reason": "Scoped fixture"
+            },
+            {
+              "id": "s3",
+              "category": "chat",
+              "disposition": "unavailable",
+              "reason": "Scoped fixture"
+            },
+            {
+              "id": "s4",
+              "category": "observability",
+              "disposition": "unavailable",
+              "reason": "Scoped fixture"
+            },
+            {
+              "id": "s5",
+              "category": "errors",
+              "disposition": "unavailable",
+              "reason": "Scoped fixture"
+            },
+            {
+              "id": "s6",
+              "category": "analytics",
+              "disposition": "unavailable",
+              "reason": "Scoped fixture"
+            }
+          ]
+        },
+        "stagesVersion": 2,
+        "correction": {
+          "workflowId": "pw-oldsource001",
+          "slot": "synthesizer:0",
+          "runId": "legacy-run",
+          "artifactDigest": "1566d618b9ad05f5d6636ef68875b058a3311f288ab671709bb72d36b5dd1a5c",
+          "report": "Original report",
+          "errors": "Correct one statement",
+          "by": "fixture"
+        }
+      },
+      "events": []
+    }
+  }
+}

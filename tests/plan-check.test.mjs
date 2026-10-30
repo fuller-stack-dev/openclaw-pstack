@@ -116,11 +116,40 @@ test("handles frontmatter, CRLF, and fences without counting code examples as ev
 
 test("rejects unfilled placeholders and prose violations with original line numbers", () => {
   const result = checkPlan(valid + "Unfilled <metric>.\nBad prose: connector.\nLong — dash and ‘quote’.\n", "relay.md");
-  assert.match(result.problems.map((p) => p.message).join("\n"), /unfilled angle-bracket/);
-  assert.ok(result.problems.some((p) => p.line === valid.split("\n").length + 1 && p.message === "mid-sentence colon"));
-  assert.match(messages(valid + "Long — dash and ‘quote’.\n"), /long dash/);
-  assert.match(messages(valid + "Long — dash and ‘quote’.\n"), /curly quote/);
+  const line = valid.split("\n").length;
+  assert.deepEqual(result.problems, [
+    { line, message: "unfilled angle-bracket placeholder or HTML; use concrete Markdown evidence" },
+    { line: line + 1, message: "mid-sentence colon" },
+    { line: line + 2, message: "long dash" },
+    { line: line + 2, message: "curly quote" },
+  ]);
   assert.deepEqual(checkPlan(valid + "Use `node x:y` and [the docs](https://example.invalid/a:b).\n").problems, []);
+});
+
+for (const count of [1, 2, 3, 4]) test(`ignores punctuation inside matching ${count}-backtick code spans`, () => {
+  const delimiter = "`".repeat(count);
+  const inner = count === 1 ? "x" : "`x`";
+  assert.deepEqual(checkPlan(valid + `Use ${delimiter}echo ${inner}: “quoted” — example${delimiter}.\n`).problems, []);
+});
+
+test("matches whole backtick runs and leaves unmatched and surrounding prose visible", () => {
+  const punctuation = ["long dash", "curly quote", "mid-sentence colon"];
+  const line = valid.split("\n").length;
+  for (const [source, expected] of [
+    ["Use ``echo `x`: y``. Bad: prose.", ["mid-sentence colon"]],
+    ["Bad: ‘prose’ — before ``echo `x`: y``.", punctuation],
+    ["Use ``unclosed: bad` here.", ["mid-sentence colon"]],
+    ["Use `unclosed: ‘bad’ — here.", punctuation],
+    ["Use ```unclosed: ‘bad’ — here``.", punctuation],
+    ["Use ``unclosed: ‘bad’ — here````.", punctuation],
+    ["Use ``unclosed `inside: ‘code’ — only` outside: prose.", ["mid-sentence colon"]],
+    ["Use ``one ` shorter: ‘code’ — run``.", []],
+    ["Use `one `` longer: ‘code’ — run`.", []],
+    ["Use ``one: ‘code’ — span`` and `two: ‘code’ — span`.", []],
+  ]) {
+    assert.deepEqual(checkPlan(valid + source + "\n").problems,
+      expected.map(message => ({ line, message })), source);
+  }
 });
 
 test("CLI returns pass, diagnostics, usage, and read-error exits without changing input", () => {
@@ -162,10 +191,10 @@ test("fills the actual shipped multi-phase skeleton with both execution path for
   "Authorized native forge and PR creation operation, ready or explicitly required draft, correct base.": "Use the authorized GitHub PR tool for PR-1 against main after explicit publication approval.",
   "Repo lint, typecheck, focused tests on committed head before push. Hooks stay enabled.": "Run npm run lint, npm run typecheck and node --test tests/relay.test.js at the committed head; retain logs and hooks.",
   "Scope cleanup before commit, no-comments before review, and concrete review-thread triage.": "Remove unrelated edits, run no-comments and resolve every PR-1 review thread.",
-  "Code-ready rebase rule for this execution route, every later head receipt, self-proof and babysit. Stack owners never rebase or retarget.": "Record code-ready head after rebase to trunk, then self-proof, babysit and requalify every later head.",
-  "Code-ready full swarm with one gates lane, ten live lanes, perf lane, and at least two audit lanes. Minor-fix new-head verifier rule.": "Collect one gates lane, ten live lanes, one perf lane and two audit lanes at code-ready head; minor fixes need a new-head verifier.",
-  "Root receipt audit, all lanes PASS, owner fix-forward for findings, patch-id requalification.": "Root audits all PASS receipts; owner fixes findings and records patch-id requalification after every change.",
-  "Authorized merge rule, or root stack append and operator landing.": "The authorized owner merges only after root approval and green exact-head checks.",
+  "Owner code-ready rebase onto trunk or the real dependency parent, later head receipts, self-proof and babysit. Fix rounds rebase for conflict, trunk-caused CI or known concurrent same-file landing; merge prep retains its own rule.": "Record code-ready head after rebase to trunk, then self-proof, babysit and requalify every later head.",
+  "Code-ready full swarm with one gates lane, ten live lanes, perf lane, and at least two audit lanes. Minor-fix new-head verifier rule and wording-only exception preserving mandatory gates.": "Collect one gates lane, ten live lanes, one perf lane and two audit lanes at code-ready head; minor fixes need a new-head verifier.",
+  "Root receipt audit, demonstrated blocking findings and mandatory gates clear, trunk regressions recorded separately, scoped owner fix-forward and patch-id requalification.": "Root audits mandatory gate receipts and demonstrated head failures; owner fixes blockers, records base regressions separately and proves patch-id requalification.",
+  "Authorized owner merge rule, or verified no-merge handoff and operator landing; stack only real dependencies.": "The authorized owner merges only after root approval and green exact-head checks.",
   "Isolated authorized environment, exact head checkout, backend and surface start, ready predicate.": "Check out the exact head in isolated HOME, run npm run relay and wait for the ready log.",
   "Named native control driver for input and read-only diagnostics.": "Use the installed native browser driver to submit the relay form and inspect its receipt.",
   "Per-lane screenshot and report paths.": "Save each lane screenshot and report under proof/PR-1/lane-N.",
@@ -191,7 +220,7 @@ test("fills the actual shipped multi-phase skeleton with both execution path for
   "Send the artifacts through authorized chat, then stop at merge-ready for operator review.": "Send screenshots and video to the operator and wait for approval.",
   "Root clean exact-head verdict and resolved review findings.": "Record the root clean verdict and resolved review findings at the exact head.",
   "Fresh-head CI, base-drift checks, and patch-id rule.": "Record green head CI, base-drift inspection and patch-id evidence.",
-  "Authorized owner merge or root append for operator landing.": "The authorized owner records the merge result after approval.",
+  "Authorized owner merge or verified frozen handoff for operator landing.": "The authorized owner records the merge result after approval.",
   "Questions settled with branch, SHA, artifacts, and unresolved questions.": "The prototype relay-receipt branch at recorded SHA and proof/prototype.log settles acknowledgment order.",
   "Alternatives and reasons.": "Polling was rejected because it duplicates the event subscription.",
   "Risk, responsible PR, what its owner watches, missing control capabilities.": "PR-1 watches lost acknowledgments; browser capture is required and missing capture blocks live proof.",
@@ -227,6 +256,31 @@ test("linear prose scanners match the original regexes exactly on exhaustive sho
   visit("", 6);
   assert.equal(checked, (9 ** 7 - 1) / 8);
   assert.equal(stripLinkTargets("see ![shot](a.png) and [doc](x.md): end"), "see  and [doc]: end");
+});
+
+test("128 KiB backtick adversaries stay within the existing scanner budget", () => {
+  // Match the supplied-source tool limit and the existing pathological-line budget.
+  const limit = 131_072;
+  const bad = ": ‘prose’ — end";
+  let unequal = "Use ";
+  for (let count = 1; unequal.length + count + 1 + bad.length <= limit; count++)
+    unequal += "`".repeat(count) + " ";
+  const punctuation = ["long dash", "curly quote", "mid-sentence colon"];
+  for (const [source, expected] of [
+    [unequal + bad, punctuation],
+    ["Use " + "`".repeat(limit - 4 - bad.length) + bad, punctuation],
+    ["Use " + "`".repeat(60_000) + bad + "`".repeat(60_001), punctuation],
+    ["Use ``" + ": ‘code’ — ` ".repeat(9_000) + "``.", []],
+    ["Use " + "`code: ‘ok’ —` ".repeat(8_000) + bad, punctuation],
+  ]) {
+    assert.ok(source.length <= limit);
+    const started = performance.now();
+    const result = checkPlan(source);
+    const elapsed = performance.now() - started;
+    assert.ok(elapsed < 1_000, "took " + elapsed + " ms");
+    assert.deepEqual(result.problems.filter(p => punctuation.includes(p.message)),
+      expected.map(message => ({ line: 1, message })));
+  }
 });
 
 test("pathological 128 KiB lines check in bounded time and still report their findings", () => {

@@ -1,28 +1,28 @@
 {
   "schema": 1,
   "kind": "manual-route-discovery-only",
-  "upstreamCommit": "29fa9382c9c250d134f6a2f1aa86c01c5f63119d",
+  "upstreamCommit": "c742dd61706fbacc1b95f1a20b7b988cf096ce6c",
   "semanticReview": "NOT-PERFORMED-BY-THIS-GENERATOR",
   "inputs": [
     {
       "path": "source-manifest.json",
-      "bytes": 49743,
-      "sha256": "8b3a38140fefcc10296899cfc892d62f4356afcdc0c8396b2def585219729415"
+      "bytes": 172291,
+      "sha256": "0bc169df64293221c7e2b9e3990ed34d7fb5c5104f762842fdeda68b2b6cb0df"
     },
     {
       "path": "native/routes.json",
-      "bytes": 3398,
-      "sha256": "caeff9c5dcb7f82131306f96ea2d3c34417ccb14263d11f9ebdf03d25456b90c"
+      "bytes": 3516,
+      "sha256": "8b595473d1c570a190aefa16fc72cba6386a66926f79377d086d466f60f510e3"
     },
     {
       "path": "native/workflows.md",
-      "bytes": 107737,
-      "sha256": "8d0a255a27ea7c0920cf0cddc77f26803473e46136f0e98f39fe5ea08eda77bb"
+      "bytes": 117340,
+      "sha256": "a63f2a045f3f752d9a346b843cb680b6a300aea70e9556299afbe441448bf252"
     },
     {
       "path": "native/playbooks.md",
-      "bytes": 95755,
-      "sha256": "1ea434ad4172f527760123314caf42bd8265c188efca253028fdc765fc7b3807"
+      "bytes": 95284,
+      "sha256": "16436b8a194ed01adf5383eb9cf5e2636747e8e4e22eef5a59808d7348463be8"
     },
     {
       "path": "native/requirements/no-comments.json",
@@ -31,8 +31,8 @@
     },
     {
       "path": "native/requirements/arena.json",
-      "bytes": 4572,
-      "sha256": "21bab97befc6ab5f8e192506bed199b0b8d11930fb43f5457274014417b14902"
+      "bytes": 5472,
+      "sha256": "18abffbffcbdd53ed87e4db9188c97e514ac9324e8ac1612156de78a8fd628b5"
     },
     {
       "path": "native/requirements/architect.json",
@@ -51,13 +51,13 @@
     },
     {
       "path": "native/requirements/autopilot-full.json",
-      "bytes": 9119,
-      "sha256": "37e81eceaea21d480d16cf11844564aa5f1efb1fe925a2a6cc988565cf9a6a3d"
+      "bytes": 9808,
+      "sha256": "27f4f4c6b4c80e70aa05608a134e94e60b8468257ed069399b9e98f92cec1ae3"
     },
     {
       "path": "native/requirements/autopilot-stack.json",
-      "bytes": 4098,
-      "sha256": "12ec5422ab2c34bc3d7ff83744cf588d0d8dd1bc9b06b9021b1fda208b329965"
+      "bytes": 2761,
+      "sha256": "23a30972edf9dab70999c5ba930a1bbdd2c18e332779e7022a1e149693875883"
     },
     {
       "path": "native/requirements/autonomous-run.json",
@@ -66,8 +66,8 @@
     },
     {
       "path": "native/requirements/orchestrate.json",
-      "bytes": 11304,
-      "sha256": "5b83bd3823e957ac081332c1429beb3595298c3c0759f866fd9625af708ce460"
+      "bytes": 6585,
+      "sha256": "5716fa200d09c0cca4f67a84add784aba8eb1466f913413fac8df92b99af2d56"
     },
     {
       "path": "native/requirements/eval.json",
@@ -81,8 +81,8 @@
     },
     {
       "path": "native/requirements/reflect.json",
-      "bytes": 4963,
-      "sha256": "58841469999aa7e682f3395d6599ce7b098fea0882b4e66367ad531c4155f49b"
+      "bytes": 5391,
+      "sha256": "8440bfbabb6f61aa6c1fdc9273c997cbb089aaffec449ce2f5a292b99041adac"
     },
     {
       "path": "native/requirements/hillclimb.json",
@@ -116,8 +116,8 @@
     },
     {
       "path": "native/requirements/interrogate.json",
-      "bytes": 4875,
-      "sha256": "c0170728313ca9f7baa08edaa20d46ed529db4726e2ce5387b978eaaa159761e"
+      "bytes": 4569,
+      "sha256": "afc9c72c82c3fa86ede8f1bbb1bfa37fb90cfcf84460990c5f7af960a1dd1fbc"
     },
     {
       "path": "native/requirements/swarm.json",
@@ -141,8 +141,8 @@
     },
     {
       "path": "native/requirements/multi-phase-plan.json",
-      "bytes": 18892,
-      "sha256": "216540797ebe4539cc5919c34d91233cc9d3bb6447552d7841a3a20ac9bed597"
+      "bytes": 19184,
+      "sha256": "39ff3928387c8242274b93faab28c70dc7cb03fc87f99e482497ee871ede73ef"
     },
     {
       "path": "native/requirements/how.json",
@@ -181,8 +181,8 @@
     },
     {
       "path": "native/requirements/opening-a-pr.json",
-      "bytes": 9969,
-      "sha256": "f53f8a968556e025424a45c9c71f0b1264e7c6f0c963dd6a04f4a4c478d049d0"
+      "bytes": 10148,
+      "sha256": "e0dae2509d8d8341fe98e09ae33b3d6f75275c16c7b1371b17f6f5ad6f0f630c"
     },
     {
       "path": "native/requirements/session-pickup.json",
@@ -191,8 +191,8 @@
     },
     {
       "path": "native/requirements/babysit.json",
-      "bytes": 8680,
-      "sha256": "eb80e6028ed0a6de71fa0ffda30424de75d76aee0a8ebc903b9f2663014b728d"
+      "bytes": 8705,
+      "sha256": "4e6a59e985c100bfee6dd91e0f8bc2c557ea2c9da3692b6f7982b59c7c3e4ca9"
     },
     {
       "path": "native/requirements/automate-me.json",
@@ -211,13 +211,13 @@
     },
     {
       "path": "native/requirements/poteto-mode.json",
-      "bytes": 8540,
-      "sha256": "57693de36be2a43c128cad536f7d47b6fc22b8b64ceb2e0339b40839c1c4eec2"
+      "bytes": 8811,
+      "sha256": "2d4d39abef503a00f80b7553d00d0f4d6a8440fa2babfd6d154fd0f0bf2debf7"
     },
     {
       "path": "native/requirements/setup-pstack.json",
-      "bytes": 4091,
-      "sha256": "7a6317d400623963728580e925d85f93c016bd8338a27e97d547efd4429551ce"
+      "bytes": 4299,
+      "sha256": "770a608b75fc3103da6a7461823270ca606a2bb98abf5bb1cfda80b883d6e708"
     },
     {
       "path": "native/requirements/blast-radius.json",
@@ -268,6 +268,21 @@
       "path": "native/requirements/unslop.json",
       "bytes": 1132,
       "sha256": "1f4e2502da80642b7a3d457b681d997867adb0906c009eff5eefc0ab9f90c593"
+    },
+    {
+      "path": "native/requirements/create-formal-verification-skill.json",
+      "bytes": 658,
+      "sha256": "87d5056fc86e42988c7e89c7c80ba94ad69c862cd553246e4e1063a6c503bc00"
+    },
+    {
+      "path": "native/requirements/statechart.json",
+      "bytes": 4578,
+      "sha256": "dac6975e6b0e4d90f2f68dfe7701ee42917497da38b06674abddaf2b1633070e"
+    },
+    {
+      "path": "native/requirements/ketchup-video.json",
+      "bytes": 3535,
+      "sha256": "0f58ee080819a4b6c46aab656325f736120e995bf128ada067a22c7708d01f84"
     }
   ],
   "files": [
@@ -277,7 +292,7 @@
       "sha256": "bb071292d79d0829b7faa40ddf5f73cd950b0837703b9b22d6344690d9ed4ef8",
       "route": "poteto-mode",
       "document": "workflows.md",
-      "sectionSha256": "79074f238e9c248cf06df3fc912ffe4c5f8a33760f45638d09477e26572935e0",
+      "sectionSha256": "60fc08fd194f4efa9314e0edc9c62fbc9294fd2fbffc0c5dfea23ae7415d6f1e",
       "requirementIds": [
         "playbook-checklist",
         "conditional-triggers",
@@ -292,7 +307,8 @@
         "poteto-mode-planner",
         "poteto-mode-rerun-rejected",
         "poteto-mode-checklist",
-        "poteto-mode-claim-labels"
+        "poteto-mode-claim-labels",
+        "before-measurement"
       ]
     },
     {
@@ -301,7 +317,7 @@
       "sha256": "6f37e5237a0a24a579bc67f0b71f1c39bf48a07e518dca6f474bb338388ab0ea",
       "route": "poteto-help",
       "document": "workflows.md",
-      "sectionSha256": "35f422ccdc7a6e91aa61bae7d7d5597916ae808067bbd1c0d6a24b672f5f9a76",
+      "sectionSha256": "823c0295348c45e5448678f4dc0c2d731b65f2f53def63501687ac77d6ac7677",
       "requirementIds": [
         "poteto-help-example"
       ]
@@ -312,7 +328,7 @@
       "sha256": "cea00bc477489db63e17790eeeba52d64126725b5d87c7b71dfe08b5423e5468",
       "route": "setup-pstack",
       "document": "workflows.md",
-      "sectionSha256": "06dfbbcd66b748ab2c21dbfe0fb321236f115651044ac5b106a9cc1f5797d06f",
+      "sectionSha256": "78b5c063b217ce167bc8b42796782998f78cd4ad4a6351d32a567f266ab4ad70",
       "requirementIds": [
         "read-only-inspection",
         "reasoning-budget-preview",
@@ -418,7 +434,7 @@
       "sha256": "e8459b8e348363f40fbc1431ffba7b9b1fdcb7b173de6800be79c671e37cd61e",
       "route": "arena",
       "document": "workflows.md",
-      "sectionSha256": "47b4c887d988045e30e975165021fa194b92d743927dd6bf75127ab48342d175",
+      "sectionSha256": "ce15f979dcc2308212e5fde421901cff9d92407eeda45771200c5c70c0a86845",
       "requirementIds": [
         "frame",
         "fan-out",
@@ -453,7 +469,7 @@
       "sha256": "fa477a1532de8267e30dd95b30c05df66de6f813e37b730a05f7aa99d714c51c",
       "route": "interrogate",
       "document": "workflows.md",
-      "sectionSha256": "4b78f6c3176dea4ed72ec9d170a6a79d2c78ac4a98e3d29a149bd8dbbdf2dc52",
+      "sectionSha256": "3bfc6e55c6f905655453b2e37f57d6edd28a0892c2acc63f467a2035eb8a8802",
       "requirementIds": [
         "scope-intent",
         "references",
@@ -482,6 +498,25 @@
         "constraint-approval",
         "closure",
         "output-contract"
+      ]
+    },
+    {
+      "path": "pstack-statechart/SKILL.md",
+      "bytes": 1669,
+      "sha256": "03546e8b3a8f0edd3e6bcbd9c9131c931c2ac9f23ede54a09895ba6b7736ae9d",
+      "route": "statechart",
+      "document": "workflows.md",
+      "sectionSha256": "3611b67ec9d8226a4bc7c3ddc8a5edc7a7439fc5abcf3ca2681837cd0e50827e",
+      "requirementIds": [
+        "statechart-01",
+        "statechart-02",
+        "statechart-03",
+        "statechart-04",
+        "statechart-05",
+        "statechart-06",
+        "statechart-07",
+        "statechart-08",
+        "statechart-09"
       ]
     },
     {
@@ -576,8 +611,10 @@
       "sha256": "b615aa09497e24caeab374d155acd4ce0e77b6656edd6599c531405622a3d5fc",
       "route": "create-formal-verification-skill",
       "document": "workflows.md",
-      "sectionSha256": "0d818062d92042dea35a4b08524a9355dd6a6c681da1f4e9a74d11eadc038e12",
-      "requirementIds": []
+      "sectionSha256": "eba5a5fe4cd6a7d45f0c43b2417ac38a9671640f92618c24834919a1acc6f410",
+      "requirementIds": [
+        "result-presentation"
+      ]
     },
     {
       "path": "pstack-maintain-formal-verification-skill/SKILL.md",
@@ -618,6 +655,23 @@
       "requirementIds": [
         "ketchup-fact-check",
         "ketchup-reads-state"
+      ]
+    },
+    {
+      "path": "pstack-ketchup-video/SKILL.md",
+      "bytes": 1687,
+      "sha256": "00aa6c73b1c4f6bf612477a8071a17ce87f03fc4e6fad9dee91bbae73d9a7fbe",
+      "route": "ketchup-video",
+      "document": "workflows.md",
+      "sectionSha256": "d0d826efa9c1f330fc9dd0f2243a23a985d50f576b0b9e41356c9656128cb7e2",
+      "requirementIds": [
+        "ketchup-video-01",
+        "ketchup-video-02",
+        "ketchup-video-03",
+        "ketchup-video-04",
+        "ketchup-video-05",
+        "ketchup-video-06",
+        "ketchup-video-07"
       ]
     },
     {
@@ -742,7 +796,7 @@
       "sha256": "060b202663a126ebfb4d5f967b21bfa9e4077bf1d4c07d80f47212048ddbd107",
       "route": "reflect",
       "document": "workflows.md",
-      "sectionSha256": "e2b6f35cbbe12cff831f70db93b8dceb452f5b5bb51848018ff23146047de459",
+      "sectionSha256": "a02feed5c47d9563a4470339576be6cd65e4a74b25f86712e2c399000236b8b4",
       "requirementIds": [
         "scope",
         "parallel-lenses",
@@ -751,7 +805,9 @@
         "existing-first",
         "row-approval",
         "apply-validate",
-        "bounded-wait-resume"
+        "bounded-wait-resume",
+        "canonical-preview",
+        "no-publication"
       ]
     },
     {
@@ -1157,7 +1213,7 @@
       "sha256": "4be3edc644c599e676e9cceac02e4e8acd3aa23b07d5ec0cfe49d592c5a5176b",
       "route": "babysit",
       "document": "playbooks.md",
-      "sectionSha256": "63f5deda2426360532b46a062a6af39fdfbd88defaafe02e1bc9e9b572975c11",
+      "sectionSha256": "f3d22f4829d386d0373d7e5df906cfef8bc29e2e3593cd270102e51d8c290e38",
       "requirementIds": [
         "babysit-01",
         "babysit-02",
@@ -1263,7 +1319,7 @@
       "sha256": "e3429fea66dccc998a49563d74aab6bddf39f3064ce8b019a0aa9c0a9e3b732d",
       "route": "orchestrate",
       "document": "playbooks.md",
-      "sectionSha256": "be238608fca2f17adbdf9199845a2f95b1cc2b9fcf4cc8be6b557bf689fc7d9b",
+      "sectionSha256": "fed9acf73ce7d1814a2f27967cca83098bbcd5106d07f9fd2c9613db83f2ffd5",
       "requirementIds": [
         "orchestrate-01",
         "orchestrate-02",
@@ -1276,59 +1332,7 @@
         "orchestrate-09",
         "orchestrate-10",
         "orchestrate-11",
-        "orchestrate-12",
-        "orchestrate-13",
-        "orchestrate-14",
-        "orchestrate-15",
-        "orchestrate-16",
-        "orchestrate-17",
-        "orchestrate-18",
-        "orchestrate-19",
-        "orchestrate-20",
-        "orchestrate-21",
-        "orchestrate-22",
-        "orchestrate-23",
-        "orchestrate-24",
-        "orchestrate-25",
-        "orchestrate-26",
-        "orchestrate-27",
-        "orchestrate-28",
-        "orchestrate-29",
-        "orchestrate-30",
-        "orchestrate-31",
-        "orchestrate-32",
-        "orchestrate-33",
-        "orchestrate-34",
-        "orchestrate-35",
-        "orchestrate-36",
-        "orchestrate-37",
-        "orchestrate-38",
-        "orchestrate-39",
-        "orchestrate-40",
-        "orchestrate-41",
-        "orchestrate-42",
-        "orchestrate-43",
-        "orchestrate-44",
-        "orchestrate-45",
-        "orchestrate-46",
-        "orchestrate-47",
-        "orchestrate-48",
-        "orchestrate-49",
-        "orchestrate-50",
-        "orchestrate-51",
-        "orchestrate-52",
-        "orchestrate-53",
-        "orchestrate-54",
-        "orchestrate-55",
-        "orchestrate-56",
-        "orchestrate-57",
-        "orchestrate-58",
-        "orchestrate-59",
-        "orchestrate-60",
-        "orchestrate-61",
-        "orchestrate-62",
-        "orchestrate-63",
-        "orchestrate-rerun-rejected"
+        "orchestrate-12"
       ]
     },
     {
@@ -1337,7 +1341,7 @@
       "sha256": "1cb6c85055df4e711f67612215fb642fca0f89781c3343f64a18daa1db99e7ad",
       "route": "autopilot-full",
       "document": "playbooks.md",
-      "sectionSha256": "9dac368955830c6e21afb13c4625d8c3229efa78e0988ffb0847a06a86543858",
+      "sectionSha256": "95d28a6ca56892a14996acfcd5d5f2c789b01f7fbafa7a94da2554d017fee415",
       "requirementIds": [
         "autopilot-full-01",
         "autopilot-full-02",
@@ -1399,31 +1403,14 @@
       "sha256": "7ef48af5281a38c659973a2c83d8e18f2f3053449955d88996967ccad4128bb3",
       "route": "autopilot-stack",
       "document": "playbooks.md",
-      "sectionSha256": "41e6dc590ea5f1e138a931bda2260c1961df661d8966262324fa58e43185d506",
+      "sectionSha256": "1c34d81148a08cf0700fd8767249825e5cae5d4d6aa25ae50a440083c1ef689f",
       "requirementIds": [
         "autopilot-stack-01",
         "autopilot-stack-02",
         "autopilot-stack-03",
         "autopilot-stack-04",
         "autopilot-stack-05",
-        "autopilot-stack-06",
-        "autopilot-stack-07",
-        "autopilot-stack-08",
-        "autopilot-stack-09",
-        "autopilot-stack-10",
-        "autopilot-stack-11",
-        "autopilot-stack-12",
-        "autopilot-stack-13",
-        "autopilot-stack-14",
-        "autopilot-stack-15",
-        "autopilot-stack-16",
-        "autopilot-stack-17",
-        "autopilot-stack-18",
-        "autopilot-stack-19",
-        "autopilot-stack-20",
-        "autopilot-stack-21",
-        "autopilot-stack-22",
-        "autopilot-stack-audit-reread"
+        "autopilot-stack-06"
       ]
     },
     {
@@ -1489,7 +1476,7 @@
       "sha256": "b64e37fb046727d9917d0477039d5259966965778d0885122b588364919a1ad7",
       "route": "multi-phase-plan",
       "document": "playbooks.md",
-      "sectionSha256": "877951f0546d9c2b6ab8dfa687dee2385ad04ca094a109f485f7ca8ac879fa10",
+      "sectionSha256": "ca522a4aff297f24f0040176dd33310418eef28d7b3d7059d247d82440b31714",
       "requirementIds": [
         "multi-phase-plan-01",
         "multi-phase-plan-02",
@@ -1633,7 +1620,7 @@
       "sha256": "7096bce22f27fa4964b94abcec5816cb5cb55b2860545282f7a302a67cb19e7d",
       "route": "opening-a-pr",
       "document": "playbooks.md",
-      "sectionSha256": "0d9a00a70bd5f1502c06fec85688b4d0cc9c7c82d905c3ffb2f0f46aff95deab",
+      "sectionSha256": "d060ec55f95bf29d2c7a38dfa94363fe9ecd5a11b47138257ba28a508f8d6d23",
       "requirementIds": [
         "opening-a-pr-01",
         "opening-a-pr-02",
@@ -1661,6 +1648,6 @@
       ]
     }
   ],
-  "restoredRequirementRoutes": 49,
-  "restoredGates": 845
+  "restoredRequirementRoutes": 52,
+  "restoredGates": 796
 }

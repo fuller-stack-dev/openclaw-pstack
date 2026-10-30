@@ -13,7 +13,8 @@ import { normalizeToolParameters } from "host-test/tool-schema";
 import { normalizeOpenAIToolSchemas } from "openclaw/plugin-sdk/provider-tools";
 import { runAgentLoop } from "host-test/agent-core";
 import { createAssistantMessageEventStream } from "host-test/llm-core";
-import { reviewerOutput, finding, architectOutput, arenaOutput, judgeOutput } from "./fixtures/panel-outputs.mjs";
+import { executedFrame, executedReviewer as reviewerOutput, executedFinding as finding } from "./fixtures/executed-outputs.mjs";
+import { architectOutput, arenaOutput, judgeOutput } from "./fixtures/panel-outputs.mjs";
 import { parseSpawnTag } from "../src/spawn-guard.ts";
 import { build } from "./fixtures/tool-factory.ts";
 
@@ -78,20 +79,21 @@ it("plans panel children with their closed output contract and persists only con
   const reviewers = { kind: "interrogate", taskDigest: digest("review"), sourceDigest: digest("frozen head"), catalog,
     snapshots: [resolveRole({ role: "interrogate reviewers", catalog, overrides: [{ model: "fixture/model", thinking: "high" }, { model: "fixture/model", fastMode: true }] })], options: {} };
   await h.call({ action: "create", workflowId: "review", revision: 0, setup: reviewers });
-  await h.call({ action: "apply", workflowId: "review", revision: 1, event: { id: "frame", type: "advance", evidence: { intent: "intent", "frozen-head": "a".repeat(40), rubric: "rubric" } } });
+  await h.call({ action: "apply", workflowId: "review", revision: 1, event: { id: "frame", type: "advance", evidence: executedFrame } });
   const plan = (await h.call({ action: "spawn-plan", workflowId: "review", slot: "reviewers:1", task: "Review frozen head", spawnSchema: schema })).details;
-  expect(plan.outputContract).toBe("interrogate-reviewer");
+  expect(plan.outputContract).toBe("interrogate-executed-reviewer");
+  expect(plan.spawnArgs.task).toContain(new URL("../skills/pstack/native/interrogate-executed.md", import.meta.url).pathname);
   expect(plan.spawnArgs).toMatchObject({ model: "fixture/model", fastMode: true });
-  const embedded = plan.spawnArgs.task.match(/Output contract `interrogate-reviewer`[^\n]*\n(\{.*\})/);
-  expect(JSON.parse(embedded[1]).required).toEqual(["findings", "lenses", "testAssessment"]);
+  const embedded = plan.spawnArgs.task.match(/Output contract `interrogate-executed-reviewer`[^\n]*\n(\{.*\})/);
+  expect(JSON.parse(embedded[1]).required).toEqual(["intent", "frozen", "coverage", "findings"]);
   expect(plan.spawnArgs.task.trimEnd().endsWith("]")).toBe(true);
   expect(parseSpawnTag(plan.spawnArgs)).toMatchObject({ slot: "reviewers:1", snapshotId: plan.snapshotId });
   expect(await h.hook(plan.spawnArgs)).toBeUndefined();
   await h.call({ action: "apply", workflowId: "review", revision: 2, event: { id: "admit", type: "accept", slot: "reviewers:1", runId: "r1", childSessionKey: "agent:worker:subagent:r1", snapshotId: plan.snapshotId } });
   const before = await persisted().lookup(workflowKey(identity, "review"));
   const collect = (id: string, status: string, output: unknown) => h.call({ action: "apply", workflowId: "review", revision: 3, event: { id, type: "collect", slot: "reviewers:1", runId: "r1", result: { status, artifactDigest: digest("report"), evidence: ["report.md#findings"], output } } });
-  await expect(collect("bad", "PASS", reviewerOutput([finding("critical")]))).rejects.toThrow("PASS cannot carry critical or warning findings");
-  await expect(collect("bad-shape", "ISSUES", { findings: [] })).rejects.toThrow("missing required field lenses");
+  await expect(collect("bad", "PASS", reviewerOutput([finding("critical")]))).rejects.toThrow("PASS cannot carry executed findings");
+  await expect(collect("bad-shape", "ISSUES", { findings: [] })).rejects.toThrow("missing required field intent");
   expect(await persisted().lookup(workflowKey(identity, "review"))).toEqual(before);
   const ok = await collect("good", "ISSUES", reviewerOutput([finding("critical")]));
   expect(ok.details.view.attempts["reviewers:1"][0].result.output.findings[0].severity).toBe("critical");

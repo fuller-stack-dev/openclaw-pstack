@@ -245,7 +245,7 @@ test('review scope refuses C1 controls and Unicode line separators, not other no
 test('profiles are narrow-only host definitions: package instructions, deny lists only, panel roles read-only', () => {
   const pluginRoot = realpathSync(fileURLToPath(new URL('../../../', import.meta.url)));
   const defs = subagentProfiles();
-  assert.deepEqual(defs.map(d => d.id), ['comment-sicko', 'poteto-agent', 'panel-reviewer', 'panel-judge']);
+  assert.deepEqual(defs.map(d => d.id), ['comment-sicko', 'poteto-agent', 'panel-reviewer', 'panel-judge', 'interrogate-adversary']);
   for (const def of defs) {
     // Only the fields a narrow-only host profile accepts: no model, auth, sandbox or allow list.
     assert.deepEqual(Object.keys(def).sort(), ['description', 'id', 'instructionsFile', ...(def.outputSchema ? ['outputSchema'] : []), 'tools'].sort());
@@ -256,10 +256,16 @@ test('profiles are narrow-only host definitions: package instructions, deny list
   assert.deepEqual(defs[0].outputSchema, contractFor('comment-sicko').schema);
   assert.deepEqual(defs[1].outputSchema, contractFor('poteto-agent').schema);
   assert.equal(defs[2].outputSchema, undefined, 'panel profiles leave the per-role envelope to the spawn');
-  for (const def of [defs[0], defs[2], defs[3]]) for (const tool of ['write', 'edit', 'apply_patch', 'sessions_spawn', 'group:plugins']) assert.ok(def.tools.deny.includes(tool), def.id + ' denies ' + tool);
+  for (const def of [defs[0], defs[2], defs[3], defs[4]]) for (const tool of ['write', 'edit', 'apply_patch', 'sessions_spawn', 'group:plugins']) assert.ok(def.tools.deny.includes(tool), def.id + ' denies ' + tool);
   assert.ok(!defs[2].tools.deny.includes('group:runtime') && defs[3].tools.deny.includes('group:runtime'), 'the judge alone loses the shell');
   assert.ok(defs[1].tools.deny.includes('sessions_spawn') && !defs[1].tools.deny.includes('write'), 'a delegate keeps file tools but never redispatches');
   assert.equal(panelProfileFor('interrogate reviewers'), 'panel-reviewer');
+  assert.equal(panelProfileFor('judgment and prose'), undefined);
+  const executed = { kind: 'interrogate', executedProof: true };
+  assert.equal(panelProfileFor('interrogate reviewers', executed), 'interrogate-adversary');
+  assert.equal(panelProfileFor('judgment and prose', executed), 'interrogate-adversary');
+  assert.ok(!WRITER_ROLES.includes('judgment and prose'));
+  assert.ok(!defs[4].tools.deny.includes('exec') && !defs[4].tools.deny.includes('group:runtime'));
   assert.deepEqual(['panel-reviewer', 'panel-judge', 'comment-sicko', 'poteto-agent', 'unknown-profile'].map(profileKeepsShell), [true, false, true, true, true], 'only the judge loses the shell; unknown ids are labelled conservatively');
   assert.equal(panelProfileFor('arena cross-judge pool'), 'panel-judge');
   for (const role of WRITER_ROLES) assert.equal(panelProfileFor(role), undefined, role);

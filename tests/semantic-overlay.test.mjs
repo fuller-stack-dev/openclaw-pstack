@@ -49,10 +49,10 @@ test("maps every pinned upstream MUST/required/never line and --check writes not
   const output = skillPath(dir, "native/semantic-overlay.md");
   const before = await readFile(output);
   const result = await syncOverlay(dir, true);
-  assert.equal(result.files, 93);
-  assert.equal(result.rules, 328);
-  assert.equal(result.carried, 285);
-  assert.equal(result.targets.gate + result.targets.native + result.targets.same + result.targets.exclude, 433);
+  assert.equal(result.files, 117);
+  assert.equal(result.rules, 363);
+  assert.equal(result.carried, 279);
+  assert.equal(result.targets.gate + result.targets.native + result.targets.same + result.targets.exclude, 448);
   assert.deepEqual(await readFile(output), before);
   const overlay = await readJson(dir, "native/semantic-overlay.json");
   const text = before.toString("utf8");
@@ -299,23 +299,13 @@ const EXCLUDED = [
   "docs/guide/06-verify-and-ship.md:107 guide-example",
   "docs/guide/10-recipes-and-pitfalls.md:90 guide-example",
   "docs/harness/claude-code.md:54 cursor-harness",
+  "skills/arena/SKILL.md:28 cursor-harness",
   "skills/make-bot-ui/SKILL.md:5 non-normative",
   "skills/poteto-help/references/recipes.md:32 guide-example",
+  "skills/poteto-mode/SKILL.md:98 cursor-harness",
   "skills/poteto-mode/references/bugbot-triage.md:23 non-normative",
   "skills/poteto-mode/references/bugbot-triage.md:45 non-normative",
   "skills/poteto-mode/references/bugbot-triage.md:138 non-normative",
-  "skills/poteto-mode/scripts/orch/orch.test.ts:474 non-normative",
-  "skills/poteto-mode/scripts/orch/orch.test.ts:571 source-only-code",
-  "skills/poteto-mode/scripts/orch/orch.test.ts:670 source-only-code",
-  "skills/poteto-mode/scripts/orch/orch.test.ts:732 source-only-code",
-  "skills/poteto-mode/scripts/orch/orch.ts:96 source-only-code",
-  "skills/poteto-mode/scripts/orch/orch.ts:251 non-normative",
-  "skills/poteto-mode/scripts/orch/orch.ts:253 source-only-code",
-  "skills/poteto-mode/scripts/orch/store.ts:305 source-only-code",
-  "skills/poteto-mode/scripts/orch/store.ts:313 source-only-code",
-  "skills/poteto-mode/scripts/orch/store.ts:320 source-only-code",
-  "skills/poteto-mode/scripts/orch/store.ts:678 source-only-code",
-  "skills/poteto-mode/scripts/orch/store.ts:1562 source-only-code",
   "skills/poteto-mode/scripts/watch-pr/cli.ts:37 source-only-code",
   "skills/poteto-mode/scripts/watch-pr/cli.ts:43 source-only-code",
   "skills/poteto-mode/scripts/watch-pr/cli.ts:49 source-only-code",
@@ -323,19 +313,70 @@ const EXCLUDED = [
   "skills/poteto-mode/scripts/watch-pr/github.ts:81 non-normative",
   "skills/poteto-mode/scripts/watch-pr/policy.ts:278 non-normative",
   "skills/poteto-mode/scripts/watch-pr/policy.ts:325 non-normative",
-  "skills/poteto-mode/scripts/watch-pr/policy.ts:825 non-normative",
+  "skills/poteto-mode/scripts/watch-pr/policy.ts:831 non-normative",
   "skills/poteto-mode/scripts/watch-pr/render.ts:17 non-normative",
   "skills/poteto-mode/scripts/watch-pr/render.ts:128 non-normative",
   "skills/poteto-mode/scripts/watch-pr/render.ts:165 non-normative",
   "skills/poteto-mode/scripts/watch-pr/types.ts:9 source-only-code",
   "skills/principle-never-block-on-the-human/SKILL.md:2 non-normative",
   "skills/principle-never-block-on-the-human/SKILL.md:7 non-normative",
+  "skills/statechart/scripts/backends/report.ts:8 non-normative",
+  "skills/statechart/scripts/backends/report.ts:78 non-normative",
+  "skills/statechart/scripts/backends/report.ts:138 non-normative",
+  "skills/statechart/scripts/frontends/value.ts:79 non-normative",
+  "skills/statechart/scripts/frontends/view.ts:78 non-normative",
+  "skills/statechart/scripts/ir.ts:300 non-normative",
+  "skills/statechart/scripts/ir.ts:313 non-normative",
+  "skills/statechart/scripts/ir.ts:314 non-normative",
+  "skills/statechart/scripts/passes/annotate.ts:8 non-normative",
+  "skills/statechart/scripts/passes/annotate.ts:49 non-normative",
+  "skills/statechart/scripts/passes/label.ts:11 non-normative",
+  "skills/statechart/scripts/passes/label.ts:28 non-normative",
+  "skills/statechart/scripts/passes/label.ts:61 non-normative",
+  "skills/statechart/scripts/passes/label.ts:158 non-normative",
+  "skills/statechart/scripts/passes/label.ts:171 non-normative",
+  "skills/statechart/scripts/passes/label.ts:242 non-normative",
+  "skills/statechart/scripts/passes/label.ts:267 non-normative",
+  "skills/statechart/scripts/passes/label.ts:268 non-normative",
+  "skills/statechart/scripts/passes/lift.ts:6 non-normative",
+  "skills/statechart/scripts/passes/lift.ts:38 non-normative",
+  "skills/statechart/scripts/passes/loop-check.ts:9 non-normative",
+  "skills/statechart/scripts/passes/loop-check.ts:46 non-normative",
+  "skills/statechart/scripts/passes/paths.ts:6 non-normative",
+  "skills/statechart/scripts/passes/paths.ts:27 non-normative",
+  "skills/statechart/scripts/passes/paths.ts:53 non-normative",
+  "skills/statechart/scripts/passes/reach.ts:7 non-normative",
+  "skills/statechart/scripts/passes/reach.ts:38 non-normative",
+  "skills/statechart/scripts/passes/reach.ts:47 non-normative",
+  "skills/statechart/scripts/passes/reach.ts:48 non-normative",
+  "skills/statechart/scripts/passes/reach.ts:54 non-normative",
+  "skills/statechart/scripts/passes/reach.ts:118 non-normative",
+  "skills/statechart/scripts/passes/region-check.ts:45 non-normative",
+  "skills/statechart/scripts/passes/region-check.ts:92 non-normative",
+  "skills/statechart/scripts/passes/regions.ts:14 non-normative",
+  "skills/statechart/scripts/passes/regions.ts:192 non-normative",
+  "skills/statechart/scripts/run.ts:26 non-normative",
+  "skills/statechart/scripts/run.ts:392 non-normative",
+  "skills/statechart/scripts/run.ts:403 non-normative",
+  "skills/statechart/scripts/run.ts:438 non-normative",
+  "skills/statechart/scripts/run.ts:467 non-normative",
+  "skills/statechart/scripts/test/ConfigOracle.java:43 non-normative",
+  "skills/statechart/scripts/test/chart.test.ts:141 non-normative",
+  "skills/statechart/scripts/test/chart.test.ts:566 non-normative",
+  "skills/statechart/scripts/test/chart.test.ts:1139 non-normative",
+  "skills/statechart/scripts/test/cli.test.ts:786 non-normative",
+  "skills/statechart/scripts/test/cli.test.ts:946 non-normative",
+  "skills/statechart/scripts/test/cli.test.ts:1047 non-normative",
+  "skills/statechart/scripts/test/corpus.test.ts:166 non-normative",
+  "skills/statechart/scripts/test/corpus/LoginGuarded/LoginGuarded.tla:61 non-normative",
+  "skills/statechart/scripts/test/corpus/LoginParallel/LoginParallel.tla:61 non-normative",
+  "skills/statechart/scripts/test/corpus/MediaPlayer/MediaPlayer.tla:100 non-normative",
+  "skills/statechart/scripts/test/corpus/MediaPlayerFixed/MediaPlayerFixed.tla:97 non-normative",
+  "skills/statechart/scripts/test/corpus/MediaPlayerProps/MediaPlayer.tla:100 non-normative",
+  "skills/statechart/scripts/test/differential.test.ts:120 non-normative",
+  "skills/statechart/scripts/test/pipeline.test.ts:263 non-normative"
 ];
-// Only the identical test-fixture string repeats an excluded line.
-const SAME_AS_EXCLUDED = [
-  "skills/poteto-mode/scripts/orch/orch.test.ts:475 -> skills/poteto-mode/scripts/orch/orch.test.ts:474",
-  "skills/poteto-mode/scripts/orch/orch.test.ts:491 -> skills/poteto-mode/scripts/orch/orch.test.ts:474",
-];
+const SAME_AS_EXCLUDED = [];
 function exclusionSets(overlay) {
   const byId = new Map(overlay.files.flatMap((file) => file.rules.map((rule) => [rule.id, { path: file.path, rule }])));
   const excluded = [], sameAsExcluded = [];
@@ -356,16 +397,14 @@ test("the exclusion set and the same-as-excluded set are pinned, so a refresh ca
   const dir = await fixture(t);
   await editOverlay(dir, (o) => { ruleAt(o, "skills/poteto-mode/playbooks/babysit.md").map = [{ exclude: "non-normative", reason: "Looks like narration rather than a binding rule here." }]; });
   const widened = await readJson(dir, "native/semantic-overlay.json");
-  assert.equal((await syncOverlay(dir, false)).rules, 328);
+  assert.equal((await syncOverlay(dir, false)).rules, 363);
   assert.notDeepEqual(exclusionSets(widened).excluded, EXCLUDED);
   // Pointing a carried rule at an excluded one is caught too.
   const pointed = structuredClone(overlay);
-  ruleAt(pointed, "skills/poteto-mode/playbooks/babysit.md").map = [{ same: ruleAt(overlay, "skills/poteto-mode/scripts/orch/orch.ts").id }];
+  ruleAt(pointed, "skills/poteto-mode/playbooks/babysit.md").map = [{ same: ruleAt(overlay, "skills/poteto-mode/scripts/watch-pr/cli.ts").id }];
   assert.notDeepEqual(exclusionSets(pointed).sameAsExcluded, SAME_AS_EXCLUDED);
   // The loose pointers the review found now name their direct carrier or exclusion.
   const setup = overlay.files.find((file) => file.path === "automations/benny/skills/setup-benny/SKILL.md").rules.find((rule) => rule.line === 246);
   assert.deepEqual(setup.map, [{ native: "contract.md", quote: "use supported native scheduler/tool schema, exact owner and bounded lifecycle only when requested" }]);
-  const frontier = overlay.files.find((file) => file.path === "skills/poteto-mode/scripts/orch/store.ts").rules.find((rule) => rule.line === 678);
-  assert.equal(frontier.map[0].exclude, "source-only-code");
-  assert.match(frontier.map[0].reason, /^frontier\.json shape validation/);
+
 });

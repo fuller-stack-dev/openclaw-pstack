@@ -1,0 +1,8 @@
+SOURCE src/tables/cff/std_names.rs:172 (original notice block)
+    "copyright",
+
+SOURCE src/tables/name.rs:16 (original notice block)
+    pub const COPYRIGHT_NOTICE: u16 = 0;
+
+SOURCE src/tables/post.rs:157 (original notice block)
+    "copyright",

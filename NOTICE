@@ -3,14 +3,34 @@ OpenClaw Pstack — independent OpenClaw adaptation
 Adapter and packaging copyright (c) 2026 fuller-stack-dev, MIT.
 
 Includes pstack by Lauren Tan, copyright (c) 2026 Lauren Tan, MIT,
-from https://github.com/cursor/plugins, pstack v0.15.29,
-commit 29fa9382c9c250d134f6a2f1aa86c01c5f63119d,
-Git tree 34a0b817e5ea92375bb10f20b15cf750d4e8095a.
+from https://github.com/cursor/plugins, pstack v0.15.36,
+commit c742dd61706fbacc1b95f1a20b7b988cf096ce6c,
+Git tree 4719e1c4b4c43bac85d4206a8b41dd2899769c1c.
 
-All 172 upstream files are retained byte-identically under skills/pstack/upstream,
+All 573 upstream files are retained byte-identically under skills/pstack/upstream,
 including their original LICENSE. They are source-only reference, not executed
 or independently registered by this plugin. Native OpenClaw guidance and plugin
 packaging are adaptations maintained by fuller-stack-dev.
 
 This is not the official Cursor pstack plugin. Cursor and the upstream author
 have not endorsed this independent adaptation.
+
+The separately invoked native statechart CLI adapts reviewed statechart sources
+from cursor/plugins c742dd61706fbacc1b95f1a20b7b988cf096ce6c, MIT (c) 2026 Lauren Tan.
+Its worker bundles Pele 1.9.0, MIT (c) 2026 kepano, with the included ISC notice.
+Full notices: licenses/statechart-MIT.txt and licenses/pele.txt.
+These artifact entries are not imported by the Gateway plugin.
+
+The separate ketchup-video CLI bundles a locked source-built resvg-js renderer
+from thx/resvg-js revision 9ca058462ac529120c8cc84ddcd6fef644cc5406,
+with zimond/resvg revision 3495d8705b302d6d266748516973606ca9657906 and
+yisibl/woff2-rs revision 88cce4cd07da2c3f35839068c6f73672700cfc8b.
+Its dependency-only source patch, exact lock, original facade Source Code Form,
+immutable source locators and original notices ship under
+licenses/ketchup-video-renderer; see BUILD.md there for the build and current
+artifact binding. This is not the historical npm WASM. MPL-covered source,
+the plugin MIT and individual Apache/LLVM/other component terms remain distinct.
+The unmodified Noto Sans/Math fonts are copyright 2018 The Noto Project Authors,
+SIL Open Font License 1.1. Full notices: licenses/ketchup-video-MPL-2.0.txt,
+licenses/ketchup-video-OFL.txt and licenses/ketchup-video-sources.md.
+FFmpeg is external, not distributed.

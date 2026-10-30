@@ -14,18 +14,18 @@ async function fixture(t) {
 }
 const generated = (root, route = "architect") => join(root, "skills/routes/pstack-" + route + "/SKILL.md");
 
-test("generates and read-only checks all 55 manual routes without rewriting native contracts", async (t) => {
+test("generates and read-only checks all 57 manual routes without rewriting native contracts", async (t) => {
   const dir = await fixture(t);
   const contracts = ["workflows.md", "playbooks.md", "routes.json"];
   const before = await Promise.all(contracts.map(path => readFile(join(dir, "skills/pstack/native", path))));
-  assert.deepEqual(await syncRoutes(dir), { routes: 55, check: false, semanticPorting: false });
-  assert.deepEqual(await syncRoutes(dir, true), { routes: 55, check: true, semanticPorting: false });
+  assert.deepEqual(await syncRoutes(dir), { routes: 57, check: false, semanticPorting: false });
+  assert.deepEqual(await syncRoutes(dir, true), { routes: 57, check: true, semanticPorting: false });
   const manifest = JSON.parse(await readFile(join(dir, "skills/pstack/native/route-skills.json"), "utf8"));
-  assert.equal(manifest.files.length, 55);
-  assert.equal(manifest.restoredRequirementRoutes, 49);
-  assert.equal(manifest.restoredGates, 845);
+  assert.equal(manifest.files.length, 57);
+  assert.equal(manifest.restoredRequirementRoutes, 52);
+  assert.equal(manifest.restoredGates, 796);
   assert.equal(manifest.semanticReview, "NOT-PERFORMED-BY-THIS-GENERATOR");
-  assert.equal(manifest.files.reduce((count, record) => count + record.requirementIds.length, 0), 845);
+  assert.equal(manifest.files.reduce((count, record) => count + record.requirementIds.length, 0), 796);
   for (const file of manifest.files) {
     const text = await readFile(join(dir, "skills/routes", file.path), "utf8");
     assert.ok(text.includes("the entire " + file.route + " section"));

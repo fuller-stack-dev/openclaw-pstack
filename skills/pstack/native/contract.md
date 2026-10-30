@@ -14,6 +14,14 @@ Pstack is an installable OpenClaw plugin. Registered commands own exact-session 
 - Do not automatically open PRs, post messages, deploy, start servers, create timers, or migrate data at the end of a playbook. Publishing is its own authorized step.
 - Do not restart/update the live gateway, use a live handoff store for tests, change agents/providers/credentials, create automations, or resume held work as a pstack side effect.
 
+## Current goal
+
+In the first task reply, restate the current user goal, the problem and the smallest expected change in your own words; do not wait for redundant confirmation. Carry that goal into each delegate brief, the opening of each PR Why section, and the final report, except a fully specified one-line edit. If evidence rules out the requested change, show that evidence and stop rather than inventing a replacement goal. Explicit corrections require fresh grounding against the current request. Retain holds, owners, accepted snapshots and safety gates; an old plan or reported policy is never new authority. Required machine-output contracts keep their exact shape.
+
+## Native artifact execution
+
+The separate [statechart and ketchup-video CLIs](artifacts.md) run only through ordinary agent exec, never inside the Gateway. Read their complete usage, toolchain, ownership, factual-evidence and cancellation boundaries before use. Neither this guide nor a successful CLI run registers new routes or proves model-generated reports.
+
 ## Compatibility map
 
 Discover tools, do not assume names from the source package exist. In Code Mode use `catalog.search` and the returned tool's `describe()` schema. Use first-class tools where available; never substitute direct RPC/CLI for an unavailable restricted tool.
@@ -94,6 +102,6 @@ Prefer failing-before/passing-after evidence. If required runtime access is unav
 
 ## Source-only boundary
 
-`upstream/` preserves all 172 files, 56 skill definitions, 2 agent definitions, relative references, assets and MIT license from v0.15.29. Those docs describe Cursor, not this adapter. `source-manifest.json` pins the commit and hashes every original file.
+`upstream/` preserves all 573 files, 58 skill definitions, 2 agent definitions, relative references, assets and MIT license from v0.15.36. Those docs describe Cursor, not this adapter. `source-manifest.json` pins the commit and hashes every original file.
 
-Only `pstack/SKILL.md` and paired `poteto-mode/SKILL.md` are bundled model-visible skill roots; neither is user-invocable. The separate skills/routes root contains 55 user-invocable, model-hidden manual discovery guides; these link the complete native sections rather than executing or enabling mode. Native sections and delegate briefs support them. Upstream agents are not registered; [labeled native briefs and output contracts](agent-briefs.md) port them, checked by read-only `pstack_brief`. All upstream scripts (bootstrap, orchestration, watch-PR, worktree audit, and decision log) remain source-only and must not run through this adapter. Native tools reimplement three of their contracts without executing them: read-only [pstack_plan_check](plan-adapter.md), and the operator-opt-in [pstack_trail](trail-adapter.md) and read-only [pstack_worktree_audit](worktree-audit-adapter.md). The read side of watch-pr is a separate [user-installed template](automation/watch-pr.md), not a tool. Root SKILL.md stops nested discovery; verify no source names leak into the callable catalog.
+Only `pstack/SKILL.md` and paired `poteto-mode/SKILL.md` are bundled model-visible skill roots; neither is user-invocable. The separate skills/routes root contains 57 user-invocable, model-hidden manual discovery guides; these link the complete native sections rather than executing or enabling mode. Native sections and delegate briefs support them. Upstream agents are not registered; [labeled native briefs and output contracts](agent-briefs.md) port them, checked by read-only `pstack_brief`. All upstream scripts (bootstrap, orchestration, watch-PR, worktree audit, and decision log) remain source-only and must not run through this adapter. Native tools reimplement three of their contracts without executing them: read-only [pstack_plan_check](plan-adapter.md), and the operator-opt-in [pstack_trail](trail-adapter.md) and read-only [pstack_worktree_audit](worktree-audit-adapter.md). The read side of watch-pr is a separate [user-installed template](automation/watch-pr.md), not a tool. Root SKILL.md stops nested discovery; verify no source names leak into the callable catalog.

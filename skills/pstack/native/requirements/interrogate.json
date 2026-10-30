@@ -4,11 +4,7 @@
   "document": "workflows.md",
   "priority": "P1",
   "upstream": [
-    "skills/interrogate/SKILL.md",
-    "skills/interrogate/references/reviewer-prompt.md",
-    "skills/interrogate/references/rubric.md",
-    "skills/interrogate/references/code-quality-review.md",
-    "skills/interrogate/references/lead-judgment.md"
+    "skills/interrogate/SKILL.md"
   ],
   "gates": [
     {
@@ -17,7 +13,7 @@
     },
     {
       "id": "references",
-      "text": "Read the pinned source-only [reviewer template](../upstream/skills/interrogate/references/reviewer-prompt.md), [rubric](../upstream/skills/interrogate/references/rubric.md), [code-quality lens](../upstream/skills/interrogate/references/code-quality-review.md) and [lead-judgment framework](../upstream/skills/interrogate/references/lead-judgment.md). Translate their substantive review instructions into the native brief below; do not invoke upstream runtime APIs or register agents."
+      "text": "Read the preserved legacy-only [reviewer template](legacy/interrogate/reviewer-prompt.md), [rubric](legacy/interrogate/rubric.md), [code-quality lens](legacy/interrogate/code-quality-review.md) and [lead-judgment framework](legacy/interrogate/lead-judgment.md). Translate their substantive review instructions into the native brief below; do not invoke upstream runtime APIs or register agents."
     },
     {
       "id": "reviewers",

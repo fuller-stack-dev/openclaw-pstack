@@ -12,95 +12,27 @@
   "gates": [
     {
       "id": "autopilot-stack-01",
-      "text": "Inherit every [autopilot-full](#autopilot-full) safeguard, including routed ownership, code-ready receipts, independent behavioral verification, fresh-head CI, countersigns, drift checks, custody, and stop propagation."
+      "text": "Run [autopilot-full](#autopilot-full) without merging. Inherit its ownership, artifact proof, review, CI, custody, countersign and stop gates. Choose this route when the operator lands the PRs, whether the work is independent or dependent. Where this route differs, it wins: there is no merge or merge prep, and a dependent PR's code-ready and fix-round rebases target its actual parent instead of trunk."
     },
     {
       "id": "autopilot-stack-02",
-      "text": "Replace only its landing and topology rules."
+      "text": "1. Stop at verified and green on each current head, report merge-ready and hand the PRs to the operator. Do not merge or arm auto-merge. After handoff nobody pushes without the operator's go. Every audit or authorized loop tick names this route and its no-merge rule. Re-read both routes at each audit and refresh finished-owner records from actual state."
     },
     {
       "id": "autopilot-stack-03",
-      "text": "Re-read both at audit boundaries; this route wins on those differences."
+      "text": "2. Stack a PR only when it builds on another PR. Independent PRs branch from trunk. A dependent PR targets its actual parent's branch; the root targets trunk. Each PR's sole owner performs its separately authorized own-branch rebase onto that parent (or trunk for a root), with the exact-head lease and custody rules from autopilot-full. The coordinator sequences dependencies but never becomes a second branch writer."
     },
     {
       "id": "autopilot-stack-04",
-      "text": "Use this route when work is coupled or sequenced, review precedes landing, or merge authority is withheld."
+      "text": "3. A lower PR's new head requires its dependent PR owners to restack above it in order. Compare each patch against its actual parent. An unchanged git patch-id may carry a verdict under [shipping](#shipping)'s evidence rule; changed material needs the appropriate new-head verification, and every new head needs its own green CI. Do not use the carry rule to waive repository or user review requirements."
     },
     {
       "id": "autopilot-stack-05",
-      "text": "Owners report STACK-READY instead of merge-ready."
+      "text": "4. Hand off each PR's base, dependency if any, exact head, verdict, CI evidence and owner. There is no forced linear stack or root-only writer. Freeze further pushes at handoff until operator go; any later landing follows separately authorized [shipping](#shipping), not this no-merge route."
     },
     {
       "id": "autopilot-stack-06",
-      "text": "Each owner branches from its dependency's branch when coupled and pushes only its own slice."
-    },
-    {
-      "id": "autopilot-stack-07",
-      "text": "Owners never rebase onto any branch, including trunk, retarget, merge, close a PR, or arm auto-merge."
-    },
-    {
-      "id": "autopilot-stack-08",
-      "text": "Root owns topology; the operator owns landing."
-    },
-    {
-      "id": "autopilot-stack-09",
-      "text": "Give topology exactly one writer at the root."
-    },
-    {
-      "id": "autopilot-stack-10",
-      "text": "Only that owner rebases or retargets links, appending clean PRs in dependency order with each base set to its parent's branch."
-    },
-    {
-      "id": "autopilot-stack-11",
-      "text": "Owners report exact tips and intended parents."
-    },
-    {
-      "id": "autopilot-stack-12",
-      "text": "After a root push they explicitly take its SHA as new base and lease."
-    },
-    {
-      "id": "autopilot-stack-13",
-      "text": "An owner resolves a conflict in its own slice for root to push; two concurrent topology writers are forbidden."
-    },
-    {
-      "id": "autopilot-stack-14",
-      "text": "Until landing starts, root applies autopilot-full's trunk-drift test to each link, rebases bottom-up only where needed, and reapplies [shipping](#shipping)'s patch-id requalification to each patch against its actual parent."
-    },
-    {
-      "id": "autopilot-stack-15",
-      "text": "A changed head requires fresh-head CI and the appropriate new-head verifier."
-    },
-    {
-      "id": "autopilot-stack-16",
-      "text": "Do not claim carried verdicts without evidence."
-    },
-    {
-      "id": "autopilot-stack-17",
-      "text": "Hand back one linear base-chained stack, root and tip, exact heads, dependency order, and a verdict on every link."
-    },
-    {
-      "id": "autopilot-stack-18",
-      "text": "Freeze the chain at handoff."
-    },
-    {
-      "id": "autopilot-stack-19",
-      "text": "Once landing begins nobody writes except the post-merge move and retarget permitted by [shipping](#shipping)."
-    },
-    {
-      "id": "autopilot-stack-20",
-      "text": "Mid-landing problems route through root to the operator; any fix waits for the operator's go."
-    },
-    {
-      "id": "autopilot-stack-21",
-      "text": "No implicit merge authority."
-    },
-    {
-      "id": "autopilot-stack-22",
-      "text": "**Reply.** Stack root and tip pointers, exact heads and one-line verdict per link, STACK-READY state, frozen-chain custody, and parked or excluded items with reasons."
-    },
-    {
-      "id": "autopilot-stack-audit-reread",
-      "text": "5. At every audit boundary, not only the first resume, re-read both [autopilot-full](#autopilot-full) and this route in full before judging, and note the re-read in the audit record. Refresh any finished owner's record so its phase, delivery state and head match the observed state."
+      "text": "**Reply.** Each PR and verdict, exact head/base, real dependencies, frozen handoff custody, remaining operator gates and parked follow-ups. Report no merges as this route's work."
     }
   ]
 }

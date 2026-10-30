@@ -1,6 +1,6 @@
 import type { OpenClawPluginApi, PluginCommandContext } from "openclaw/plugin-sdk/plugin-entry";
 import { randomBytes } from "node:crypto";
-import { CORRECTABLE, deliverableSlotOf, digest, KINDS, mutateWorkflow, ownedRecord, workflowKey, workflowView, type Event, type EventInput, type Kind, type Owner, type RecordV1, type Setup, type View } from "./workflow.js";
+import { CORRECTABLE, proofContext, deliverableSlotOf, digest, KINDS, mutateWorkflow, ownedRecord, workflowKey, workflowView, type Event, type EventInput, type Kind, type Owner, type RecordV1, type Setup, type View } from "./workflow.js";
 import { deliverable, ensureContinuation, nativeContext, nativeSetup, parseNativeTask, runNative, type WorkflowStore } from "./controller.js";
 import { readRequesterCatalog, type HostProfiles, type Invocation } from "./native-runtime.js";
 import { WORKFLOW_RETENTION, workflowStore } from "./workflow-tool.js";
@@ -180,8 +180,8 @@ async function startCorrection(host: NativeHost, ctx: PluginCommandContext, sour
   const snapshot = doneView.snapshots[attempt.snapshotId]!, pin = done.setup.profiles?.[snapshot.role];
   const models = new Set(snapshot.selections.map(x => x.model).filter(Boolean));
   const setup: Setup = { kind: done.setup.kind, task: done.setup.task!, taskDigest: done.setup.taskDigest, sourceDigest: done.setup.sourceDigest, snapshots: [snapshot],
-    catalog: done.setup.catalog.filter(c => models.has(c.id)), options: doneView.options, ...(pin ? { profiles: { [snapshot.role]: pin } } : {}), stagesVersion: 2,
-    correction: { workflowId: done.id, slot: slot!, runId: attempt.runId, artifactDigest: result.artifactDigest, report: result.report, errors, by: ctx.senderId! } };
+    catalog: done.setup.catalog.filter(c => models.has(c.id)), options: doneView.options, ...(pin ? { profiles: { [snapshot.role]: pin } } : {}), stagesVersion: 2, ...(done.setup.executedProof ? { executedProof: true as const } : {}),
+    correction: { workflowId: done.id, slot: slot!, runId: attempt.runId, artifactDigest: result.artifactDigest, report: result.report, errors, by: ctx.senderId!, ...(done.setup.executedProof ? { proofContext: proofContext(done.setup, doneView) } : {}) } };
   const id = "pw-" + digest(["pstack-correction", done.id]).slice(0, 12);
   const store = adapter(workflowStore(host.api, assertCurrent));
   let record: RecordV1;

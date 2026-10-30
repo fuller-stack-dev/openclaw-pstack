@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "route": "statechart",
+  "document": "workflows.md",
+  "priority": "P1",
+  "upstream": [
+    "skills/statechart/SKILL.md"
+  ],
+  "gates": [
+    {
+      "id": "statechart-01",
+      "text": "Read the complete [Statechart guide](artifacts.md#statechart) before ordinary agent exec. This is skill-guided artifact work, not a Gateway tool or native controller. Inspect the spec, config and executable view first; use owned scratch outside the repository and preserve native permissions and untrusted-code isolation. Doctor installs nothing; necessary trusted toolchain setup uses the guide's explicit verified path, never upstream scripts or automatic mise."
+    },
+    {
+      "id": "statechart-02",
+      "text": "1. Turn every reader-agreed rule into an INVARIANT, adding model variables when needed. Never weaken a rule to obtain a pass. Write Next as named actions. Give intentional terminal states a labeled stuttering action; an unmodeled exit is a real NoDeadlock (or CHECK_DEADLOCK name-collision) finding, not a reason to disable checking."
+    },
+    {
+      "id": "statechart-03",
+      "text": "2. Use the reader's state and event words, not variable or code names. A pure state(vars) returns a string, hierarchy array or parallel-region object; step(action,from,to), group(vars), colors and title customize presentation. State/group run at most once per model state and step once per transition; chart and report share those answers. TLA sequences have 1-based object keys and sets are arrays. Explain hidden deciding values in event labels, but do not replace automatic cross-region conditions with misleading brackets."
+    },
+    {
+      "id": "statechart-04",
+      "text": "3. Aim for about twenty arrows without hiding bugs. Split a label when a same-label step matters. Preserve every bug-path state and mark; never merge states breaking different rules or turn a definite break into a hidden mayBreak. If hiding steps, keep each state reachable from a start, retain an exit wherever the model has one, hide every model step of an arrow or none, and disclose the hidden steps."
+    },
+    {
+      "id": "statechart-05",
+      "text": "4. Read the report, not only the picture. breaks means all represented states break the named rule; mayBreak means only some do. Explain each state's rules from the Legend, including parallel-region combination marks. TLC explores beyond bugs. Bound constants/constraints and disclose VIEW/SYMMETRY representative-state edges. Rules beyond CONSTRAINT/ACTION_CONSTRAINT can still fail and shortest bug paths are retained, but unexplored boundary states have no deadlock verdict. Do not claim excluded steps or omitted states were explored."
+    },
+    {
+      "id": "statechart-06",
+      "text": "5. TLC checks the original config with one worker, then removes discovered broken rules and rechecks. Later checks stop at 100,000 distinct states; timeout/error/budget leaves Rules not checked, never a pass. A bounded property's counterexample may differ because variable order changes. tlc.out preserves original-config output; tlc-RULE.out carries later discoveries. Report the native exit status and any incomplete rule verification separately from drawing success."
+    },
+    {
+      "id": "statechart-07",
+      "text": "6. The 500-state chart budget does not limit the original proof. Above it, draw only broken-rule paths; if no rule breaks, no chart.mmd is produced. Reduce the model to show a full graph, not to hide a failure. Present Mermaid text and, when an image is needed, use the guide's pinned Pele renderer. Preserve breaks/mayBreak/bugPath/repeats marks and readable light/dark colors. A render error returns the Mermaid and actual error; do not silently switch renderers."
+    },
+    {
+      "id": "statechart-08",
+      "text": "7. Hand the reader the chart, numbered shortest paths, each broken rule in plain words, omitted behavior and a rerun command with a new output directory. Replay each code-model bug path against real code, one action per step, before calling it a product bug. A failed replay challenges the model first. A passing chart explains behavior within checked bounds, not an unlimited guarantee. Remove consumed owned scratch, never another owner's files."
+    },
+    {
+      "id": "statechart-09",
+      "text": "**Reply.** Chart/Mermaid, checked rules and bounds, broken-rule paths with real-code replay evidence or named missing proof, exclusions, rerun command and actual rendering errors. No automatic repair, publication or live-service mutation."
+    }
+  ]
+}

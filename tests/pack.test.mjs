@@ -5,6 +5,8 @@ import { createHash } from "node:crypto";
 import { copyFile, mkdir, mkdtemp, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { gunzipSync } from "node:zlib";
+import { createRequire } from "node:module";
+import { defaultCache } from "../scripts/build-video.mjs";
 
 const root = resolve(import.meta.dirname, "..");
 
@@ -17,6 +19,9 @@ async function scratch(t) {
   for (const key of Object.keys(env))
     if (key.startsWith("OPENCLAW_") || key.startsWith("GIT_")) delete env[key];
   Object.assign(env, {
+    PSTACK_VIDEO_CACHE: defaultCache(),
+    PSTACK_VIDEO_OFFLINE: "1",
+    PSTACK_ESBUILD: createRequire(import.meta.url).resolve("esbuild"),
     HOME: join(dir, "home"),
     TMPDIR: join(dir, "tmp"),
     GIT_CONFIG_NOSYSTEM: "1",
@@ -115,6 +120,9 @@ const fixtureSessions = new Map([
   ["skills/pstack/tests/fixtures/automation.mjs", /^agent\u003amain:dashboard:fixture-owner$/],
   ["skills/pstack/tests/test_session_mode.py", /^agent\u003amain:dashboard:case-a$/],
 ]);
+const mediaPins = JSON.parse(await readFile(join(root, "scripts/video-assets.json"), "utf8"));
+const originalNotices = new Map(mediaPins.sourceFiles.filter(file => file.path.startsWith("notices/") || file.path === "resvg-js.Cargo.toml")
+  .map(file => ["licenses/ketchup-video-renderer/" + file.path, file.sha256]));
 function allowedPrivacyMatch(path, kind, value) {
   if (kind === "email") {
     // Reserved example domains are synthetic; the upstream SSH URL is not mail.
@@ -138,9 +146,14 @@ function privacyFindings(path, content, terms = configuredTerms) {
   // Paths themselves must not leak identities, even if their contents are empty.
   const rules = [...privacyRules, ...terms.map(term => ["private identity",
     new RegExp("\\b" + RegExp.escape(term) + "\\b", "gi")])];
+  const original = originalNotices.get(path) === createHash("sha256").update(content).digest("hex");
   for (const [kind, pattern] of rules)
-    for (const match of (path + "\n" + content).matchAll(pattern))
+    for (const match of (path + "\n" + content).matchAll(pattern)) {
+      // Only original hash-bound attribution emails qualify.
+      // Credentials, session keys, private vocabulary and altered files never qualify.
+      if (original && kind === "email") continue;
       if (!allowedPrivacyMatch(path, kind, match[0])) findings.push(path + ": " + kind);
+    }
   return findings;
 }
 async function trackedPrivacyFindings(repo, ok, terms = configuredTerms) {
@@ -189,6 +202,13 @@ test("repository privacy guard rejects private data in tracked files", async (t)
   }
   await writeFile(path, "Safe again: reader@example.test\n");
   assert.deepEqual(await trackedPrivacyFindings(repo, ok, terms), [], "removing planted data clears the guard");
+  const noticePath = "licenses/ketchup-video-renderer/notices/unicode-bidi-0.3.18/AUTHORS";
+  const notice = await readFile(join(root, noticePath), "utf8");
+  assert.deepEqual(privacyFindings(noticePath, notice, terms), []);
+  assert.ok(privacyFindings("other.txt", notice, terms).some(x => x.endsWith(": email")));
+  for (const probe of ["person@" + "private-company.io", "ghp_" + "a".repeat(24), terms[0]])
+    assert.ok(privacyFindings(noticePath, notice + probe, terms).length > 0);
+  assert.ok(privacyFindings(noticePath, notice.replace("@", "+changed@"), terms).length > 0);
   // An exception is local to the approved fixture/value, not a path-wide bypass.
   const upstream = "skills/pstack/upstream/skills/recall/SKILL.md";
   assert.deepEqual(privacyFindings(upstream, "/" + "Users/you/proj"), []);
@@ -199,6 +219,30 @@ test("repository privacy guard rejects private data in tracked files", async (t)
   assert.deepEqual(privacyFindings("public.md", fakeKey), ["public.md: session key"]);
   assert.deepEqual(privacyFindings(fixture, "agent:" + "main:dashboard:unapproved"), [fixture + ": session key"]);
   assert.deepEqual(privacyFindings("docs/" + terms[0] + ".md", "", terms), ["docs/" + terms[0] + ".md: private identity"]);
+});
+
+test("cold pack preserves caller Rustup discovery while isolating HOME", async (t) => {
+  const { dir, run, ok } = await scratch(t);
+  const bin = join(dir, "bin"), log = join(dir, "rustup.json"), home = join(dir, "caller-home");
+  await mkdir(bin); await mkdir(home);
+  // Stop only at the external tool boundary: real pack -> frozen build -> Python -> rustup.
+  await writeFile(join(bin, "rustup"), "#!/usr/bin/env node\n" +
+    "require('node:fs').writeFileSync(process.env.RUSTUP_PROBE, JSON.stringify({args:process.argv.slice(2),home:process.env.HOME,rustup:process.env.RUSTUP_HOME,leak:process.env.OPENCLAW_PROBE}));process.exit(73);\n", { mode: 0o755 });
+  for (const inherited of [false, true]) {
+    const env = { ...process.env, HOME: home, PATH: bin + ":" + process.env.PATH,
+      PSTACK_VIDEO_CACHE: join(dir, "empty-cache"), PSTACK_ESBUILD: createRequire(import.meta.url).resolve("esbuild"),
+      RUSTUP_PROBE: log, OPENCLAW_PROBE: "must-not-cross-pack" };
+    delete env.RUST_TOOLCHAIN_DIR; delete env.PSTACK_VIDEO_OFFLINE; delete env.RUSTUP_HOME;
+    if (inherited) env.RUSTUP_HOME = join(dir, "custom-rustup");
+    const result = run(process.execPath, [join(root, "scripts/pack.mjs"), "--commit", ok("git", ["rev-parse", "HEAD"]).trim(), "--out-dir", join(dir, "out")], { env });
+    assert.notEqual(result.status, 0, "probe stops before compiler work");
+    const observed = JSON.parse(await readFile(log, "utf8"));
+    assert.deepEqual(observed.args, ["which", "--toolchain", "1.95.0", "rustc"]);
+    assert.notEqual(observed.home, home, "build HOME remains private");
+    assert.equal(observed.leak, undefined, "host state environment is stripped");
+    assert.equal(observed.rustup, inherited ? env.RUSTUP_HOME : join(home, ".rustup"));
+    await rm(log);
+  }
 });
 
 test("real commit archive preserves every pinned upstream file as plain ustar", async (t) => {
@@ -221,7 +265,7 @@ test("real commit archive preserves every pinned upstream file as plain ustar", 
   );
   const data = await readFile(receipt.path);
   assert.equal(receipt.sha256, createHash("sha256").update(data).digest("hex"));
-  assert.equal(receipt.upstreamFiles, 172);
+  assert.equal(receipt.upstreamFiles, 573);
   const entries = tarHeaders(data);
   for (const entry of entries) {
     assert.equal(entry.magic, "ustar");
@@ -248,6 +292,15 @@ test("real commit archive preserves every pinned upstream file as plain ustar", 
   assert.equal(plugin.id, "pstack");
   assert.equal(plugin.name, "openclaw-pstack");
   assert.equal(plugin.version, metadata.version);
+  const build = JSON.parse(await readFile(join(packageRoot, "dist/ketchup-video.build.json"), "utf8"));
+  assert.equal(build.sourceCommit, sha);
+  assert.equal(build.output.sha256, receipt.media.outputSha256);
+  assert.equal(createHash("sha256").update(await readFile(join(packageRoot, build.output.path))).digest("hex"), build.output.sha256);
+  for (const [path, hash] of Object.entries(build.inputs)) {
+    if (path.startsWith("verified-media:")) continue;
+    const source = ok("git", ["show", sha + ":" + path], { encoding: null });
+    assert.equal(createHash("sha256").update(source).digest("hex"), hash, path);
+  }
   const native = JSON.parse(await readFile(join(skill, "native-manifest.json"), "utf8"));
   assert.equal(native.adapterVersion, "plugin-" + metadata.version);
   assert.deepEqual(native.baselineSkillNames, [], "no private host skill inventory");
@@ -262,7 +315,9 @@ test("real commit archive preserves every pinned upstream file as plain ustar", 
     assert.ok(bytes.length < 50 * 1024 * 1024, "ClawPack per-file bound");
     assert.deepEqual(privacyFindings(relative, bytes.toString("utf8")), [], "packed privacy: " + relative);
     if (relative.startsWith("skills/pstack/upstream/")) continue;
-    assert.doesNotMatch(relative, /(^|\/)(tests|evidence|artifacts|verification|operators)(\/|$)|\.map$/, "no internal dumps or adapter tests");
+    if (relative === "licenses/ketchup-video-renderer/notices/fontdb-0.14.1/tests/fonts/LICENSE.txt")
+      assert.equal(createHash("sha256").update(bytes).digest("hex"), originalNotices.get(relative), "original source-fixture license only");
+    else assert.doesNotMatch(relative, /(^|\/)(tests|evidence|artifacts|verification|operators)(\/|$)|\.map$/, "no internal dumps or adapter tests");
   }
   assert.ok(unpacked < 50 * 1024 * 1024, "ClawPack combined byte bound");
   assert.ok((await readFile(join(packageRoot, "package.json"))).length < 256 * 1024);
@@ -275,7 +330,7 @@ test("real commit archive preserves every pinned upstream file as plain ustar", 
       file,
     );
   const manifest = JSON.parse(await readFile(join(skill, "source-manifest.json"), "utf8"));
-  assert.equal(manifest.fileCount, 172);
+  assert.equal(manifest.fileCount, 573);
   for (const record of manifest.files) {
     const path = "package/skills/pstack/upstream/" + record.path;
     const entry = entries.find((entry) => entry.path === path);
@@ -288,9 +343,9 @@ test("real commit archive preserves every pinned upstream file as plain ustar", 
   );
   const verified = JSON.parse(ok("python3", [join(skill, "scripts/verify_install.py"), skill]));
   assert.equal(verified.ok, true);
-  assert.equal(verified.source.files, 172);
-  assert.equal(verified.routeSkills.files, 55);
-  assert.equal(files.filter(path => path.startsWith("package/skills/routes/")).length, 55);
+  assert.equal(verified.source.files, 573);
+  assert.equal(verified.routeSkills.files, 57);
+  assert.equal(files.filter(path => path.startsWith("package/skills/routes/")).length, 57);
 });
 
 test("clean HEAD default, explicit dirty-worktree pin, and failed verification never publish bad artifacts", async (t) => {
@@ -346,7 +401,33 @@ test("clean HEAD default, explicit dirty-worktree pin, and failed verification n
     ok(process.execPath, [script, "--commit", pinned, "--out-dir", join(dir, "explicit")]),
   );
   assert.equal(explicit.commit, pinned);
-  assert.equal(explicit.upstreamFiles, 172, "uncommitted corruption was not packaged");
+  assert.equal(explicit.upstreamFiles, 573, "uncommitted corruption was not packaged");
+  const entry = join(repo, "src/artifacts/ketchup-video/cli.mjs");
+  const entryBytes = await readFile(entry);
+  await writeFile(entry, "throw Error('dirty source must not enter pinned artifact');");
+  const pinnedAgain = JSON.parse(ok(process.execPath, [script, "--commit", pinned, "--out-dir", join(dir, "pinned-again")]));
+  assert.equal(pinnedAgain.media.outputSha256, clean.media.outputSha256);
+  await writeFile(entry, entryBytes);
+  const cache = join(dir, "media-cache");
+  await mkdir(cache);
+  for (const pin of [...mediaPins.fonts, mediaPins.renderer["index_bg.wasm"]])
+    await copyFile(join(defaultCache(), pin.sha256), join(cache, pin.sha256));
+  const wasm = join(cache, mediaPins.renderer["index_bg.wasm"].sha256);
+  const wasmBytes = await readFile(wasm);
+  await writeFile(wasm, "poisoned immutable cache entry");
+  const poisoned = run(process.execPath, [script, "--commit", pinned, "--out-dir", join(dir, "poisoned")], {
+    env: { ...process.env, PSTACK_VIDEO_CACHE: cache, PSTACK_VIDEO_OFFLINE: "1", PSTACK_ESBUILD: createRequire(import.meta.url).resolve("esbuild") },
+  });
+  assert.notEqual(poisoned.status, 0);
+  assert.match(poisoned.stderr, /Build asset digest mismatch/);
+  await assert.rejects(readdir(join(dir, "poisoned")), { code: "ENOENT" });
+  await rm(wasm);
+  const missing = run(process.execPath, [script, "--commit", pinned, "--out-dir", join(dir, "missing")], {
+    env: { ...process.env, PSTACK_VIDEO_CACHE: cache, PSTACK_VIDEO_OFFLINE: "1", PSTACK_ESBUILD: createRequire(import.meta.url).resolve("esbuild") },
+  });
+  assert.notEqual(missing.status, 0);
+  assert.match(missing.stderr, /Missing verified media input/);
+  await writeFile(wasm, wasmBytes);
   // Restore the earlier dirty-source probe so this commit isolates guide corruption.
   await writeFile(ignorePath, ignoreBytes);
   // External generated guides are verified too, not just native-manifest files.
@@ -368,6 +449,32 @@ test("clean HEAD default, explicit dirty-worktree pin, and failed verification n
   assert.notEqual(rejected.status, 0);
   assert.match(rejected.stderr, /missing file: .gitignore/);
   await assert.rejects(readdir(rejectedDir), { code: "ENOENT" });
+  // Corrupt committed recipe outputs: no missing/mixed binding may reach an archive.
+  await writeFile(join(repo, "skills/pstack/upstream/.gitignore"), ignoreBytes);
+  const buildScript = join(repo, "scripts/build-video.mjs");
+  const buildBytes = await readFile(buildScript, "utf8");
+  await writeFile(buildScript, buildBytes.replace('sourceCommit: commit', 'sourceCommit: "0".repeat(40)'));
+  commit();
+  const mixed = run(process.execPath, [script, "--out-dir", join(dir, "mixed")]);
+  assert.notEqual(mixed.status, 0);
+  assert.match(mixed.stderr, /Derived media source\/output binding mismatch/);
+  await assert.rejects(readdir(join(dir, "mixed")), { code: "ENOENT" });
+  await writeFile(buildScript, buildBytes.replace('await writeFile(join(root, receipt.output.path), bytes, { mode: 0o644 });', '/* deliberately missing output */'));
+  commit();
+  const missingOutput = run(process.execPath, [script, "--out-dir", join(dir, "missing-output")]);
+  assert.notEqual(missingOutput.status, 0);
+  assert.match(missingOutput.stderr, /ENOENT/);
+  await assert.rejects(readdir(join(dir, "missing-output")), { code: "ENOENT" });
+  await writeFile(buildScript, buildBytes);
+  const pinsPath = join(repo, "scripts/video-assets.json");
+  const pins = JSON.parse(await readFile(pinsPath, "utf8"));
+  pins.bundleSha256 = "0".repeat(64);
+  await writeFile(pinsPath, JSON.stringify(pins));
+  commit();
+  const badOutput = run(process.execPath, [script, "--out-dir", join(dir, "bad-output")]);
+  assert.notEqual(badOutput.status, 0);
+  assert.match(badOutput.stderr, /Derived media digest mismatch/);
+  await assert.rejects(readdir(join(dir, "bad-output")), { code: "ENOENT" });
   const unknown = run(process.execPath, [script, "--commit", "not-a-real-commit"]);
   assert.notEqual(unknown.status, 0);
   assert.match(unknown.stderr, /rev-parse.*failed/);

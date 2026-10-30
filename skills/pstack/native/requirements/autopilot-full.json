@@ -57,7 +57,7 @@
     },
     {
       "id": "autopilot-full-12",
-      "text": "Checkpoint each kept unit through authorized storage or push."
+      "text": "Push each finished unit before starting the next when publication is authorized; otherwise preserve it in existing authorized task storage and name the publication checkpoint BLOCKED. Durability guidance never grants push authority."
     },
     {
       "id": "autopilot-full-13",
@@ -85,7 +85,7 @@
     },
     {
       "id": "autopilot-full-19",
-      "text": "Fix rounds keep that base unless trunk conflicts or breaks CI."
+      "text": "Fix rounds keep that base unless trunk conflicts, breaks CI or lands a known concurrent change to the same files."
     },
     {
       "id": "autopilot-full-20",
@@ -113,15 +113,15 @@
     },
     {
       "id": "autopilot-full-26",
-      "text": "Rebase, conflict resolution, or minor fix gets one new-head verifier, with carried lanes justified by [shipping](#shipping)'s patch-id rule."
+      "text": "Rebase, conflict resolution, or minor fix gets one new-head verifier, with carried lanes justified by [shipping](#shipping)'s patch-id rule. A wording-only change needs no additional workflow-imposed verifier, but executable, configuration or semantic changes are not wording-only. Repository, user, security, exact-head review and CI gates remain mandatory."
     },
     {
       "id": "autopilot-full-27",
-      "text": "Send every proven finding, including notes, to the sole owner as one fix-forward with red regression coverage across the defect's affected sites."
+      "text": "Block on demonstrated user-visible bugs, failed mandatory gates or a shipped doc line made wrong by the PR. Require a failing run at the head or the exact wrong doc line."
     },
     {
       "id": "autopilot-full-28",
-      "text": "A pre-existing trunk defect does not gate this PR unless the PR copies or newly reaches it."
+      "text": "A base defect, on trunk or a parent PR, blocks only when copied or newly reached. Send blocking findings to the sole owner as one scoped fix-forward with real regression proof; park nonblocking notes as follow-ups. This classification never waives required review, security, CI or operator gates."
     },
     {
       "id": "autopilot-full-29",
@@ -213,7 +213,7 @@
     },
     {
       "id": "autopilot-full-51",
-      "text": "**Reply.** Per-PR state and verdict, observed merges with proof, countersigns and reasons, open operator gates, and PR and trail pointers."
+      "text": "**Reply.** Per-PR state and verdict, observed merges with proof, countersigns and reasons, open operator gates, parked follow-ups, and PR and trail pointers."
     },
     {
       "id": "autopilot-full-audit-reread",

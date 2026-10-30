@@ -1,0 +1,214 @@
+SOURCE src/alloc.rs (original leading notice)
+// Copyright 2015 The Rust Project Developers. See the COPYRIGHT
+// file at the top-level directory of this distribution and at
+// http://rust-lang.org/COPYRIGHT.
+//
+// Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
+// http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
+// <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
+// option. This file may not be copied, modified, or distributed
+// except according to those terms.
+
+
+SOURCE src/collections/mod.rs (original leading notice)
+// Copyright 2018 The Rust Project Developers. See the COPYRIGHT
+// file at the top-level directory of this distribution and at
+// http://rust-lang.org/COPYRIGHT.
+//
+// Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
+// http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
+// <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
+// option. This file may not be copied, modified, or distributed
+// except according to those terms.
+
+//! Collection types that allocate inside a [`Bump`] arena.
+//!
+//! [`Bump`]: ../struct.Bump.html
+
+
+SOURCE src/collections/raw_vec.rs (original leading notice)
+// Copyright 2015 The Rust Project Developers. See the COPYRIGHT
+// file at the top-level directory of this distribution and at
+// http://rust-lang.org/COPYRIGHT.
+//
+// Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
+// http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
+// <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
+// option. This file may not be copied, modified, or distributed
+// except according to those terms.
+
+
+SOURCE src/collections/str/lossy.rs (original leading notice)
+// Copyright 2012-2017 The Rust Project Developers. See the COPYRIGHT
+// file at the top-level directory of this distribution and at
+// http://rust-lang.org/COPYRIGHT.
+//
+// Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
+// http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
+// <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
+// option. This file may not be copied, modified, or distributed
+// except according to those terms.
+
+
+SOURCE src/collections/str/mod.rs (original leading notice)
+// Copyright 2012-2014 The Rust Project Developers. See the COPYRIGHT
+// file at the top-level directory of this distribution and at
+// http://rust-lang.org/COPYRIGHT.
+//
+// Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
+// http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
+// <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
+// option. This file may not be copied, modified, or distributed
+// except according to those terms.
+
+//! String manipulation
+//!
+//! For more details, see std::str
+
+
+SOURCE src/collections/string.rs (original leading notice)
+// Copyright 2014 The Rust Project Developers. See the COPYRIGHT
+// file at the top-level directory of this distribution and at
+// http://rust-lang.org/COPYRIGHT.
+//
+// Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
+// http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
+// <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
+// option. This file may not be copied, modified, or distributed
+// except according to those terms.
+
+//! A UTF-8 encoded, growable string.
+//!
+//! This module contains the [`String`] type and several error types that may
+//! result from working with [`String`]s.
+//!
+//! This module is a fork of the [`std::string`] module, that uses a bump allocator.
+//!
+//! [`std::string`]: https://doc.rust-lang.org/std/string/index.html
+//!
+//! # Examples
+//!
+//! You can create a new [`String`] from a string literal with [`String::from_str_in`]:
+//!
+//! ```
+//! use bumpalo::{Bump, collections::String};
+//!
+//! let b = Bump::new();
+//!
+//! let s = String::from_str_in("world", &b);
+//! ```
+//!
+//! [`String`]: struct.String.html
+//! [`String::from_str_in`]: struct.String.html#method.from_str_in
+//!
+//! If you have a vector of valid UTF-8 bytes, you can make a [`String`] out of
+//! it. You can do the reverse too.
+//!
+//! ```
+//! use bumpalo::{Bump, collections::String};
+//!
+//! let b = Bump::new();
+//!
+//! let sparkle_heart = bumpalo::vec![in &b; 240, 159, 146, 150];
+//!
+//! // We know these bytes are valid, so we'll use `unwrap()`.
+//! let sparkle_heart = String::from_utf8(sparkle_heart).unwrap();
+//!
+//! assert_eq!("💖", sparkle_heart);
+//!
+//! let bytes = sparkle_heart.into_bytes();
+//!
+//! assert_eq!(bytes, [240, 159, 146, 150]);
+//! ```
+
+
+SOURCE src/collections/vec.rs (original leading notice)
+// Copyright 2014 The Rust Project Developers. See the COPYRIGHT
+// file at the top-level directory of this distribution and at
+// http://rust-lang.org/COPYRIGHT.
+//
+// Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
+// http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
+// <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
+// option. This file may not be copied, modified, or distributed
+// except according to those terms.
+//! A contiguous growable array type with heap-allocated contents, written
+//! [`Vec<'bump, T>`].
+//!
+//! Vectors have `O(1)` indexing, amortized `O(1)` push (to the end) and
+//! `O(1)` pop (from the end).
+//!
+//! This module is a fork of the [`std::vec`] module, that uses a bump allocator.
+//!
+//! [`std::vec`]: https://doc.rust-lang.org/std/vec/index.html
+//!
+//! # Examples
+//!
+//! You can explicitly create a [`Vec<'bump, T>`] with [`new_in`]:
+//!
+//! ```
+//! use bumpalo::{Bump, collections::Vec};
+//!
+//! let b = Bump::new();
+//! let v: Vec<i32> = Vec::new_in(&b);
+//! ```
+//!
+//! ... or by using the [`vec!`] macro:
+//!
+//! ```
+//! use bumpalo::{Bump, collections::Vec};
+//!
+//! let b = Bump::new();
+//!
+//! let v: Vec<i32> = bumpalo::vec![in &b];
+//!
+//! let v = bumpalo::vec![in &b; 1, 2, 3, 4, 5];
+//!
+//! let v = bumpalo::vec![in &b; 0; 10]; // ten zeroes
+//! ```
+//!
+//! You can [`push`] values onto the end of a vector (which will grow the vector
+//! as needed):
+//!
+//! ```
+//! use bumpalo::{Bump, collections::Vec};
+//!
+//! let b = Bump::new();
+//!
+//! let mut v = bumpalo::vec![in &b; 1, 2];
+//!
+//! v.push(3);
+//! ```
+//!
+//! Popping values works in much the same way:
+//!
+//! ```
+//! use bumpalo::{Bump, collections::Vec};
+//!
+//! let b = Bump::new();
+//!
+//! let mut v = bumpalo::vec![in &b; 1, 2];
+//!
+//! assert_eq!(v.pop(), Some(2));
+//! ```
+//!
+//! Vectors also support indexing (through the [`Index`] and [`IndexMut`] traits):
+//!
+//! ```
+//! use bumpalo::{Bump, collections::Vec};
+//!
+//! let b = Bump::new();
+//!
+//! let mut v = bumpalo::vec![in &b; 1, 2, 3];
+//! assert_eq!(v[2], 3);
+//! v[1] += 5;
+//! assert_eq!(v, [1, 7, 3]);
+//! ```
+//!
+//! [`Vec<'bump, T>`]: struct.Vec.html
+//! [`new_in`]: struct.Vec.html#method.new_in
+//! [`push`]: struct.Vec.html#method.push
+//! [`Index`]: https://doc.rust-lang.org/std/ops/trait.Index.html
+//! [`IndexMut`]: https://doc.rust-lang.org/std/ops/trait.IndexMut.html
+//! [`vec!`]: ../../macro.vec.html
+

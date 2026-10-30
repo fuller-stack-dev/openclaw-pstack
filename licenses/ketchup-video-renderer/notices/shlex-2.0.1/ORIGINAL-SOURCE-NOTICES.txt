@@ -1,0 +1,65 @@
+SOURCE src/bytes.rs (original leading notice)
+// Copyright 2015 Nicholas Allegra (comex).
+// Licensed under the Apache License, Version 2.0 <https://www.apache.org/licenses/LICENSE-2.0> or
+// the MIT license <https://opensource.org/licenses/MIT>, at your option. This file may not be
+// copied, modified, or distributed except according to those terms.
+
+//! [`Shlex`] and friends for byte strings.
+//!
+//! This is used internally by the [outer module](crate), and may be more
+//! convenient if you are working with byte slices (`[u8]`) or types that are
+//! wrappers around bytes, such as [`OsStr`](std::ffi::OsStr):
+//!
+//! ```rust
+//! #[cfg(unix)] {
+//!     use shlex::bytes::try_quote;
+//!     use std::ffi::OsStr;
+//!     use std::os::unix::ffi::OsStrExt;
+//!
+//!     // `\x80` is invalid in UTF-8.
+//!     let os_str = OsStr::from_bytes(b"a\x80b c");
+//!     assert_eq!(try_quote(os_str.as_bytes()).unwrap(), &b"'a\x80b c'"[..]);
+//! }
+//! ```
+//!
+//! (On Windows, `OsStr` uses 16 bit wide characters so this will not work.)
+
+
+SOURCE src/lib.rs (original leading notice)
+// Copyright 2015 Nicholas Allegra (comex).
+// Licensed under the Apache License, Version 2.0 <https://www.apache.org/licenses/LICENSE-2.0> or
+// the MIT license <https://opensource.org/licenses/MIT>, at your option. This file may not be
+// copied, modified, or distributed except according to those terms.
+
+//! Parse strings like, and escape strings for, POSIX shells.
+//!
+//! Same idea as (but implementation not directly based on) the Python shlex module.
+//!
+//! Disabling the `std` feature (which is enabled by default) will allow the crate to work in
+//! `no_std` environments, where the `alloc` crate, and a global allocator, are available.
+//!
+//! ## <span style="color:red">Warning</span>
+//!
+//! The [`try_quote`]/[`try_join`] family of APIs does not quote control characters (because they
+//! cannot be quoted portably).
+//!
+//! This is fully safe in noninteractive contexts, like shell scripts and `sh -c` arguments (or
+//! even scripts `source`d from interactive shells).
+//!
+//! But if you are quoting for human consumption, you should keep in mind that ugly inputs produce
+//! ugly outputs (which may not be copy-pastable).
+//!
+//! And if by chance you are piping the output of [`try_quote`]/[`try_join`] directly to the stdin
+//! of an interactive shell, you should stop, because control characters can lead to arbitrary
+//! command injection.
+//!
+//! For more information, and for information about more minor issues, please see [quoting_warning].
+//!
+//! ## Compatibility
+//!
+//! This crate's quoting functionality tries to be compatible with **any POSIX-compatible shell**;
+//! it's tested against `bash`, `zsh`, `dash`, Busybox `ash`, and `mksh`, plus `fish` (which is not
+//! POSIX-compatible but close enough).
+//!
+//! It also aims to be compatible with Python `shlex` and C `wordexp`.
+

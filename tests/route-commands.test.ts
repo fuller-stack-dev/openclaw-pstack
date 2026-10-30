@@ -8,11 +8,12 @@ import { loadSkillRootRecords } from "host-test/skill-root-loader";
 import { createSkillEntry } from "host-test/skill-entry-metadata";
 import { buildWorkspaceSkillCommandSpecs } from "host-test/skill-command-specs";
 import { register } from "../src/index.ts";
+import { register as compiledRegister } from "../dist/index.js";
 
 const root = resolve(import.meta.dirname, "..");
-function definitions(bareRouteAliases: unknown = false) {
+function definitions(bareRouteAliases: unknown = false, registerPlugin = register) {
   const commands: any[] = [];
-  register(createTestPluginApi({
+  registerPlugin(createTestPluginApi({
     id: "pstack", pluginConfig: { bareRouteAliases },
     runtime: { state: { openKeyedStoreV2() { throw Error("registration must not open state"); } } },
     registerCommand: (command: any) => commands.push(command),
@@ -20,10 +21,10 @@ function definitions(bareRouteAliases: unknown = false) {
   return commands;
 }
 describe("native route command registration and skill discovery", () => {
-  it("registers all 55 literal hyphenated routes through the actual host registry", async () => {
+  it("registers all 57 literal hyphenated routes through the actual host registry", async () => {
     const routes = JSON.parse(await readFile(join(root, "skills/pstack/native/routes.json"), "utf8"));
     const expected = [...routes.workflows, ...routes.playbooks];
-    const commands = definitions();
+    const commands = definitions(false, compiledRegister);
     expect(commands.map(command => command.name)).toEqual(["pstack", "poteto_mode", ...expected.map(name => "pstack-" + name)]);
     const registry = createEmptyPluginRegistry();
     for (const command of commands) {
@@ -32,8 +33,10 @@ describe("native route command registration and skill discovery", () => {
       expect(command.runtimeCapabilities).toBeUndefined();
       expect(registerPluginCommandInRegistry(registry, "pstack", command)).toEqual({ ok: true });
     }
-    expect(registry.commands).toHaveLength(57);
+    expect(registry.commands).toHaveLength(59);
     expect(registry.commands.find(entry => entry.command.name === "pstack-architect")).toBeDefined();
+    for (const name of ["statechart", "ketchup-video"])
+      expect(registry.commands.find(entry => entry.command.name === "pstack-" + name)).toBeDefined();
     expect(registry.commands.find(entry => entry.command.name === "architect")).toBeUndefined();
     // Future additions must not sneak a core name into the opt-in set.
     for (const route of expected) expect(isReservedCommandName(route)).toBe(false);
@@ -42,9 +45,9 @@ describe("native route command registration and skill discovery", () => {
     expect(registry.commands).toEqual(before);
   });
   it("requires exact boolean opt-in for bare aliases and leaves collisions with their owner", () => {
-    for (const value of [undefined, false, "true", 1]) expect(definitions(value)).toHaveLength(57);
+    for (const value of [undefined, false, "true", 1]) expect(definitions(value)).toHaveLength(59);
     const commands = definitions(true);
-    expect(commands).toHaveLength(112);
+    expect(commands).toHaveLength(116);
     const registry = createEmptyPluginRegistry();
     const incumbent = { ...commands[0], name: "architect", description: "Existing plugin command" };
     expect(registerPluginCommandInRegistry(registry, "incumbent", incumbent)).toEqual({ ok: true });
@@ -59,10 +62,10 @@ describe("native route command registration and skill discovery", () => {
       dir: resolve(root, dir), source: "plugin", mode: "audit", rejectHardlinks: false,
     }));
     const entries = records.map(record => createSkillEntry(record));
-    expect(entries).toHaveLength(57);
+    expect(entries).toHaveLength(59);
     const commands = buildWorkspaceSkillCommandSpecs(process.env.HOME!, { entries, config: { plugins: { enabled: false } } });
-    expect(commands).toHaveLength(55);
-    expect(new Set(commands.map(command => command.name)).size).toBe(55);
+    expect(commands).toHaveLength(57);
+    expect(new Set(commands.map(command => command.name)).size).toBe(57);
     expect(commands.every(command => command.modelVisible === false && command.name.startsWith("pstack_"))).toBe(true);
     const architect = commands.find(command => command.skillName === "pstack-architect");
     expect(architect?.name).toBe("pstack_architect");

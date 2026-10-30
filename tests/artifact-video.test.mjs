@@ -244,6 +244,49 @@ test("standalone CLI: real raster, encoding, decoded hold/caption and failure bo
       assert.equal(r.videoSha256, report.videoSha256);
       await rm(other, { recursive: true });
     });
+    await t.test("capacity refusals report the rejecting sample before reserving output", async () => {
+      const budget = 512 * 1024 * 1024;
+      const requiredDiskBytes = budget + (report.proof.decodedFrames / 12) * 8 * 1024 * 1024;
+      for (const [availableDiskBytes, freeRamBytes] of [
+        [requiredDiskBytes - 1, budget],
+        [requiredDiskBytes, budget - 1],
+      ]) {
+        // Replace only OS measurements in this child; execute the real packed render guard.
+        // A second sample throws, so diagnostic values must be those used by the guard.
+        const preload = `import fs from "node:fs/promises"; import os from "node:os";
+          import {syncBuiltinESMExports} from "node:module";
+          let disks = 0, memories = 0;
+          fs.statfs = async () => { if (++disks > 1) throw Error("disk resampled");
+            return {bavail: ${availableDiskBytes}, bsize: 1}; };
+          os.freemem = () => { if (++memories > 1) throw Error("RAM resampled");
+            return ${freeRamBytes}; };
+          syncBuiltinESMExports();`;
+        const target = join(dir, "capacity-refused");
+        const r = await command(process.execPath, [
+          "--import",
+          "data:text/javascript," + encodeURIComponent(preload),
+          cli,
+          "render",
+          manifest,
+          target,
+        ]);
+        bad(r, /Insufficient current disk\/RAM for bounded video work: /);
+        const metrics = JSON.parse(r.stderr.slice(r.stderr.indexOf("{")));
+        assert.equal(metrics.availableDiskBytes, availableDiskBytes);
+        assert.equal(metrics.requiredDiskBytes, requiredDiskBytes);
+        assert.equal(metrics.freeRamBytes, freeRamBytes);
+        assert.equal(metrics.requiredRamBytes, budget);
+        assert.equal(metrics.platform, process.platform);
+        assert.ok(Number.isFinite(metrics.totalRamBytes) && metrics.totalRamBytes > 0);
+        assert.ok(
+          Number.isFinite(metrics.processAvailableMemoryBytes) && metrics.processAvailableMemoryBytes >= 0,
+        );
+        assert.ok(
+          !(await readdir(dir)).some((name) =>
+            name === "capacity-refused" || name.startsWith(".ketchup-") || name.endsWith(".ketchup-lock")),
+        );
+      }
+    });
     await t.test("existing sentinel and ready output are preserved", async () => {
       const target = join(dir, "sentinel");
       await mkdir(target);

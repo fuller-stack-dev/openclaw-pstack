@@ -12,7 +12,7 @@ import {
   statfs,
 } from "node:fs/promises";
 import { dirname, resolve, join } from "node:path";
-import { freemem } from "node:os";
+import { freemem, totalmem } from "node:os";
 import { loadManifest, sha, boundedFile } from "./manifest.mjs";
 import { raster, pixels } from "./raster.mjs";
 import { run, ffmpeg, ffprobe, base, doctor } from "./process.mjs";
@@ -249,8 +249,22 @@ export async function render(file, target, signal) {
   const disk = await statfs(parent);
   const workingBudget = 512 * 1024 * 1024;
   const conservativeMovie = (plan.totalFrames / plan.fps) * 8 * 1024 * 1024;
-  if (disk.bavail * disk.bsize < workingBudget + conservativeMovie || freemem() < workingBudget)
-    throw Error("Insufficient current disk/RAM for bounded video work");
+  const availableDiskBytes = disk.bavail * disk.bsize;
+  const requiredDiskBytes = workingBudget + conservativeMovie;
+  const freeRamBytes = freemem();
+  if (availableDiskBytes < requiredDiskBytes || freeRamBytes < workingBudget)
+    throw Error(
+      "Insufficient current disk/RAM for bounded video work: " +
+        JSON.stringify({
+          availableDiskBytes,
+          requiredDiskBytes,
+          freeRamBytes,
+          requiredRamBytes: workingBudget,
+          platform: process.platform,
+          totalRamBytes: totalmem(),
+          processAvailableMemoryBytes: process.availableMemory(),
+        }),
+    );
   const lock = out + ".ketchup-lock";
   let handle;
   try {

@@ -269,6 +269,12 @@ decision; the qualified tool path and historical continuations are not that proo
   Corruption fails closed. No transcript scraping, raw-store edits or background
   cleanup service. Subsequent prompt visibility follows native session access,
   including other participants with access to that same session.
+- Read-only help/setup commands store one separate row per exact incarnation,
+  eligible for at most five minutes. It holds the route, canonical workspace
+  and first 400 normalized question characters. The latest command replaces that row; a
+  matched atomic claim is at-most-once, not crash-atomic delivery. Eligibility
+  ends at expiry; physical removal follows host cleanup, not a secure-erasure
+  deadline. Its independent 1024-row limit rejects new turns without eviction.
 - Sticky mode changes workflow guidance, **not permissions**. Native tool policy,
   source trust, review, consent, holds, credential custody and completion remain
   authoritative. Children inherit native requester policy, not sticky activation.

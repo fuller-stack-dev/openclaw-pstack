@@ -1,6 +1,6 @@
 ---
 name: pstack
-description: Pstack plugin workflow guidance. Registered /pstack and /poteto_mode commands own exact-session mode; the plugin injects active context. Routes engineering, triage, reproduction and explicitly configured bounded native loops with 17 workspace role selections. Never grants execution authority.
+description: Pstack plugin workflow guidance for engineering, triage and reproduction with 17 role selections. Exact-session commands, requester-bound native controllers and stored workflow records use host-owned execution. Optional Git audit and append-only trail tools and a separately user-installed bounded gh watcher have explicit capability boundaries. Never grants execution authority.
 user-invocable: false
 license: MIT
 ---
@@ -10,6 +10,15 @@ license: MIT
 This is bundled workflow guidance for the installable pstack plugin, not the
 Cursor runtime. Resolve paths from this directory. Pstack owns workflow;
 OpenClaw owns secure execution, identity, credentials and permissions.
+
+Native controllers use requester-bound host APIs and persistent workflow records.
+The optional worktree audit uses shell-free, fixed read-only Git operations and
+bounded size checks; the optional trail appends workspace audit rows. Both require
+operator allowlisting. The separate, user-installed PR watcher uses inherited
+`gh` authentication for bounded read-only queries; it does not read credential
+files or install a schedule. Read the capability boundaries in the native
+[audit](native/worktree-audit-adapter.md), [trail](native/trail-adapter.md) and
+[watcher](native/automation/watch-pr.md) guides.
 
 1. Read [the native contract](native/contract.md) in full. The plugin owns
    [session lifecycle](native/session-mode.md); do not check Python state or

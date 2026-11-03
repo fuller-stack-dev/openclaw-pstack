@@ -272,11 +272,15 @@ decision; the qualified tool path and historical continuations are not that proo
 - Sticky mode changes workflow guidance, **not permissions**. Native tool policy,
   source trust, review, consent, holds, credential custody and completion remain
   authoritative. Children inherit native requester policy, not sticky activation.
-  Read-only briefs are instructions, not enforced capability restrictions.
+  A read-only brief alone is instruction, not enforcement. Where the host offers
+  narrow-only subagent profiles, native controllers use them to remove tools
+  from read-only child roles. This is a host tool-policy boundary, not an OS sandbox.
 - Native controllers use only capabilities the host grants to the current
   authorized command invocation. Children inherit that requester's lineage and tool
-  ceiling, receipts come from the host, approvals only from the authenticated
-  command sender, and scheduled continuations recheck the original requester at
+  ceiling. Workflow records in the host keyed store retain routing snapshots,
+  child receipts and scheduled-continuation records; the host owns execution.
+  Approvals come only from the authenticated command sender, and scheduled
+  continuations recheck the original requester at
   every run. A demoted requester is refused by the host and its children do not
   outlive the authority. On other hosts panels are **skill-guided**: resolve roles,
   spawn through native tools, collect, then synthesize; the ledger tracks
@@ -286,10 +290,27 @@ decision; the qualified tool path and historical continuations are not that proo
 - All 573 files in `skills/pstack/upstream` are pinned, source-only MIT reference.
   Their scripts/tests/agent definitions are neither executed nor registered.
   Only the three manifest roots load (two base skills and 57 manual route guides).
-  The original source includes scripts targeting other runtimes; their presence does not advertise native support.
+  The original source includes scripts targeting Cursor and other runtimes. Their
+  dependency installers, transcript readers and orchestration scripts are not
+  native capabilities; use the linked native adapters, not those scripts.
 - Optional loop/event builders require separately authorized targets, existing
   non-main owners, explicit budgets/deadlines and verified tools/connectors.
   Install/setup/dry-run creates no job, watcher, box, message, issue, PR or deploy.
+- The optional [worktree audit](skills/pstack/native/worktree-audit-adapter.md)
+  starts shell-free `execFile` subprocesses for fixed read-only Git operations and
+  bounded `du` size checks. It sanitizes the environment, disables Git transports
+  and content-converting reads, and checks the requester workspace and invocation.
+  It does not fetch, read transcripts or authorize deletion. The optional
+  [trail](skills/pstack/native/trail-adapter.md) writes append-only, agent-attested
+  TSV rows under the requester workspace’s `.audit/`; a row is not verified evidence.
+  Both tools require operator allowlisting and refuse sandboxed sessions; their
+  adapter guides document additional filesystem-policy restrictions.
+- The separate [PR watcher](skills/pstack/native/automation/watch-pr.md) is
+  user-installed, not a plugin-scheduled job. Each run uses shell-free `gh` with
+  inherited authentication for `auth status` and fixed read-only GraphQL queries.
+  The script does not read credential files; `gh` manages its own authentication.
+  Deadlines, run caps, timeouts and output limits bound the watch. Its template
+  writes nothing; optional local run state requires an explicit `--state-dir`.
 - This package makes no covert network/telemetry calls or credential requests.
   Host/model/tool services retain their own behavior and permissions. External
   plugins execute trusted local code; review this package before installing it.

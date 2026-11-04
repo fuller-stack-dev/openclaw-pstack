@@ -150,6 +150,17 @@ Doctor is read-only; it checks package integrity (including byte-verified npm
 `.gitignore` → `.npmignore` relocation), not model availability or a
 live session's active prompt. Verify an ordinary active follow-up separately.
 
+The manifest opts into `reload.turnHandover`, not generation overlap. Private
+compiled-host `21e7` checks used a loopback model stub: on Responses, the one-shot
+read-only notice survived in generation-1 history, not a generation-2 re-render.
+Restriction continuity relies on the host retaining that history. Completions
+successor inputs duplicated the raw question; its producer remains untraced,
+with no observed command or tool replay. The proved scheduled path required an
+explicit manual `/pstack resume` to rearm; automatic rearm, a third deadline and
+all transports are not qualified. Source-host `e458` resource-binding failure
+causality remains unknown. These checks do not establish live or release
+qualification, change native checkpoint limits, or authorize activation.
+
 ## Commands
 
 | Command | Effect |

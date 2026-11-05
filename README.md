@@ -150,6 +150,17 @@ Doctor is read-only; it checks package integrity (including byte-verified npm
 `.gitignore` → `.npmignore` relocation), not model availability or a
 live session's active prompt. Verify an ordinary active follow-up separately.
 
+The manifest opts into `reload.turnHandover`, not generation overlap. Private
+compiled-host `21e7` checks used a loopback model stub: on Responses, the one-shot
+read-only notice survived in generation-1 history, not a generation-2 re-render.
+Restriction continuity relies on the host retaining that history. Completions
+successor inputs duplicated the raw question; its producer remains untraced,
+with no observed command or tool replay. The proved scheduled path required an
+explicit manual `/pstack resume` to rearm; automatic rearm, a third deadline and
+all transports are not qualified. Source-host `e458` resource-binding failure
+causality remains unknown. These checks do not establish live or release
+qualification, change native checkpoint limits, or authorize activation.
+
 ## Commands
 
 | Command | Effect |
@@ -269,14 +280,24 @@ decision; the qualified tool path and historical continuations are not that proo
   Corruption fails closed. No transcript scraping, raw-store edits or background
   cleanup service. Subsequent prompt visibility follows native session access,
   including other participants with access to that same session.
+- Read-only help/setup commands store one separate row per exact incarnation,
+  eligible for at most five minutes. It holds the route, canonical workspace
+  and first 400 normalized question characters. The latest command replaces that row; a
+  matched atomic claim is at-most-once, not crash-atomic delivery. Eligibility
+  ends at expiry; physical removal follows host cleanup, not a secure-erasure
+  deadline. Its independent 1024-row limit rejects new turns without eviction.
 - Sticky mode changes workflow guidance, **not permissions**. Native tool policy,
   source trust, review, consent, holds, credential custody and completion remain
   authoritative. Children inherit native requester policy, not sticky activation.
-  Read-only briefs are instructions, not enforced capability restrictions.
+  A read-only brief alone is instruction, not enforcement. Where the host offers
+  narrow-only subagent profiles, native controllers use them to remove tools
+  from read-only child roles. This is a host tool-policy boundary, not an OS sandbox.
 - Native controllers use only capabilities the host grants to the current
   authorized command invocation. Children inherit that requester's lineage and tool
-  ceiling, receipts come from the host, approvals only from the authenticated
-  command sender, and scheduled continuations recheck the original requester at
+  ceiling. Workflow records in the host keyed store retain routing snapshots,
+  child receipts and scheduled-continuation records; the host owns execution.
+  Approvals come only from the authenticated command sender, and scheduled
+  continuations recheck the original requester at
   every run. A demoted requester is refused by the host and its children do not
   outlive the authority. On other hosts panels are **skill-guided**: resolve roles,
   spawn through native tools, collect, then synthesize; the ledger tracks
@@ -286,10 +307,27 @@ decision; the qualified tool path and historical continuations are not that proo
 - All 573 files in `skills/pstack/upstream` are pinned, source-only MIT reference.
   Their scripts/tests/agent definitions are neither executed nor registered.
   Only the three manifest roots load (two base skills and 57 manual route guides).
-  The original source includes scripts targeting other runtimes; their presence does not advertise native support.
+  The original source includes scripts targeting Cursor and other runtimes. Their
+  dependency installers, transcript readers and orchestration scripts are not
+  native capabilities; use the linked native adapters, not those scripts.
 - Optional loop/event builders require separately authorized targets, existing
   non-main owners, explicit budgets/deadlines and verified tools/connectors.
   Install/setup/dry-run creates no job, watcher, box, message, issue, PR or deploy.
+- The optional [worktree audit](skills/pstack/native/worktree-audit-adapter.md)
+  starts shell-free `execFile` subprocesses for fixed read-only Git operations and
+  bounded `du` size checks. It sanitizes the environment, disables Git transports
+  and content-converting reads, and checks the requester workspace and invocation.
+  It does not fetch, read transcripts or authorize deletion. The optional
+  [trail](skills/pstack/native/trail-adapter.md) writes append-only, agent-attested
+  TSV rows under the requester workspace’s `.audit/`; a row is not verified evidence.
+  Both tools require operator allowlisting and refuse sandboxed sessions; their
+  adapter guides document additional filesystem-policy restrictions.
+- The separate [PR watcher](skills/pstack/native/automation/watch-pr.md) is
+  user-installed, not a plugin-scheduled job. Each run uses shell-free `gh` with
+  inherited authentication for `auth status` and fixed read-only GraphQL queries.
+  The script does not read credential files; `gh` manages its own authentication.
+  Deadlines, run caps, timeouts and output limits bound the watch. Its template
+  writes nothing; optional local run state requires an explicit `--state-dir`.
 - This package makes no covert network/telemetry calls or credential requests.
   Host/model/tool services retain their own behavior and permissions. External
   plugins execute trusted local code; review this package before installing it.

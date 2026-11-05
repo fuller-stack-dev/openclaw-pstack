@@ -11,12 +11,12 @@ var programHeadings = ["Arm the program", "Spawn owners", "PR mechanics", "Verdi
 var appendices = ["Appendix A. Prototype evidence", "Appendix B. Alternatives rejected", "Appendix C. Risks", "Appendix D. Links and reading list"];
 var boxPattern = /^\s*- \[[ xX]\] (.+)$/;
 function hasAngleTag(text2) {
-  let open3 = false;
+  let open4 = false;
   for (let i = 0; i < text2.length; i++) {
     const c = text2[i];
-    if (c === "\n") open3 = false;
-    else if (c === ">" && open3) return true;
-    else if (c === "<" && i + 1 < text2.length && text2[i + 1] !== ">" && text2[i + 1] !== "\n") open3 = true;
+    if (c === "\n") open4 = false;
+    else if (c === ">" && open4) return true;
+    else if (c === "<" && i + 1 < text2.length && text2[i + 1] !== ">" && text2[i + 1] !== "\n") open4 = true;
   }
   return false;
 }
@@ -1261,7 +1261,7 @@ var SEMANTICS = {
     const deleted = output.deletions.map(where);
     if (duplicates(deleted).length) fail("duplicate deletion");
     for (const keep of output.keeps) if (deleted.includes(where(keep))) fail("comment both kept and deleted: " + where(keep));
-    for (const open3 of output.open) if (deleted.includes(where(open3))) fail("doubt is an open finding, never a deletion: " + where(open3));
+    for (const open4 of output.open) if (deleted.includes(where(open4))) fail("doubt is an open finding, never a deletion: " + where(open4));
     for (const d of output.deletions) {
       const suppression = d.reason === "suppression";
       if (suppression !== (d.rule !== void 0) || suppression !== (d.ruleClass !== void 0)) fail("suppression deletions, and only they, name the suppressed rule and its class: " + where(d));
@@ -2799,6 +2799,79 @@ function readOnlyRouteContext(route, root2, workspace, host) {
   ].join("\n\n");
 }
 
+// src/read-only-turns.ts
+var TTL_MS = 5 * 6e4;
+var STORE = Object.freeze({ namespace: "read-only-turn-v1", maxEntries: 1024, overflowPolicy: "reject-new", defaultTtlMs: TTL_MS });
+var squash2 = (text2) => text2.replace(/\s+/g, " ").trim();
+var keyOf2 = (scope) => hash2(JSON.stringify([scope.sessionKey, scope.sessionId]));
+var open3 = (api, assertCurrent) => api.runtime.state.openKeyedStoreV2(STORE, assertCurrent ? { assertCurrent } : void 0);
+var code = (error) => {
+  const value = error?.code;
+  return typeof value === "string" && /^[A-Z][A-Z0-9_]{0,63}$/.test(value) ? value : "unavailable";
+};
+var unavailable = (reason) => ({ kind: "refused", notice: "Pstack could not verify a pending read-only route command for this turn (" + reason + "). If the user's message is a /pstack-poteto-help or /pstack-setup-pstack request, answer it read-only, without editing files or configuration, and say its route context was unavailable; suggest running it again. In every case, do not start, continue or resume Pstack work or its children, create Pstack schedules or automations, or toggle pstack mode from this turn. No command has been replayed." });
+function parse(value, scope) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return void 0;
+  const row = value;
+  if (Object.keys(row).sort().join(",") !== "expires,question,route,sessionId,sessionKey,version,workspace" || row.version !== 1 || row.sessionKey !== scope.sessionKey || row.sessionId !== scope.sessionId || ![row.sessionKey, row.sessionId, row.workspace].every((v) => typeof v === "string" && v.trim() && v.length <= 4096) || !READ_ONLY_ROUTES.includes(row.route) || typeof row.question !== "string" || row.question.length > 400 || !Number.isSafeInteger(row.expires) || row.expires < 0 || row.expires > Date.now() + TTL_MS) return void 0;
+  return row;
+}
+async function recordReadOnlyTurn(api, scope, route, suffix, assertCurrent) {
+  assertCurrent?.();
+  const value = { version: 1, ...scope, route, question: squash2(suffix).slice(0, 400), expires: Date.now() + TTL_MS };
+  if (!parse(value, scope)) throw Error("Invalid pstack read-only route scope");
+  try {
+    await open3(api, assertCurrent).register(keyOf2(scope), value);
+  } catch (error) {
+    assertCurrent?.();
+    if (code(error) === "PLUGIN_STATE_LIMIT_EXCEEDED")
+      throw Error("Pstack read-only route unavailable: 1024 pending route turns are retained; retry in a few minutes. Mode was not changed.");
+    throw error;
+  }
+  assertCurrent?.();
+}
+async function takeReadOnlyTurn(api, turn, message, fence2) {
+  const current = async () => {
+    fence2.assertActive?.();
+    const scope = await fence2.resolveScope();
+    fence2.assertActive?.();
+    if (scope.sessionKey !== turn.sessionKey || scope.sessionId !== turn.sessionId) throw Error("scope");
+    return scope;
+  };
+  try {
+    fence2.assertActive?.();
+    const store = open3(api, fence2.assertActive), key = keyOf2(turn), request = squash2(message);
+    let observed = await store.observe(key);
+    fence2.assertActive?.();
+    for (let attempt = 0; attempt < 4; attempt++) {
+      if (observed.value === void 0) return { kind: "none" };
+      const row = parse(observed.value, turn);
+      if (!row) return unavailable("unreadable");
+      if (row.expires <= Date.now() || row.question && !request.includes(row.question)) return { kind: "none" };
+      const pre = turn.workspace === void 0 ? void 0 : await current();
+      fence2.assertActive?.();
+      if (row.expires <= Date.now()) return { kind: "none" };
+      const result = await store.compareAndApply(key, observed.comparison, { operation: "delete", action: "delete" });
+      fence2.assertActive?.();
+      if (result.status === "unchanged") return { kind: "none" };
+      if (result.status === "conflict") {
+        observed = result.current;
+        continue;
+      }
+      if (!pre) return unavailable("scope");
+      const post = await current();
+      if (row.expires <= Date.now()) return { kind: "none" };
+      if (pre.workspace !== row.workspace || post.workspace !== row.workspace) return { kind: "refused", notice: "Pstack read-only route /pstack-" + row.route + " was not applied: this session's workspace changed after the command. Answer the user's question read-only. Do not edit files or configuration, start, continue or resume Pstack work, spawn children, create schedules or automations, or toggle pstack mode. Say the route context was not applied and suggest running the command again." };
+      return { kind: "claimed", route: row.route, workspace: post.workspace };
+    }
+    return unavailable("contended");
+  } catch (error) {
+    fence2.assertActive?.();
+    api.logger.warn("Pstack read-only route lookup unavailable: " + code(error));
+    return unavailable(code(error));
+  }
+}
+
 // src/workflow-tool.ts
 import { fileURLToPath } from "node:url";
 import { validateJsonSchemaValue as validateJsonSchemaValue6 } from "openclaw/plugin-sdk/json-schema-runtime";
@@ -4133,8 +4206,8 @@ function fitPrefix(value, maxBytes, maxChars = Infinity) {
       else hi = mid - 1;
     }
   } else lo = hi;
-  const code = value.charCodeAt(lo - 1);
-  return value.slice(0, lo > 0 && code >= 55296 && code <= 56319 ? lo - 1 : lo);
+  const code2 = value.charCodeAt(lo - 1);
+  return value.slice(0, lo > 0 && code2 >= 55296 && code2 <= 56319 ? lo - 1 : lo);
 }
 function deliverableSlot(record) {
   return deliverableSlotOf(record.setup);
@@ -4802,8 +4875,6 @@ var root = join9(dirname2(fileURLToPath2(import.meta.url)), "..");
 var help = "Pstack: /pstack on | off | status | help | <task>. Owner-only /pstack migrate imports current active legacy records online without toggling mode. /poteto_mode shares mode. Use pstack_route and native sessions_spawn for skill-guided panels; deterministic panel/resume subcommands are unavailable in v1. Children never inherit sticky mode, but do inherit native requester tool policy.";
 var nativeHelp = "Pstack: /pstack on | off | status | help | <task>. Native controllers: /pstack-architect, -arena, -interrogate, -swarm, -how, -why, -reflect <task> run their panels as code; /pstack resume [approve [notes] | revise <notes> | correct <errors> | cancel] continues the session's native workflow (correct asks for one corrected deliverable); /pstack architect|arena|interrogate shows its state. Owner-only /pstack migrate imports legacy records. /poteto_mode shares mode. Children never inherit sticky mode, but do inherit native requester tool policy.";
 var SINGLE_WORD = ["architect", "arena", "interrogate", "resume"];
-var READ_ONLY_TURN_TTL_MS = 5 * 6e4;
-var squash2 = (value) => value.replace(/\s+/g, " ").trim();
 function register(api) {
   if (api.registrationMode !== "cli-metadata" && typeof api.runtime?.state?.openKeyedStoreV2 !== "function") {
     throw Error(
@@ -4826,8 +4897,6 @@ function register(api) {
     family: caps.family,
     ...Number.isInteger(wait) && wait >= 0 && wait <= 30 ? { waitSeconds: wait } : {}
   };
-  const readOnlyTurns = /* @__PURE__ */ new Map();
-  const turnKey = (sessionKey, sessionId) => sessionKey + "\0" + sessionId;
   const hostFacts = { controllers: caps.subagents && caps.models, scheduled: caps.scheduled, profiles: [...profiles.keys()] };
   const ownerFor = async (ctx) => {
     if (!ctx.sessionKey || !ctx.sessionId) throw Error("Exact requester session incarnation required");
@@ -4938,9 +5007,14 @@ function register(api) {
         };
       }
       if (readOnly) {
-        const now = Date.now();
-        for (const [key, turn] of readOnlyTurns) if (turn.expires <= now) readOnlyTurns.delete(key);
-        readOnlyTurns.set(turnKey(ctx.sessionKey, ctx.sessionId), { route, question: squash2(suffix), workspace, expires: now + READ_ONLY_TURN_TTL_MS });
+        const currentScope = async () => {
+          const current = await ownerFor(ctx);
+          assertCurrent?.();
+          if (current.workspace !== workspace) throw Error("Requester workspace changed");
+          return current;
+        };
+        await recordReadOnlyTurn(api, await currentScope(), route, suffix, assertCurrent);
+        await currentScope();
         return { continueAgent: true, suppressReply: true };
       }
       assertCurrent?.();
@@ -4991,47 +5065,56 @@ function register(api) {
     }, controller ? caps.commandCapabilities : []);
   }
   api.on("before_prompt_build", async (event, ctx) => {
-    ctx.hookInvocation?.assertActive();
+    const assertActive = ctx.hookInvocation ? () => ctx.hookInvocation.assertActive() : void 0;
+    assertActive?.();
     if (!ctx.sessionKey || !ctx.sessionId) return void 0;
-    let routeNotice;
-    const pendingRoute = readOnlyTurns.get(turnKey(ctx.sessionKey, ctx.sessionId));
-    const request = squash2(String(event.currentUserMessage ?? event.prompt ?? ""));
-    if (pendingRoute && pendingRoute.expires > Date.now() && (!pendingRoute.question || request.includes(pendingRoute.question.slice(0, 400)))) {
-      readOnlyTurns.delete(turnKey(ctx.sessionKey, ctx.sessionId));
-      routeNotice = readOnlyRouteContext(pendingRoute.route, root, pendingRoute.workspace, hostFacts);
-    }
     let scope;
     try {
       const { agentId, entry: entry2 } = await entryFor(ctx.sessionKey);
+      assertActive?.();
       if (!entry2 || entry2.sessionId !== ctx.sessionId || ctx.agentId && ctx.agentId !== agentId)
         return void 0;
       const workspace = await workspaceFor(agentId, entry2);
+      assertActive?.();
       scope = { sessionKey: ctx.sessionKey, sessionId: ctx.sessionId, workspace };
-    } catch (error) {
-      api.logger.warn("Pstack prompt preparation unavailable: " + String(error));
-      return routeNotice ? { prependContext: routeNotice } : void 0;
+    } catch {
+      assertActive?.();
+      api.logger.warn("Pstack prompt preparation unavailable");
     }
-    let nativeNotice;
-    try {
-      nativeNotice = await nativePromptContext(api, scope, root, () => ctx.hookInvocation?.assertActive());
-    } catch (error) {
-      nativeNotice = "Pstack native workflow lookup FAILED CLOSED: " + String(error) + ". Do not continue or respawn its children; report this error.";
+    let nativeNotice, stateNotice;
+    let mode = void 0;
+    if (scope) {
+      try {
+        nativeNotice = await nativePromptContext(api, scope, root, assertActive);
+        assertActive?.();
+      } catch (error) {
+        assertActive?.();
+        nativeNotice = "Pstack native workflow lookup FAILED CLOSED: " + String(error) + ". Do not continue or respawn its children; report this error.";
+      }
+      try {
+        mode = await readMode(store(assertActive), scope);
+        assertActive?.();
+      } catch (error) {
+        assertActive?.();
+        stateNotice = "Pstack state lookup FAILED CLOSED: " + String(error) + ". Stop pstack-specific dispatch and report this error.";
+      }
     }
+    const turn = await takeReadOnlyTurn(
+      api,
+      { sessionKey: ctx.sessionKey, sessionId: ctx.sessionId, workspace: scope?.workspace },
+      String(event.currentUserMessage ?? event.prompt ?? ""),
+      { assertActive, resolveScope: () => ownerFor(ctx) }
+    );
+    assertActive?.();
+    if (turn.kind === "refused") return { prependContext: turn.notice };
+    if (!scope) return void 0;
+    const routeNotice = turn.kind === "claimed" ? readOnlyRouteContext(turn.route, root, turn.workspace, hostFacts) : void 0;
+    if (stateNotice) return { prependContext: [routeNotice, stateNotice].filter(Boolean).join("\n\n") };
     const notices = [nativeNotice, routeNotice].filter(Boolean).join("\n\n");
-    try {
-      const mode = await readMode(
-        store(() => ctx.hookInvocation?.assertActive()),
-        scope
-      );
-      if (!mode?.active) return notices ? { prependContext: notices } : void 0;
-      return {
-        prependContext: (notices ? notices + "\n\n" : "") + "Pstack mode is active for this exact session incarnation (revision " + mode.revision + "). Read " + join9(root, "skills/pstack/SKILL.md") + " and " + join9(root, "skills/pstack/native/contract.md") + `. Pstack owns workflow; OpenClaw owns secure execution. Use pstack_route for the 17 roles and exact snapshots, then native sessions_spawn. Children do not inherit sticky mode; native requester tool policy still applies. A slash-command task means execute its task suffix, not toggle mode again. For /pstack-<route> (or an explicitly enabled bare route alias), read that complete selected section in native/workflows.md or native/playbooks.md before executing. All required independent phases and gates remain mandatory; this is skill-guided, agent-attested continuation, not a deterministic controller. When a route's deliverable is a routed child's result (for example teach's judgment-and-prose explanation, a how explainer or a why synthesis), deliver that collected result verbatim as a quoted block attributed to its role, actual model and run id, with at most a short lead-in; never replace it with a parent rewrite or paraphrase. In skill-guided routes, spawn a routed child you may hand off as an announcing child (omit collect); after one bounded wait leaves it pending, write the six-line handoff from contract.md "Visible handoff" and end the turn with sessions_yield, whose completion events resume this session. Collect every collector (collect: true) in the turn that spawned it, with agents_wait and awaitResults: true: nothing wakes this session when a collector finishes, so never end a turn with one pending. A collector's runTimeoutSeconds bounds that wait, counted from the child's own start: spawn a collector with the arguments pstack_route returns, which give it 600 seconds when it has none, and give any other collector you spawn the same bound. This plugin refuses a collector that asks for more than 900 seconds; a phase that may take longer is an announcing child. Call sessions_yield with acknowledgment and message only, never waitFor: the host's waitFor sentence only matters when the caller is itself a subagent paused for its requester's message, not a parent waiting for its own children. If the host's plan-completion check ("This run\u2019s latest successfully saved plan still has unfinished steps") follows a handoff, answer it with exactly NO_REPLY and no tool call. The six handoff lines end the reply: never follow them with a status sentence or send them with a message tool. A block a route requires in every reply, such as show-me-your-work's Attention or opening-a-pr's readiness line, goes immediately before the six lines. This plugin checks every sessions_yield of this session, route or not: it removes waitFor and lets the yield through with a note, and it refuses an acknowledgment without the six handoff lines, such as sessions_yield({ acknowledgment: "UNUSED" }); after a refusal, retry the same sessions_yield at once with the six lines.`
-      };
-    } catch (error) {
-      return {
-        prependContext: "Pstack state lookup FAILED CLOSED: " + String(error) + ". Stop pstack-specific dispatch and report this error."
-      };
-    }
+    if (!mode?.active) return notices ? { prependContext: notices } : void 0;
+    return {
+      prependContext: (notices ? notices + "\n\n" : "") + "Pstack mode is active for this exact session incarnation (revision " + mode.revision + "). Read " + join9(root, "skills/pstack/SKILL.md") + " and " + join9(root, "skills/pstack/native/contract.md") + `. Pstack owns workflow; OpenClaw owns secure execution. Use pstack_route for the 17 roles and exact snapshots, then native sessions_spawn. Children do not inherit sticky mode; native requester tool policy still applies. A slash-command task means execute its task suffix, not toggle mode again. For /pstack-<route> (or an explicitly enabled bare route alias), read that complete selected section in native/workflows.md or native/playbooks.md before executing. All required independent phases and gates remain mandatory; this is skill-guided, agent-attested continuation, not a deterministic controller. When a route's deliverable is a routed child's result (for example teach's judgment-and-prose explanation, a how explainer or a why synthesis), deliver that collected result verbatim as a quoted block attributed to its role, actual model and run id, with at most a short lead-in; never replace it with a parent rewrite or paraphrase. In skill-guided routes, spawn a routed child you may hand off as an announcing child (omit collect); after one bounded wait leaves it pending, write the six-line handoff from contract.md "Visible handoff" and end the turn with sessions_yield, whose completion events resume this session. Collect every collector (collect: true) in the turn that spawned it, with agents_wait and awaitResults: true: nothing wakes this session when a collector finishes, so never end a turn with one pending. A collector's runTimeoutSeconds bounds that wait, counted from the child's own start: spawn a collector with the arguments pstack_route returns, which give it 600 seconds when it has none, and give any other collector you spawn the same bound. This plugin refuses a collector that asks for more than 900 seconds; a phase that may take longer is an announcing child. Call sessions_yield with acknowledgment and message only, never waitFor: the host's waitFor sentence only matters when the caller is itself a subagent paused for its requester's message, not a parent waiting for its own children. If the host's plan-completion check ("This run\u2019s latest successfully saved plan still has unfinished steps") follows a handoff, answer it with exactly NO_REPLY and no tool call. The six handoff lines end the reply: never follow them with a status sentence or send them with a message tool. A block a route requires in every reply, such as show-me-your-work's Attention or opening-a-pr's readiness line, goes immediately before the six lines. This plugin checks every sessions_yield of this session, route or not: it removes waitFor and lets the yield through with a note, and it refuses an acknowledgment without the six handoff lines, such as sessions_yield({ acknowledgment: "UNUSED" }); after a refusal, retry the same sessions_yield at once with the six lines.`
+    };
   });
   async function planParentJudge(ctx, request) {
     const activeModel = () => {

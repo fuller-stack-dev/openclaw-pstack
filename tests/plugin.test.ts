@@ -74,7 +74,7 @@ function harness(bareRouteAliases = false) {
     pluginConfig: { bareRouteAliases },
     runtime: {
       config: { current },
-      state: { openKeyedStoreV2: (_spec: any, opts: any) => store(opts?.assertCurrent) },
+      state: { openKeyedStoreV2: (spec: any, opts: any) => createPluginStateKeyedStoreV2ForTests("pstack", spec, opts ?? { assertCurrent() {} }) },
       agent: { session: { getSessionEntryAsync: entry }, resolveAgentWorkspaceDir: fallback },
     },
     registerCommand: (c: any) => commands.set(c.name, c),
@@ -645,13 +645,15 @@ describe("prefixed route continuation", () => {
       expect(refused).toMatchObject({ blocked: true, reason: expect.stringContaining("at most 900 (got 3600); spawn a longer phase as an announcing child") });
       const plain: any = await runBeforeToolCallHook({ toolName: "sessions_spawn", params: { task: "x", collect: true }, toolCallId: "call-3", ctx });
       expect([plain.blocked, plain.params]).toEqual([false, { task: "x", collect: true }]);
-      // Control: in this same pipeline a hook that rewrites the params (as the 1.2.5 draft did) loses the replay key, so the
-      // assertions above would catch a rewrite.
+      // Control: an actual rewriting hook is observable as a new timeout at the tool.
+      // Hosts may preserve private descriptors while merging overrides; that does not hide the rewrite.
       resetGlobalHookRunner();
       install(new Map([["before_tool_call", (event: any) => event.toolName === "sessions_spawn" ? { params: { ...event.params, runTimeoutSeconds: 600 } } : undefined]]), new Map());
       received.length = 0;
       await spawnTool().execute("tool_call:parent:3", agentsRun(), undefined, undefined);
-      expect(received.map(keys)).toEqual([[undefined, undefined, 600]]);
+      expect(received).toHaveLength(1);
+      expect(received[0].runTimeoutSeconds).toBe(600);
+      expect(received[0]).toMatchObject({ task: "Code Mode worker", collect: true, groupId: "code-mode:run-1" });
     } finally {
       resetGlobalHookRunner();
     }

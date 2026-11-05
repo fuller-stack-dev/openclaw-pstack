@@ -14,6 +14,9 @@
   "activation": {
     "onStartup": true
   },
+  "reload": {
+    "turnHandover": true
+  },
   "cliCommands": [
     {
       "name": "pstack",

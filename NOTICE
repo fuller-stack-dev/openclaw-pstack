@@ -34,3 +34,10 @@ The unmodified Noto Sans/Math fonts are copyright 2018 The Noto Project Authors,
 SIL Open Font License 1.1. Full notices: licenses/ketchup-video-MPL-2.0.txt,
 licenses/ketchup-video-OFL.txt and licenses/ketchup-video-sources.md.
 FFmpeg is external, not distributed.
+
+The native-only principle The Algorithm adapts dyl-stack by Dylan Gattey,
+Copyright (c) 2026 Dylan Gattey, MIT, from https://github.com/cursor/plugins,
+commit 5866df557357d005b3c0c9d3da0d9e739b4bdde3,
+dyl-stack/skills/principle-the-algorithm/SKILL.md. Its exact source and MIT
+license are retained under skills/pstack/native/sources/dyl-stack. This is
+separate from Lauren Tan's pstack mirror and does not import the dyl-stack runtime.

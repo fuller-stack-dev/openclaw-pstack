@@ -1,7 +1,7 @@
 # Pstack plugin workflow bundle
 
 This installable openclaw-pstack bundle supplies model-visible (not user-invocable)
-pstack and poteto-mode workflow skills, 34 routes, 24 principles, 23 playbooks,
+pstack and poteto-mode workflow skills, 34 routes, 25 principles, 23 playbooks,
 17 role definitions, and native triage/loop/delegation guidance. These two model-readable roots plus 57 model-hidden manual route guides are registered. The 573 pinned upstream files remain byte-identical,
 source-only MIT reference; never execute or independently register them.
 

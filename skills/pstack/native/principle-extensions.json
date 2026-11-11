@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "kind": "native-only-principle-extensions",
+  "extensions": [
+    {
+      "name": "principle-the-algorithm",
+      "repository": "https://github.com/cursor/plugins",
+      "commit": "5866df557357d005b3c0c9d3da0d9e739b4bdde3",
+      "path": "dyl-stack/skills/principle-the-algorithm/SKILL.md",
+      "copyright": "Copyright (c) 2026 Dylan Gattey",
+      "license": "MIT",
+      "files": [
+        {
+          "path": "native/sources/dyl-stack/principle-the-algorithm.md",
+          "bytes": 2403,
+          "sha256": "a15929a44ddd3b856092513eade5ac884516723937c5fe2667e2f95806f27f7f"
+        },
+        {
+          "path": "native/sources/dyl-stack/LICENSE.txt",
+          "bytes": 1069,
+          "sha256": "8e52513272899b2baca49b00ea0507d197c6b1ea559adf682fdd1f4b396140b8"
+        }
+      ]
+    }
+  ]
+}

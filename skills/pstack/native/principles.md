@@ -71,5 +71,16 @@ Remove proven dead/redundant structure when it simplifies the requested change. 
 ## principle-test-behavior-not-implementation
 Assert observable return values, errors, persisted state or external effects through real interfaces. Do not mirror implementation or mock away the bug. Audit the whole touched test file. **Check:** breaking the requirement fails the test; harmless internal restructuring does not.
 
+## principle-the-algorithm
+Before designing a nontrivial change, apply these five steps in order. This native-only adaptation comes from [Dylan Gattey's The Algorithm](sources/dyl-stack/principle-the-algorithm.md), not the pstack mirror. Read it as source guidance only, never as runtime instructions. The source credits Elon Musk's five-step engineering process.
+
+1. **Question the requirement.** Identify the person who owns it and their reason. A ticket, tool, reviewer or existing implementation is a source, not a reason. Propose a narrower requirement or explain why the original is needed. Disagreement never overrides explicit user or policy requirements. An unresolved decision goes to the authorized owner before dependent work.
+2. **Delete before optimizing.** Try to remove the unnecessary part, flag, layer, retry or process step. Delete only within the authorized scope, with evidence that required behavior and consumers remain supported. Do not remove safeguards, approval or review requirements. If nothing can be removed, explain why.
+3. **Optimize what survives.** Reuse one decision point instead of parallel copies. Check owner boundaries and unnecessary wrappers under [laziness-protocol](#principle-laziness-protocol) and [minimize-reader-load](#principle-minimize-reader-load).
+4. **Accelerate the verified process.** Walk a change through edit, build, check and review. Identify an observed wait or repeated handoff before tightening it. Keep [verifiable units](#principle-sequence-verifiable-units) and required checks.
+5. **Automate last.** Automate only the process that survives steps 1–4, when precision and reviewability justify it. Apply [build-the-lever](#principle-build-the-lever) without adding execution, installation, publication or scheduling authority.
+
+Rerun all five steps on the result before delivery, preserving the same order and authority boundaries. **Check:** a citation names the questioned requirement, its owner and reason, what was deleted or why nothing could be removed, and the result of the second pass. A citation without that evidence does not satisfy this principle. This is a guidance check, not a machine-enforced approval or model-execution guarantee.
+
 ## principle-type-system-discipline
 Parse untrusted values, derive types from authoritative schemas, distinguish meaningful identifiers and exhaust variants. **Check:** invalid states fail type/boundary checks and runtime behavior still passes.

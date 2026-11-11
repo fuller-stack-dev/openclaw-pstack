@@ -6,7 +6,7 @@ Package: `@fuller-stack-dev/openclaw-pstack` · plugin id: `pstack` · version: 
 Maintenance owner: fuller-stack-dev; report bugs through this repository's issues.
 
 Pstack owns workflow; OpenClaw owns secure execution. The plugin supplies
-exact-session opt-in, 17-role model planning, 34 workflow routes, 24 principles
+exact-session opt-in, 17-role model planning, 34 workflow routes, 25 principles
 and 23 playbooks. It registers two model-readable guidance skills, 57 manual-only
 route skills, `/pstack` and `/poteto_mode` plus 57 literal `pstack-` route
 commands, read-only pstack_route, pstack_plan_check and pstack_brief, pstack_workflow,
@@ -247,8 +247,11 @@ seven native controllers on a capable host.
   visual-parity, authoring-a-skill, eval, babysit, shipping, autonomous-run,
   orchestrate, autopilot-full, autopilot-stack, session-pickup, pause-safely,
   multi-phase-plan, worktree-cleanup, opening-a-pr.
-- **Principles (24):** indexed in [native/routes.json](skills/pstack/native/routes.json)
+- **Principles (25):** indexed in [native/routes.json](skills/pstack/native/routes.json)
   and [principles](skills/pstack/native/principles.md), with the full `principle-` names.
+  These comprise 24 mirrored pstack principles and the native-only
+  [The Algorithm](skills/pstack/native/principles.md#principle-the-algorithm),
+  adapted from Dylan Gattey's MIT dyl-stack, not the pstack source mirror.
 - **Native extensions:** triage, repro; loop create/status/stop;
   benny setup/dry-run; automation setup/dry-run/status/stop; watch-pr template
   (a [user-installed, read-only PR watch](skills/pstack/native/automation/watch-pr.md)

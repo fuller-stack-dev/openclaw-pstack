@@ -370,6 +370,36 @@ def verify_overlay(root, source):
             'exclusions': counts['exclude']}
 
 
+def verify_principle_extensions(root):
+    """A reviewed native-only allowlist, never permission to omit a mirrored route."""
+    root = Path(root)
+    declaration = json.loads((root / "native/principle-extensions.json").read_text())
+    if not isinstance(declaration, dict) or set(declaration) != {"schema", "kind", "extensions"} or declaration["schema"] != 1 or \
+            declaration["kind"] != "native-only-principle-extensions" or not isinstance(declaration["extensions"], list):
+        raise IntegrityError("invalid principle extension declaration")
+    records = declaration["extensions"]
+    # Another native-only principle requires an intentional change here as well as a declaration.
+    if len(records) != 1 or not isinstance(records[0], dict) or records[0].get("name") != "principle-the-algorithm":
+        raise IntegrityError("principle extension allowlist mismatch")
+    record = records[0]
+    if set(record) != {"name", "repository", "commit", "path", "copyright", "license", "files"} or \
+            record["repository"] != "https://github.com/cursor/plugins" or \
+            not isinstance(record["commit"], str) or not re.fullmatch(r"[a-f0-9]{40}", record["commit"]) or \
+            record["path"] != "dyl-stack/skills/principle-the-algorithm/SKILL.md" or \
+            record["copyright"] != "Copyright (c) 2026 Dylan Gattey" or record["license"] != "MIT":
+        raise IntegrityError("principle extension provenance mismatch")
+    files = record["files"]
+    expected = {"native/sources/dyl-stack/principle-the-algorithm.md", "native/sources/dyl-stack/LICENSE.txt"}
+    if not isinstance(files, list) or len(files) != 2 or any(not isinstance(f, dict) for f in files) or \
+            {f.get("path") for f in files} != expected:
+        raise IntegrityError("principle extension source inventory mismatch")
+    verify_records(root, files)
+    license_text = (root / "native/sources/dyl-stack/LICENSE.txt").read_text()
+    if "MIT License" not in license_text or record["copyright"] not in license_text:
+        raise IntegrityError("principle extension license mismatch")
+    return {record["name"]}
+
+
 def verify(root, inventory=None):
     root = Path(root).absolute()
     manifest = json.loads((root / 'source-manifest.json').read_text())
@@ -382,7 +412,9 @@ def verify(root, inventory=None):
     workflows = headings(root / 'native/workflows.md')
     principles = headings(root / 'native/principles.md')
     routes = json.loads((root / 'native/routes.json').read_text())
-    if set(workflows + principles) != names or len(workflows + principles) != len(names):
+    extensions = verify_principle_extensions(root)
+    if extensions & names or not extensions <= set(principles) or \
+            set(workflows + principles) != names | extensions or len(workflows + principles) != len(names) + len(extensions):
         raise IntegrityError('native route coverage mismatch')
     if workflows != routes['workflows'] or principles != routes['principles']:
         raise IntegrityError('route index mismatch')
@@ -412,7 +444,7 @@ def verify(root, inventory=None):
         loader = verify_inventory(inventory['skills'], inventory.get('baselineSkillNames', native['baselineSkillNames']), ['pstack-' + name for name in routes['workflows'] + routes['playbooks']])
     return {'ok': True, 'source': source, 'native': native_result,
             'sourceCommit': manifest['commit'], 'workflowRoutes': len(workflows),
-            'principles': len(principles), 'playbooks': len(routes['playbooks']),
+            'principles': len(principles), 'principleExtensions': sorted(extensions), 'playbooks': len(routes['playbooks']),
             'loader': loader, 'requirements': requirements, 'routeSkills': route_skills,
             'agents': agents, 'overlay': overlay, 'watchPr': watch_pr}
 

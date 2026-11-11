@@ -11,13 +11,13 @@
     },
     {
       "path": "native/routes.json",
-      "bytes": 3516,
-      "sha256": "8b595473d1c570a190aefa16fc72cba6386a66926f79377d086d466f60f510e3"
+      "bytes": 3547,
+      "sha256": "0c4341ffa82c89b416aef232e54a180181f7f606d31c3a6d7966d99711cf3aef"
     },
     {
       "path": "native/workflows.md",
-      "bytes": 117340,
-      "sha256": "a63f2a045f3f752d9a346b843cb680b6a300aea70e9556299afbe441448bf252"
+      "bytes": 117527,
+      "sha256": "fc4eff9c426b0807639de060321e2e51dc758cbbd0592d0df93ef03406e9eb97"
     },
     {
       "path": "native/playbooks.md",
@@ -211,8 +211,8 @@
     },
     {
       "path": "native/requirements/poteto-mode.json",
-      "bytes": 8811,
-      "sha256": "2d4d39abef503a00f80b7553d00d0f4d6a8440fa2babfd6d154fd0f0bf2debf7"
+      "bytes": 8998,
+      "sha256": "e964d637a89f25fb9eac5fb93d897c24395cc800a81340087a70e5b2529e4df2"
     },
     {
       "path": "native/requirements/setup-pstack.json",
@@ -292,7 +292,7 @@
       "sha256": "bb071292d79d0829b7faa40ddf5f73cd950b0837703b9b22d6344690d9ed4ef8",
       "route": "poteto-mode",
       "document": "workflows.md",
-      "sectionSha256": "60fc08fd194f4efa9314e0edc9c62fbc9294fd2fbffc0c5dfea23ae7415d6f1e",
+      "sectionSha256": "8d8bc774e2e0bece263a57ea61f3bcc2c4b1b48d0ae3f43ec22e92ef78347e8e",
       "requirementIds": [
         "playbook-checklist",
         "conditional-triggers",

@@ -16,7 +16,8 @@ and integrity material; the adapter's tests and local receipts are not shipped.
 ## Native translation
 
 Two bundled skill roots avoid generic command collisions. The native guide maps
-34 workflows, 24 principles and 23 playbooks; setup/help are read-only. Role
+34 workflows, 24 mirrored principles plus one native-only principle and
+23 playbooks; setup/help are read-only. Role
 planning validates all 17 role labels, preserves omitted native controls and
 immutable evidence, and applies explicit continuation corrections append-only.
 Native tools retain identity, permissions, execution, review and completion.
@@ -82,6 +83,23 @@ as non-normative individually, not a blanket exclusion of the native statechart
 workflow. The map is reviewed text coverage, never a model-execution verdict.
 Requirements were consolidated for the replaced orchestrate/stack semantics;
 52 guarded routes retain 796 text gates. Counts are not a substitute for review.
+
+## Native-only principle
+
+The Algorithm is a separate native adaptation of Dylan Gattey's dyl-stack, MIT,
+from cursor/plugins commit 5866df557357d005b3c0c9d3da0d9e739b4bdde3. Its exact
+source and MIT notice live under native/sources/dyl-stack, outside the exact
+pstack mirror. [principle-extensions.json](native/principle-extensions.json)
+declares the sole native-only principle and its immutable source path, commit,
+file hashes and copyright. Doctor accepts only that named exception and still
+requires every mirrored pstack route exactly once. It rejects undeclared extras,
+missing mirrored routes and changed source/license bytes.
+
+The native version keeps ordered questioning, deletion, optimization, acceleration
+and automation, a second pass and evidence-bearing citations. Explicit user and
+policy requirements, approval and review remain authoritative. It never grants
+deletion or other execution authority. This text/integrity check is not proof of
+model adherence.
 
 ## Integrity and verification
 

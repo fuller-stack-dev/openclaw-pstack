@@ -4,13 +4,13 @@
   "files": [
     {
       "path": "ADAPTATION.md",
-      "bytes": 10586,
-      "sha256": "03e0576c93bb13f2f3c6846c6bba15cddf57a45aae152fc516ead41b0c8ef362"
+      "bytes": 11603,
+      "sha256": "8efeb06434669c1fd04b6369430f731ed4e3f053f5bca47cbc7484cb68d41a71"
     },
     {
       "path": "README.md",
       "bytes": 3213,
-      "sha256": "3cc9afa10262c6649cbe2f9783dc827dc0019591d6159a8476a5cf857062eb30"
+      "sha256": "1f9a8295a918b670e920c33190e101659a4f7d391afd4e67e7d2231efa069b64"
     },
     {
       "path": "SKILL.md",
@@ -143,9 +143,14 @@
       "sha256": "16436b8a194ed01adf5383eb9cf5e2636747e8e4e22eef5a59808d7348463be8"
     },
     {
+      "path": "native/principle-extensions.json",
+      "bytes": 823,
+      "sha256": "2e48128627ca8bf66bd1e99e596e811feaf09c0524d550c47c8191c1d1c9146f"
+    },
+    {
       "path": "native/principles.md",
-      "bytes": 7296,
-      "sha256": "43cb67ea1907fcd52c984f3375c60a97058c6bf8344ccfc6370aff1d664abb17"
+      "bytes": 9514,
+      "sha256": "2ef8b8343f53143492467253e5c6c8f679970ae8340234b3f3566e4c8225852e"
     },
     {
       "path": "native/requirements/architect.json",
@@ -309,8 +314,8 @@
     },
     {
       "path": "native/requirements/poteto-mode.json",
-      "bytes": 8811,
-      "sha256": "2d4d39abef503a00f80b7553d00d0f4d6a8440fa2babfd6d154fd0f0bf2debf7"
+      "bytes": 8998,
+      "sha256": "e964d637a89f25fb9eac5fb93d897c24395cc800a81340087a70e5b2529e4df2"
     },
     {
       "path": "native/requirements/prototype.json",
@@ -415,12 +420,12 @@
     {
       "path": "native/route-skills.json",
       "bytes": 52257,
-      "sha256": "38e87df91d0dd599327be941f0f2feec7a83ccc1170a8317d0fad56d70257e83"
+      "sha256": "caf3e20b507324d1fd3cb4c8f95aadad9b48f145a66b405e449e5c67a9fa93b6"
     },
     {
       "path": "native/routes.json",
-      "bytes": 3516,
-      "sha256": "8b595473d1c570a190aefa16fc72cba6386a66926f79377d086d466f60f510e3"
+      "bytes": 3547,
+      "sha256": "0c4341ffa82c89b416aef232e54a180181f7f606d31c3a6d7966d99711cf3aef"
     },
     {
       "path": "native/semantic-overlay.json",
@@ -438,6 +443,16 @@
       "sha256": "fcec8ea166ea52fcebe9cf19334e57f9cff0acc798bd70d2db27826423f02d98"
     },
     {
+      "path": "native/sources/dyl-stack/LICENSE.txt",
+      "bytes": 1069,
+      "sha256": "8e52513272899b2baca49b00ea0507d197c6b1ea559adf682fdd1f4b396140b8"
+    },
+    {
+      "path": "native/sources/dyl-stack/principle-the-algorithm.md",
+      "bytes": 2403,
+      "sha256": "a15929a44ddd3b856092513eade5ac884516723937c5fe2667e2f95806f27f7f"
+    },
+    {
       "path": "native/trail-adapter.md",
       "bytes": 4216,
       "sha256": "64e5b24f8386d1b2eb38f35d46bf47f63c3896da043098f95bc6a009abc6acc7"
@@ -449,8 +464,8 @@
     },
     {
       "path": "native/workflows.md",
-      "bytes": 117340,
-      "sha256": "a63f2a045f3f752d9a346b843cb680b6a300aea70e9556299afbe441448bf252"
+      "bytes": 117527,
+      "sha256": "fc4eff9c426b0807639de060321e2e51dc758cbbd0592d0df93ef03406e9eb97"
     },
     {
       "path": "native/worktree-audit-adapter.md",
@@ -494,8 +509,8 @@
     },
     {
       "path": "scripts/verify_install.py",
-      "bytes": 26203,
-      "sha256": "896e7849e3f6c78cc8b74a3e885853b3ea0727a33f080ed138bebccd265c7985"
+      "bytes": 28532,
+      "sha256": "a4cbb00f590374b5f45bb3ec22a2e93bdae3494f8e20095539c334de605384ef"
     },
     {
       "path": "scripts/watch-pr.mjs",

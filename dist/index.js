@@ -2667,6 +2667,7 @@ var routes_default = {
     "principle-sequence-verifiable-units",
     "principle-subtract-before-you-add",
     "principle-test-behavior-not-implementation",
+    "principle-the-algorithm",
     "principle-type-system-discipline"
   ],
   playbooks: [

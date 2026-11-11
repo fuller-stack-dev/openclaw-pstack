@@ -394,8 +394,8 @@
     },
     {
       "path": "native/requirements/unslop.json",
-      "bytes": 1132,
-      "sha256": "1f4e2502da80642b7a3d457b681d997867adb0906c009eff5eefc0ab9f90c593"
+      "bytes": 1460,
+      "sha256": "0c126fac21c09362c32411a9d83e71abce88ec22efa007d5d34a2f135f73facd"
     },
     {
       "path": "native/requirements/visual-parity.json",
@@ -415,7 +415,7 @@
     {
       "path": "native/route-skills.json",
       "bytes": 52257,
-      "sha256": "38e87df91d0dd599327be941f0f2feec7a83ccc1170a8317d0fad56d70257e83"
+      "sha256": "7f10b6d27592c9a426d87a995e42188f088f77fe61626f917dda3e3d8e2ef242"
     },
     {
       "path": "native/routes.json",
@@ -449,8 +449,8 @@
     },
     {
       "path": "native/workflows.md",
-      "bytes": 117340,
-      "sha256": "a63f2a045f3f752d9a346b843cb680b6a300aea70e9556299afbe441448bf252"
+      "bytes": 117668,
+      "sha256": "a8a2b3bbb3cf8c9f1690e73b96d1dbfbb196d85474d4efc4d312fcb18a6a949f"
     },
     {
       "path": "native/worktree-audit-adapter.md",

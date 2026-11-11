@@ -76,7 +76,7 @@ class NativePrincipleExtensionTests(unittest.TestCase):
     def test_immutable_source_pin_and_copyright_are_checked(self):
         path = self.root / "native/principle-extensions.json"
         original = path.read_text()
-        for field, bad in (("commit", "main"), ("path", "pstack/skills/unslop/SKILL.md"),
+        for field, bad in (("commit", "main"), ("commit", "f" * 40), ("path", "pstack/skills/unslop/SKILL.md"),
                            ("copyright", "Copyright someone else"), ("license", "unknown")):
             with self.subTest(field=field):
                 path.write_text(original)

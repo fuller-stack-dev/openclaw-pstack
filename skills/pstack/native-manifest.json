@@ -509,8 +509,8 @@
     },
     {
       "path": "scripts/verify_install.py",
-      "bytes": 28532,
-      "sha256": "a4cbb00f590374b5f45bb3ec22a2e93bdae3494f8e20095539c334de605384ef"
+      "bytes": 28502,
+      "sha256": "89f8cc33793570acc7bd7b42ab009a862a4a763102e1f36b71aa61da48b14b7d"
     },
     {
       "path": "scripts/watch-pr.mjs",

@@ -384,7 +384,7 @@ def verify_principle_extensions(root):
     record = records[0]
     if set(record) != {"name", "repository", "commit", "path", "copyright", "license", "files"} or \
             record["repository"] != "https://github.com/cursor/plugins" or \
-            not isinstance(record["commit"], str) or not re.fullmatch(r"[a-f0-9]{40}", record["commit"]) or \
+            record["commit"] != "5866df557357d005b3c0c9d3da0d9e739b4bdde3" or \
             record["path"] != "dyl-stack/skills/principle-the-algorithm/SKILL.md" or \
             record["copyright"] != "Copyright (c) 2026 Dylan Gattey" or record["license"] != "MIT":
         raise IntegrityError("principle extension provenance mismatch")

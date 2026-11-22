@@ -3,7 +3,7 @@
 import {readFile, lstat} from 'node:fs/promises';
 import {resolve, join} from 'node:path';
 import {pathToFileURL} from 'node:url';
-import {resolveRole, validateConfigAgainstCatalog, validateSnapshot, buildSpawnArgs, custodyRecords, confirmSelection, HOST_BLIND_CAPABILITY} from './model-routing.mjs';
+import {planRole, validateConfigAgainstCatalog, validateSnapshot, buildSpawnArgs, custodyRecords, confirmSelection, HOST_BLIND_CAPABILITY} from './model-routing.mjs';
 
 /**
  * Availability source, strongest first: a prepared host requester catalog, then a
@@ -36,6 +36,7 @@ export async function planFromWorkspace(request, {requester, hostBlind = false} 
   if (request.action !== undefined && request.action !== 'plan') throw Error('Unknown action');
   if (typeof request.workspace !== 'string' || !request.workspace.trim()) throw Error('Workspace root is required');
   const chosen = chooseCatalog(request, requester);
+  const admission = {preparedRequester: chosen.catalogSource === 'requester'};
   const configPath = join(resolve(request.workspace), 'pstack-models.json');
   let config = null, configWarning, configPresent = false;
   try {
@@ -44,7 +45,7 @@ export async function planFromWorkspace(request, {requester, hostBlind = false} 
     configPresent = true;
     config = JSON.parse(await readFile(configPath, 'utf8'));
     if (config === null) throw Error('Config must be an object, not null');
-    validateConfigAgainstCatalog(config, chosen.catalog);
+    validateConfigAgainstCatalog(config, chosen.catalog, admission);
   } catch (error) {
     if (error.code !== 'ENOENT' || configPresent) {
       if (!request.snapshot) throw Error('Cannot use pstack-models.json: ' + error.message);
@@ -55,10 +56,11 @@ export async function planFromWorkspace(request, {requester, hostBlind = false} 
   if (request.snapshot && (request.overrides !== undefined || (request.role && request.role !== request.snapshot.role))) {
     throw Error('A resume snapshot cannot be replaced by a new role/override');
   }
-  const snapshot = request.snapshot
-    ? validateSnapshot(request.snapshot, chosen.catalog)
-    : resolveRole({...request, config, catalog: chosen.catalog});
+  const {snapshot, admissions} = request.snapshot
+    ? {snapshot: validateSnapshot(request.snapshot, chosen.catalog), admissions: []}
+    : planRole({...request, config, catalog: chosen.catalog}, admission);
   const result = {configPath, configPresent, snapshot, catalogSource: chosen.catalogSource, availability: chosen.availability};
+  if (admissions.length) result.admissions = admissions;
   if (chosen.catalogNotice) result.catalogNotice = chosen.catalogNotice;
   // Host records for the selected models, so a workflow setup can carry the same catalog.
   if (chosen.catalogSource === 'requester') {

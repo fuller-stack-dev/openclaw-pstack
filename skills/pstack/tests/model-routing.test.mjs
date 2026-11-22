@@ -452,7 +452,9 @@ test('new work restores the primary, but either saved spelling continues exactly
   assert.equal(resumed.admissions, undefined);
   await assert.rejects(planFromWorkspace({...request, snapshot: fresh.snapshot}, nativeOnly), {message: 'Unavailable native model: ' + routerOpus.model});
   // The alternate is optional while the primary is listed.
-  assert.deepEqual((await planFromWorkspace(request, prepared(catalog[0], routerRow))).snapshot, fresh.snapshot);
+  const primaryOnly = prepared(catalog[0], routerRow);
+  assert.deepEqual((await planFromWorkspace(request, primaryOnly)).snapshot, fresh.snapshot);
+  await assert.rejects(planFromWorkspace({...request, snapshot: old.snapshot}, primaryOnly), {message: 'Unavailable native model: ' + nativeOpus.model});
 });
 
 test('caller and pending inventory never trigger admission and the parsed-config API remains literal', async t => {
@@ -467,6 +469,7 @@ test('caller and pending inventory never trigger admission and the parsed-config
   }
   await assert.rejects(planFromWorkspace({...request, requester: prepared(...catalog).requester}), /Unknown request field: requester/);
   assert.deepEqual(validateConfigAgainstCatalog(paired, [...catalog, routerRow]), paired);
+  assert.deepEqual(validateConfigAgainstCatalog(paired, catalog, {preparedRequester: true}), paired);
   assert.throws(() => validateConfigAgainstCatalog(paired, catalog), /Unavailable native model: clawrouter\//);
   assert.throws(() => resolveRole({...request, config: paired, catalog}), /Unavailable native model: clawrouter\//);
 });

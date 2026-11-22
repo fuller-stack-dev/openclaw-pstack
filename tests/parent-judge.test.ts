@@ -153,6 +153,31 @@ it("validates whole config at admission and refuses forged bindings outside the 
   await expect(h.call({ action: "create", workflowId: "forged-setup", revision: 0, setup: { ...old.setup, parentJudge: true } })).rejects.toThrow(/setup/);
 });
 
+it("pins admitted native runner and judge families and never reselects the judge on resume", async () => {
+  const h = harness(), primary = "clawrouter/" + G;
+  await writeFile(join(workspace, "pstack-models.json"), JSON.stringify({
+    version: 1, presets: { g: { model: primary } }, admissionCandidates: { g: G },
+    roles: { "arena runners": ["g", { model: F }], [role]: ["g", { model: F }] },
+  }));
+  const id = await h.atLead(), before = await h.get(id);
+  expect(before.record.setup.snapshots).toContainEqual({ version: 1, role: "arena runners", source: "config", selections: [{ model: G }, { model: F }], poolIndex: null, diversity: "different-family" });
+  expect(before.record.setup.catalog).toEqual([{ id: F, family: "family-f" }, { id: G, family: "family-g" }]);
+  expect(h.children.map(c => c.params.model)).toEqual([G, F]);
+
+  const bound = (await h.apply(id, scores)).details.record.events.at(-1);
+  expect(bound.judge).toEqual({ parentModel: F, parentFamily: "family-f", catalog: before.record.setup.catalog,
+    snapshot: { version: 1, role, source: "config", selections: [{ model: G }], poolIndex: 0, diversity: "different-family" } });
+  // If a resume re-planned under this catalog, the listed primary would be preferred and fail diversity.
+  h.list.mockResolvedValue({ state: "prepared", revision: "restored", models: [...rows, { provider: "clawrouter", id: G, name: "Primary G", family: "family-f" }] });
+  h.list.mockClear();
+  await h.run("pstack", "resume " + id);
+  expect(h.list).not.toHaveBeenCalled();
+  expect(h.children.map(c => c.params.model)).toEqual([G, F, G]);
+  const after = await h.get(id);
+  expect(after.view.phase).toBe("compare");
+  expect(after.record.events.find((e: any) => e.id === bound.id)).toEqual(bound);
+});
+
 it("refuses stored binding tampering on replay and command dispatch without another write or spawn", async () => {
   const h = harness(), id = await h.atLead(); await h.apply(id, scores);
   const valid = (await h.get(id)).record, key = workflowKey(h.owner, id);

@@ -839,8 +839,10 @@ function roleKind(role2) {
   if (!own(ROLE_SPECS, role2)) throw Error("Unknown pstack role: " + role2);
   return ROLE_SPECS[role2];
 }
-function modelRef(value) {
-  if (typeof value !== "string" || !/^[^/\s]+\/[^\s]+$/.test(value)) throw Error("Expected exact native provider/model ID");
+function modelRef(value, error = "Expected exact native provider/model ID") {
+  const slash = typeof value === "string" ? value.indexOf("/") : -1;
+  if (slash < 1 || slash === value.length - 1 || /\s/.test(value)) throw Error(error);
+  return value.slice(0, slash);
 }
 function selection(value) {
   keys(value, controls, "selection");
@@ -880,8 +882,10 @@ function validateConfig(config) {
     object(config.admissionCandidates, "admissionCandidates");
     for (const [name, native] of Object.entries(config.admissionCandidates)) {
       if (!own(config.presets, name)) throw Error("admissionCandidates names an unknown preset: " + name);
-      if (typeof native !== "string" || native.trim() !== native || !/^[a-z0-9][a-z0-9._-]*\/[a-z0-9][a-z0-9._:-]*$/i.test(native) || /^clawrouter\//i.test(native)) {
-        throw Error("admissionCandidates." + name + " must be one direct provider/model ID");
+      const error = "admissionCandidates." + name + " must be one direct provider/model ID";
+      const provider = modelRef(native, error);
+      if (provider.toLowerCase() === "clawrouter" || native.split("/").some((part) => !part || part === "." || part === "..")) {
+        throw Error(error);
       }
       if (config.presets[name].model !== "clawrouter/" + native) {
         throw Error("admissionCandidates." + name + " must match its preset model exactly after removing clawrouter/");

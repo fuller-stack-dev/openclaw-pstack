@@ -437,6 +437,23 @@ test('prepared requester-only admission repairs whole-file outage and preserves 
   assert.equal(await readFile(join(workspace, 'pstack-models.json'), 'utf8'), JSON.stringify(paired));
 });
 
+test('prepared admission accepts an exact native model with a provider-relative namespace', async t => {
+  const dir = await workspace(t);
+  const native = {model: 'huggingface/meta-llama/Llama-3.1-8B-Instruct', thinking: 'high', fastMode: false};
+  const primary = 'clawrouter/' + native.model;
+  const row = {id: native.model, thinkingLevels: ['high'], fastModes: [false]};
+  await writeFile(join(dir, 'pstack-models.json'), JSON.stringify({
+    version: 1,
+    presets: {llama: {...native, model: primary}},
+    roles: {'bug-fix': 'llama'},
+    admissionCandidates: {llama: native.model},
+  }));
+  const plan = await planFromWorkspace({workspace: dir, role: 'bug-fix', task: 'Bounded fix.', spawnSchema: schema}, prepared(row));
+  assert.deepEqual(plan.spawnArgs.map(routing), [native]);
+  assert.deepEqual(plan.catalog, [row]);
+  assert.deepEqual(plan.admissions, [{preset: 'llama', primary, admitted: native.model}]);
+});
+
 test('new work restores the primary, but either saved spelling continues exactly or blocks', async t => {
   const workspace = await pairedWorkspace(t);
   const request = {workspace, role: panels[0], task: 'Read independently.', spawnSchema: schema};
@@ -505,12 +522,12 @@ test('only named preset entries opt in; inline overrides and inheritance keep th
 
 test('admission declarations reject unknown, recursive, cross-model and malformed entries without a catalog', () => {
   for (const admissionCandidates of [null, [], {typo: nativeOpus.model}, {opus: 'opus'}, {opus: [nativeOpus.model]}, {opus: nativeOpus},
-    {opus: 'clawrouter/' + nativeOpus.model}, {opus: 'fixture-opus/other-model'}, {opus: 'other-provider/opus-five-five'},
-    {opus: 'fixture-opus//opus-five-five'}, {opus: 'fixture-opus/../opus-five-five'}, {opus: nativeOpus.model + '\n'}]) {
+    {opus: 'fixture-opus/other-model'}, {opus: 'other-provider/opus-five-five'}, {opus: nativeOpus.model + '\n'}]) {
     assert.throws(() => validateConfigAgainstCatalog({...paired, admissionCandidates}, null), /admissionCandidates/, JSON.stringify(admissionCandidates));
   }
   // Even an exact prefixed spelling may not point at a router or a malformed path component.
-  for (const target of ['clawrouter/opus-five-five', 'fixture-opus/..', 'fixture-opus/']) {
+  for (const target of ['clawrouter/provider/opus-five-five', 'ClawRouter/provider/opus-five-five',
+    'fixture-opus/..', 'fixture-opus/', 'fixture-opus//opus-five-five', 'fixture-opus/../opus-five-five']) {
     assert.throws(() => validateConfig({...paired, presets: {...paired.presets, opus: {model: 'clawrouter/' + target}}, admissionCandidates: {opus: target}}), /admissionCandidates/, target);
   }
   assert.throws(() => validateConfig({...paired, presets: {...paired.presets, opus: {thinking: 'high'}}}), /admissionCandidates/);

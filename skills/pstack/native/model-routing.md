@@ -44,7 +44,8 @@ Workspace-owned `pstack-models.json` accepts only:
 
 - `version: 1`;
 - `presets`: names matching `[a-z][a-z0-9_-]*` (except reserved `inherit`), mapped to selection objects;
-- `roles`: any subset of the exact keys above, mapped to a preset name, `"inherit"`, a selection object, or—only for the three panels and one pool—an array of exactly two such entries.
+- `roles`: any subset of the exact keys above, mapped to a preset name, `"inherit"`, a selection object, or—only for the three panels and one pool—an array of exactly two such entries;
+- optional `admissionCandidates`: existing preset names mapped to one exact direct `provider/model` ID each. The model portion can include a namespace, such as `huggingface/meta-llama/Llama-3.1-8B-Instruct`. The preset's `model` must be exactly `clawrouter/` followed by that ID. A candidate cannot name another preset, another model, or another ClawRouter route.
 
 A selection object contains only optional `model` (exact available provider/model ID), `thinking` (native level) and `fastMode` (`true`, `false`, `"auto"` or `"ultrafast"`). Omitted fields inherit natively, not from another preset. Empty `{}` is inheritance. No authProfile, credentials, provider config, synthetic effort suffixes, arbitrary native arguments or recursive presets. All configured model selections, including unused presets, are validated before new work.
 
@@ -61,6 +62,14 @@ Minimal **shape example**, not a command to overwrite existing config:
 ```
 
 The presets above are illustrative user choices, not bundled model defaults or an availability guarantee. Configure only models and controls admitted by the current host. An ordinary default change affects new delegations; an explicit correction can also apply to an authorized continuation as described below.
+
+### Same-model catalog admission
+
+For example, a preset `opus` with `model: "clawrouter/anthropic/claude-opus-5-5"` may opt in via `"admissionCandidates": {"opus": "anthropic/claude-opus-5-5"}`. For new work, Pstack prefers the primary whenever listed. It selects the direct spelling only if the **prepared host requester catalog** omits the primary and lists the candidate. A caller-only catalog never authorizes the switch; with no catalog the primary stays unverified. A pending host catalog does not prove absence.
+
+The same thinking and Fast settings must be supported; a listed primary with unsupported settings is still an error. All presets and roles, including unused ones, must still validate. Only a named preset uses the pair: inline choices and `"inherit"` keep their meaning. A plan's optional `admissions` lists the affected config presets (`preset`, `primary`, `admitted`), even if the requested role uses another preset. It is not stored in the exact selection snapshot. Diversity uses the selected row's canonical family. Restoring the primary affects new plans only; saved snapshots are never switched. Host refusal, auth errors and inference failures are not catalog absence and do not activate this option.
+
+Upgrade Pstack before adding `admissionCandidates`. Older releases reject unknown config fields, so before running one, remove the declaration or restore the previous workspace config.
 
 ## Setup and first use
 

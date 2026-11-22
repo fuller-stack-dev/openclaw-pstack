@@ -5,7 +5,7 @@ import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {spawnSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
-import {resolveRole, validateConfig, validateSnapshot, buildSpawnArgs, confirmSelection, boundCollector} from '../scripts/model-routing.mjs';
+import {resolveRole, validateConfig, validateConfigAgainstCatalog, validateSnapshot, buildSpawnArgs, confirmSelection, boundCollector} from '../scripts/model-routing.mjs';
 import {planFromWorkspace} from '../scripts/model-routing-cli.mjs';
 
 // The alternate provider is deliberately fictitious: this test does not select a live Opus route.
@@ -407,6 +407,130 @@ test('a prepared requester catalog is authoritative; a pending one proves neithe
   assert.equal(pending.availability, 'unverified');
   assert.match(pending.catalogNotice, /still pending/);
   assert.equal(pending.catalog, undefined);
+});
+
+const nativeOpus = {...opus, fastMode: false};
+const routerOpus = {...nativeOpus, model: 'clawrouter/' + nativeOpus.model};
+const paired = {...config, presets: {...config.presets, opus: routerOpus}, admissionCandidates: {opus: nativeOpus.model}};
+// Deliberately different canonical families for the two spellings: neither may be inferred from a name.
+const routerRow = {...catalog[1], id: routerOpus.model, family: 'gpt'};
+const prepared = (...rows) => ({requester: {state: 'prepared', catalog: rows}});
+async function pairedWorkspace(t) {
+  const dir = await workspace(t);
+  await writeFile(join(dir, 'pstack-models.json'), JSON.stringify(paired));
+  return dir;
+}
+
+test('prepared requester-only admission repairs whole-file outage and preserves exact settings', async t => {
+  const workspace = await pairedWorkspace(t);
+  const request = {workspace, role: 'bug-fix', task: 'Bounded fix.', spawnSchema: schema};
+  const host = prepared(...catalog);
+  // Caller inventory cannot mask the prepared catalog's omission of the primary.
+  const unrelated = await planFromWorkspace({...request, catalog: [routerRow]}, host);
+  assert.deepEqual(unrelated.spawnArgs.map(routing), [sol]);
+  assert.deepEqual(unrelated.admissions, [{preset: 'opus', primary: routerOpus.model, admitted: nativeOpus.model}]);
+  const judge = await planFromWorkspace({...request, role: pool, parentModel: sol.model}, host);
+  assert.deepEqual(judge.snapshot, {version: 1, role: pool, source: 'config', selections: [nativeOpus], poolIndex: 0, diversity: 'different-family'});
+  assert.deepEqual(judge.spawnArgs.map(routing), [nativeOpus]);
+  assert.deepEqual(judge.catalog, [catalog[1]]);
+  assert.deepEqual(JSON.parse(judge.spawnArgs[0].task.split('\n').at(-1)), {snapshot: judge.snapshot, selectionIndex: 0, workspace});
+  assert.equal(await readFile(join(workspace, 'pstack-models.json'), 'utf8'), JSON.stringify(paired));
+});
+
+test('prepared admission accepts an exact native model with a provider-relative namespace', async t => {
+  const dir = await workspace(t);
+  const native = {model: 'huggingface/meta-llama/Llama-3.1-8B-Instruct', thinking: 'high', fastMode: false};
+  const primary = 'clawrouter/' + native.model;
+  const row = {id: native.model, thinkingLevels: ['high'], fastModes: [false]};
+  await writeFile(join(dir, 'pstack-models.json'), JSON.stringify({
+    version: 1,
+    presets: {llama: {...native, model: primary}},
+    roles: {'bug-fix': 'llama'},
+    admissionCandidates: {llama: native.model},
+  }));
+  const plan = await planFromWorkspace({workspace: dir, role: 'bug-fix', task: 'Bounded fix.', spawnSchema: schema}, prepared(row));
+  assert.deepEqual(plan.spawnArgs.map(routing), [native]);
+  assert.deepEqual(plan.catalog, [row]);
+  assert.deepEqual(plan.admissions, [{preset: 'llama', primary, admitted: native.model}]);
+});
+
+test('new work restores the primary, but either saved spelling continues exactly or blocks', async t => {
+  const workspace = await pairedWorkspace(t);
+  const request = {workspace, role: panels[0], task: 'Read independently.', spawnSchema: schema};
+  const nativeOnly = prepared(...catalog), both = prepared(...catalog, routerRow);
+  const old = await planFromWorkspace(request, nativeOnly);
+  const fresh = await planFromWorkspace(request, both);
+  assert.deepEqual(fresh.spawnArgs.map(routing), [routerOpus, sol]);
+  assert.equal(fresh.snapshot.diversity, 'not-established');
+  assert.equal(fresh.admissions, undefined);
+  const resumed = await planFromWorkspace({...request, snapshot: old.snapshot}, both);
+  assert.deepEqual(resumed.snapshot, old.snapshot);
+  assert.deepEqual(resumed.spawnArgs.map(routing), [nativeOpus, sol]);
+  assert.equal(resumed.admissions, undefined);
+  await assert.rejects(planFromWorkspace({...request, snapshot: fresh.snapshot}, nativeOnly), {message: 'Unavailable native model: ' + routerOpus.model});
+  // The alternate is optional while the primary is listed.
+  const primaryOnly = prepared(catalog[0], routerRow);
+  assert.deepEqual((await planFromWorkspace(request, primaryOnly)).snapshot, fresh.snapshot);
+  await assert.rejects(planFromWorkspace({...request, snapshot: old.snapshot}, primaryOnly), {message: 'Unavailable native model: ' + nativeOpus.model});
+});
+
+test('caller and pending inventory never trigger admission and the parsed-config API remains literal', async t => {
+  const workspace = await pairedWorkspace(t);
+  const request = {workspace, role: 'how explainer'};
+  for (const host of [{}, {requester: {state: 'pending', catalog}}]) {
+    const unverified = await planFromWorkspace(request, host);
+    assert.equal(unverified.availability, 'unverified');
+    assert.deepEqual(unverified.snapshot.selections, [routerOpus]);
+    assert.equal(unverified.admissions, undefined);
+    await assert.rejects(planFromWorkspace({...request, catalog}, host), /Unavailable native model: clawrouter\//);
+  }
+  await assert.rejects(planFromWorkspace({...request, requester: prepared(...catalog).requester}), /Unknown request field: requester/);
+  assert.deepEqual(validateConfigAgainstCatalog(paired, [...catalog, routerRow]), paired);
+  assert.deepEqual(validateConfigAgainstCatalog(paired, catalog, {preparedRequester: true}), paired);
+  assert.throws(() => validateConfigAgainstCatalog(paired, catalog), /Unavailable native model: clawrouter\//);
+  assert.throws(() => resolveRole({...request, config: paired, catalog}), /Unavailable native model: clawrouter\//);
+});
+
+test('admission keeps whole-file strictness and never switches for invalid settings', async t => {
+  const workspace = await pairedWorkspace(t);
+  const request = {workspace, role: 'bug-fix'};
+  await assert.rejects(planFromWorkspace(request, prepared(catalog[0])), /Unavailable native model: clawrouter\//);
+  await assert.rejects(planFromWorkspace(request, prepared(...catalog, {...routerRow, thinkingLevels: ['high']})), /Unsupported thinking for clawrouter\//);
+  await assert.rejects(planFromWorkspace(request, prepared(catalog[0], {...catalog[1], fastModes: [true]})), /Unsupported fastMode for fixture-opus\//);
+  const schemaWithoutFast = {properties: {...schema.properties}};
+  delete schemaWithoutFast.properties.fastMode;
+  await assert.rejects(planFromWorkspace({...request, role: 'how explainer', task: 'Explain.', spawnSchema: schemaWithoutFast}, prepared(...catalog)), /schema does not support fastMode/);
+  const unrelated = {...paired, roles: {...paired.roles, 'why synthesizer': {model: 'missing/inline'}}};
+  await writeFile(join(workspace, 'pstack-models.json'), JSON.stringify(unrelated));
+  await assert.rejects(planFromWorkspace(request, prepared(...catalog)), /Unavailable native model: missing\/inline/);
+});
+
+test('only named preset entries opt in; inline overrides and inheritance keep their meaning', async t => {
+  const workspace = await pairedWorkspace(t);
+  const host = prepared(...catalog);
+  const request = {workspace, role: 'bug-fix'};
+  const named = await planFromWorkspace({...request, overrides: 'opus'}, host);
+  assert.equal(named.snapshot.source, 'override');
+  assert.deepEqual(named.snapshot.selections, [nativeOpus]);
+  const inherited = await planFromWorkspace({...request, overrides: 'inherit'}, host);
+  assert.equal(inherited.snapshot.source, 'override');
+  assert.deepEqual(inherited.snapshot.selections, [{}]);
+  const exact = await planFromWorkspace({...request, overrides: {model: nativeOpus.model}}, host);
+  assert.deepEqual(exact.snapshot.selections, [{model: nativeOpus.model}]);
+  await assert.rejects(planFromWorkspace({...request, overrides: {model: routerOpus.model}}, host), /Unavailable native model: clawrouter\//);
+});
+
+test('admission declarations reject unknown, recursive, cross-model and malformed entries without a catalog', () => {
+  for (const admissionCandidates of [null, [], {typo: nativeOpus.model}, {opus: 'opus'}, {opus: [nativeOpus.model]}, {opus: nativeOpus},
+    {opus: 'fixture-opus/other-model'}, {opus: 'other-provider/opus-five-five'}, {opus: nativeOpus.model + '\n'}]) {
+    assert.throws(() => validateConfigAgainstCatalog({...paired, admissionCandidates}, null), /admissionCandidates/, JSON.stringify(admissionCandidates));
+  }
+  // Even an exact prefixed spelling may not point at a router or a malformed path component.
+  for (const target of ['clawrouter/provider/opus-five-five', 'ClawRouter/provider/opus-five-five',
+    'fixture-opus/..', 'fixture-opus/', 'fixture-opus//opus-five-five', 'fixture-opus/../opus-five-five']) {
+    assert.throws(() => validateConfig({...paired, presets: {...paired.presets, opus: {model: 'clawrouter/' + target}}, admissionCandidates: {opus: target}}), /admissionCandidates/, target);
+  }
+  assert.throws(() => validateConfig({...paired, presets: {...paired.presets, opus: {thinking: 'high'}}}), /admissionCandidates/);
 });
 
 test('1.2.5 (P3-68): every collector a plan returns carries a run bound', () => {

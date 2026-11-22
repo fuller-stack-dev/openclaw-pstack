@@ -33,8 +33,10 @@ function roleKind(role) {
   if (!own(ROLE_SPECS, role)) throw Error('Unknown pstack role: ' + role);
   return ROLE_SPECS[role];
 }
-function modelRef(value) {
-  if (typeof value !== 'string' || !/^[^/\s]+\/[^\s]+$/.test(value)) throw Error('Expected exact native provider/model ID');
+function modelRef(value, error = 'Expected exact native provider/model ID') {
+  const slash = typeof value === 'string' ? value.indexOf('/') : -1;
+  if (slash < 1 || slash === value.length - 1 || /\s/.test(value)) throw Error(error);
+  return value.slice(0, slash);
 }
 function selection(value) {
   keys(value, controls, 'selection');
@@ -62,7 +64,7 @@ function roleEntries(role, value, presets) {
 /** Missing roles inherit; an existing malformed config never silently becomes absent. */
 export function validateConfig(config) {
   if (config === null || config === undefined) return null;
-  keys(config, ['version', 'presets', 'roles'], 'config');
+  keys(config, ['version', 'presets', 'roles', 'admissionCandidates'], 'config');
   if (config.version !== 1) throw Error('Unsupported config version');
   object(config.presets, 'presets'); object(config.roles, 'roles');
   for (const [name, value] of Object.entries(config.presets)) {
@@ -70,6 +72,20 @@ export function validateConfig(config) {
     selection(value);
   }
   for (const [role, value] of Object.entries(config.roles)) roleEntries(role, value, config.presets);
+  if (own(config, 'admissionCandidates')) {
+    object(config.admissionCandidates, 'admissionCandidates');
+    for (const [name, native] of Object.entries(config.admissionCandidates)) {
+      if (!own(config.presets, name)) throw Error('admissionCandidates names an unknown preset: ' + name);
+      const error = 'admissionCandidates.' + name + ' must be one direct provider/model ID';
+      const provider = modelRef(native, error);
+      if (provider.toLowerCase() === 'clawrouter' || native.split('/').some(part => !part || part === '.' || part === '..')) {
+        throw Error(error);
+      }
+      if (config.presets[name].model !== 'clawrouter/' + native) {
+        throw Error('admissionCandidates.' + name + ' must match its preset model exactly after removing clawrouter/');
+      }
+    }
+  }
   return clone(config);
 }
 /** null means no native catalog was available: availability is unverified, never assumed absent. */
@@ -99,31 +115,48 @@ function validateAvailable(requested, catalog) {
     }
   }
 }
-function validateConfiguration(config, models) {
+function validateConfiguration(config, models, preparedRequester) {
   const parsed = validateConfig(config);
-  if (parsed) {
-    for (const preset of Object.values(parsed.presets)) validateAvailable(preset, models);
-    for (const [configuredRole, value] of Object.entries(parsed.roles)) {
-      roleEntries(configuredRole, value, parsed.presets).forEach(item => validateAvailable(item, models));
+  const presets = {...parsed?.presets};
+  const admissions = [];
+  // Only host-prepared inventory can establish primary absence. Keep the parsed config literal:
+  // projections apply solely to named bindings, never to inline selections or saved snapshots.
+  if (preparedRequester && models) {
+    for (const [preset, admitted] of Object.entries(parsed?.admissionCandidates ?? {})) {
+      const primary = presets[preset].model;
+      if (!models.has(primary) && models.has(admitted)) {
+        presets[preset] = {...presets[preset], model: admitted};
+        admissions.push({preset, primary, admitted});
+      }
     }
   }
-  return parsed;
+  if (parsed) {
+    for (const preset of Object.values(presets)) validateAvailable(preset, models);
+    for (const [configuredRole, value] of Object.entries(parsed.roles)) {
+      roleEntries(configuredRole, value, presets).forEach(item => validateAvailable(item, models));
+    }
+  }
+  return {parsed, presets, admissions};
 }
 /** Complete structural and native-catalog validation, including unused selections. A null catalog checks structure only. */
-export function validateConfigAgainstCatalog(config, catalog = []) {
-  return validateConfiguration(config, catalogMap(catalog));
+export function validateConfigAgainstCatalog(config, catalog = [], {preparedRequester = false} = {}) {
+  return validateConfiguration(config, catalogMap(catalog), preparedRequester).parsed;
 }
 /** Resolve once per new delegation; store this JSON snapshot in the existing task record. */
-export function resolveRole({role, config = null, overrides, catalog = [], parentModel, parentFamily}) {
+export function resolveRole(request) {
+  return planRole(request).snapshot;
+}
+/** `preparedRequester` is a host-only option, not a caller request field. */
+export function planRole({role, config = null, overrides, catalog = [], parentModel, parentFamily}, {preparedRequester = false} = {}) {
   const kind = roleKind(role), models = catalogMap(catalog);
-  const parsed = validateConfiguration(config, models);
+  const {parsed, presets, admissions} = validateConfiguration(config, models, preparedRequester);
   let source = 'inherit';
   let candidates = kind === 'single' ? [{}] : [{}, {}];
   if (parsed && own(parsed.roles, role)) {
-    candidates = roleEntries(role, parsed.roles[role], parsed.presets); source = 'config';
+    candidates = roleEntries(role, parsed.roles[role], presets); source = 'config';
   }
   if (overrides !== undefined) {
-    candidates = roleEntries(role, overrides, parsed?.presets ?? {}); source = 'override';
+    candidates = roleEntries(role, overrides, presets); source = 'override';
   }
   for (const requested of candidates) validateAvailable(requested, models);
   let selections = candidates, poolIndex = null, diversity = 'not-applicable';
@@ -151,7 +184,7 @@ export function resolveRole({role, config = null, overrides, catalog = [], paren
         : (a !== undefined && a === b) || (candidates[0].model ?? null) === (candidates[1].model ?? null) ? 'not-established' : 'unverified';
     }
   }
-  return {version: 1, role, source, selections: clone(selections), poolIndex, diversity};
+  return {snapshot: {version: 1, role, source, selections: clone(selections), poolIndex, diversity}, admissions};
 }
 /** Revalidation does not consult new config or reselect an already chosen pool member. */
 export function validateSnapshot(snapshot, catalog = []) {

@@ -839,8 +839,10 @@ function roleKind(role2) {
   if (!own(ROLE_SPECS, role2)) throw Error("Unknown pstack role: " + role2);
   return ROLE_SPECS[role2];
 }
-function modelRef(value) {
-  if (typeof value !== "string" || !/^[^/\s]+\/[^\s]+$/.test(value)) throw Error("Expected exact native provider/model ID");
+function modelRef(value, error = "Expected exact native provider/model ID") {
+  const slash = typeof value === "string" ? value.indexOf("/") : -1;
+  if (slash < 1 || slash === value.length - 1 || /\s/.test(value)) throw Error(error);
+  return value.slice(0, slash);
 }
 function selection(value) {
   keys(value, controls, "selection");
@@ -867,7 +869,7 @@ function roleEntries(role2, value, presets) {
 }
 function validateConfig(config) {
   if (config === null || config === void 0) return null;
-  keys(config, ["version", "presets", "roles"], "config");
+  keys(config, ["version", "presets", "roles", "admissionCandidates"], "config");
   if (config.version !== 1) throw Error("Unsupported config version");
   object(config.presets, "presets");
   object(config.roles, "roles");
@@ -876,6 +878,20 @@ function validateConfig(config) {
     selection(value);
   }
   for (const [role2, value] of Object.entries(config.roles)) roleEntries(role2, value, config.presets);
+  if (own(config, "admissionCandidates")) {
+    object(config.admissionCandidates, "admissionCandidates");
+    for (const [name, native] of Object.entries(config.admissionCandidates)) {
+      if (!own(config.presets, name)) throw Error("admissionCandidates names an unknown preset: " + name);
+      const error = "admissionCandidates." + name + " must be one direct provider/model ID";
+      const provider = modelRef(native, error);
+      if (provider.toLowerCase() === "clawrouter" || native.split("/").some((part) => !part || part === "." || part === "..")) {
+        throw Error(error);
+      }
+      if (config.presets[name].model !== "clawrouter/" + native) {
+        throw Error("admissionCandidates." + name + " must match its preset model exactly after removing clawrouter/");
+      }
+    }
+  }
   return clone(config);
 }
 function catalogMap(catalog) {
@@ -904,30 +920,41 @@ function validateAvailable(requested, catalog) {
     }
   }
 }
-function validateConfiguration(config, models) {
+function validateConfiguration(config, models, preparedRequester) {
   const parsed = validateConfig(config);
-  if (parsed) {
-    for (const preset of Object.values(parsed.presets)) validateAvailable(preset, models);
-    for (const [configuredRole, value] of Object.entries(parsed.roles)) {
-      roleEntries(configuredRole, value, parsed.presets).forEach((item) => validateAvailable(item, models));
+  const presets = { ...parsed?.presets };
+  const admissions = [];
+  if (preparedRequester && models) {
+    for (const [preset, admitted] of Object.entries(parsed?.admissionCandidates ?? {})) {
+      const primary = presets[preset].model;
+      if (!models.has(primary) && models.has(admitted)) {
+        presets[preset] = { ...presets[preset], model: admitted };
+        admissions.push({ preset, primary, admitted });
+      }
     }
   }
-  return parsed;
+  if (parsed) {
+    for (const preset of Object.values(presets)) validateAvailable(preset, models);
+    for (const [configuredRole, value] of Object.entries(parsed.roles)) {
+      roleEntries(configuredRole, value, presets).forEach((item) => validateAvailable(item, models));
+    }
+  }
+  return { parsed, presets, admissions };
 }
-function validateConfigAgainstCatalog(config, catalog = []) {
-  return validateConfiguration(config, catalogMap(catalog));
+function validateConfigAgainstCatalog(config, catalog = [], { preparedRequester = false } = {}) {
+  return validateConfiguration(config, catalogMap(catalog), preparedRequester).parsed;
 }
-function resolveRole({ role: role2, config = null, overrides, catalog = [], parentModel, parentFamily }) {
+function planRole({ role: role2, config = null, overrides, catalog = [], parentModel, parentFamily }, { preparedRequester = false } = {}) {
   const kind = roleKind(role2), models = catalogMap(catalog);
-  const parsed = validateConfiguration(config, models);
+  const { parsed, presets, admissions } = validateConfiguration(config, models, preparedRequester);
   let source = "inherit";
   let candidates = kind === "single" ? [{}] : [{}, {}];
   if (parsed && own(parsed.roles, role2)) {
-    candidates = roleEntries(role2, parsed.roles[role2], parsed.presets);
+    candidates = roleEntries(role2, parsed.roles[role2], presets);
     source = "config";
   }
   if (overrides !== void 0) {
-    candidates = roleEntries(role2, overrides, parsed?.presets ?? {});
+    candidates = roleEntries(role2, overrides, presets);
     source = "override";
   }
   for (const requested of candidates) validateAvailable(requested, models);
@@ -951,7 +978,7 @@ function resolveRole({ role: role2, config = null, overrides, catalog = [], pare
       diversity = differs(a, b) ? "different-family" : a !== void 0 && a === b || (candidates[0].model ?? null) === (candidates[1].model ?? null) ? "not-established" : "unverified";
     }
   }
-  return { version: 1, role: role2, source, selections: clone(selections), poolIndex, diversity };
+  return { snapshot: { version: 1, role: role2, source, selections: clone(selections), poolIndex, diversity }, admissions };
 }
 function validateSnapshot(snapshot, catalog = []) {
   keys(snapshot, ["version", "role", "source", "selections", "poolIndex", "diversity"], "snapshot");
@@ -2429,6 +2456,7 @@ async function planFromWorkspace(request, { requester, hostBlind = false } = {})
   if (request.action !== void 0 && request.action !== "plan") throw Error("Unknown action");
   if (typeof request.workspace !== "string" || !request.workspace.trim()) throw Error("Workspace root is required");
   const chosen = chooseCatalog(request, requester);
+  const admission = { preparedRequester: chosen.catalogSource === "requester" };
   const configPath = join5(resolve3(request.workspace), "pstack-models.json");
   let config = null, configWarning, configPresent = false;
   try {
@@ -2436,7 +2464,7 @@ async function planFromWorkspace(request, { requester, hostBlind = false } = {})
     configPresent = true;
     config = JSON.parse(await readFile2(configPath, "utf8"));
     if (config === null) throw Error("Config must be an object, not null");
-    validateConfigAgainstCatalog(config, chosen.catalog);
+    validateConfigAgainstCatalog(config, chosen.catalog, admission);
   } catch (error) {
     if (error.code !== "ENOENT" || configPresent) {
       if (!request.snapshot) throw Error("Cannot use pstack-models.json: " + error.message);
@@ -2446,8 +2474,9 @@ async function planFromWorkspace(request, { requester, hostBlind = false } = {})
   if (request.snapshot && (request.overrides !== void 0 || request.role && request.role !== request.snapshot.role)) {
     throw Error("A resume snapshot cannot be replaced by a new role/override");
   }
-  const snapshot = request.snapshot ? validateSnapshot(request.snapshot, chosen.catalog) : resolveRole({ ...request, config, catalog: chosen.catalog });
+  const { snapshot, admissions } = request.snapshot ? { snapshot: validateSnapshot(request.snapshot, chosen.catalog), admissions: [] } : planRole({ ...request, config, catalog: chosen.catalog }, admission);
   const result = { configPath, configPresent, snapshot, catalogSource: chosen.catalogSource, availability: chosen.availability };
+  if (admissions.length) result.admissions = admissions;
   if (chosen.catalogNotice) result.catalogNotice = chosen.catalogNotice;
   if (chosen.catalogSource === "requester") {
     const used = new Set(snapshot.selections.map((s) => s.model).filter(Boolean));

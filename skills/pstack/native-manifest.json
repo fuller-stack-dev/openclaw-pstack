@@ -129,8 +129,8 @@
     },
     {
       "path": "native/model-routing.md",
-      "bytes": 21135,
-      "sha256": "b8ce65aace7b7564f250a967d1c4281092c284f232d1e0840e3ad597fb96922f"
+      "bytes": 22914,
+      "sha256": "72e05d0d1892df121d0cb25e6bef655ffb3792044dbc383d0a309046e47f2d33"
     },
     {
       "path": "native/plan-adapter.md",
@@ -469,13 +469,13 @@
     },
     {
       "path": "scripts/model-routing-cli.mjs",
-      "bytes": 6538,
-      "sha256": "c9db2f24c78bcc8cabee7cabc2714a612b3591cef4eb740ed1dae95c16ca69de"
+      "bytes": 6732,
+      "sha256": "29f098f506d5895b892ec074e945e507caa2e5c1502f7e149a1ce77d05c4b780"
     },
     {
       "path": "scripts/model-routing.mjs",
-      "bytes": 28862,
-      "sha256": "3ffe80eccba591b8b96117d96a31ba91d78203a1ad45180713e06478f560de55"
+      "bytes": 30746,
+      "sha256": "f63fa415167212e35f801e7fa1d7fde17b3b1029f2f319d4cd887433ce145931"
     },
     {
       "path": "scripts/output-contracts.mjs",
